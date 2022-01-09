@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { getCVA } from "../../../../store/actions/commandes";
 import { displayDate, displayMoney } from "../../../../utils/functions";
 import { Link } from "react-router-dom";
+import DeleteToMagasin from "./DeleteToMagasin";
 
 export const HistoriqueSortieCva = () => {
   const [deb, setDeb] = useState(new Date());
@@ -99,23 +100,30 @@ export const HistoriqueSortieCva = () => {
               {commandes.map((p) => (
                 <tr>
                   <td>{displayDate(p?.dateCom)}</td>
-                  <td>{p?.contenu.map(c =>(
-                    <span>{c.name}{","}</span>
-                  ))}</td>
+                  <td>
+                    {p?.contenu?.map((c) => (
+                      <span>
+                        {c.name}
+                        {","}
+                      </span>
+                    ))}
+                  </td>
                   <td>{displayMoney(calculateTotal(p?.contenu))}</td>
                   <td>
+
+                  <Link
+                      className="btn btn-sm  btn-green mr-2"
+                      to={`/detail/${p.id}`}
+                    >
+                      Détails
+                    </Link>
                     <Link
                       className="btn btn-sm  btn-warning mr-2"
                       to={`/depot/to/magasin/edit/${p.id}`}
                     >
                       Editer
                     </Link>
-                    <Link
-                      className="btn btn-sm  btn-green"
-                      to={`/detail/${p.id}`}
-                    >
-                      Afficher le detail
-                    </Link>
+                    <DeleteToMagasin model="tomagasins" entity={p} />
                   </td>
                 </tr>
               ))}

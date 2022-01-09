@@ -53,7 +53,7 @@ const FromDepot = ({ setRegenerate }) => {
     });
     //console.log(fromdepots);
     dispatch(
-      action("commandes").create({
+      action("commandes").createTransaction({
         id: Math.floor(Date.now() / 1000),
         contenu: fromdepots,
         type: "vente-depot",
@@ -64,20 +64,10 @@ const FromDepot = ({ setRegenerate }) => {
         status: type === "direct" ? true : false,
         emprunterId: emprunter,
         dateCom: dateCom != null ? dateCom : date,
-      })
+      },'add-from-depot')
     );
-    if (!meta.error) {
-      fromdepots.forEach((element) => {
-        let idElement = element.id;
-        element.quantityParProductDepot = 0;
-        element.qttByCCDepot = 0;
-        element.qttyspecificmirrordepot = 0;
-        element.id = idElement;
-        dispatch(action("products").update(element));
-      });
-    }
-    dispatch(clearFromDepot());
-    history.push(SORTIE);
+   // dispatch(clearFromDepot());
+  //  history.push(SORTIE);
   };
 
   const onClearBasket = () => {

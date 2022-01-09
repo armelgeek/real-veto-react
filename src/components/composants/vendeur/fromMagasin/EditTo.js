@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
 import { action, getData } from "../../../../utils/lib/call";
 import { displayMoney, checkHasExistText } from "../../../../utils/functions";
+
 import { useHistory } from "react-router-dom";
 import {
   handleMinusProductDepot,
@@ -122,7 +123,7 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
   const onCheckOut = () => {
     const { exist, added, missing } = getContenu();
     dispatch(
-      action("commandes").update({
+      action("commandes").updateTransaction({
         id: commandes?.id,
         contenu: state,
         type: "vente-cva",
@@ -130,10 +131,13 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
         sorte: "sortie",
         status: true,
         dateCom: dateCom != null ? dateCom : date,
-      })
+        exist:exist,
+        added:added,
+        missing:missing,
+      },'update-from-magasin')
     );
 
-    copy(state).forEach((element) => {
+    /*copy(state).forEach((element) => {
       if (!isInArray(element, added)) {
         console.log("exist ----", element);
         const actualProduct = products.find((p) => p.id == element.id);
@@ -209,8 +213,8 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
           })
         );
       });
-    }
-    history.push(HISTORIQUEVENTEVENDEUR);
+    }*/
+   // history.push(HISTORIQUEVENTEVENDEUR);
   };
 
   /* const onCheckOut = () => {

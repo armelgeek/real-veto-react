@@ -23,6 +23,7 @@ import { vetoProducts } from "./data/product";
 import { action, getData } from "./utils/lib/call";
 import { getCommande } from "./store/actions/commandes";
 import { NoItems } from "./components/composants/journal/NoItems";
+import { LastStock } from './components/composants/journal/LastStock';
 export const groupBy = (array, key, subkey) => {
   return array.reduce((result, currentValue) => {
     if (!subkey) {
@@ -202,8 +203,8 @@ function App() {
                       <DateInterval date={r} />
                     </>
                   ))}
-                  {/**<td className="bg-green text-center">INV</td>
-                  <td className="bg-info text-center">INV CC</td>**/}
+                  <td className="bg-green text-center">INV</td>
+                  <td className="bg-info text-center">INV CC</td>
                 </tr>
                 {res.map((b) => (
                   <>
@@ -227,8 +228,9 @@ function App() {
                           )}
                         </>
                       ))}
-                      {/*<td className="text-center">
-                        <Items
+                      <td className="text-center">
+                      <tr className="text-center">
+                        <LastStock
                           flat={flato(
                             groupedBasket[last(Object.keys(groupedBasket))],
                             "contenu"
@@ -236,24 +238,11 @@ function App() {
                           gr={last(Object.keys(groupedBasket))}
                           id={b.id}
                         />
+                      </tr>
+                        <tr>B:{b.quantityParProduct}</tr>
+
+                        <tr>CC:{b.qttByCC}</tr>
                       </td>
-                      <td className="text-center">
-                        <tr></tr>
-                        <tr></tr>
-                      </td>*/}
-                      {/** {Object.keys(groupedBasket).map((gr) => (
-                        <td className="text-center">
-                          <>
-                                <div>
-                          
-                                  <Items
-                                    flat={flato(groupedBasket[gr], "contenu")}
-                                    res={res}
-                                  />
-                                </div>
-                          </>
-                        </td>
-                      ))} */}
                     </tr>
                   </>
                 ))}

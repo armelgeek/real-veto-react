@@ -14,6 +14,7 @@ import {
   handleMinusProduct,
   isSpecialProductHandle,
   handlePhtyoSpecific,
+  handleMinusCondML,
 } from "../../../../store/functions/function";
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
@@ -22,7 +23,7 @@ const calculateTotal = (arr) => {
 };
 
 const FromMagasin = ({ setRegenerate }) => {
-  const [type, setType] = useState("direct");
+  const [type, setType] = useState("vente-cva");
   const [idFournisseur, setIdFournisseur] = useState(1);
   const [vaccinateurId, setVaccinateurId] = useState(null);
   const [emprunter, setEmprunter] = useState(null);
@@ -41,50 +42,32 @@ const FromMagasin = ({ setRegenerate }) => {
     dispatch(action("commandes").fetch());
     dispatch(action("emprunters").fetch());
   }, []);
-  const checkQuantityBrute = (frommagasins) => {
-    let qtt = 0;
-    frommagasins.forEach((element) => {
-      if (element.quantityBruteCVA < 0) {
-        qtt += 1;
-      }
-    });
-    return qtt;
-  };
-  const checkQuantityCCCVA = (frommagasins) => {
-    let qtt = 0;
-    frommagasins.forEach((element) => {
-      if (element.quantityCCCVA < 0) {
-        qtt += 1;
-      }
-    });
-    return qtt;
-  };
+
   const onCheckOut = () => {
     frommagasins.forEach((element) => {
-      delete element.busy;
-      delete element.pendingCreate;
-      handleMinusProduct(element);
-      if (element.condml != 0 && element.qttccpvente != 0) {
-        handlePhtyoSpecific(element);
+      if (isSpecialProductHandle(element)) {
+        handleMinusCondML(element);
       } else {
+      //  handleMinusProduct(element);
         handleSoldQuantityCC(element);
       }
     });
     dispatch(
-      action("commandes").create({
-        id: Math.floor(Date.now() / 1000),
-        contenu: frommagasins,
-        type: "vente-cva",
-        sorte: "sortie",
-        qtteBrute: 1,
-        qtteCC: 1,
-        vaccinateurId: vaccinateurId,
-        status: type === "direct" ? true : false,
-        emprunterId: emprunter,
-        dateCom: dateCom != null ? dateCom : date,
-      })
+      action("commandes").createTransaction(
+        {
+          id: Math.floor(Date.now() / 1000),
+          contenu: frommagasins,
+          type: "vente-cva",
+          sorte: "sortie",
+          vaccinateurId: vaccinateurId,
+          status: type === "vente-cva" ? true : false,
+          emprunterId: emprunter,
+          dateCom: dateCom != null ? dateCom : date,
+        },
+        "add-from-magasin"
+      )
     );
-    if (!meta.error) {
+    /*if (!meta.error) {
       frommagasins.forEach((element) => {
         let idElement = element.id;
         element.quantityParProduct = 0;
@@ -93,9 +76,9 @@ const FromMagasin = ({ setRegenerate }) => {
         element.id = idElement;
         dispatch(action("products").update(element));
       });
-    }
-    dispatch(clearFromMagasin());
-    history.push(HISTORIQUEVENTEVENDEUR);
+    }*/
+   dispatch(clearFromMagasin());
+   history.push(HISTORIQUEVENTEVENDEUR);
   };
 
   const onClearBasket = () => {
@@ -112,36 +95,30 @@ const FromMagasin = ({ setRegenerate }) => {
       <Card>
         <Card.Header className=" bg-dark py-2 text-white d-flex justify-content-between align-items-center">
           <div style={{ width: "60%" }}>
-            BON DE SORTIE {type.toUpperCase()}
-            {commandes.length} (
+            BON DE SORTIE {type.toUpperCase()}(
             {` ${frommagasins?.length} ${
               frommagasins?.length > 1 ? "articles" : "article"
             }`}
             )
           </div>
           <div style={{ width: "30%" }} className="text-right">
-            {/* <select
+           <select
               className="form-control input-sm"
               onChange={(e) => {
                 setType(e.target.value);
               }}
             >
-              <option value="vente-magasin-direct" selected>
+              <option value="vente-cva" selected>
                 Comptant
               </option>
-              <option value="vente-magasin-credit">Credit</option>
-            </select>*/}
+              <option value="credit-cva">Credit</option>
+            </select>
           </div>
         </Card.Header>
         <div className="commande-vente">
           <Card.Body
             style={{ padding: 2, marginTop: 3, marginRight: 2, marginLeft: 2 }}
           >
-            <div className="d-flex justify-content-end">
-              <button className="btn btn-primary btn-sm">
-                Historique de vente
-              </button>
-            </div>
             <div
               style={{
                 overflowY: "auto",
@@ -161,7 +138,7 @@ const FromMagasin = ({ setRegenerate }) => {
                   />
                 </div>
               </div>
-              {type === "credit" && (
+              {type === "credit-cva" && (
                 <>
                   <label>Crediteur:</label>
                   <select

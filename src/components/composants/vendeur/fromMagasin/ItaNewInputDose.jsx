@@ -31,7 +31,6 @@ export const ItaNewInputDose = ({
   };
   return (
     <div className="basket-item-control">
-      {product.quantityCCCVA  - product.qttByCC}
       <NumberInput
         inputMode={"decimal"}
         w={28}
@@ -46,7 +45,7 @@ export const ItaNewInputDose = ({
         }}
         min={0}
         defaultValue={0}
-        max={!isEnough() ? product.doseDefault *2 : product.quantityCCCVA * 2}
+        max={!isEnough() ? product.doseDefault : product.quantityCCCVA}
       >
         <NumberInputField />
         <NumberInputStepper>

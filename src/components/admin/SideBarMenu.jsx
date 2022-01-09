@@ -62,14 +62,6 @@ function SideBarMenu() {
             title: "Ajouter un produit",
             path: CREATEPRODUCT,
           },
-          {
-            title: "Produit par categorie",
-            path: PRODUCTBYCATEGORY,
-          },
-          {
-            title: "Produit par fournisseur",
-            path: PRODUCTBYFOURNISSEUR,
-          }
           
         ]}
       />

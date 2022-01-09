@@ -13,6 +13,7 @@ import { displayDate, displayMoney } from "../../../utils/functions";
 import DataTable from "../../../utils/admin/DataTable";
 import { NOUVELLEFACTURE } from "../../../constants/routes";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import DeleteApprov from "./DeleteApprov";
 
 export default function ListApprov() {
   var start = moment().isoWeekday(1).startOf("week");
@@ -53,6 +54,22 @@ export default function ListApprov() {
         Header: "#",
         accessor: "id",
       },
+     /** {
+        Header: "Produit",
+        maxWidth: "100px",
+        Cell: (data) => {
+          return (
+            <div>
+              {data.row.original.contenu.map((c) => (
+                <span>
+                  {c.name}
+                  {","}
+                </span>
+              ))}
+            </div>
+          );
+        },
+      }, */
       {
         Header: "Date du facture",
         Cell: (data) => {
@@ -104,12 +121,7 @@ export default function ListApprov() {
               >
                 Editer
               </Link>
-              <Link
-                to={`/editer/facture/${data.row.original?.id}`}
-                className="btn btn-danger  btn-sm"
-              >
-                Supprimer
-              </Link>
+              <DeleteApprov model="approvis" entity={data.row.original} />
             </>
           );
         },

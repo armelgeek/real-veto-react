@@ -14,6 +14,7 @@ import NumberFormat from "react-number-format";
 import moment from "moment";
 import { displayDate, displayMoney } from "../utils/functions";
 import DataTable from "../utils/admin/DataTable";
+import DeleteFromDepot from "./fromDepot/DeleteFromDepot";
 function Sortie() {
   var start = moment().isoWeekday(1).startOf("week");
   var end = moment().endOf("week");
@@ -37,7 +38,7 @@ function Sortie() {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
-      total += el.prixVente * el.quantityParProductDepot ;
+      total += el.prixVente * el.quantityParProductDepot;
     });
     return total;
   };
@@ -83,11 +84,11 @@ function Sortie() {
       },
       {
         Header: "Produits",
-        width:50,
+        width: 50,
         Cell: (data) => {
           return (
             <span>
-              {data.row.original?.contenu.map((d) => (
+              {data.row.original?.contenu?.map((d) => (
                 <span>
                   {d.name}
                   {","}
@@ -130,12 +131,7 @@ function Sortie() {
               >
                 Editer
               </Link>
-              <Link
-                to={`/supprimer/commande/${data.row.original?.id}`}
-                className="btn btn-danger  btn-sm"
-              >
-                Supprimer
-              </Link>
+              <DeleteFromDepot model="fromdepots" entity={data.row.original} />
             </>
           );
         },

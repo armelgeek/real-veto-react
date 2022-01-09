@@ -10,6 +10,7 @@ import { displayDate, displayMoney } from "../../../../utils/functions";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { VENDEUR } from "../../../../constants/routes";
+import DeleteFromMagasin from "./DeleteFromMagasin";
 
 export const HistoriqueVenteVendeur = () => {
   const [deb, setDeb] = useState(new Date());
@@ -116,15 +117,19 @@ export const HistoriqueVenteVendeur = () => {
                       <td>{displayMoney(totalDevente(p?.contenu))}</td>
                       <td>
                         {" "}
-                        <Link className="btn btn-sm  btn-warning mr-2" to={`/vendeur-commande/${p.id}`}>
+                        <Link
+                          className="btn btn-sm  btn-warning mr-2"
+                          to={`/vendeur-commande/${p.id}`}
+                        >
                           Editer
                         </Link>
                         <Link
-                          className="btn btn-sm  btn-green"
+                          className="btn btn-sm  btn-green mr-2"
                           to={`/detailvendeur/${p.id}`}
                         >
                           Afficher le detail
                         </Link>
+                        <DeleteFromMagasin model="fromagasins" entity={p} />
                       </td>
                     </tr>
                   ))}

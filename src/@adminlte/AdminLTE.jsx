@@ -55,7 +55,10 @@ class AdminLTE extends Component {
                 {title}
               </span>
             </Link>
-            <div class="sidebar">
+            <div
+              class="sidebar"
+              style={{ height: "100vh", maxHeight: "100vh", overflowY: "auto" }}
+            >
               <nav class="mt-2">
                 <ul
                   class="nav nav-pills nav-sidebar flex-column"
@@ -69,25 +72,12 @@ class AdminLTE extends Component {
                       title={"Nouvelle facture"}
                       route={NOUVELLEFACTURE}
                     />
-                    <NavTree
-                      title={"Les Factures"}
-                      route={LISTAPPROV}
-                    />
+                    <NavTree title={"Les Factures"} route={LISTAPPROV} />
                   </NavItem>
                   <NavItem title="Articles">
                     <NavTree title={"Liste articles"} route={PRODUCTS} />
 
                     <NavTree title={"Ajout un article"} route={CREATEPRODUCT} />
-
-                    <NavTree
-                      title={"Article par categorie"}
-                      route={PRODUCTBYCATEGORY}
-                    />
-
-                    <NavTree
-                      title={"Article par fournisseur"}
-                      route={PRODUCTBYFOURNISSEUR}
-                    />
                   </NavItem>
                   <NavItem title="Dépot">
                     <NavTree title={"Historique de sortie"} route={SORTIE} />
@@ -136,11 +126,10 @@ class AdminLTE extends Component {
               overflowY: "auto",
             }}
           >
-          
             {children}
           </div>
         </div>
-{/**
+        {/**
         <Footer /> */}
       </>
     );

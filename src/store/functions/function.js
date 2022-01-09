@@ -1,28 +1,48 @@
 // tester l'existance d'une quantité suffisante pour en cc d'un produit dans le cva
 export const canBuyCCFromCva = (product) => {
-  return !!product.quantityCCCVA > 0;
+  if (product.quantityBruteCVA > 0) {
+    return true;
+  } else {
+    if (product.quantityCCCVA > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 };
+export const cantBuyCCFromCva = (product) => {
+  if (product.quantityBruteCVA <= 0) {
+    if (product.quantityCCCVA > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  } else {
+    return false;
+  }
+};
+
 export const canBuyBruteFromCva = (product) => {
-  return !!product.quantityBruteCVA > 0;
+  if (product.quantityBruteCVA > 0) {
+    return true;
+  } else {
+    return false;
+  }
 };
 export const cantBuyBruteFromCva = (product) => {
-  return !!product.quantityBruteCVA < 0;
+  if (product.quantityBruteCVA == 0 || product.quantityBruteCVA < 0) {
+    return true;
+  } else {
+    return false;
+  }
 };
 export const cantBuyBrute = (product) => {
   return !!product.quantityBrute <= 0;
 };
 export const canBuyBrute = (product) => {
-  return !!product.quantityBrute >= 1;
+  return !!product.quantityBrute > 0;
 };
-export const isBiggerThanLastQuantityCC = (product) => {
-  return !!(product.qttByCC > product.quantityCCCVA);
-};
-export const isLowerThanLastQuantityCC = (product) => {
-  return !!(product.qttByCC < product.quantityCCCVA);
-};
-export const isSameOfLastQuantityCC = (product) => {
-  return !!(product.qttByCC == product.quantityCCCVA);
-};
+
 export const getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC = (
   product
 ) => {
@@ -31,31 +51,75 @@ export const getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC = (
   else return product.quantityCCCVA - product.qttByCC;
 };
 export const minusQuantityBruteCvaWhenQttCcIsEmpty = (product) => {
-  if (canBuyBruteFromCva(product)) product.quantityBruteCVA -= 1;
-  else product.quantityBruteCVA = 0;
+  if (canBuyCCFromCva(product)) {
+    product.quantityBruteCVA -= 1;
+    reinitQuantityCCCva(
+      product,
+      product.doseDefault -
+        getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product)
+    );
+  }
   return product;
 };
+
+export const isBiggerThanLastQuantityCC = (product) => {
+  if (product.qttByCC > product.quantityCCCVA) {
+    return true;
+  } else {
+    return false;
+  }
+};
+export const isLowerThanLastQuantityCC = (product) => {
+  if (product.qttByCC < product.quantityCCCVA) {
+    return true;
+  } else {
+    return false;
+  }
+};
+export const isSameOfLastQuantityCC = (product) => {
+  if (product.qttByCC == product.quantityCCCVA) {
+    return true;
+  } else {
+    return false;
+  }
+};
+const notSatisfaisanteProductCommande = (product) => {
+  return (
+    product.quantityCCCVA - product.qttByCC < 0 &&
+    product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
+  );
+};
 export const minusQuantityCc = (product) => {
-  if (canBuyBruteFromCva(product)) {
+  if (product.quantityParProduct > 0) {
+    if (product.qttByCC > 0) {
+      if (!notSatisfaisanteProductCommande(product)) {
+        //   product.quantityBruteCVA -= product.quantityParProduct;
+        if (product.quantityBruteCVA < product.quantityParProduct) {
+          product.quantityParProduct = product.quantityBruteCVA;
+          product.quantityBruteCVA = 0;
+        } else {
+          product.quantityBruteCVA -= product.quantityParProduct;
+        }
+      }
+      if (product.qttByCC >= product.doseDefault) {
+        product.qttByCC = product.doseDefault;
+      }
+    } else {
+      handleMinusProduct(product);
+    }
+  }
+  if (canBuyCCFromCva(product)) {
     if (isBiggerThanLastQuantityCC(product)) {
       minusQuantityBruteCvaWhenQttCcIsEmpty(product);
-      reinitQuantityCCCva(
-        product,
-        product.doseDefault -
-          getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product)
-      );
     } else if (isSameOfLastQuantityCC(product)) {
       reinitQuantityCCCva(product, 0);
-    } else {
+    } else if (isLowerThanLastQuantityCC(product)) {
       reinitQuantityCCCva(product, product.quantityCCCVA - product.qttByCC);
     }
   } else {
-    if (product.quantityCCCVA > 0)
-      reinitQuantityCCCva(product, product.quantityCCCVA - product.qttByCC);
-    else {
-      reinitQuantityCCCva(product, 0);
-    }
+    reinitQuantityCCCva(product, 0);
   }
+
   return product;
 };
 export const reinitQuantityCCCva = (product, value) => {
@@ -76,29 +140,20 @@ export const handleSoldQuantityCC = (product) => {
 };
 export const isSpecialProductHandle = (product) => {
   return !!(
-    product.condml != null &&
-    product.condval != null &&
-    product.qttccpvente != null &&
-    product.prixqttccvente != null
+    product.condml != 0 &&
+    product.condsize != 0 &&
+    product.qttccpvente != 0 &&
+    product.prixqttccvente != 0
   );
 };
 export const isBiggerThanLastCondML = (product) => {
   return !!(product.qttByCC > product.condml);
 };
 export const hasCondVal = (product) => {
-  return !!product.condval >= 0;
+  return !!product.condval > 0;
 };
 export const minusCondValWhenQttCcIsEmpty = (product) => {
-  if (product.condval > 0) {
-    product.condval -= 1;
-  } else {
-    if (product.quantityBruteCVA > 0) {
-      minusQuantityBruteCvaWhenQttCcIsEmpty(product);
-      product.condval = product.condsize - 1;
-    } else {
-      product.condval = 0;
-    }
-  }
+  product.condval -= 1;
   return product;
 };
 
@@ -116,22 +171,86 @@ export const minusQuantityBruteCvaWhenQttCcCondIsEmpty = (product) => {
   } else product.quantityBruteCVA = 0;
   return product;
 };
+const notSatifyCommande = (product) => {
+  return (
+    product.quantityCCCVA - product.qttByCC < 0 &&
+    product.condval - 1 - product.quantityParProduct * 1 < 0
+  );
+};
 export const minusCondML = (product) => {
   if (hasCondVal(product)) {
-    if (isBiggerThanLastQuantityCC(product)) {
-      minusCondValWhenQttCcIsEmpty(product);
-      reinitQuantityCCCva(
-        product,
-        product.condml -
-          getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product)
-      );
+    if (product.quantityParProduct > 0) {
+      if (product.qttByCC > 0) {
+        if (!notSatifyCommande(product)) {
+          if (product.condval < product.quantityParProduct) {
+            if (product.condval - product.quantityParProduct < 0) {
+              if (canBuyBruteFromCva(product)) {
+                product.quantityBruteCVA -= 1;
+                product.condval = product.condsize - 1;
+              } else {
+                product.condval = 0;
+              }
+            } else {
+              product.quantityParProduct = product.condval;
+              product.condval = 0;
+            }
+          } else {
+            product.condval -= product.quantityParProduct;
+            product.quantityCCCVA -= product.qttByCC;
+          }
+        }
+        if (product.qttByCC >= product.condml) {
+          product.qttByCC = product.condml;
+        }
+      } else {
+        product.condval -= product.quantityParProduct;
+        if (product.condval < 0) {
+          if (canBuyBruteFromCva(product)) {
+            product.quantityBruteCVA -= 1;
+            product.condval = product.condsize - 1;
+          } else {
+            product.condval = 0;
+          }
+        }
+      }
     } else {
-      if (canBuyCCFromCva(product)) product.quantityCCCVA -= product.qttByCC;
-      else product.quantityCCCVA = 0;
+      if (isBiggerThanLastQuantityCC(product)) {
+        minusCondValWhenQttCcIsEmpty(product);
+        if (product.condval == 0) {
+          if (canBuyBruteFromCva(product)) {
+            if (
+              getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product) > 0
+            ) {
+              product.quantityBruteCVA -= 1;
+              reinitQuantityCCCva(
+                product,
+                product.condml -
+                  getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product)
+              );
+              product.condval = product.condsize - 1;
+            }
+          }
+        } else {
+          reinitQuantityCCCva(
+            product,
+            product.condml -
+              getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product)
+          );
+        }
+      } else {
+        if (isSameOfLastQuantityCC(product)) {
+          return false;
+        } else if (isLowerThanLastQuantityCC(product)) {
+          if (canBuyCCFromCva(product))
+            product.quantityCCCVA -= product.qttByCC;
+          else product.quantityCCCVA = 0;
+        } else {
+        }
+      }
     }
   } else {
     if (canBuyBruteFromCva(product)) {
-      minusQuantityBruteCvaWhenQttCcIsEmpty(product);
+      product.quantityBruteCVA -= 1;
       reinitQuantityCCCva(
         product,
         product.condml -
@@ -139,7 +258,21 @@ export const minusCondML = (product) => {
       );
       if (product.condval == 0) product.condval = product.condsize - 1;
     } else {
-      product.quantityCCCVA -= product.qttByCC;
+      if (canBuyCCFromCva(product)) {
+        if (isBiggerThanLastQuantityCC(product)) {
+          if (canBuyBruteFromCva(product)) {
+            product.quantityBruteCVA -= 1;
+          } else {
+            reinitQuantityCCCva(product, 0);
+          }
+        } else if (isSameOfLastQuantityCC(product)) {
+          reinitQuantityCCCva(product, 0);
+        } else if (isLowerThanLastQuantityCC(product)) {
+          reinitQuantityCCCva(product, product.quantityCCCVA - product.qttByCC);
+        }
+      } else {
+        reinitQuantityCCCva(product, 0);
+      }
     }
   }
   return product;
@@ -157,9 +290,13 @@ export const handleMinusProduct = (product) => {
   }
   return product;
 };
+export const handleMinusCondML = (product) => {
+  minusCondML(product);
+  return product;
+};
 export const resetProductData = (product, cloneProduct) => {
   Object.keys(cloneProduct).forEach(function (key) {
-    if (cloneProduct[key] == null || cloneProduct[key] == 0) {
+    if (cloneProduct[key] == 0 || cloneProduct[key] == 0) {
       cloneProduct[key] = product[key];
     }
   });

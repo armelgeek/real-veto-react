@@ -9,6 +9,7 @@ export function action(model) {
     fetch: (options, params) => fetch(model, options, params),
     createTransaction: (body, path) => create(model, body, { path: path }),
     updateTransaction: (body, path) => update(model, body, { path: path }),
+    deleteTransaction: (body, path) => destroy(model, body, { path: path }),
   };
 }
 export function getData(model) {

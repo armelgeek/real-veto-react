@@ -1,4 +1,4 @@
-export const hasAnyBruteStockButHasNoCcStockProduct = {
+export const productDataNoBrute = {
   datePer: "2021-11-30",
   createdAt: "2021-11-26",
   id: 1,
@@ -12,7 +12,7 @@ export const hasAnyBruteStockButHasNoCcStockProduct = {
   doseRestantEnMg: 0,
   qttByCC: 0,
   quantityBrute: 150,
-  quantityBruteCVA: 100,
+  quantityBruteCVA: 0,
   quantityCCCVA: 0,
   quantityParProduct: 0,
   prixParCC: 300,

@@ -9,16 +9,16 @@ export const hasNoBruteStockButHasAnyCcStockProduct = {
   type: "FLACON",
   uniteMesure: "ml",
   doseDefault: 100,
-  doseRestantEnMg: null,
+  doseRestantEnMg: 0,
   qttByCC: 0,
   quantityBrute: 150,
   quantityBruteCVA: 0,
   quantityCCCVA: 100,
-  quantityParProduct: 1,
+  quantityParProduct: 0,
   prixParCC: 300,
-  quantityCC: null,
-  condml: null,
-  condval: null,
-  qttccpvente: null,
-  prixqttccvente: null
+  quantityCC: 0,
+  condml: 0,
+  condval: 0,
+  qttccpvente: 0,
+  prixqttccvente: 0
 };

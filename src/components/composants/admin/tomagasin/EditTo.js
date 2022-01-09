@@ -11,7 +11,7 @@ import {
 } from "../../../../store/functions/function-depot";
 import { clearFromDepot } from "../../../../store/fromdepot/actions/fromdepot";
 import EditFromDepotItem from "./EditItem";
-import { HISTORIQUESORTIECVA } from '../../../../constants/routes';
+import { HISTORIQUESORTIECVA } from "../../../../constants/routes";
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   const total = arr.reduce((acc, val) => acc + val, 0);
@@ -90,7 +90,8 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
           qtt =
             element.quantityParProduct * 1 -
             commandeLast.quantityParProduct * 1;
-          element.quantityBrute = commandeLast.quantityBrute + qtt;
+          element.quantityBrute = commandeLast.quantityBrute - qtt;
+          element.quantityBruteCVA += qtt;
         }
         if (
           commandeLast.quantityParProduct * 1 >
@@ -99,17 +100,10 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
           qtt =
             commandeLast.quantityParProduct * 1 -
             element.quantityParProduct * 1;
-          element.quantityBrute = commandeLast.quantityBrute - qtt;
-        }
-        if (
-          element.quantityParProduct * 1 ==
-          commandeLast.quantityParProduct * 1
-        ) {
-          element.quantityBrute = commandeLast.quantityBrute;
+          element.quantityBrute = commandeLast.quantityBrute + qtt;
+          element.quantityBruteCVA -= qtt;
         }
         return element;
-      } else {
-        return null;
       }
     });
     return {
@@ -122,94 +116,22 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
   const onCheckOut = () => {
     const { exist, added, missing } = getContenu();
     dispatch(
-      action("commandes").update({
-        id: commandes?.id,
-        contenu: state,
-        type: "cva",
-        sorte: "sortie",
-        status: true,
-        dateCom: dateCom != null ? dateCom : date,
-      })
+      action("commandes").updateTransaction(
+        {
+          id: commandes?.id,
+          contenu: state,
+          type: "cva",
+          sorte: "sortie",
+          status: true,
+          dateCom: dateCom != null ? dateCom : date,
+          exist: exist,
+          added: added,
+          missing: missing,
+        },
+        "update-to-magasin"
+      )
     );
-
-    copy(state).forEach((element) => {
-      if (!isInArray(element, added)) {
-        console.log("exist ----", element);
-        const actualProduct = products.find((p) => p.id == element.id);
-        const commandeLast = copy(realContent).find((p) => p.id == element.id);
-        let qtt = 0;
-        if (
-          element.quantityParProduct * 1 >
-          commandeLast?.quantityParProduct * 1
-        ) {
-          qtt =
-            element.quantityParProduct * 1 -
-            commandeLast?.quantityParProduct * 1;
-          element.quantityBrute = copy(actualProduct).quantityBrute + qtt;
-          console.log(
-            "+ plus",
-            element.quantityParProduct * 1 -
-              commandeLast?.quantityParProduct * 1
-          );
-        }
-        if (
-          commandeLast?.quantityParProduct * 1 >
-          element.quantityParProduct * 1
-        ) {
-          qtt =
-            commandeLast?.quantityParProduct * 1 -
-            element.quantityParProduct * 1;
-          element.quantityBrute = copy(actualProduct).quantityBrute - qtt;
-          console.log(
-            "-moins",
-            commandeLast?.quantityParProduct * 1 -
-              element.quantityParProduct * 1
-          );
-        }
-        if (
-          element.quantityParProduct * 1 ==
-          commandeLast?.quantityParProduct * 1
-        ) {
-          element.quantityBrute = copy(actualProduct).quantityBrute;
-        }
-
-        //  console.log(element.name, updateQtt(is, element, commandeLast, qtt));
-        //console.log(element.name, element.quantityBrute);
-        dispatch(
-          action("products").update({
-            id: element.id,
-            quantityBrute: element.quantityBrute,
-            quantityParProduct: 0,
-          })
-        );
-      } else {
-        console.log("added---" + JSON.stringify(element));
-
-        dispatch(
-          action("products").update({
-            id: element.id,
-            quantityBrute:
-              element.quantityBrute + element.quantityParProduct * 1,
-            quantityParProduct: 0,
-          })
-        );
-      }
-    });
-    if (missing.length > 0) {
-      console.log("misssing", missing);
-      missing.map((e) => {
-        const actualp = products.find((p) => p.id == e.id);
-        console.log(actualp);
-        dispatch(
-          action("products").update({
-            id: e.id,
-            quantityBrute: actualp.quantityBrute - e.quantityParProduct * 1,
-            quantityParProduct: 0,
-          })
-        );
-      });
-    }
-    history.push(HISTORIQUESORTIECVA);
+    // history.push(HISTORIQUESORTIECVA);
   };
 
   /* const onCheckOut = () => {
@@ -272,7 +194,6 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
       <Card>
         <Card.Header className=" bg-dark py-3 text-white d-flex justify-content-between align-items-center">
           <div style={{ width: "60%" }}>BON DE SORTIE</div>
-          
         </Card.Header>
         <div className="commande-vente">
           <Card.Body

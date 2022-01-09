@@ -60,10 +60,7 @@ const EditProductItemToMag = ({ state, setState, product }) => {
                 <>
                   {!itemOnBasket ? (
                     <button
-                      disabled={
-                        product.quantityBrute === 0 &&
-                        (product.quantityCC == 0 || product.quantityCC == null)
-                      }
+                      
                       className={"btn btn-green btn-sm"}
                       onClick={handleAddToBasket}
                     >
@@ -71,10 +68,6 @@ const EditProductItemToMag = ({ state, setState, product }) => {
                     </button>
                   ) : (
                     <button
-                      disabled={
-                        product.quantityBrute === 0 &&
-                        (product.quantityCC == 0 || product.quantityCC == null)
-                      }
                       className={"btn btn-danger btn-sm"}
                       onClick={() => removeProduct(product?.id)}
                     >

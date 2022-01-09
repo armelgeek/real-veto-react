@@ -84,10 +84,10 @@ const ProductItem = ({ product }) => {
             </button>
             ):(
               <button
-                  disabled={ 
+                 /* disabled={ 
                     product.quantityBruteCVA === 0 &&
                     (product.quantityCCCVA == 0 || product.quantityCCCVA == null)
-                  }
+                  }*/
                 className={`mt-3 ${
                   itemOnBasket
                     ? "btn btn-danger btn-sm"

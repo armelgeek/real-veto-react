@@ -1,7 +1,7 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ToMagItem from "./ToMagItem";
 //import { NumberFormat } from 'react-number-format';
 import { action, getData } from "../../../../utils/lib/call";
@@ -9,7 +9,7 @@ import { MgToMl } from "../../../../hooks/convertisseur";
 import { clearMagasin } from "../../../../store/tomagasin/actions/tomagasin";
 import { displayMoney } from "../../../../utils/functions";
 
-import { HISTORIQUESORTIECVA } from '../../../../constants/routes';
+import { HISTORIQUESORTIECVA } from "../../../../constants/routes";
 import {
   canBuyBrute,
   handleSoldProduct,
@@ -25,7 +25,7 @@ const ToMag = () => {
   }));
 
   const date = new Date();
-  const [dateCom,setDateCom]=useState(date);
+  const [dateCom, setDateCom] = useState(date);
   const history = useHistory();
   const meta = useSelector(getData("commandes").meta);
   const metaSortieDepot = useSelector(getData("sortiedepots").meta);
@@ -43,23 +43,26 @@ const ToMag = () => {
 
   const validerCommande = () => {
     dispatch(
-      action("commandes").create({
-        id: Number(meta.nextId),
-        contenu: tomagasins,
-        type: "cva",
-        sorte: "sortie",
-        refSortie: `CVA_${meta.nextId}_${day}_${monthIndex}_${year}_${hours}_${minutes}_${second}`,
-        status: true,
-        dateCom: dateCom!=null ? dateCom : date,
-      })
+      action("commandes").createTransaction(
+        {
+          id: Number(meta.nextId),
+          contenu: tomagasins,
+          type: "cva",
+          sorte: "sortie",
+          refSortie: `CVA_${meta.nextId}_${day}_${monthIndex}_${year}_${hours}_${minutes}_${second}`,
+          status: true,
+          dateCom: dateCom != null ? dateCom : date,
+        },
+        "add-to-magasin"
+      )
     );
-
+{/*
     tomagasins.forEach((element) => {
       if (canBuyBrute(element)) {
         handleSoldProduct(element, element.quantityParProduct);
         element.quantityBruteCVA += Number(element.quantityParProduct);
         element.quantityParProduct = 0;
-      }else{
+      } else {
         element.quantityParProduct = 0;
       }
       {
@@ -78,10 +81,10 @@ const ToMag = () => {
       );
       if (element.quantityBruteCVA !== 0) {
         element.quantityParProduct = 1;
-      }*/
       }
-      dispatch(action("products").update(element));
-    });
+      }
+    dispatch(action("products").update(element));
+    });*/}
 
     dispatch(clearMagasin());
     //console.log(basket);
@@ -107,8 +110,6 @@ const ToMag = () => {
           </div>
         </Card.Header>
         <Card.Body>
-        
-          
           <div class="form-group">
             <label>Date de sortie :</label>
             <div>
@@ -121,10 +122,12 @@ const ToMag = () => {
             </div>
           </div>
           {tomagasins.length <= 0 && (
-            <div class="alert alert-success ">Choississez un produit sur la section "Produits" puis cliquez sur "Ajouter"</div>
+            <div class="alert alert-success ">
+              Choississez un produit sur la section "Produits" puis cliquez sur
+              "Ajouter"
+            </div>
           )}
           {tomagasins?.map((product, i) => (
-            
             <ToMagItem
               key={`${product?.id}_${i}`}
               product={product}
@@ -155,7 +158,7 @@ const ToMag = () => {
         {tomagasins.length > 0 && (
           <Card.Footer className="d-flex justify-content-between">
             <div>
-              <h3 style={{ fontSize:"14px"}}>
+              <h3 style={{ fontSize: "14px" }}>
                 <strong>Total : </strong>
                 {displayMoney(
                   calculateTotal(

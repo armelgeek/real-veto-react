@@ -91,7 +91,7 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
           qtt =
             element.quantityParProductDepot * 1 -
             commandeLast.quantityParProductDepot * 1;
-          element.quantityBrute = commandeLast.quantityBrute + qtt;
+          element.quantityBrute = commandeLast.quantityBrute - qtt;
         }
         if (
           commandeLast.quantityParProductDepot * 1 >
@@ -100,7 +100,7 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
           qtt =
             commandeLast.quantityParProductDepot * 1 -
             element.quantityParProductDepot * 1;
-          element.quantityBrute = commandeLast.quantityBrute - qtt;
+          element.quantityBrute = commandeLast.quantityBrute + qtt;
         }
         if (
           element.quantityParProductDepot * 1 ==
@@ -123,96 +123,28 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
   const onCheckOut = () => {
     const { exist, added, missing } = getContenu();
     dispatch(
-      action("commandes").update({
-        id: commandes?.id,
-        contenu: state,
-        type: "vente-depot",
-        sorte: "sortie",
-        qtteBrute: 1,
-        qtteCC: 1,
-        vaccinateurId: vaccinateurId,
-        status: type === "direct" ? true : false,
-        emprunterId: emprunter,
-        dateCom: dateCom != null ? dateCom : date,
-      })
+      action("commandes").updateTransaction(
+        {
+          id: commandes?.id,
+          contenu: state,
+          type: "vente-depot",
+          sorte: "sortie",
+          vaccinateurId: vaccinateurId,
+          status: type === "direct" ? true : false,
+          emprunterId: emprunter,
+          dateCom: dateCom != null ? dateCom : date,
+          exist: exist,
+          added: added,
+          missing: missing,
+        },
+        "update-from-depot"
+      )
     );
-    copy(state).forEach((element) => {
-      if (!isInArray(element, added)) {
-        console.log("exist ----", element);
-        const actualProduct = products.find((p) => p.id == element.id);
-        const commandeLast = copy(realContent).find((p) => p.id == element.id);
-        let qtt = 0;
-        if (
-          element.quantityParProductDepot * 1 >
-          commandeLast?.quantityParProductDepot * 1
-        ) {
-          qtt =
-            element.quantityParProductDepot * 1 - commandeLast?.quantityParProductDepot * 1;
-          element.quantityBrute = copy(actualProduct).quantityBrute + qtt;
-          console.log(
-            "+ plus",
-            element.quantityParProductDepot * 1 - commandeLast?.quantityParProductDepot * 1
-          );
-        }
-        if (
-          commandeLast?.quantityParProductDepot * 1 >
-          element.quantityParProductDepot * 1
-        ) {
-          qtt =
-            commandeLast?.quantityParProductDepot * 1 - element.quantityParProductDepot * 1;
-          element.quantityBrute = copy(actualProduct).quantityBrute - qtt;
-          console.log(
-            "-moins",
-            commandeLast?.quantityParProductDepot * 1 - element.quantityParProductDepot * 1
-          );
-        }
-        if (
-          element.quantityParProductDepot * 1 ==
-          commandeLast?.quantityParProductDepot * 1
-        ) {
-          element.quantityBrute = copy(actualProduct).quantityBrute;
-        }
 
-        //  console.log(element.name, updateQtt(is, element, commandeLast, qtt));
-        //console.log(element.name, element.quantityBrute);
-        dispatch(
-          action("products").update({
-            id: element.id,
-            quantityBrute: element.quantityBrute,
-            quantityParProductDepot: 0,
-          })
-        );
-      } else {
-        console.log("added---" + JSON.stringify(element));
-
-        dispatch(
-          action("products").update({
-            id: element.id,
-            quantityBrute:
-              element.quantityBrute + element.quantityParProductDepot * 1,
-              quantityParProductDepot: 0,
-          })
-        );
-      }
-    });
-    if (missing.length > 0) {
-      console.log("misssing", missing);
-      missing.map((e) => {
-        const actualp = products.find((p) => p.id == e.id);
-        console.log(actualp);
-        dispatch(
-          action("products").update({
-            id: e.id,
-            quantityBrute: actualp.quantityBrute - e.quantityParProductDepot * 1,
-            quantityParProductDepot: 0,
-          })
-        );
-      });
-    }
-    history.push(SORTIE);
+    //history.push(SORTIE);
   };
 
-    /* const onCheckOut = () => {
+  /* const onCheckOut = () => {
     const { exist, added, missing } = getContenu();
     console.log("state", state.length);
     console.log("realcont", realContent.length);
@@ -230,8 +162,8 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
       }
       console.log(element);
     });*/
-    //console.log(fromdepots);
-    /*  dispatch(
+  //console.log(fromdepots);
+  /*  dispatch(
       action("commandes").create({
         id: Math.floor(Date.now() / 1000),
         contenu: state?.state,
@@ -245,7 +177,7 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
         dateCom: dateCom != null ? dateCom : date,
       })
     );*/
-    /*if (!meta.error) {
+  /*if (!meta.error) {
       state?.state?.forEach((element) => {
         let idElement = element.id;
         element.quantityParProductDepot = 0;

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { displayMoney, checkHasExistText } from "../../../../utils/functions";
 import EditFromDepotItemControl from "./EditFromMagasinItemControl";
+import { ItaNewInputDose } from "./ItaNewInputDose";
+import { PhytoConditionnementInput } from "./PhytoConditionnementInput";
+import { SovaxInputDose } from "./SovaxInputDose";
 const EditItem = ({ state, index, setState, product }) => {
   const [realQttCC, setRealQttCC] = useState(null);
   const [realQtt, setRealQtt] = useState(null);
@@ -52,6 +55,44 @@ const EditItem = ({ state, index, setState, product }) => {
             realQtt={realQtt}
             realQttCC={realQttCC}
           />
+           {product.type === "FLACON" && (
+            <div className="text-inline text-center">
+              <h5 className="mb-1">{product.categoryId == 3 ? "DOSE" : "ML"}</h5>
+              {checkHasExistText(product.name, "ita new") && (
+                <ItaNewInputDose
+                  product={product}
+                  setRealQttCC={setRealQttCC}
+                  setRealQtt={setRealQtt}
+                  realQtt={realQtt}
+                  realQttCC={realQttCC}
+                />
+              )}
+              {checkHasExistText(product.name, "sovax") && (
+                <SovaxInputDose
+                  setRealQttCC={setRealQttCC}
+                  setRealQtt={setRealQtt}
+                  realQtt={realQtt}
+                  realQttCC={realQttCC}
+                  product={product}
+                />
+              )}
+              {product.condml == 0 &&
+                product.qttccpvente == 0 &&
+                !checkHasExistText(product.name, "sovax") &&
+                !checkHasExistText(product.name, "ita new") && (
+                  <FromMagasinItemPartial
+                    setRealQttCC={setRealQttCC}
+                    setRealQtt={setRealQtt}
+                    realQtt={realQtt}
+                    realQttCC={realQttCC}
+                    product={product}
+                  />
+                )}
+              {product.condml !== 0 && product.qttccpvente !== 0 && (
+                <PhytoConditionnementInput product={product} />
+              )}
+            </div>
+          )}
         </div>
        
       </div>
