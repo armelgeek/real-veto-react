@@ -1,0 +1,152 @@
+{
+  "name": "Veto-react",
+  "version": "0.1.0",
+  "private": true,
+  "main": "electron/main.js",
+  "homepage": "./",
+  "dependencies": {
+    "@ajoelp/json-to-formdata": "^1.3.1",
+    "@babel/preset-react": "^7.16.5",
+    "@chakra-ui/icons": "^1.0.16",
+    "@chakra-ui/react": "^1.6.10",
+    "@date-io/moment": "^2.11.0",
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@fontsource/montserrat": "^4.5.1",
+    "@fontsource/open-sans": "^4.5.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/user-event": "^12.1.10",
+    "@wojtekmaj/react-daterange-picker": "^3.3.2",
+    "admin-lte": "^3.1.0",
+    "axios": "^0.21.4",
+    "axios-retry": "^3.2.4",
+    "babel-jest": "^27.4.5",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "bootstrap": "^5.1.3",
+    "class-autobind-decorator": "^3.0.1",
+    "commander": "^8.3.0",
+    "convert-units": "^2.3.4",
+    "convertir-nombre-lettre": "^1.0.2",
+    "create-react-class": "^15.7.0",
+    "electron-is-dev": "^2.0.0",
+    "formik": "^2.2.9",
+    "framer-motion": "^4.1.17",
+    "fs-extra": "^10.0.0",
+    "generator": "^1.0.1",
+    "humps": "^2.0.1",
+    "jest-cucumber": "^3.0.1",
+    "jquery": "^3.6.0",
+    "js-cookie": "^3.0.1",
+    "jss-rtl": "^0.3.0",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
+    "majestic": "^1.8.1",
+    "moment": "^2.29.1",
+    "pluralize": "^8.0.0",
+    "program": "^1.0.0",
+    "prop-types": "^15.7.2",
+    "query-string": "^7.0.1",
+    "react": "^17.0.2",
+    "react-bootstrap": "^1.6.4",
+    "react-bottom-scroll-listener": "^5.0.0",
+    "react-data-grid": "^7.0.0-beta.7",
+    "react-dates": "^21.8.0",
+    "react-dom": "^17.0.2",
+    "react-formik-ui": "^5.5.3",
+    "react-hotkeys-hook": "^3.4.4",
+    "react-icons": "^4.3.1",
+    "react-number-format": "^4.7.3",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3",
+    "react-table": "^7.7.0",
+    "react-tag-autocomplete": "^6.3.0",
+    "react-timeago": "^6.2.1",
+    "react-to-print": "^2.14.0",
+    "redux": "^4.1.1",
+    "redux-crud": "^3.3.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
+    "uuid": "^8.3.2",
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.11"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "setupFiles": [
+      "./jest-cucumber-config"
+    ],
+    "testMatch": [
+      "**/*.steps.js",
+      "**/*.test.js"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    }
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "test": "jest --watch --verbose",
+    "test:update": "jest --verbose --coverage --updateSnapshot",
+    "coverage": "jest --verbose --coverage && open ./coverage/lcov-report/index.html",
+    "electron:start": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && yarn electron .\"",
+    "electron:build": "yarn build && electron-builder build --publish never",
+    "electron:build:all": "yarn build && electron-builder build --publish never -mwl"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "build": {
+    "appId": "com.miraygeek.cmv.ambalavao",
+    "productName": "Gestion de Cabinet Veterinaire",
+    "files": [
+      "build/**/*",
+      "electron/main.js",
+      "package.json"
+    ],
+    "extends": null,
+    "mac": {
+      "type": "distribution"
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "concurrently": "^6.0.0",
+    "electron": "^12.0.1",
+    "electron-builder": "^22.10.5",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.2",
+    "redux-mock-store": "^1.5.4",
+    "wait-on": "^5.3.0"
+  }
+}

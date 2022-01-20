@@ -1,0 +1,25 @@
+export const hasNoCondValAndHasAnyCCStockProduct = {
+    datePer: "2021-11-30",
+    createdAt: "2021-11-26",
+    id: 1,
+    name: "Tikaz 5% 100ML",
+    prixVente: 6000,
+    prixFournisseur: 5700,
+    prixVaccinateur: 5800,
+    type: "FLACON",
+    uniteMesure: "ml",
+    doseDefault: 1000,
+    doseRestantEnMg: null,
+    qttByCC: 0,
+    quantityBrute: 150,
+    quantityBruteCVA: 100,
+    quantityCCCVA: 4,
+    quantityParProduct: 1,
+    prixParCC: 300,
+    quantityCC: null,
+    condml: 250,
+    condval: 0,
+    qttccpvente: 4,
+    prixqttccvente: 1500
+  };
+  

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing actions from magasin should set quantity product from magasin to orders 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "id": 1,
+      "value": 1,
+    },
+    "type": "ADD_QTY_NUMBER_FROM_MAGASIN_ITEM",
+  },
+]
+`;

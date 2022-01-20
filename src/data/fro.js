@@ -1,0 +1,1 @@
+{"category":[{"id":38,"name":"MAXZOL 2 500 mg","type":"BOLUS","category":{"id":1,"name":"VETO","createdAt":"2021-12-14","updatedAt":"2021-12-14"},"quantityParProduct":"1","qttByCC":0}]}
