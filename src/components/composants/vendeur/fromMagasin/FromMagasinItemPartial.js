@@ -5,47 +5,33 @@ import {
   minusQtyFromMagasinPortionItem,
 } from "../../../../store/frommagasin/actions/frommagasin";
 import {
-  handleSoldQuantityCC,
-  handleMinusProduct,
-  isSpecialProductHandle,
-  handlePhtyoSpecific,
-} from "../../../../store/functions/function";
-import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
-const FromMagasinItemPartial = ({ product }) => {
+
+const FromMagasinItemPartial = ({
+  product,
+  setRealQttCC,
+  setRealQtt,
+  realQtt,
+  realQttCC,
+}) => {
   const dispatch = useDispatch();
   const ref = useRef();
   const { frommagasins } = useSelector((state) => ({
     frommagasins: state.frommagasins,
   }));
-
+  const isEnough = () => {
+    return (
+      product.quantityCCCVA - product.qttByCC < 0 &&
+      product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
+    );
+  };
   const onAddQtyPortion = (value) => {
     dispatch(addQtyFromMagasinPortionItem(product.id, value));
-  };
-  const checkQuantityBrute = (frommagasins) => {
-    let qtt = 0;
-    frommagasins.forEach((element) => {
-      if (element.quantityBruteCVA <= 0) {
-        qtt += 1;
-      }
-    });
-    return qtt;
-  };
-  const checkQuantityCCCVA = (frommagasins) => {
-    let qtt = 0;
-    frommagasins.forEach((element) => {
-      if (element.id == product.id) {
-        if (element.quantityCCCVA <= 0) {
-          qtt += 1;
-        }
-      }
-    });
-    return qtt;
   };
   return (
     <div className="basket-item-control">
@@ -56,16 +42,15 @@ const FromMagasinItemPartial = ({ product }) => {
         ref={ref}
         bg={"whitesmoke"}
         onChange={(value) => {
-          console.log(frommagasins);
-            onAddQtyPortion(value);
+          onAddQtyPortion(value);
+          setRealQttCC(value);
+          if (isEnough()) {
+            alert("Le stock ne satisfait pas votre commande");
+          }
         }}
         min={0}
         defaultValue={product.qttByCC}
-        max={
-          product.quantityBruteCVA > 0
-            ? product.doseDefault
-            : product.quantityCCCVA
-        }
+        max={!isEnough() ? product.doseDefault : product.quantityCCCVA}
       >
         <NumberInputField />
         <NumberInputStepper>

@@ -7,7 +7,7 @@ import { action, getData } from "../../../../utils/lib/call";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getCVA } from "../../../../store/actions/commandes";
-import { displayMoney } from "../../../../utils/functions";
+import { displayDate,displayMoney } from "../../../../utils/functions";
 import { Link } from "react-router-dom";
 
 export const HistoriqueSortieCva = () => {
@@ -91,7 +91,7 @@ export const HistoriqueSortieCva = () => {
             <tbody>
               {commandes.map((p) => (
                 <tr>
-                  <td>{p?.dateCom}</td>
+                  <td>{displayDate(p?.dateCom)}</td>
                   <td>{displayMoney(calculateTotal(p?.contenu))}</td>
                   <td>
                     <Link

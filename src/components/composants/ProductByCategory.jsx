@@ -10,7 +10,7 @@ import ActiveLink from "../../@adminlte/adminlte/Content/ActiveLink";
 import ContentHeader from "../../@adminlte/adminlte/Content/ContentHeader";
 import Page from "../../@adminlte/adminlte/Content/Page";
 import { Link } from "react-router-dom";
-import  NumberFormat from 'react-number-format';
+import { displayMoney } from "../../utils/functions";
 function ProductByCategory() {
   const products = useSelector(getData("products").value);
 
@@ -51,7 +51,7 @@ function ProductByCategory() {
           <thead className="bg-thead">
             <tr>
               <th>Nom</th>
-              <th>Prix</th>
+              <th>Prix Unitaire</th>
               <th>Categorie</th>
               <th>Actions</th>
             </tr>
@@ -60,13 +60,7 @@ function ProductByCategory() {
             {products.map((p) => (
               <tr>
               <td>{p?.name}</td>
-              <td><NumberFormat
-                  value={p.prixVente}
-                  displayType={"text"}
-                  thousandSeparator={true}
-                  suffix={"Ar"}
-                  renderText={(value, props) => <div {...props}>{value}</div>}
-                /></td>
+              <td>{displayMoney(p?.prixFournisseur)}</td>
               <td>{p?.category?.name}</td>
               <td>
               <Link

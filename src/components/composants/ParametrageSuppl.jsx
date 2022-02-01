@@ -32,23 +32,26 @@ function ParametrageSuppl() {
                 })
               );
             }}
-          >
-            <Form.Element>
+            render={()=>(
+              <Form.Element>
               <Form.Field.Input
                 name="nb_mois"
                 label="Nombre de mois"
+                placeholder="Nombre de mois"
                 type="number"
               />
               <Form.Field.Input
                 name="nb_produit"
                 label="Nombre de produit"
+                placeholder="Nombre de produit"
                 type="number"
               />
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-success mt-2 btn-sm">
                 Sauvegarder la modification
               </button>
             </Form.Element>
-          </Form>
+            )}
+          />
         </div>{" "}
       </div>{" "}
     </div>

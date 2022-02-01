@@ -30,7 +30,7 @@ export const FournisseurInput = ({ fournisseur }) => {
             </button>
             </li>
         ) : (
-          <div className="bg-gray">
+          <div  className="p-3">
             <Form
             enableReinitialize
               id={`form-${fournisseur.id}`}
@@ -49,15 +49,15 @@ export const FournisseurInput = ({ fournisseur }) => {
 
                 setToggleEdit(false);
               }}
-            >
-              <Form.Element>
+              render={() => (
+                <Form.Element>
                 <Form.Field.Input name="nom" label="Nom du fournisseur" placeholder={"Nom du fournisseur"} />
 
                 <button className="btn btn-success btn-sm m-1" type="submit">
                   Enregistrer
                 </button>
                 <button
-                  className="btn  btn-success btn-sm m-1"
+                  className="btn  btn-danger btn-sm m-1"
                   onClick={(e) => {
                     e.preventDefault();
                     if (
@@ -72,7 +72,7 @@ export const FournisseurInput = ({ fournisseur }) => {
                   Supprimer
                 </button>
                 <button
-                  className="btn btn-success btn-sm m-1"
+                  className="btn btn-info btn-sm m-1"
                   onClick={() => {
                     setToggleEdit(false);
                   }}
@@ -80,7 +80,9 @@ export const FournisseurInput = ({ fournisseur }) => {
                   Annuler
                 </button>
               </Form.Element>
-            </Form>
+              )}
+            />
+              
           </div>
         )}
       </div>

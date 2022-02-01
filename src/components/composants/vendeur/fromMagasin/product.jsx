@@ -12,17 +12,23 @@ import { Select } from "@chakra-ui/select";
 import { displayDate, displayMoney } from "../../../../utils/functions";
 import { getCommandeCVA } from "../../../../store/actions/commandes";
 import Horloge from "./Horloge";
+import searchByNameAndFournisseur from "../../../../filters/searchByNameAndFournisseur";
+import searchByFournisseur from "../../../../filters/searchByFournisseur";
+import searchByName from "../../../../filters/searchByName";
 const Products = () => {
   const parameterizeObjectQuery = (key, value) => {
     return '{"' + key + '":"' + value + '"}';
   };
   const products = useSelector(getData("products").value);
+  const meta = useSelector(getData("products").meta);
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
   const [idFournisseur, setIdFournisseur] = useState(2);
   const [regenerate, setRegenerate] = useState(false);
   const refDateDeb = useRef(null);
   const refDateFin = useRef(null);
+
+  const [productData, setProductData] = useState([]);
   const commandes = useSelector(getData("commandes").value);
   const metameta = useSelector(getData("commandes").meta);
   const [deb, setDeb] = useState(new Date());
@@ -30,12 +36,16 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(getCommandeCVA(deb, fin));
-  }, [deb,fin]);
+  }, [deb, fin]);
+
+  useEffect(() => {
+    setDeb(new Date());
+    setFin(new Date());
+    dispatch(action("products").fetch());
+  }, []);
   useEffect(() => {
     if (regenerate == true) {
-      dispatch(
-        action("products").fetch({ success: "Operation reussie avec succès" })
-      );
+      dispatch(action("products").fetch());
       setRegenerate(false);
     }
     return () => {
@@ -44,25 +54,29 @@ const Products = () => {
   }, [regenerate]);
 
   useEffect(() => {
-
-    setDeb(new Date());
-    setFin(new Date());
-    dispatch(action("products").fetch());
-  }, []);
+    if (!meta.isFetching) {
+      setProductData(products);
+    }
+  }, [meta]);
   useEffect(() => {
-    dispatch(
-      action("products").fetch(
-        { replace: true },
-        {
-          filter: parameterizeObjectQuery("q", value),
-        }
-      )
-    );
+    if (idFournisseur != null) {
+      setProductData(
+        searchByNameAndFournisseur(products, value, idFournisseur)
+      );
+    } else {
+      setProductData(searchByName(products, value));
+    }
   }, [value]);
   useEffect(() => {
-    //recuperer la premiere ligne dans le tableau fournisseur
-    dispatch(fetchProductsByFournisseur(idFournisseur));
+    if (value != "") {
+      setProductData(
+        searchByNameAndFournisseur(products, value, idFournisseur)
+      );
+    } else {
+      setProductData(searchByFournisseur(products, idFournisseur));
+    }
   }, [idFournisseur]);
+
   const calculateTotal = (arr) => {
     if (!arr || arr?.length === 0) return 0;
     const total = arr.reduce((acc, val) => acc + val, 0);
@@ -102,7 +116,10 @@ const Products = () => {
               <div className=" text-white bg-white border-1">
                 <div className=" p-3 bg-thead">
                   <span style={{ fontSize: "15px" }}>
-                   Total: {metameta.isFetching ? "0 Ar" : displayMoney(recetteDuJour(commandes))}
+                    Total:{" "}
+                    {metameta.isFetching
+                      ? "0 Ar"
+                      : displayMoney(recetteDuJour(commandes))}
                   </span>
                 </div>
               </div>
@@ -111,11 +128,7 @@ const Products = () => {
               <Horloge />
             </div>
             <div className="bg-thead">
-           
-              <Link
-                className="btn btn-primary"
-                to={HISTORIQUEVENTEVENDEUR}
-              >
+              <Link className="btn btn-primary" to={HISTORIQUEVENTEVENDEUR}>
                 Voir l'historique de vente
               </Link>
             </div>
@@ -131,9 +144,11 @@ const Products = () => {
                       onClick={() => {
                         setValue("");
                         setRegenerate(true);
+                        
                       }}
                     >
                       Mettre à jour
+                    
                     </button>
                   </div>
                 </Card.Header>
@@ -152,12 +167,14 @@ const Products = () => {
                       <Data>
                         {({ data, meta }) => (
                           <div className="my-2 mr-3">
+                            
                             <Select
                               style={{ backgroundColor: "white" }}
                               onChange={(e) => {
                                 setIdFournisseur(e.target.value);
                               }}
                             >
+                            <option>Tous les fournisseurs</option>
                               {data.map((d) => (
                                 <option value={d.id} selected={d.id == 2}>
                                   {d.name}
@@ -179,10 +196,10 @@ const Products = () => {
                       }}
                     >
                       <div class="d-flex justify-content-center flex-wrap">
-                        {products.map((p) => (
+                        {productData.map((p) => (
                           <ProductItem product={p} />
                         ))}
-                        {products.length === 0 && "Aucun produit trouvé"}
+                        {productData.length == 0 && "Aucune enregistrement trouvé"}
                       </div>{" "}
                     </div>
                   </ListGroup>

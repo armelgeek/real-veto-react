@@ -12,16 +12,19 @@ export const EmprunterInput = ({ emprunter }) => {
     dispatch(action("emprunters").destroy(cat));
     dispatch(action("emprunters").fetch());
   };
- 
+
   return (
-    <div key={emprunter.id} className="mb-2">
+    <div key={emprunter.id}  className="mb-2">
       <div>
         {!toggleEdit ? (
           <li className="list-items-row p-1 d-flex justify-content-between align-items-center mb-1 border-1">
             <tr>
-              <td> {emprunter.name}({emprunter.contact})</td>
+              <td>
+                {" "}
+                {emprunter.name}({emprunter.contact})
+              </td>
             </tr>
-           
+
             <button
               className="btn btn-secondary btn-sm"
               onClick={() => {
@@ -30,62 +33,71 @@ export const EmprunterInput = ({ emprunter }) => {
             >
               Editer
             </button>
-            </li>
+          </li>
         ) : (
           <div className="bg-gray">
             <Form
-            enableReinitialize
+              enableReinitialize
               id={`form-${emprunter.id}`}
               initialValues={{
                 nom: emprunter.name,
-                contact:emprunter.contact
+                contact: emprunter.contact,
               }}
               validations={validationSchema}
               onSubmit={(values, form) => {
-                const { nom,contact } = values;
+                const { nom, contact } = values;
                 dispatch(
                   action("emprunters").update({
                     id: emprunter.id,
                     name: nom,
-                    contact: contact
+                    contact: contact,
                   })
                 );
 
                 setToggleEdit(false);
               }}
-            >
-              <Form.Element>
-                <Form.Field.Input name="nom" label="Nom du emprunter" placeholder={"Nom du emprunter"} />
-                <Form.Field.Input name="contact" label="Contact du emprunter" placeholder={"Contact du emprunter"} />
+              render={() => (
+                <Form.Element>
+                  <Form.Field.Input
+                    name="nom"
+                    label="Nom du emprunter"
+                    placeholder={"Nom du emprunter"}
+                  />
+                  <Form.Field.Input
+                    name="contact"
+                    label="Contact du emprunter"
+                    placeholder={"Contact du emprunter"}
+                  />
 
-                <button className="btn btn-success btn-sm m-1" type="submit">
-                  Enregistrer
-                </button>
-                <button
-                  className="btn  btn-success btn-sm m-1"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (
-                      window.confirm(
-                        `Vous voulez vraiment supprimer la emprunter "${emprunter.name}" ?`
-                      )
-                    ) {
-                      deleteCateg(emprunter);
-                    }
-                  }}
-                >
-                  Supprimer
-                </button>
-                <button
-                  className="btn btn-success btn-sm m-1"
-                  onClick={() => {
-                    setToggleEdit(false);
-                  }}
-                >
-                  Annuler
-                </button>
-              </Form.Element>
-            </Form>
+                  <button className="btn btn-success btn-sm m-1" type="submit">
+                    Enregistrer
+                  </button>
+                  <button
+                    className="btn  btn-success btn-sm m-1"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (
+                        window.confirm(
+                          `Vous voulez vraiment supprimer la emprunter "${emprunter.name}" ?`
+                        )
+                      ) {
+                        deleteCateg(emprunter);
+                      }
+                    }}
+                  >
+                    Supprimer
+                  </button>
+                  <button
+                    className="btn btn-success btn-sm m-1"
+                    onClick={() => {
+                      setToggleEdit(false);
+                    }}
+                  >
+                    Annuler
+                  </button>
+                </Form.Element>
+              )}
+            />
           </div>
         )}
       </div>

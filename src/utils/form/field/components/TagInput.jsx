@@ -1,5 +1,5 @@
 import { Input } from "@chakra-ui/input";
-import React, { forwardRef, useCallback, useEffect, useState } from "react";
+import React, { forwardRef, useCallback, useEffect, useLayoutEffect, useState } from "react";
 import ReactTags from "react-tag-autocomplete";
 import "../styles/tags.css";
 const TagInput = forwardRef(
@@ -27,7 +27,7 @@ const TagInput = forwardRef(
       },
       [tagsData]
     );
-    useEffect(() => {
+    useLayoutEffect(() => {
       if (changed) changeValue(tagsData);
       if (setData) {
         setData(tagsData);

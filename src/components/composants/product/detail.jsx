@@ -4,10 +4,11 @@ import Content from "../../../@adminlte/adminlte/Content";
 import ContentHeader from "../../../@adminlte/adminlte/Content/ContentHeader";
 import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
 import Page from "../../../@adminlte/adminlte/Content/Page";
-import {useParams}  from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { action, getData } from "../../../utils/lib/call";
 import NumberFormat from "react-number-format";
+import { displayDate, displayMoney } from "../../../utils/functions";
 
 function DetailProduct() {
   const { id } = useParams();
@@ -22,13 +23,58 @@ function DetailProduct() {
         <ActiveLink title="Détail de l'article"></ActiveLink>
       </ContentHeader>
       <Page>
-        <table>
+        {products[0]?.conditionnement != 2 ||
+          (products[0]?.conditionnement != null && (
+            <div className="card card-info">
+              <div className="card-header">Conditionnement</div>
+              <div className="card-body">
+                <p>
+                  Conditionnement (ML):{" "}
+                  <span className="badge badge-info">
+                    {products[0]?.condml}
+                  </span>
+                </p>
+                <p>
+                  Division en flacon:{" "}
+                  <span className="badge badge-info">
+                    {products[0]?.condsize}
+                  </span>
+                </p>
+                <p>
+                  Quantité de vente par ML:
+                  <span className="badge badge-info">
+                    {products[0]?.qttccpvente}
+                  </span>
+                </p>
+                <p>
+                  Quantité de vente pour {products[0]?.qttccpvente} ML:{" "}
+                  <span className="badge badge-info">
+                    {displayMoney(products[0]?.prixqttccvente)}{" "}
+                  </span>
+                </p>
+              </div>
+            </div>
+          ))}
+        <table className="table table-striped">
           <tr>
             <td>
               <strong>Nom de l'article:</strong>
             </td>
             <td>{products[0]?.name} </td>
           </tr>
+          <tr>
+            <td>
+              <strong>Fournisseur :</strong>
+            </td>
+            <td>{products[0]?.fournisseur?.name}</td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Categorie :</strong>
+            </td>
+            <td>{products[0]?.category?.name}</td>
+          </tr>
+
           <tr>
             <td>
               <strong>Type:</strong>
@@ -39,90 +85,46 @@ function DetailProduct() {
             <td>
               <strong>Dose:</strong>
             </td>
-            <td>{products[0]?.doseDefault} </td>
+            <td>{products[0]?.doseDefault} ML </td>
+          </tr>
+
+          <tr>
+            <td>
+              <strong>Prix unitaire:</strong>
+            </td>
+            <td>{displayMoney(products[0]?.prixFournisseur)}</td>
           </tr>
           <tr>
             <td>
               <strong>Prix de vente:</strong>
             </td>
-            <td>
-              <NumberFormat
-                value={products[0]?.prixVente}
-                displayType={"text"}
-                thousandSeparator={true}
-                suffix={"Ar"}
-                renderText={(value, props) => <div {...props}>{value}</div>}
-              />
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <strong>Prix du fournisseur:</strong>
-            </td>
-            <td>
-              <NumberFormat
-                value={products[0]?.prixFournisseur}
-                displayType={"text"}
-                thousandSeparator={true}
-                suffix={"Ar"}
-                renderText={(value, props) => <div {...props}>{value}</div>}
-              />
-            </td>
+            <td>{displayMoney(products[0]?.prixVente)}</td>
           </tr>
 
           <tr>
             <td>
               <strong>Prix pour le vaccinateur:</strong>
             </td>
-            <td>
-              <NumberFormat
-                value={products[0]?.prixVaccinateur}
-                displayType={"text"}
-                thousandSeparator={true}
-                suffix={"Ar"}
-                renderText={(value, props) => <div {...props}>{value}</div>}
-              />
-            </td>
+            <td>{displayMoney(products[0]?.prixVaccinateur)}</td>
           </tr>
 
           <tr>
             <td>
-              <strong>Prix par CC:</strong>
+              <strong>Prix par ML:</strong>
             </td>
             <td>
-              <NumberFormat
-                value={products[0]?.prixParCC}
-                displayType={"text"}
-                thousandSeparator={true}
-                suffix={"Ar"}
-                renderText={(value, props) => <div {...props}>{value}</div>}
-              />
+              {products[0]?.qttccpvente != 0
+                ? displayMoney(
+                    products[0]?.prixParCC * products[0]?.qttccpvente
+                  )
+                : displayMoney(products[0]?.prixParCC)}
             </td>
           </tr>
           <tr>
             <td>
               <strong>Date de peremption:</strong>
             </td>
-            <td>{products[0]?.datePer}</td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Unité mesure :</strong>
-            </td>
-            <td>{products[0]?.uniteMesure}</td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Fournisseur :</strong>
-            </td>
-            <td>{products[0]?.fournisseur?.name}</td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Category :</strong>
-            </td>
-            <td>{products[0]?.category?.name}</td>
+            <td>{displayDate(products[0]?.datePer)}</td>
           </tr>
         </table>
       </Page>

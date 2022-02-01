@@ -121,7 +121,7 @@ const ToMag = () => {
             </div>
           </div>
           {tomagasins.length <= 0 && (
-            <div class="alert alert-success ">Aucune produit !!!</div>
+            <div class="alert alert-success ">Choississez un produit sur la section "Produits" puis cliquez sur "Ajouter"</div>
           )}
           {tomagasins?.map((product, i) => (
             
@@ -155,8 +155,8 @@ const ToMag = () => {
         {tomagasins.length > 0 && (
           <Card.Footer className="d-flex justify-content-between">
             <div>
-              <p className="basket-total-amount">
-                <strong>Total brute:</strong>
+              <h3 style={{ fontSize:"14px"}}>
+                <strong>Total : </strong>
                 {displayMoney(
                   calculateTotal(
                     tomagasins.map(
@@ -165,7 +165,7 @@ const ToMag = () => {
                     )
                   )
                 )}
-              </p>
+              </h3>
             </div>
           </Card.Footer>
         )}

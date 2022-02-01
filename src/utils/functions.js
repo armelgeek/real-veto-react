@@ -88,10 +88,12 @@ export const displayActionMessage = (msg, status = "info") => {
   }, 3000);
 };
 
+function strOp(str) {
+  return str.toString().replace(/\s/g, "").toLowerCase();
+}
 
-export const checkHasExistText = (text,textCheck) => {
-  if (text.includes(textCheck)) {
+export const checkHasExistText = (text, textCheck) => {
+  if (strOp(text).includes(strOp(textCheck))) {
     return true;
   }
 };
-  

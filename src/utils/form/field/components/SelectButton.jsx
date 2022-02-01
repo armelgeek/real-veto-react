@@ -12,6 +12,8 @@ const SelectButton = forwardRef(
       selectValue,
       valueKey,
       filter,
+      isNumeric = true,
+      emptyValue = true,
       setData,
       changeValue,
       ...inputProps
@@ -21,10 +23,18 @@ const SelectButton = forwardRef(
     const handleChange = (event) => {
       if (!filter || filter.test(event.target.value)) {
         if (isFunction(changeValue)) {
-          changeValue(event.target.value, event);
+          if (isNumeric) {
+            changeValue(Number(event.target.value), event);
+          } else {
+            changeValue(event.target.value, event);
+          }
         }
         if (setData) {
-          setData(event.target.value);
+          if (isNumeric) {
+            setData(Number(event.target.value));
+          } else {
+            setData(event.target.value);
+          }
         }
       }
     };
@@ -35,17 +45,20 @@ const SelectButton = forwardRef(
           bg={"gray.200"}
           boxShadow="sm"
           defaultValue={`${selectValue}`}
-          valueKey={valueKey}
+          //   valueKey={valueKey}
           isRequired
           name={name}
           isInvalid={invalid}
           onChange={handleChange}
           ref={ref}
         >
-          <option value="">Selectionner une option</option>
+          {emptyValue && <option value="">Selectionner</option>}
           {options.map((value) => (
-            <option defaultChecked={`${selectValue}`} value={`${value.id}`}>
-              {value[valueKey]}
+            <option
+              defaultChecked={`${selectValue}`}
+              value={`${valueKey ? value.id : value}`}
+            >
+              {valueKey ? value[valueKey] : value}
             </option>
           ))}
         </Select>

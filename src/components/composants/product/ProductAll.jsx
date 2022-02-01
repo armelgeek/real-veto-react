@@ -17,9 +17,9 @@ import Success from "../../../utils/admin/Resource/Success";
 import Error from "../../../utils/admin/Resource/Error";
 import DataTable from "../../../utils/admin/DataTable";
 import { displayMoney } from "../../../utils/functions";
-import Nav from '../../../utils/admin/Nav';
+import Nav from "../../../utils/admin/Nav";
 import Guide from "./Guide";
-import { CrudAction } from '../../../utils/admin/Resource/CrudAction';
+import { CrudAction } from "../../../utils/admin/Resource/CrudAction";
 //initialize datatable
 /*   $(document).ready(function () {
       $('table').DataTable();
@@ -36,7 +36,7 @@ export const ProductAll = () => {
     dispatch(action("products").destroy(prod));
     dispatch(action("products").fetch());
   };
-  
+
   const columns = React.useMemo(
     () => [
       {
@@ -52,10 +52,9 @@ export const ProductAll = () => {
         Cell: (data) => {
           return (
             <>
-             
-                <span className="badge badge-primary">
-                  {data.row.original?.fournisseur?.name}
-                </span>
+              <span className="badge badge-primary">
+                {data.row.original?.fournisseur?.name}
+              </span>
             </>
           );
         },
@@ -71,31 +70,42 @@ export const ProductAll = () => {
       {
         Header: "Prix unitaire",
         Cell: (data) => {
-          return (
-            <div>{displayMoney(data.row.original?.prixFournisseur)}</div>
-          )}
+          return <div>{displayMoney(data.row.original?.prixFournisseur)}</div>;
+        },
       },
       {
         Header: "Prix de vente",
         Cell: (data) => {
-          return (
-            <div>{displayMoney(data.row.original?.prixVente)}</div>
-          )}
+          return <div>{displayMoney(data.row.original?.prixVente)}</div>;
+        },
       },
-      
+
       {
         Header: "Prix en ML",
         Cell: (data) => {
           return (
-            <div>{displayMoney(data.row.original?.prixParCC)}</div>
-          )}
+            <div>
+              {data.row.original?.qttccpvente != 0
+                ? displayMoney(
+                    data.row.original?.prixParCC *
+                      data.row.original?.qttccpvente
+                  )
+                : displayMoney(data.row.original?.prixParCC)}
+            </div>
+          );
+        },
       },
-      
+
       {
         Header: "Actions",
         Cell: (data) => {
           return (
-            <CrudAction route={"product"} model={"products"} modelKey={"name"} data={data}/>
+            <CrudAction
+              route={"product"}
+              model={"products"}
+              modelKey={"name"}
+              data={data}
+            />
           );
         },
       },
@@ -104,20 +114,17 @@ export const ProductAll = () => {
   );
   return (
     <Content>
-       <ContentHeader title="Tous les produits">
+      <ContentHeader title="Tous les produits">
         <ActiveLink title="Tous les produits"></ActiveLink>
       </ContentHeader>
       <Page>
-      
-      <DataTable
+        <DataTable
           data={products}
           meta={meta}
           columns={columns}
           addUrl={CREATEPRODUCT}
           urlName={"Ajouter un produit"}
         />
-     
-       
       </Page>
     </Content>
   );

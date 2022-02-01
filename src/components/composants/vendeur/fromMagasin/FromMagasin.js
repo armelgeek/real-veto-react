@@ -5,7 +5,7 @@ import FromMagasinItem from "./FromMagasinItem";
 import { Card } from "react-bootstrap";
 import { clearFromMagasin } from "../../../../store/frommagasin/actions/frommagasin";
 import { action, getData } from "../../../../utils/lib/call";
-import { displayMoney,checkHasExistText } from "../../../../utils/functions";
+import { displayMoney, checkHasExistText } from "../../../../utils/functions";
 import { HISTORIQUEVENTEVENDEUR } from "../../../../constants/routes";
 import { useHistory } from "react-router-dom";
 import Lang from "../../../../constants/lang";
@@ -36,7 +36,7 @@ const FromMagasin = ({ setRegenerate }) => {
   const meta = useSelector(getData("commandes").meta);
   const commandes = useSelector(getData("commandes").value);
   const date = new Date();
-  const [dateCom,setDateCom]=useState(date);
+  const [dateCom, setDateCom] = useState(date);
   useEffect(() => {
     dispatch(action("commandes").fetch());
     dispatch(action("emprunters").fetch());
@@ -60,15 +60,11 @@ const FromMagasin = ({ setRegenerate }) => {
     return qtt;
   };
   const onCheckOut = () => {
-
     frommagasins.forEach((element) => {
       delete element.busy;
       delete element.pendingCreate;
       handleMinusProduct(element);
-      if (
-        checkHasExistText(element.name, "tikaz") ||
-        checkHasExistText(element.name, "despadac")
-      ) {
+      if (element.condml != 0 && element.qttccpvente != 0) {
         handlePhtyoSpecific(element);
       } else {
         handleSoldQuantityCC(element);
@@ -85,7 +81,7 @@ const FromMagasin = ({ setRegenerate }) => {
         vaccinateurId: vaccinateurId,
         status: type === "direct" ? true : false,
         emprunterId: emprunter,
-        dateCom: dateCom!=null ? dateCom : date,
+        dateCom: dateCom != null ? dateCom : date,
       })
     );
     if (!meta.error) {
@@ -100,7 +96,6 @@ const FromMagasin = ({ setRegenerate }) => {
     }
     dispatch(clearFromMagasin());
     history.push(HISTORIQUEVENTEVENDEUR);
-  
   };
 
   const onClearBasket = () => {
@@ -117,14 +112,15 @@ const FromMagasin = ({ setRegenerate }) => {
       <Card>
         <Card.Header className=" bg-dark py-2 text-white d-flex justify-content-between align-items-center">
           <div style={{ width: "60%" }}>
-            BON DE SORTIE {type.toUpperCase()}{commandes.length} (
+            BON DE SORTIE {type.toUpperCase()}
+            {commandes.length} (
             {` ${frommagasins?.length} ${
               frommagasins?.length > 1 ? "articles" : "article"
             }`}
             )
           </div>
-         <div style={{ width: "30%" }} className="text-right">
-           {/* <select
+          <div style={{ width: "30%" }} className="text-right">
+            {/* <select
               className="form-control input-sm"
               onChange={(e) => {
                 setType(e.target.value);
@@ -137,106 +133,111 @@ const FromMagasin = ({ setRegenerate }) => {
             </select>*/}
           </div>
         </Card.Header>
-        <Card.Body
-          style={{ padding: 2, marginTop: 3, marginRight: 2, marginLeft: 2 }}
-        >
-
-          <div
-            style={{
-              overflowY: "auto",
-              height: "350px",
-              maxHeight: "350px",
-              overflowX: "hidden",
-            }}
+        <div className="commande-vente">
+          <Card.Body
+            style={{ padding: 2, marginTop: 3, marginRight: 2, marginLeft: 2 }}
           >
-  
-          <div class="form-group">
-              <label>Date de sortie :</label>
-              <div>
-                <input
-                  type="date"
-                  onChange={(e) => setDateCom(e.target.value)}
-                  value={dateCom}
-                  className="form-control"
-                />
-              </div>
+            <div className="d-flex justify-content-end">
+              <button className="btn btn-primary btn-sm">
+                Historique de vente
+              </button>
             </div>
-            {type === "credit" && (
-              <>
-                <label>Crediteur:</label>
-                <select
-                  className="form-control"
-                  onChange={(e) => {
-                    setEmprunter(e.target.value);
-                  }}
-                >
-                  <option value=""></option>
-                  {emprunters.map((v) => (
-                    <option value={v.id}>{v.name}</option>
-                  ))}
-                </select>
-              </>
-            )}
-            {frommagasins?.length <= 0 && (
-              <div className="alert alert-success ">
-                {Lang.fromMagasin.emptyOrder}
+            <div
+              style={{
+                overflowY: "auto",
+                height: "350px",
+                maxHeight: "350px",
+                overflowX: "hidden",
+              }}
+            >
+              <div class="form-group">
+                <label>Date de sortie :</label>
+                <div>
+                  <input
+                    type="date"
+                    onChange={(e) => setDateCom(e.target.value)}
+                    value={dateCom}
+                    className="form-control"
+                  />
+                </div>
               </div>
-            )}
-            {frommagasins?.map((product, i) => (
-              <FromMagasinItem
-                key={`${product?.id}_${i}`}
-                product={product}
-                basket={frommagasins}
-                dispatch={dispatch}
-              />
-            ))}
-          </div>
-        </Card.Body>
-
-        {frommagasins?.length > 0 && (
-          <Card.Footer className="d-flex align-items-center justify-content-between">
-            <div style={{ width: "30%" }}>
-              <h2 className="p-2 text-uppercase bg-primary">
-                <strong data-test-id="total-price-orders">
-                  Total:
-                  {displayMoney(
-                    calculateTotal(
-                      frommagasins.map((product) => {
-                        return product.prixVente * product.quantityParProduct;
-                      })
-                    ) +
-                      calculateTotal(
-                        frommagasins.map((product) => {
-                          return product.prixParCC * product.qttByCC;
-                        })
-                      )
-                  )}
-                </strong>
-              </h2>
-            </div>
-            <div style={{ width: "70%" }}>
-              {frommagasins.length > 0 && (
-                <div className="d-flex text-right align-items-end justify-content-end">
-                  <button
-                    className="btn btn-green btn-sm mr-2"
-                    disabled={frommagasins.length === 0}
-                    onClick={onCheckOut}
-                    type="button"
+              {type === "credit" && (
+                <>
+                  <label>Crediteur:</label>
+                  <select
+                    className="form-control"
+                    onChange={(e) => {
+                      setEmprunter(e.target.value);
+                    }}
                   >
-                    Valider l'operation
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={onClearBasket}
-                    type="button"
-                  >
-                    <span>Annuler</span>
-                  </button>
+                    <option value=""></option>
+                    {emprunters.map((v) => (
+                      <option value={v.id}>{v.name}</option>
+                    ))}
+                  </select>
+                </>
+              )}
+              {frommagasins?.length <= 0 && (
+                <div className="alert alert-success ">
+                  {Lang.fromMagasin.emptyOrder}
                 </div>
               )}
+              {frommagasins?.map((product, i) => (
+                <FromMagasinItem
+                  key={`${product?.id}_${i}`}
+                  product={product}
+                  basket={frommagasins}
+                  dispatch={dispatch}
+                />
+              ))}
             </div>
-          </Card.Footer>
-        )}
+          </Card.Body>
+
+          {frommagasins?.length > 0 && (
+            <Card.Footer className="d-flex align-items-center justify-content-between">
+              <div style={{ width: "30%" }}>
+                <h2 className="p-2 text-uppercase bg-primary">
+                  <strong data-test-id="total-price-orders">
+                    Total:
+                    {displayMoney(
+                      calculateTotal(
+                        frommagasins.map((product) => {
+                          return product.prixVente * product.quantityParProduct;
+                        })
+                      ) +
+                        calculateTotal(
+                          frommagasins.map((product) => {
+                            return product.prixParCC * product.qttByCC;
+                          })
+                        )
+                    )}
+                  </strong>
+                </h2>
+              </div>
+              <div style={{ width: "70%" }}>
+                {frommagasins.length > 0 && (
+                  <div className="d-flex text-right align-items-end justify-content-end">
+                    <button
+                      className="btn btn-green btn-sm mr-2"
+                      disabled={frommagasins.length === 0}
+                      onClick={onCheckOut}
+                      type="button"
+                    >
+                      Valider l'operation
+                    </button>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={onClearBasket}
+                      type="button"
+                    >
+                      <span>Annuler</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            </Card.Footer>
+          )}
+        </div>
       </Card>
     </>
   );

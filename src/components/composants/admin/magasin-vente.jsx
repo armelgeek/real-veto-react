@@ -2,38 +2,50 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Container } from 'react-bootstrap';
-import { action,getData } from "../../../utils/lib/call";
-import { getCommandeCVA } from '../../../store/actions/commandes';
+import { Container } from "react-bootstrap";
+import { action, getData } from "../../../utils/lib/call";
+import { getCommandeCVA } from "../../../store/actions/commandes";
 import { displayDate, displayMoney } from "../../../utils/functions";
-import Content from '../../../@adminlte/adminlte/Content/index';
-import ContentHeader from '../../../@adminlte/adminlte/Content/ContentHeader';
-import ActiveLink from '../../../@adminlte/adminlte/Content/ActiveLink';
-import Page from '../../../@adminlte/adminlte/Content/Page';
+import Content from "../../../@adminlte/adminlte/Content/index";
+import ContentHeader from "../../../@adminlte/adminlte/Content/ContentHeader";
+import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
+import Page from "../../../@adminlte/adminlte/Content/Page";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import moment from "moment";
+import DataTable from '../../../utils/admin/DataTable';
 
 export const MagasinVente = () => {
-  const [deb, setDeb] = useState(new Date());
-  const [fin, setFin] = useState(new Date());
+  var start = moment().isoWeekday(1).startOf("week");
+  var end = moment().endOf("week");
+  const [deb, setDeb] = useState(start);
+  const [fin, setFin] = useState(end);
   const refDateDeb = useRef(null);
   const refDateFin = useRef(null);
   const commandes = useSelector(getData("commandes").value);
+  const meta = useSelector(getData("commandes").meta);
+  const [dateRange, onChangeDateRange] = useState([start, end]);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(action("commandes").fetch());
-  }, []);
   useEffect(() => {
     dispatch(getCommandeCVA(deb, fin));
   }, [deb, fin]);
-  const getByDate = () => {
-    setDeb(refDateDeb.current.value);
-    setFin(refDateFin.current.value);
-  };
-
+  useEffect(() => {
+    if (dateRange !== null) {
+      if (dateRange[0]) {
+        setDeb(dateRange[0]);
+      }
+      if (dateRange[1]) {
+        setFin(dateRange[1]);
+      }
+    } else {
+      setDeb(start);
+      setFin(end);
+    }
+  }, [dateRange]);
   const calculateTotal = (arr) => {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
-      total += el.prixVente*1;
+      total += el.prixVente * 1;
     });
     return total;
   };
@@ -41,7 +53,7 @@ export const MagasinVente = () => {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
-      total += el.quantityParProduct*1;
+      total += el.quantityParProduct * 1;
     });
     return total;
   };
@@ -49,76 +61,118 @@ export const MagasinVente = () => {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
-      total += el.quantityCC *1;
+      total += el.quantityCC * 1;
     });
     return total;
   };
-
+  const getDataProduct = () => {
+    dispatch(getCommandeCVA(deb, fin));
+  };
+  
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Date",
+        Cell: (data) => {
+          return (
+            <>
+              <span >
+                {displayDate(data.row.original?.dateCom)}
+              </span>
+            </>
+          );
+        },
+      },
+      {
+        Header: "Quantité",
+        Cell: (data) => {
+          return (
+            <>
+              <span>
+                {quantiteBruteTotal(data.row.original?.contenu)}
+              </span>
+            </>
+          );
+        },
+        
+      },
+      {
+        Header: "Quantité en ML",
+        Cell: (data) => {
+          return (
+            <>
+              <span className="badge badge-primary">
+              {quantiteCCTotal(data.row.original?.contenu)}
+              </span>
+            </>
+          );
+        },
+      },
+      {
+        Header: "Total",
+        Cell: (data) => {
+          return <div>{displayMoney(calculateTotal(data.row.original?.contenu))}</div>;
+        },
+      },{
+        Header: "Actions",
+        Cell: (data) => {
+          return (
+            <Link
+              className="btn btn-sm  btn-green"
+              to={`/detail/${data.row.original?.id}`}
+            >
+            Détails
+            </Link>
+          );
+        },
+      },
+    ],
+    []
+  );
   return (
     <>
-    <Content>
-      <ContentHeader title="Historique de vente du magasin">
-        <ActiveLink title="Historique de vente du magasin"></ActiveLink>
-      </ContentHeader>
-      <Page>
-          <div className="row">
-            <div className="col-lg-8"></div>
+      <Content>
+        <ContentHeader title="Historique de vente du magasin">
+          <ActiveLink title="Historique de vente du magasin"></ActiveLink>
+        </ContentHeader>
+        <Page>
+          <div className="row my-2">
+            <div className="col-lg-8">
+              <div>
+                {deb && fin && (
+                  <>
+                    <h2>Historique de vente du magasin</h2>
+                    <span>
+                      Du: {displayDate(deb)} Au {displayDate(fin)}
+                    </span>
+                  </>
+                )}{" "}
+              </div>
+            </div>
             <div className="col-lg-4">
-              <div className="d-flex align-items-center mb-3">
-                <input
-                  type="date"
-                  name="datedeb"
-                  ref={refDateDeb}
-                  placeholder="date debut"
-                  className="form-control mr-2"
+              <div>
+                <DateRangePicker
+                  locale="fr-FR"
+                  onChange={onChangeDateRange}
+                  value={dateRange}
                 />
-                <input
-                  type="date"
-                  name="datefin"
-                  ref={refDateFin}
-                  placeholder="date fin"
-                  className="form-control mr-2"
-                />
-                <button className="btn btn-primary" onClick={getByDate}>
+                <button
+                  className="ml-3 btn btn-primary btn-sm"
+                  onClick={getDataProduct}
+                >
                   Filtrer
                 </button>
-              </div>{" "}
-            </div>{" "}
+              </div>
+            </div>
           </div>
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Quantite</th>
-                  <th>Quantite en ML</th>
-                  <th>Montant Total</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {commandes.map((p) => (
-                  <tr>
-                    <td>{displayDate(p?.dateCom)}</td>
-                    <td>{quantiteBruteTotal(p?.contenu)}</td>
-                    <td>{quantiteCCTotal(p?.contenu)}</td>
-                    <td>{displayMoney(calculateTotal(p?.contenu))}</td>
-                    <td >
-                      <Link
-                        className="btn btn-sm  btn-green"
-                        to={`/detail/${p.id}`}
-                      >
-                        Afficher le detail
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-      </Page>
-    </Content>
-      
+          <DataTable
+          filter={false}
+            data={commandes}
+            meta={meta}
+            columns={columns}
+          />
+        </Page>
+      </Content>
     </>
   );
 };

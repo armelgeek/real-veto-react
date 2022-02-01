@@ -27,8 +27,9 @@ export const AddEmprunter = ({ categories,meta }) => {
             })
           );
         }}
-      >
-        <Form.Element>
+        render={() =>(
+
+          <Form.Element>
           <Form.Field.Input
             name="nom"
             label="Nom du emprunter"
@@ -44,7 +45,9 @@ export const AddEmprunter = ({ categories,meta }) => {
             Ajouter
           </button>
         </Form.Element>
-      </Form>
+        )}
+
+      />
     </div>
   );
 };

@@ -60,7 +60,7 @@ export default (state = [], action) => {
       return state.map((product) => {
         if (product.id === action.payload.id) {
           product.qttyspecificmirror = Number(action.payload.value);
-          product.qttByCC = action.payload.value * 1 * 2;
+          product.qttByCC = action.payload.value * 1 / 2;
         }
         return product;
       });
@@ -69,7 +69,7 @@ export default (state = [], action) => {
       return state.map((product) => {
         if (product.id === action.payload.id) {
           product.qttyspecificmirror = Number(action.payload.value);
-          product.qttByCC = (action.payload.value * 1) / 2;
+          product.qttByCC = (action.payload.value * 1) * 2;
         }
         return product;
       });

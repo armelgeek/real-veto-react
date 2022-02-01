@@ -122,7 +122,8 @@ const Basket = () => {
             </>
           )}
           {basket.length <= 0 && (
-            <div class="alert alert-success ">Aucune commande!!!</div>
+            <div class="alert alert-success ">Choississez un produit sur la section "Produits" puis cliquez sur "Ajouter"</div>
+          
           )}
           {basket?.map((product, i) => (
             <BasketItem

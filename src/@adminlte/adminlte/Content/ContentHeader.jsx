@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { Link,history } from "react-router-dom";
 function ContentHeader({ children, title }) {
   return (
     <div>

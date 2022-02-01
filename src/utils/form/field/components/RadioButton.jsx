@@ -20,14 +20,14 @@ const RadioButton = forwardRef(
   ) => {
     const [radioValueData,setRadioValue]=useState(radioValue);
     const [value, setValue] = React.useState(`${radioValueData}`);
-    React.useEffect(()=>{
+    React.useLayoutEffect(()=>{
       changeValue(value);
       if(setData){
         setData(value);
         setRadioValue(value);
       }
     },[value])
-    React.useEffect(()=>{
+    React.useLayoutEffect(()=>{
       if(setRadio){
         setRadio(radioValueData);
       }

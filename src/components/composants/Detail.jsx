@@ -12,7 +12,7 @@ import ContentHeader from "../../@adminlte/adminlte/Content/ContentHeader";
 import Page from "../../@adminlte/adminlte/Content/Page";
 import NumberFormat from "react-number-format";
 import { withRouter } from "react-router-dom";
-import { displayMoney } from "../../utils/functions";
+import { displayDate, displayMoney } from "../../utils/functions";
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   let total = 0;
@@ -61,15 +61,14 @@ function Detail(props) {
         )}
         {commande.length > 0 && (
           <div className="d-flex justify-content-between">
-            <p>
-              Date : {commande[0]?.dateCom}
-              <span className="text-danger ml-3">{commande[0]?.type}</span>
+            <p className="text-uppercase">
+              Commande du : {displayDate(commande[0]?.dateCom)}
             </p>
             {/* <p className="btn btn-sm btn-green mt-4">payé</p>*/}
           </div>
         )}
-        <table className="table table-bordered">
-          <tr>
+        <table className="table table-bordered ">
+          <tr className="bg-thead">
             <td>Nom de l'article</td>
             <td>Quantité</td>
             <td>Sous total</td>
@@ -82,6 +81,7 @@ function Detail(props) {
                   {displayMoney(c.prixVente)}({"x"} {c.quantityParProduct}
                   )
                 </td>
+                
                 <td>
                   {displayMoney(c.prixVente * c.quantityParProduct)}
                 </td>
@@ -90,16 +90,9 @@ function Detail(props) {
         </table>
         <div className="d-flex justify-content-end">
           <strong>Total</strong>:
-          <NumberFormat
-            value={calculateTotal(commande[0]?.contenu)}
-            displayType={"text"}
-            thousandSeparator={true}
-            suffix={"Ar"}
-            renderText={(value, props) => <div {...props}>{value}</div>}
-          />
+          {displayMoney(calculateTotal(commande[0]?.contenu))}
         </div>
-
-        {commande[0]?.status == false && (
+        {/*{commande[0]?.status == false && (
           <button
             className="btn btn-sm btn-green"
             onClick={() => {
@@ -110,7 +103,7 @@ function Detail(props) {
           >
             Marquer comme payé
           </button>
-        )}
+        )}*/}
       </Page>
     </Content>
   );

@@ -27,8 +27,8 @@ export const AddVaccinateur = ({ categories,meta }) => {
             })
           );
         }}
-      >
-        <Form.Element>
+        render={() => (
+          <Form.Element>
           <Form.Field.Input
             name="nom"
             label="Nom du vaccinateur"
@@ -44,7 +44,9 @@ export const AddVaccinateur = ({ categories,meta }) => {
             Ajouter
           </button>
         </Form.Element>
-      </Form>
+        )}
+      />
+       
     </div>
   );
 };

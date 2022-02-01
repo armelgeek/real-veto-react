@@ -4,7 +4,7 @@ import NumberFormat from "react-number-format";
 import { useDispatch } from "react-redux";
 import { displayMoney } from "../../../utils/functions";
 import ApprovisionnementItemControl from "./ApprovisionnementItemControl";
-const ApprovisionnementItem = ({ product, isItemOnApprov,addToApprov }) => {
+const ApprovisionnementItem = ({ product, isItemOnApprov, addToApprov }) => {
   const dispatch = useDispatch();
   const handleAddToApprov = () => {
     if (addToApprov) addToApprov(product);
@@ -28,8 +28,20 @@ const ApprovisionnementItem = ({ product, isItemOnApprov,addToApprov }) => {
               <td>Montant HT:</td>
               <td>
                 {displayMoney(
-                  product.prixFournisseur * product.quantityParProduct
+                  product.prixFournisseur * product.quantityParProduct -
+                    product.remise
                 )}
+              </td>
+            </tr>
+            <tr>
+              <td>Remise en Ariary :{product.remise}</td>
+              <td>
+                {" "}
+                <input
+                  type="number"
+                  onChange={(e) => (product.remise = e.target.value)}
+                  className="form-control"
+                />
               </td>
             </tr>
           </table>
@@ -39,7 +51,10 @@ const ApprovisionnementItem = ({ product, isItemOnApprov,addToApprov }) => {
         </div>
         <div>
           {itemOnApprov && (
-            <button  onClick={handleAddToApprov} className="btn btn-danger btn-xs text-right">
+            <button
+              onClick={handleAddToApprov}
+              className="btn btn-danger btn-xs text-right"
+            >
               X
             </button>
           )}

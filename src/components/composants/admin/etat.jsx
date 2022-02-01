@@ -10,53 +10,57 @@ import { action, getData } from "../../../utils/lib/call";
 import NumberFormat from "react-number-format";
 import ReactToPrint from "react-to-print";
 import $ from "jquery";
-import { displayMoney } from '../../../utils/functions';
+import { displayMoney } from "../../../utils/functions";
+import DataTable from "../../../utils/admin/DataTable";
 //initialize datatable
 /*   $(document).ready(function () {
       $('table').DataTable();
   });*/
 export const EtatStockMagasin = () => {
   const products = useSelector(getData("products").value);
-  const ref = useRef();
+  const meta = useSelector(getData("products").meta);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(action("products").fetch());
   }, []);
-  const deleteProduct = (prod) => {
-    dispatch(action("products").destroy(prod));
-    dispatch(action("products").fetch());
-  };
+
+  const columns = React.useMemo(() => [
+    {
+      Header: "Nom de l'article",
+      accessor: "name",
+    },
+    {
+      Header: "Quantité",
+      accessor: "quantityBruteCVA",
+    },
+    {
+      Header: "Reste en ML",
+      accessor: "quantityCC",
+      Cell: (data) => {
+        return (
+          <div>
+            {data.row.original?.quantityCCCVA == null
+              ? 0
+              : data.row.original?.quantityCCCVA}
+          </div>
+        );
+      },
+    },
+  ]);
+
   return (
     <Content>
       <ContentHeader title="Etat de stock du Magasin">
         <ActiveLink title="Etat de stock du Magasin"></ActiveLink>
       </ContentHeader>
       <Page>
-       
-        <table class="table table-bordered mt-2" ref={ref}>
-          <thead>
-            <tr>
-              <th style={{ width: "10px" }}>#</th>
-              <th>Nom de l'article</th>
-              <th>Quantité</th>
-              <th>Reste en ML</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((p) => (
-              <tr>
-                <td>{p.id}</td>
-                
-                <td>{p.name} <span className="badge badge-primary">{p?.fournisseur?.name}</span></td>
-              
-                <td>{p?.quantityBruteCVA}</td>
-                <td>
-                  {p.quantityCCCVA ==null ? 0 : p.quantityCCCVA}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          data={products.sort(
+            (low, high) => high.quantityBruteCVA - low.quantityBruteCVA
+          )}
+          meta={meta}
+          columns={columns}
+        />
       </Page>
     </Content>
   );

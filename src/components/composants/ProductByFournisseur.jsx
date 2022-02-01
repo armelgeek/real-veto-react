@@ -7,6 +7,7 @@ import ActiveLink from "../../@adminlte/adminlte/Content/ActiveLink";
 import ContentHeader from "../../@adminlte/adminlte/Content/ContentHeader";
 import Page from "../../@adminlte/adminlte/Content/Page";
 import { Link } from "react-router-dom";
+import { displayMoney } from "../../utils/functions";
 function ProductByFournisseur() {
   const products = useSelector(getData("products").value);
 
@@ -55,7 +56,7 @@ function ProductByFournisseur() {
             {products.map((p) => (
               <tr>
                 <td>{p?.name}</td>
-                <td>{p?.prixVente}</td>
+                <td>{displayMoney(p?.prixFournisseur)}</td>
                 <td>{p?.fournisseur?.name}</td>
                 <td>
                 <Link

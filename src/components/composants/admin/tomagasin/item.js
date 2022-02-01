@@ -32,6 +32,7 @@ const ProductItem = ({ product }) => {
           className={`product-card m-2 ${!product.id ? "product-loading" : ""}`}
           style={{
             border: product && itemOnBasket ? "1px solid #a6a5a5" : "",
+            paddingTop:product && itemOnBasket ? "5px":"0px",
             boxShadow:
               product && itemOnBasket
                 ? "0 10px 15px rgba(0, 0, 0, .07)"
@@ -57,6 +58,7 @@ const ProductItem = ({ product }) => {
                 {!itemOnBasket ? "Ajouter" : "Retirer"}
               </button>
             )}
+           
           </Col>
         </Row>
       </ListGroup.Item>

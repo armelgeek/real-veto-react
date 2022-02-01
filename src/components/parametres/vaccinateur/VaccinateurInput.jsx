@@ -32,7 +32,7 @@ export const VaccinateurInput = ({ vaccinateur }) => {
             </button>
             </li>
         ) : (
-          <div className="bg-gray">
+          <div  className="p-3">
             <Form
             enableReinitialize
               id={`form-${vaccinateur.id}`}
@@ -53,39 +53,41 @@ export const VaccinateurInput = ({ vaccinateur }) => {
 
                 setToggleEdit(false);
               }}
-            >
-              <Form.Element>
-                <Form.Field.Input name="nom" label="Nom du vaccinateur" placeholder={"Nom du vaccinateur"} />
-                <Form.Field.Input name="contact" label="Contact du vaccinateur" placeholder={"Contact du vaccinateur"} />
+              render={() => (
+                <Form.Element>
+                  <Form.Field.Input name="nom" label="Nom du vaccinateur" placeholder={"Nom du vaccinateur"} />
+                  <Form.Field.Input name="contact" label="Contact du vaccinateur" placeholder={"Contact du vaccinateur"} />
 
-                <button className="btn btn-success btn-sm m-1" type="submit">
-                  Enregistrer
-                </button>
-                <button
-                  className="btn  btn-success btn-sm m-1"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (
-                      window.confirm(
-                        `Vous voulez vraiment supprimer la vaccinateur "${vaccinateur.name}" ?`
-                      )
-                    ) {
-                      deleteCateg(vaccinateur);
-                    }
-                  }}
-                >
-                  Supprimer
-                </button>
-                <button
-                  className="btn btn-success btn-sm m-1"
-                  onClick={() => {
-                    setToggleEdit(false);
-                  }}
-                >
-                  Annuler
-                </button>
-              </Form.Element>
-            </Form>
+                  <button className="btn btn-success btn-sm m-1" type="submit">
+                    Enregistrer
+                  </button>
+                  <button
+                    className="btn  btn-success btn-sm m-1"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (
+                        window.confirm(
+                          `Vous voulez vraiment supprimer la vaccinateur "${vaccinateur.name}" ?`
+                        )
+                      ) {
+                        deleteCateg(vaccinateur);
+                      }
+                    }}
+                  >
+                    Supprimer
+                  </button>
+                  <button
+                    className="btn btn-success btn-sm m-1"
+                    onClick={() => {
+                      setToggleEdit(false);
+                    }}
+                  >
+                    Annuler
+                  </button>
+                </Form.Element>
+                )}
+              />
+              
           </div>
         )}
       </div>

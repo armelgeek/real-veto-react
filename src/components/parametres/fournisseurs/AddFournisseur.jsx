@@ -24,8 +24,8 @@ export const AddFournisseur = ({fournisseurs,meta}) => {
                     }));
                 }
                 }
-            >
-                <Form.Element>
+                render={() => (
+                    <Form.Element>
                     <Form.Field.Input
                         name="nom"
                         placeholder={"Nom du fournisseur"}
@@ -34,7 +34,8 @@ export const AddFournisseur = ({fournisseurs,meta}) => {
                     <button className="btn btn-success  btn-sm " type="submit">Ajouter</button>
 
                 </Form.Element>
-            </Form>
+                )}
+            />
 
         </div>
     )

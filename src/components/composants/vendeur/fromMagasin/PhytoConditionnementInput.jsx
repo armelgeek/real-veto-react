@@ -36,6 +36,7 @@ export const PhytoConditionnementInput = ({ product }) => {
         bg={"whitesmoke"}
         onChange={(value) => {
           onAddQtyPortion(value);
+          
         }}
         min={0}
         defaultValue={0}

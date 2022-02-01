@@ -1,5 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
+import useDepotToMagasin from "../../../../hooks/useDepotToMagasin";
 import { displayMoney } from "../../../../utils/functions";
 import ToMagItemControl from './ToMagItemControl';
 const ToMagItem = ({ product }) => {
@@ -7,7 +8,18 @@ const ToMagItem = ({ product }) => {
   const onRemoveFromBasket = () =>{
      //dispatch(removeFromBasket(product.id))
     };
-
+    const tomagasin = useSelector((state) => state.tomagasins);
+    const { isItemOnDepotToMagasin, addToMagasin } = useDepotToMagasin(
+      tomagasin,
+      dispatch
+    );
+    const itemOnBasket = isItemOnDepotToMagasin
+      ? isItemOnDepotToMagasin(product.id)
+      : false;
+  
+    const handleAddToBasket = () => {
+      if (addToMagasin) addToMagasin(product);
+    };
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center border   mb-2 p-2">
@@ -22,6 +34,16 @@ const ToMagItem = ({ product }) => {
 
           <ToMagItemControl product={product} />
         </div>
+        <div>
+        {itemOnBasket && (
+          <button
+            onClick={handleAddToBasket}
+            className="btn btn-danger btn-xs text-right"
+          >
+            X
+          </button>
+        )}
+      </div>
       {/**  <div>
           <small>CC </small>
           <BasketItemPartial product={product} />

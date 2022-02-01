@@ -11,13 +11,26 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
-export const SovaxInputDose = ({ product }) => {
+export const SovaxInputDose = ({
+  product,
+  setRealQttCC,
+  setRealQtt,
+  realQtt,
+  realQttCC,
+}) => {
   const dispatch = useDispatch();
   const onAddQtyPortion = (value) => {
     dispatch(addQtyFromMagasinSovaxItem(product.id, value));
   };
+  const isEnough = () => {
+    return (
+      product.quantityCCCVA - product.qttByCC < 0 &&
+      product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
+    );
+  };
   return (
     <div className="basket-item-control">
+    {/**{product.quantityCCCVA - product.qttByCC}**/}
       <NumberInput
         inputMode={"numeric"}
         w={28}
@@ -25,14 +38,14 @@ export const SovaxInputDose = ({ product }) => {
         bg={"whitesmoke"}
         onChange={(value) => {
           onAddQtyPortion(value);
+          setRealQttCC(value);
+          if (isEnough()) {
+            alert("Le stock ne satisfait pas votre commande");
+          }
         }}
         min={0}
         defaultValue={0}
-        max={
-          product.quantityBruteCVA > 0
-            ? product.doseDefault
-            : product.quantityCCCVA
-        }
+        max={!isEnough() ? product.doseDefault/2 : product.quantityCCCVA / 2}
       >
         <NumberInputField />
         <NumberInputStepper>

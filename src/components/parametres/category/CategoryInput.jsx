@@ -28,7 +28,7 @@ export const CategoryInput = ({ category }) => {
             </button>
           </li>
         ) : (
-          <div className="bg-gray">
+          <div className="p-3">
             <Form
               enableReinitialize
               id={`form-${category.id}`}
@@ -48,8 +48,9 @@ export const CategoryInput = ({ category }) => {
 
                 setToggleEdit(false);
               }}
-            >
-              <Form.Element>
+              render={() =>(
+
+                <Form.Element>
                 <Form.Field.Input
                   name="nom"
                   label="Nom du categorie"
@@ -60,7 +61,7 @@ export const CategoryInput = ({ category }) => {
                   Enregistrer
                 </button>
                 <button
-                  className="btn  btn-success btn-sm m-1"
+                  className="btn  btn-danger btn-sm m-1"
                   onClick={(e) => {
                     e.preventDefault();
                     if (
@@ -75,7 +76,7 @@ export const CategoryInput = ({ category }) => {
                   Supprimer
                 </button>
                 <button
-                  className="btn btn-success btn-sm m-1"
+                  className="btn btn-info btn-sm m-1"
                   onClick={() => {
                     setToggleEdit(false);
                   }}
@@ -83,7 +84,8 @@ export const CategoryInput = ({ category }) => {
                   Annuler
                 </button>
               </Form.Element>
-            </Form>
+              )}
+            />
           </div>
         )}
       </div>

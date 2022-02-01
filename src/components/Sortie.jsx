@@ -25,7 +25,7 @@ function Sortie() {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
-      total += el.quantityParProduct;
+      total += el.quantityParProduct*1;
     });
     return total;
   };
@@ -33,7 +33,7 @@ function Sortie() {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
-      total += el.quantityCC;
+      total += el.quantityCC *1;
     });
     return total;
   };
@@ -86,8 +86,8 @@ function Sortie() {
               <tr>
                 <th>Date</th>
                 <th>Type de sortie</th>
-                <th>Quantite Brute</th>
-                <th>Quantite en CC</th>
+                <th>Quantite</th>
+                <th>Quantite en ML</th>
                 <th>Montant Total</th>
                 <th>Actions</th>
               </tr>
