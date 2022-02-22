@@ -64,7 +64,7 @@ export const HistoriqueVenteVendeur = () => {
   return (
     <>
       <div>
-        <div className="bg-gray text-white p-3 d-flex justify-content-center align-items-center">
+        <div className="bg-dark text-white p-3 d-flex justify-content-center align-items-center">
           <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
         </div>
         <div className="p-3">
@@ -109,12 +109,16 @@ export const HistoriqueVenteVendeur = () => {
               </thead>
               <tbody>
                 {commandes
-                  .sort((low, high) => high.id- low.id)
+                  .sort((low, high) => high.id - low.id)
                   .map((p, i) => (
                     <tr key={i}>
                       <td>{displayDate(p?.dateCom)}</td>
                       <td>{displayMoney(totalDevente(p?.contenu))}</td>
                       <td>
+                        {" "}
+                        <Link className="btn btn-sm  btn-warning mr-2" to={`/vendeur-commande/${p.id}`}>
+                          Editer
+                        </Link>
                         <Link
                           className="btn btn-sm  btn-green"
                           to={`/detailvendeur/${p.id}`}

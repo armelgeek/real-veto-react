@@ -7,9 +7,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 import { ROLE_ADMIN, ROLE_SEMI_ADMIN } from "../constants/roles";
+import useScrollTop from "../hooks/useScrollTop";
 
 const SemiAdminRoute = ({ isAuth, role, component: Component, ...rest }) => {
-  console.log(isAuth, role);
+  useScrollTop();
   return (
     <Route
       {...rest}

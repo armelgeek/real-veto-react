@@ -6,7 +6,10 @@ import ChakraAdmin from "../utils/admin/ChakraAdmin";
 import { ROLE_ADMIN, ROLE_VENDEUR } from "../constants/roles";
 import SideBarMenu from "../components/admin/SideBarMenu";
 import AdminLTE from "../@adminlte/AdminLTE";
-const AdminRoute = ({ isAuth, role, component: Component, ...rest }) => (
+import useScrollTop from "../hooks/useScrollTop";
+const AdminRoute = ({ isAuth, role, component: Component, ...rest }) => {
+  useScrollTop();
+  return (
   <Route
     {...rest}
     component={(props) =>
@@ -16,8 +19,8 @@ const AdminRoute = ({ isAuth, role, component: Component, ...rest }) => (
           </AdminLTE>
         </>
     }
-  />
-);
+  />)
+};
 
 const mapStateToProps = ({ auth }) => ({
   isAuth: auth?.isLoggedIn,

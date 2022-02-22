@@ -1,4 +1,6 @@
 import { combineReducers } from "redux";
+import { applyUndo } from "react-redux-undo";
+
 import productReducer from "./products";
 import userReducer from "./user";
 import commandeReducer from "./commandes";
@@ -15,21 +17,28 @@ import stockReducer from "./stock";
 import parametreReducer from "./parametres";
 import checkoutReducer from "../basket/reducers/checkout";
 import sortiedepotReducer from "./sortiedepot";
-export default combineReducers({
-  auth: userReducer,
-  products: productReducer,
-  categories: categoriesReducer,
-  fournisseurs: fournisseursReducer,
-  emprunters: emprunteurReducer,
-  vaccinateurs: vaccinateurReducer,
-  commandes: commandeReducer,
-  basket: basketReducer,
-  approvisionnements: approvisonnementReducer,
-  approvis: approvisReducer,
-  stock: stockReducer,
-  checkout: checkoutReducer,
-  parametres: parametreReducer,
-  tomagasins: toMagasinReducer,
-  frommagasins: fromMagasinReducer,
-  sortiedepots: sortiedepotReducer,
-});
+import fromdepotsReducer from "../fromdepot/reducers/fromdepot";
+import { countReducer } from "./undoTest";
+
+export default applyUndo(
+  combineReducers({
+    count: countReducer,
+    auth: userReducer,
+    products: productReducer,
+    categories: categoriesReducer,
+    fournisseurs: fournisseursReducer,
+    emprunters: emprunteurReducer,
+    vaccinateurs: vaccinateurReducer,
+    commandes: commandeReducer,
+    basket: basketReducer,
+    approvisionnements: approvisonnementReducer,
+    approvis: approvisReducer,
+    fromdepots: fromdepotsReducer,
+    stock: stockReducer,
+    checkout: checkoutReducer,
+    parametres: parametreReducer,
+    tomagasins: toMagasinReducer,
+    frommagasins: fromMagasinReducer,
+    sortiedepots: sortiedepotReducer,
+  })
+);

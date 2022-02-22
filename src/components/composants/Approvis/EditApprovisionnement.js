@@ -15,6 +15,7 @@ import { omit } from "../../../utils/functions";
 import { LISTAPPROV } from "../../../constants/routes";
 import { handleSoldProduct } from "../../../store/functions/function";
 import useApprov from "../../../hooks/useApprov";
+import { arrayMissing } from "../../../utils/array";
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
 
@@ -30,17 +31,203 @@ const calculeTotalAvecRemise = (arr, remise) => {
   return calculateTotal(arr) - remiseEnAriary(arr, remise);
 };
 
-const EditApprovisionnement = ({ state, meta, setState, approv }) => {
-  const [remise, setRemise] = useState(0);
+const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
+  const [remise, setRemise] = useState(approv?.remise);
   const [dateEcheance, setDateEcheance] = useState(approv?.dateEcheance);
   const [dateApprovis, setDateApprovis] = useState(approv?.dateApprov);
+  const [realContent, setRealContent] = useState(approv?.contenu);
   const [remarque, setRemarque] = useState(approv?.remarque);
+  const [is, setIs] = useState("");
   const [typePaye, setTypePaye] = useState(approv?.typePaye);
   const dispatch = useDispatch();
   const history = useHistory();
-  const onCheckOut = () => {
-    console.log("hello");
+  const updateQtt = (is, element, last, qtt) => {
+    let obj = { ...element };
+    return qtt;
   };
+  function copy(object) {
+    var output, value, key;
+    output = Array.isArray(object) ? [] : {};
+    for (key in object) {
+      value = object[key];
+      output[key] = typeof value === "object" ? copy(value) : value;
+    }
+    return output;
+  }
+
+  function inArray(value, values) {
+    for (var i = 0; i < values.length; i++) {
+      if (value === values[i]) return true;
+    }
+    return false;
+  }
+
+  function isInArray(value, array) {
+    return array.find((a) => value.id === a.id);
+  }
+
+  
+  const getContenu = () => {
+    // console.log(missing);
+    const missing = copy(realContent).filter(
+      (e) => !state.find((a) => e.id === a.id)
+    );
+    /* missing.forEach((element) => {
+
+      action("products").update({
+        id: element.id,
+        quantityBrute: element.quantityBrute - element.quantityParProduct,
+        quantityParProduct: 0,
+      });
+    });*/
+    const added = state.filter(
+      (e) => !copy(realContent).find((a) => e.id === a.id)
+    );
+
+    const exist = state.map((element) => {
+      let commandeLast = copy(realContent).find((p) => p.id === element.id);
+
+      if (commandeLast != null || commandeLast != undefined) {
+        // if(element.quantityParProduct){}
+        let qtt = 0;
+        if (
+          element.quantityParProduct * 1 >
+          commandeLast.quantityParProduct * 1
+        ) {
+          qtt =
+            element.quantityParProduct * 1 -
+            commandeLast.quantityParProduct * 1;
+          element.quantityBrute = commandeLast.quantityBrute + qtt;
+        }
+        if (
+          commandeLast.quantityParProduct * 1 >
+          element.quantityParProduct * 1
+        ) {
+          qtt =
+            commandeLast.quantityParProduct * 1 -
+            element.quantityParProduct * 1;
+          element.quantityBrute = commandeLast.quantityBrute - qtt;
+        }
+        if (
+          element.quantityParProduct * 1 ==
+          commandeLast.quantityParProduct * 1
+        ) {
+          element.quantityBrute = commandeLast.quantityBrute;
+        }
+        return element;
+      } else {
+        return null;
+      }
+    });
+    return {
+      exist: exist.filter((e) => e != null),
+      added,
+      missing,
+    };
+  };
+
+
+  const onCheckOut = () => {
+    const { exist, added, missing } = getContenu();
+
+    dispatch(
+      action("approvis").update({
+        id: approv?.id,
+        contenu: exist,
+        totalht: calculateTotal(
+          state.map(
+            (product) => product.prixFournisseur * product.quantityParProduct
+          )
+        ),
+        remise: remise,
+        total: calculeTotalAvecRemise(
+          state.map(
+            (product) => product.prixFournisseur * product.quantityParProduct
+          ),
+          remise
+        ),
+        dateApprov: dateApprovis,
+        dateEcheance: dateEcheance,
+        remarque: remarque,
+        typePaye: typePaye,
+      })
+    );
+    copy(state).forEach((element) => {
+      if (!isInArray(element, added)) {
+        console.log("exist ----", element);
+        const actualProduct = products.find((p) => p.id == element.id);
+        const approvLast = copy(realContent).find((p) => p.id == element.id);
+        let qtt = 0;
+        if (
+          element.quantityParProduct * 1 >
+          approvLast?.quantityParProduct * 1
+        ) {
+          qtt =
+            element.quantityParProduct * 1 - approvLast?.quantityParProduct * 1;
+          element.quantityBrute = copy(actualProduct).quantityBrute + qtt;
+          console.log(
+            "+ plus",
+            element.quantityParProduct * 1 - approvLast?.quantityParProduct * 1
+          );
+        }
+        if (
+          approvLast?.quantityParProduct * 1 >
+          element.quantityParProduct * 1
+        ) {
+          qtt =
+            approvLast?.quantityParProduct * 1 - element.quantityParProduct * 1;
+          element.quantityBrute = copy(actualProduct).quantityBrute - qtt;
+          console.log(
+            "-moins",
+            approvLast?.quantityParProduct * 1 - element.quantityParProduct * 1
+          );
+        }
+        if (
+          element.quantityParProduct * 1 ==
+          approvLast?.quantityParProduct * 1
+        ) {
+          element.quantityBrute = copy(actualProduct).quantityBrute;
+        }
+
+        //  console.log(element.name, updateQtt(is, element, approvLast, qtt));
+        //console.log(element.name, element.quantityBrute);
+        dispatch(
+          action("products").update({
+            id: element.id,
+            quantityBrute: element.quantityBrute,
+            quantityParProduct: 0,
+          })
+        );
+      } else {
+        console.log("added---" + JSON.stringify(element));
+
+        dispatch(
+          action("products").update({
+            id: element.id,
+            quantityBrute:
+              element.quantityBrute + element.quantityParProduct * 1,
+            quantityParProduct: 0,
+          })
+        );
+      }
+    });
+    if (missing.length > 0) {
+      console.log("misssing", missing);
+      missing.map((e) => {
+        const actualp = products.find((p) => p.id == e.id);
+        console.log(actualp);
+        dispatch(
+          action("products").update({
+            id: e.id,
+            quantityBrute: actualp.quantityBrute - e.quantityParProduct * 1,
+            quantityParProduct: 0,
+          })
+        );
+      });
+    }
+    history.push(LISTAPPROV);
+  };
+
   const onClearApprov = () => {
     console.log("hiii");
   };
@@ -85,7 +272,9 @@ const EditApprovisionnement = ({ state, meta, setState, approv }) => {
           {!meta.isFetching && state?.length <= 0 && (
             <>
               {" "}
-              <div class="alert alert-success ">Aucune produit !!!</div>
+              <div class="alert alert-success ">
+                Aucune enregistrement trouvé !!!
+              </div>
             </>
           )}
           {!meta.isFetching && state?.length <= 0 && (
@@ -171,7 +360,9 @@ const EditApprovisionnement = ({ state, meta, setState, approv }) => {
                           setRemarque(e.target.value);
                         }}
                         placeholder="Ecriver ici quelque chose d'autre à savoir sur l'approvisionnement"
-                      ></textarea>
+                      >
+                        {remarque}
+                      </textarea>
                     </td>
                   </tr>
                 </table>
@@ -256,7 +447,6 @@ const EditApprovisionnement = ({ state, meta, setState, approv }) => {
               <div className="d-flex justify-content-end">
                 <button
                   className="btn btn-green btn-sm mr-2"
-                  disabled={state?.length === 0}
                   onClick={onCheckOut}
                   type="button"
                 >

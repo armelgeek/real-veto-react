@@ -131,7 +131,6 @@ function Edit() {
                       Information générale
                     </div>
                     <div className="card-body">
-                  {JSON.stringify(values)}
                       <Form.Field.Select
                         name="categoryId"
                         label="Categorie"

@@ -22,7 +22,15 @@ const calculateTotal = (arr) => {
 const remiseEnAriary = (arr, remise) => {
   return (calculateTotal(arr) * remise) / 100;
 };
-
+function copy(object) {
+  var output, value, key;
+  output = Array.isArray(object) ? [] : {};
+  for (key in object) {
+      value = object[key];
+      output[key] = (typeof value === "object") ? copy(value) : value;
+  }
+  return output;
+}
 const calculeTotalAvecRemise = (arr, remise) => {
   return calculateTotal(arr) - remiseEnAriary(arr, remise);
 };
@@ -46,11 +54,17 @@ const Approvisionnement = ({ setRegenerate }) => {
     approvisionnements,
     dispatch
   );
+  const getContenu = (approvis) => {
+    return copy(approvis).map((element) => {
+      element.quantityBrute += element.quantityParProduct;
+      return element;
+    })
+  };
   const onCheckOut = () => {
     dispatch(
       action("approvis").create({
         id: Number(meta.nextId),
-        contenu: approvisionnements,
+        contenu: getContenu(approvisionnements),
         totalht: calculateTotal(
           approvisionnements.map(
             (product) => product.prixFournisseur * product.quantityParProduct
@@ -70,10 +84,13 @@ const Approvisionnement = ({ setRegenerate }) => {
       })
     );
     approvisionnements.forEach((element) => {
-      element.quantityBrute += element.quantityParProduct;
-
-      element.quantityParProduct = 0;
-      dispatch(action("products").update(element));
+      dispatch(
+        action("products").update({
+          ...element,
+          quantityBrute: element.quantityBrute + element.quantityParProduct,
+          quantityParProduct: 0,
+        })
+      );
     });
     dispatch(clearApprov());
     setRegenerate(true);

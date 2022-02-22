@@ -17,7 +17,7 @@ const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   let total = 0;
   arr.forEach((el) => {
-    total += el.prixVente * el.quantityParProduct;
+    total += el.prixVente * el.quantityParProduct*1;
   });
   return total;
 };

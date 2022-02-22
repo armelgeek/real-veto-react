@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from "redux-thunk";
 import routeReducer from './reducers/index';
+import { undoMiddeware } from "react-redux-undo";
 
 const bindMiddleware = (middleware) => {
   if (process.env.NODE_ENV !== "production") {

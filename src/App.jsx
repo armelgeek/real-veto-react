@@ -8,6 +8,7 @@ import ContentHeader from "./@adminlte/adminlte/Content/ContentHeader";
 import ActiveLink from "./@adminlte/adminlte/Content/ActiveLink";
 import Content from "./@adminlte/adminlte/Content";
 import Page from "./@adminlte/adminlte/Content/Page";
+import { ActionCreators} from "react-redux-undo";
 
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { displayDate } from "./utils/functions";
@@ -21,6 +22,7 @@ import flatify from "./filters/flatify";
 import { vetoProducts } from "./data/product";
 import { action, getData } from "./utils/lib/call";
 import { getCommande } from "./store/actions/commandes";
+
 function App() {
   var start = moment().isoWeekday(1).startOf("week");
   var end = moment().endOf("week");
@@ -134,6 +136,11 @@ function App() {
   const getDataa = () => {
     dispatch(getCommande(startofDate, endDate));
   };
+  const functtt=()=>{
+   /* if (data.some(o => o.name == toPush.name)) {
+  data.find(o => o.name == toPush.name).quantity = toPush.quantity;
+}*/
+  }
   return (
     <>
       <Content>

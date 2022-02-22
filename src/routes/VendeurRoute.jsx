@@ -3,10 +3,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 import { ROLE_ADMIN, ROLE_VENDEUR } from "../constants/roles";
-const VendeurRoute = ({ isAuth, role, component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    component={(props) =>
+import useScrollTop from "../hooks/useScrollTop";
+const VendeurRoute = ({ isAuth, role, component: Component, ...rest }) => {
+  useScrollTop();
+  return (
+    <Route
+      {...rest}
+      component={(props) => (
         <>
           <div className="">
             <div>
@@ -14,9 +17,10 @@ const VendeurRoute = ({ isAuth, role, component: Component, ...rest }) => (
             </div>
           </div>
         </>
-    }
-  />
-);
+      )}
+    />
+  );
+};
 
 const mapStateToProps = ({ auth }) => ({
   isAuth: auth?.isLoggedIn,

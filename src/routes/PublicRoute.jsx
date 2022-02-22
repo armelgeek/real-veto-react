@@ -6,7 +6,10 @@ import { Redirect, Route } from "react-router-dom";
 import { ROLE_VENDEUR } from "../constants/roles";
 import { SIGNIN, SIGNUP } from "../constants/routes";
 import AdminLTE from "../@adminlte/AdminLTE";
-const PublicRoute = ({ isAuth, role, component: Component, path, ...rest }) => (
+import useScrollTop from '../hooks/useScrollTop';
+const PublicRoute = ({ isAuth, role, component: Component, path, ...rest }) => {
+  useScrollTop();
+  return (
   <Route
     {...rest}
     // eslint-disable-next-line consistent-return
@@ -38,7 +41,7 @@ const PublicRoute = ({ isAuth, role, component: Component, path, ...rest }) => (
       );
     }}
   />
-);
+)};
 
 PublicRoute.defaultProps = {
   isAuth: false,

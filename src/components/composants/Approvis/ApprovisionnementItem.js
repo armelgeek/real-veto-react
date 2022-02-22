@@ -33,7 +33,7 @@ const ApprovisionnementItem = ({ product, isItemOnApprov, addToApprov }) => {
                 )}
               </td>
             </tr>
-            <tr>
+            {/**<tr>
               <td>Remise en Ariary :{product.remise}</td>
               <td>
                 {" "}
@@ -43,7 +43,7 @@ const ApprovisionnementItem = ({ product, isItemOnApprov, addToApprov }) => {
                   className="form-control"
                 />
               </td>
-            </tr>
+            </tr>**/}
           </table>
         </div>
         <div className="d-flex mt-3">

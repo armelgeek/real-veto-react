@@ -21,7 +21,7 @@ const ApprovisionnementEditItemControl = ({
   const dispatch = useDispatch();
   const updateObjectValue = (index, key, value) => {
     let temp_state = [...state];
-    temp_state[index] = { ...temp_state[index], [key]: [value] };
+    temp_state[index] = { ...temp_state[index], [key]: value };
     setState(temp_state);
   };
   const onAddQty = () => {

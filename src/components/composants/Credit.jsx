@@ -31,7 +31,7 @@ function Credit(props) {
       </ContentHeader>
       <Page>
         <table className="table table-bordered -striped">
-          <thead>
+          <thead className="bg-thead">
             <tr>
               <th>Nom de la personne</th>
               <th >Contact</th>
@@ -57,6 +57,7 @@ function Credit(props) {
                 </td>
               </tr>
             ))}
+            {commandes.length==0 && <tr className="text-center"><td colSpan={8}>Aucune enregistrement trouvé</td></tr>}
           </tbody>
         </table>
       </Page>

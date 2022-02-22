@@ -89,6 +89,7 @@ function Create() {
                 qttccpvente,
                 conditionnement,
                 prixqttccvente,
+                condsize
               } = values;
               dispatch(
                 action("products").create({
@@ -133,7 +134,7 @@ function Create() {
                         <Form.Field.Select
                           name="categoryId"
                           label="Categorie"
-                          emptyValue={false}
+                          emptyValue={true}
                           valueKey="name"
                           defaultValue={1}
                           options={categories}
@@ -141,7 +142,7 @@ function Create() {
                         <Form.Field.Select
                           name="fournisseurId"
                           label="Fournisseur"
-                          emptyValue={false}
+                          emptyValue={true}
                           valueKey="name"
                           options={fournisseurs}
                         />

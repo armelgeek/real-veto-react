@@ -136,6 +136,7 @@ class AdminLTE extends Component {
               overflowY: "auto",
             }}
           >
+          
             {children}
           </div>
         </div>

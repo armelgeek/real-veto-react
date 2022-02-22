@@ -20,6 +20,7 @@ import { displayMoney } from "../../../utils/functions";
 import Nav from "../../../utils/admin/Nav";
 import Guide from "./Guide";
 import { CrudAction } from "../../../utils/admin/Resource/CrudAction";
+import { ActionCreators } from 'react-redux-undo';
 //initialize datatable
 /*   $(document).ready(function () {
       $('table').DataTable();
@@ -118,6 +119,7 @@ export const ProductAll = () => {
         <ActiveLink title="Tous les produits"></ActiveLink>
       </ContentHeader>
       <Page>
+      <button onClick={() => dispatch(ActionCreators.undo())}>UNDO</button>
         <DataTable
           data={products}
           meta={meta}

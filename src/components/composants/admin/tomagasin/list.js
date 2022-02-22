@@ -29,7 +29,7 @@ export const HistoriqueSortieCva = () => {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
-      total += el.prixVente;
+      total += el.prixVente * el.quantityParProduct;
     });
     return total;
   };
@@ -81,7 +81,7 @@ export const HistoriqueSortieCva = () => {
         </div>
         <div className="table-responsive">
           <table className="table">
-            <thead>
+            <thead className="bg-thead">
               <tr>
                 <th>Date</th>
                 <th>Montant Total</th>
@@ -95,6 +95,12 @@ export const HistoriqueSortieCva = () => {
                   <td>{displayMoney(calculateTotal(p?.contenu))}</td>
                   <td>
                     <Link
+                      className="btn btn-sm  btn-warning mr-2"
+                      to={`/depot/to/magasin/edit/${p.id}`}
+                    >
+                    Editer
+                    </Link>
+                    <Link
                       className="btn btn-sm  btn-green"
                       to={`/detail/${p.id}`}
                     >
@@ -103,6 +109,9 @@ export const HistoriqueSortieCva = () => {
                   </td>
                 </tr>
               ))}
+              {commandes.length==0 && (
+                <tr className="text-center"><td colSpan={8}>Aucune enregistrement trouvé</td></tr>
+              )}
             </tbody>
           </table>
         </div>
