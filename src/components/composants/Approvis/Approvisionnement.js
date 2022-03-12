@@ -26,8 +26,8 @@ function copy(object) {
   var output, value, key;
   output = Array.isArray(object) ? [] : {};
   for (key in object) {
-      value = object[key];
-      output[key] = (typeof value === "object") ? copy(value) : value;
+    value = object[key];
+    output[key] = typeof value === "object" ? copy(value) : value;
   }
   return output;
 }
@@ -58,32 +58,38 @@ const Approvisionnement = ({ setRegenerate }) => {
     return copy(approvis).map((element) => {
       element.quantityBrute += element.quantityParProduct;
       return element;
-    })
+    });
   };
+
   const onCheckOut = () => {
     dispatch(
-      action("approvis").create({
-        id: Number(meta.nextId),
-        contenu: getContenu(approvisionnements),
-        totalht: calculateTotal(
-          approvisionnements.map(
-            (product) => product.prixFournisseur * product.quantityParProduct
-          )
-        ),
-        remise: remise,
-        total: calculeTotalAvecRemise(
-          approvisionnements.map(
-            (product) => product.prixFournisseur * product.quantityParProduct
+      action("approvis").createTransaction(
+        {
+          id: Number(meta.nextId),
+          contenu: getContenu(approvisionnements),
+          totalht: calculateTotal(
+            approvisionnements.map(
+              (product) => product.prixFournisseur * product.quantityParProduct
+            )
           ),
-          remise
-        ),
-        dateApprov: dateApprovis == null ? new Date() : dateApprovis,
-        dateEcheance: dateEcheance,
-        remarque: remarque,
-        typePaye: typePaye,
-      })
+          remise: remise,
+          total: calculeTotalAvecRemise(
+            approvisionnements.map(
+              (product) => product.prixFournisseur * product.quantityParProduct
+            ),
+            remise
+          ),
+          dateApprov: dateApprovis == null ? new Date() : dateApprovis,
+          dateEcheance: dateEcheance,
+          remarque: remarque,
+          typePaye: typePaye,
+          approvisionnements: approvisionnements,
+        },
+        "create-facture"
+      )
     );
-    approvisionnements.forEach((element) => {
+    {
+      /*approvisionnements.forEach((element) => {
       dispatch(
         action("products").update({
           ...element,
@@ -91,10 +97,11 @@ const Approvisionnement = ({ setRegenerate }) => {
           quantityParProduct: 0,
         })
       );
-    });
+    });*/
+    }
     dispatch(clearApprov());
     setRegenerate(true);
-    history.push(LISTAPPROV);
+   history.push(LISTAPPROV);
     console.log(approvisionnements);
   };
 

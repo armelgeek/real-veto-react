@@ -119,7 +119,6 @@ export const ProductAll = () => {
         <ActiveLink title="Tous les produits"></ActiveLink>
       </ContentHeader>
       <Page>
-      <button onClick={() => dispatch(ActionCreators.undo())}>UNDO</button>
         <DataTable
           data={products}
           meta={meta}

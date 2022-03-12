@@ -66,7 +66,6 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
     return array.find((a) => value.id === a.id);
   }
 
-  
   const getContenu = () => {
     // console.log(missing);
     const missing = copy(realContent).filter(
@@ -115,9 +114,8 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
           element.quantityBrute = commandeLast.quantityBrute;
         }
         return element;
-      } else {
-        return null;
-      }
+      } 
+      
     });
     return {
       exist: exist.filter((e) => e != null),
@@ -126,33 +124,39 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
     };
   };
 
-
   const onCheckOut = () => {
     const { exist, added, missing } = getContenu();
 
     dispatch(
-      action("approvis").update({
-        id: approv?.id,
-        contenu: exist,
-        totalht: calculateTotal(
-          state.map(
-            (product) => product.prixFournisseur * product.quantityParProduct
-          )
-        ),
-        remise: remise,
-        total: calculeTotalAvecRemise(
-          state.map(
-            (product) => product.prixFournisseur * product.quantityParProduct
+      action("approvis").updateTransaction(
+        {
+          id: approv?.id,
+          contenu: state,
+          totalht: calculateTotal(
+            state.map(
+              (product) => product.prixFournisseur * product.quantityParProduct
+            )
           ),
-          remise
-        ),
-        dateApprov: dateApprovis,
-        dateEcheance: dateEcheance,
-        remarque: remarque,
-        typePaye: typePaye,
-      })
+          remise: remise,
+          total: calculeTotalAvecRemise(
+            state.map(
+              (product) => product.prixFournisseur * product.quantityParProduct
+            ),
+            remise
+          ),
+          dateApprov: dateApprovis,
+          dateEcheance: dateEcheance,
+          remarque: remarque,
+          typePaye: typePaye,
+          exist: exist,
+          missing: missing,
+          added: added,
+        },
+        "update-facture"
+      )
     );
-    copy(state).forEach((element) => {
+    {
+      /*copy(state).forEach((element) => {
       if (!isInArray(element, added)) {
         console.log("exist ----", element);
         const actualProduct = products.find((p) => p.id == element.id);
@@ -224,8 +228,9 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
           })
         );
       });
+    }*/
     }
-    history.push(LISTAPPROV);
+    //history.push(LISTAPPROV);
   };
 
   const onClearApprov = () => {

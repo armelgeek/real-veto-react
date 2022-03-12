@@ -11,7 +11,7 @@ import {
   handleSoldQuantityCCDepot,
 } from "../../store/functions/function-depot";
 import { clearFromDepot } from "../../store/fromdepot/actions/fromdepot";
-import { SORTIE } from '../../constants/routes';
+import { SORTIE } from "../../constants/routes";
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   const total = arr.reduce((acc, val) => acc + val, 0);
@@ -41,16 +41,15 @@ const FromDepot = ({ setRegenerate }) => {
 
   const onCheckOut = () => {
     fromdepots.forEach((element) => {
-
       delete element.busy;
       delete element.pendingCreate;
       handleMinusProductDepot(element);
       if (element.condmldepot != 0 && element.qttccpventedepot != 0) {
         handlePhtyoSpecificDepot(element);
-     } else {
+      } else {
         handleSoldQuantityCCDepot(element);
       }
-     console.log(element)
+      console.log(element);
     });
     //console.log(fromdepots);
     dispatch(
@@ -94,11 +93,8 @@ const FromDepot = ({ setRegenerate }) => {
     <>
       <Card>
         <Card.Header className=" bg-dark py-2 text-white d-flex justify-content-between align-items-center">
-          <div style={{ width: "60%" }}>
-            BON DE SORTIE {type.toUpperCase()}
-            
-          </div>
-          <div style={{ width: "30%" }} className="text-right">
+          <div style={{ width: "60%" }}>BON DE SORTIE </div>
+          {/**{type.toUpperCase()} <div style={{ width: "30%" }} className="text-right">
             <select
               className="form-control input-sm"
               onChange={(e) => {
@@ -110,17 +106,12 @@ const FromDepot = ({ setRegenerate }) => {
               </option>
               <option value="vente-depot-credit">Credit</option>
             </select>
-          </div>
+          </div> */}
         </Card.Header>
         <div className="commande-vente">
           <Card.Body
             style={{ padding: 12, marginTop: 3, marginRight: 2, marginLeft: 2 }}
           >
-            <div className="d-flex justify-content-end">
-              <button className="btn btn-primary btn-sm">
-                Historique de vente
-              </button>
-            </div>
             <div
               style={{
                 overflowY: "auto",

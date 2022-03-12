@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { displayMoney, checkHasExistText } from "../../../../utils/functions";
-import EditFromDepotItemControl from "./EditToMagItemControl";
+import EditFromDepotItemControl from "./EditFromMagasinItemControl";
 const EditItem = ({ state, index, setState, product }) => {
   const [realQttCC, setRealQttCC] = useState(null);
   const [realQtt, setRealQtt] = useState(null);

@@ -17,6 +17,7 @@ const DetailApprov = () => {
   React.useEffect(() => {
     dispatch(action("approvis").get(id));
   }, [id]);
+  console.log(approv);
   return (
     <Content>
       <ContentHeader title="Détail d'approv.">

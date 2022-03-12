@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import React,{ useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import moment from "moment";
 import Notification from "./components/Notification";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,7 +8,7 @@ import ContentHeader from "./@adminlte/adminlte/Content/ContentHeader";
 import ActiveLink from "./@adminlte/adminlte/Content/ActiveLink";
 import Content from "./@adminlte/adminlte/Content";
 import Page from "./@adminlte/adminlte/Content/Page";
-import { ActionCreators} from "react-redux-undo";
+import { ActionCreators } from "react-redux-undo";
 
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { displayDate } from "./utils/functions";
@@ -22,7 +22,23 @@ import flatify from "./filters/flatify";
 import { vetoProducts } from "./data/product";
 import { action, getData } from "./utils/lib/call";
 import { getCommande } from "./store/actions/commandes";
-
+import { NoItems } from "./components/composants/journal/NoItems";
+export const groupBy = (array, key, subkey) => {
+  return array.reduce((result, currentValue) => {
+    if (!subkey) {
+      (result[currentValue[key]] = result[currentValue[key]] || []).push(
+        currentValue
+      );
+    } else {
+      (result[currentValue[key][subkey]] =
+        result[currentValue[key][subkey]] || []).push(currentValue);
+    }
+    return result;
+  }, {});
+};
+function last(array) {
+  return array[array.length - 1];
+}
 function App() {
   var start = moment().isoWeekday(1).startOf("week");
   var end = moment().endOf("week");
@@ -76,22 +92,18 @@ function App() {
       setRangeMonth(
         getAllMonthBetweenDates(moment(startofDate), moment(endDate))
       );
+      dispatch(getCommande(startofDate, endDate));
     }
   }, [startofDate, endDate]);
   useEffect(() => {
     if (!meta.isFetching) {
-      (element) => ({
-        ...element,
-        b: 'qux'
-      })
-      
       setByDateProduct(
         getByRangeDate(commandes, "dateCom", startofDate, endDate)
       );
     }
   }, [meta]);
   let rs = flatify(byDateProduct, "contenu");
-  let resultat = rs
+  let res = rs
     .reduce(
       (
         r,
@@ -101,9 +113,9 @@ function App() {
           type,
           category,
           fournisseur,
-          publish,
-          shared,
           quantityParProduct,
+          quantityBruteCVA,
+          quantityCCCVA,
           qttByCC,
         }
       ) => {
@@ -114,17 +126,18 @@ function App() {
             name,
             type,
             category,
-            publish,
-            shared,
             fournisseur,
+            quantityBruteCVA,
+            quantityCCCVA,
             quantityParProduct,
-            qttByCC
+            qttByCC,
           });
         } else {
-          temp.quantityParProduct =
-            parseInt(temp.quantityParProduct) + parseInt(quantityParProduct);
+          console.log(temp);
+          (temp.quantityBruteCVA = 10),
+            (temp.quantityParProduct =
+              parseInt(temp.quantityParProduct) + parseInt(quantityParProduct));
           temp.qttByCC = parseInt(temp.qttByCC) + parseInt(qttByCC);
-  
         }
         return r;
       },
@@ -136,11 +149,16 @@ function App() {
   const getDataa = () => {
     dispatch(getCommande(startofDate, endDate));
   };
-  const functtt=()=>{
-   /* if (data.some(o => o.name == toPush.name)) {
+  const functtt = () => {
+    /* if (data.some(o => o.name == toPush.name)) {
   data.find(o => o.name == toPush.name).quantity = toPush.quantity;
 }*/
-  }
+  };
+  const flato = (data, attribute) => {
+    return [...new Set([].concat(...data.map((o) => o[attribute])))];
+  };
+
+  const groupedBasket = groupBy(byDateProduct, "dateCom");
   return (
     <>
       <Content>
@@ -149,6 +167,108 @@ function App() {
         </ContentHeader>
         <Page>
           <div className="date-range">
+            <div className="d-flex justify-content-between my-3">
+              <div>
+                {startofDate && endDate && (
+                  <>
+                    <h2>Journal de vente </h2>
+                    <span>
+                      Du: {displayDate(startofDate)} Au {displayDate(endDate)}
+                    </span>
+                  </>
+                )}{" "}
+              </div>
+              <div>
+                <DateRangePicker
+                  locale="fr-FR"
+                  onChange={onChangeDateRange}
+                  value={dateRange}
+                />
+                <button
+                  className="ml-3 btn btn-primary btn-sm"
+                  onClick={getDataa}
+                >
+                  Filtrer
+                </button>
+              </div>
+            </div>
+            <div className="table-responsive">
+              <table class="table">
+                <tr className="sticky-this">
+                  <td>Produit</td>
+                  <td style={{ width: "10%" }}></td>
+                  {rangeDate.map((r) => (
+                    <>
+                      <DateInterval date={r} />
+                    </>
+                  ))}
+                  {/**<td className="bg-green text-center">INV</td>
+                  <td className="bg-info text-center">INV CC</td>**/}
+                </tr>
+                {res.map((b) => (
+                  <>
+                    <tr>
+                      <td className="bg-gray">{b.name}</td>
+
+                      <td className="text-center">
+                        <tr>Stock</tr>
+                        <tr>Vente</tr>
+                      </td>
+                      {rangeDate.map((r) => (
+                        <>
+                          {groupedBasket[r] != undefined ? (
+                            <Items
+                              flat={flato(groupedBasket[r], "contenu")}
+                              gr={r}
+                              id={b.id}
+                            />
+                          ) : (
+                            <NoItems />
+                          )}
+                        </>
+                      ))}
+                      {/*<td className="text-center">
+                        <Items
+                          flat={flato(
+                            groupedBasket[last(Object.keys(groupedBasket))],
+                            "contenu"
+                          )}
+                          gr={last(Object.keys(groupedBasket))}
+                          id={b.id}
+                        />
+                      </td>
+                      <td className="text-center">
+                        <tr></tr>
+                        <tr></tr>
+                      </td>*/}
+                      {/** {Object.keys(groupedBasket).map((gr) => (
+                        <td className="text-center">
+                          <>
+                                <div>
+                          
+                                  <Items
+                                    flat={flato(groupedBasket[gr], "contenu")}
+                                    res={res}
+                                  />
+                                </div>
+                          </>
+                        </td>
+                      ))} */}
+                    </tr>
+                  </>
+                ))}
+                {res.length == 0 && (
+                  <tr>
+                    <td className="text-center" colSpan={rangeDate.length + 3}>
+                      Aucune enregistrement trouvé
+                    </td>
+                  </tr>
+                )}
+              </table>
+            </div>
+          </div>
+
+          {/**  <div className="date-range">
             <div className="d-flex justify-content-between my-3">
               <div>
                 {startofDate && endDate && (
@@ -193,8 +313,7 @@ function App() {
                       <td className="bg-gray">{b.name}</td>
                       {rangeDate.map((r) => (
                         <>
-                       {/** <Items product={b} data={resultat} date={r} />{" "} */}
-                       <td>-</td>
+                       <Items product={b} data={resultat} date={r} />{" "}
                         </>
                       ))}
                       <td className="text-center">{b.quantityParProduct}</td>
@@ -211,7 +330,7 @@ function App() {
                 )}
               </table>
             </div>
-          </div>
+          </div> */}
         </Page>
       </Content>
     </>

@@ -97,3 +97,24 @@ export const checkHasExistText = (text, textCheck) => {
     return true;
   }
 };
+export const displayShortMonth = (timestamp) => {
+  const date = new Date(timestamp);
+
+  const monthNames = [
+    "Jan.",
+    "Févr.",
+    "Mars",
+    "Avr.",
+    "Mai",
+    "Juin.",
+    "Juill.",
+    "Août",
+    "Sept.",
+    "Oct.",
+    "Nov",
+    "Déc.",
+  ];
+
+  const monthIndex = date.getMonth();
+  return `${monthNames[monthIndex]}`;
+};

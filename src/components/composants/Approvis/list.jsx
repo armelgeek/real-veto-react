@@ -12,7 +12,7 @@ import { getApprov } from "../../../store/actions/approv";
 import { displayDate, displayMoney } from "../../../utils/functions";
 import DataTable from "../../../utils/admin/DataTable";
 import { NOUVELLEFACTURE } from "../../../constants/routes";
-import DateRangePicker  from '@wojtekmaj/react-daterange-picker';
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 
 export default function ListApprov() {
   var start = moment().isoWeekday(1).startOf("week");
@@ -44,9 +44,9 @@ export default function ListApprov() {
   useEffect(() => {
     dispatch(getApprov(deb, fin));
   }, [deb, fin]);
-  const getDataa=()=>{
+  const getDataa = () => {
     dispatch(getApprov(deb, fin));
-  }
+  };
   const columns = React.useMemo(
     () => [
       {
@@ -132,22 +132,19 @@ export default function ListApprov() {
             </div>
           </div>
           <div className="col-lg-6 text-right">
-          <DateRangePicker
+            <DateRangePicker
               locale="fr-FR"
               onChange={onChangeDateRange}
               value={dateRange}
             />
-            <button
-              className="ml-3 btn btn-primary btn-sm"
-              onClick={getDataa}
-            >
+            <button className="ml-3 btn btn-primary btn-sm" onClick={getDataa}>
               Filtrer
             </button>
           </div>{" "}
         </div>
 
         <DataTable
-          data={approvisionnements}
+          data={approvisionnements.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}
           addUrl={NOUVELLEFACTURE}

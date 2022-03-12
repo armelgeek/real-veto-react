@@ -59,23 +59,8 @@ const Products = () => {
     }
   }, [meta]);
   useEffect(() => {
-    if (idFournisseur != null) {
-      setProductData(
-        searchByNameAndFournisseur(products, value, idFournisseur)
-      );
-    } else {
       setProductData(searchByName(products, value));
-    }
   }, [value]);
-  useEffect(() => {
-    if (value != "") {
-      setProductData(
-        searchByNameAndFournisseur(products, value, idFournisseur)
-      );
-    } else {
-      setProductData(searchByFournisseur(products, idFournisseur));
-    }
-  }, [idFournisseur]);
 
   const calculateTotal = (arr) => {
     if (!arr || arr?.length === 0) return 0;
@@ -163,28 +148,7 @@ const Products = () => {
                       className="form-control mb-2"
                       style={{ width: "200px" }}
                     />{" "}
-                    <GetAll model="fournisseurs">
-                      <Data>
-                        {({ data, meta }) => (
-                          <div className="my-2 mr-3">
-                            
-                            <Select
-                              style={{ backgroundColor: "white" }}
-                              onChange={(e) => {
-                                setIdFournisseur(e.target.value);
-                              }}
-                            >
-                            <option>Tous les fournisseurs</option>
-                              {data.map((d) => (
-                                <option value={d.id} selected={d.id == 2}>
-                                  {d.name}
-                                </option>
-                              ))}
-                            </Select>
-                          </div>
-                        )}
-                      </Data>
-                    </GetAll>
+                    
                   </div>
                   <ListGroup>
                     <div

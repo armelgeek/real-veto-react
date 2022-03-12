@@ -64,9 +64,7 @@ const ProductItem = ({ product }) => {
                 <>
                   <button
                     disabled={
-                      product.quantityBrute === 0 &&
-                      (product.quantityCC == 0 || product.quantityCC == null)
-                    }
+                      product.quantityBrute === 0}
                     className={`mt-3 ${
                       itemOnBasket
                         ? "btn btn-danger btn-sm"

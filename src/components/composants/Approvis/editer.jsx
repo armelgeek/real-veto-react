@@ -11,9 +11,9 @@ import EditApprovisionnement from "./EditApprovisionnement";
 import { Container, Row, Col, ListGroup, Card } from "react-bootstrap";
 import { fetchProductsByFournisseur } from "../../../store/actions/products";
 import ProductItemEditApprov from "./ProductItemEditApprov";
-import searchByNameAndFournisseur from '../../../filters/searchByNameAndFournisseur';
+import searchByNameAndFournisseur from "../../../filters/searchByNameAndFournisseur";
 import searchByName from "../../../filters/searchByName";
-import searchByFournisseur from '../../../filters/searchByFournisseur';
+import searchByFournisseur from "../../../filters/searchByFournisseur";
 
 export const EditerApprov = () => {
   const { id } = useParams();
@@ -26,7 +26,7 @@ export const EditerApprov = () => {
   const [productData, setProductData] = useState([]);
   React.useEffect(() => {
     dispatch(action("approvis").get(id));
-  }, [id]);
+  }, []);
   const [value, setValue] = useState("");
 
   const [state, setState] = useState([]);
@@ -44,18 +44,14 @@ export const EditerApprov = () => {
 
   useEffect(() => {
     if (identif != null) {
-      setProductData(
-        searchByNameAndFournisseur(products, value, identif)
-      );
+      setProductData(searchByNameAndFournisseur(products, value, identif));
     } else {
       setProductData(searchByName(products, value));
     }
   }, [value]);
   useEffect(() => {
     if (value != "") {
-      setProductData(
-        searchByNameAndFournisseur(products, value, identif)
-      );
+      setProductData(searchByNameAndFournisseur(products, value, identif));
     } else {
       setProductData(searchByFournisseur(products, identif));
     }
@@ -64,13 +60,9 @@ export const EditerApprov = () => {
   useEffect(() => {
     dispatch(action("products").fetch());
   }, []);
-  useEffect(() => {
-    //recuperer la premiere ligne dans le tableau fournisseur
-   // dispatch(fetchProductsByFournisseur(identif));
-  }, [identif]);
   React.useEffect(() => {
     if (meta.isFetching) {
-      setState(approv[0]?.contenu);
+      setState(approv[approv.length - 1]?.contenu);
     }
   }, [meta]);
   useEffect(() => {
@@ -78,6 +70,7 @@ export const EditerApprov = () => {
       setProductData(products);
     }
   }, [metaproducts]);
+  console.log(approv);
   return (
     <Content>
       <ContentHeader title="Edition de facture">
@@ -139,7 +132,8 @@ export const EditerApprov = () => {
                             product={p}
                           />
                         ))}
-                        {productData.length == 0 && "Aucune enregistrement trouvé"}
+                        {productData.length == 0 &&
+                          "Aucune enregistrement trouvé"}
                       </>{" "}
                     </div>
                   </Card.Body>
@@ -154,7 +148,7 @@ export const EditerApprov = () => {
                   meta={meta}
                   setState={setState}
                   products={products}
-                  approv={approv[0]}
+                  approv={approv[approv.length - 1]}
                 />
               )}
             </Col>

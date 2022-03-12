@@ -83,6 +83,7 @@ function Sortie() {
       },
       {
         Header: "Produits",
+        width:50,
         Cell: (data) => {
           return (
             <span>
@@ -100,12 +101,6 @@ function Sortie() {
         Header: "Quantité",
         Cell: (data) => {
           return <div>{quantiteBruteTotal(data.row.original?.contenu)}</div>;
-        },
-      },
-      {
-        Header: "Quantité ML",
-        Cell: (data) => {
-          return <div>{quantiteCCTotal(data.row.original?.contenu)}</div>;
         },
       },
       {
@@ -159,7 +154,7 @@ function Sortie() {
         <div className="row">
           <div className="col-lg-6">
             <div>
-              <h3 className="text-uppercase">Factures</h3>
+              <h3 className="text-uppercase">Historique de sortie</h3>
               <p>{`${displayDate(deb)} ->  ${displayDate(fin)}`}</p>
             </div>
           </div>

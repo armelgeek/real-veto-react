@@ -1,10 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "../../taobao/taobao-react"
+			"path": "../server"
 		},
 		{
 			"path": "."
+		},
+		{
+			"path": "../../../../../../var/www/crm-local.manao.eu"
 		}
 	],
 	"settings": {}

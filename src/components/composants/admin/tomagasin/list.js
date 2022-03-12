@@ -7,7 +7,7 @@ import { action, getData } from "../../../../utils/lib/call";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getCVA } from "../../../../store/actions/commandes";
-import { displayDate,displayMoney } from "../../../../utils/functions";
+import { displayDate, displayMoney } from "../../../../utils/functions";
 import { Link } from "react-router-dom";
 
 export const HistoriqueSortieCva = () => {
@@ -84,6 +84,13 @@ export const HistoriqueSortieCva = () => {
             <thead className="bg-thead">
               <tr>
                 <th>Date</th>
+                <th
+                  style={{
+                    width: "250px",
+                  }}
+                >
+                  Produits
+                </th>
                 <th>Montant Total</th>
                 <th>Actions</th>
               </tr>
@@ -92,13 +99,16 @@ export const HistoriqueSortieCva = () => {
               {commandes.map((p) => (
                 <tr>
                   <td>{displayDate(p?.dateCom)}</td>
+                  <td>{p?.contenu.map(c =>(
+                    <span>{c.name}{","}</span>
+                  ))}</td>
                   <td>{displayMoney(calculateTotal(p?.contenu))}</td>
                   <td>
                     <Link
                       className="btn btn-sm  btn-warning mr-2"
                       to={`/depot/to/magasin/edit/${p.id}`}
                     >
-                    Editer
+                      Editer
                     </Link>
                     <Link
                       className="btn btn-sm  btn-green"
@@ -109,8 +119,10 @@ export const HistoriqueSortieCva = () => {
                   </td>
                 </tr>
               ))}
-              {commandes.length==0 && (
-                <tr className="text-center"><td colSpan={8}>Aucune enregistrement trouvé</td></tr>
+              {commandes.length == 0 && (
+                <tr className="text-center">
+                  <td colSpan={8}>Aucune enregistrement trouvé</td>
+                </tr>
               )}
             </tbody>
           </table>

@@ -65,7 +65,7 @@ const FromDepotItem = ({ product }) => {
             realQttCC={realQttCC}
           />
         </div>
-        {product.type === "FLACON" && (
+          {/**{product.type === "FLACON" && (
           <div>
           <div className="text-inline text-center">
             <h5 className="mb-1">{product.categoryId == 3 ? "DOSE" : "ML"}</h5>
@@ -102,7 +102,7 @@ const FromDepotItem = ({ product }) => {
             {product.condmldepot !== 0 && product.qttccpventedepot !== 0 && (
               <PhytoConditionnementInput product={product} />
             )}
-           {/** <div>
+            <div>
               {itemOnBasket && (
                 <button
                   onClick={handleAddToBasket}
@@ -111,11 +111,11 @@ const FromDepotItem = ({ product }) => {
                   X
                 </button>
               )}
-            </div> */}
+            </div> 
             </div>
           </div>
           
-        )}
+        )}*/}
       </div>
     </div>
   );

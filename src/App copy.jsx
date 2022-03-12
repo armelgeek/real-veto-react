@@ -14,35 +14,43 @@ import Page from "./@adminlte/adminlte/Content/Page";
 import Form from "./utils/Form/Form";
 import BeneficeEtResteApay from "./components/composants/BeneficeEtResteApay";
 function App({ redux, location }) {
-  var input = [
-    {"quantity":1067,"gross_revenue":4094.2,"date":"03","company":"Cat1","product":"Car"},
-    {"quantity":106,"gross_revenue":409,"date":"02","company":"Cat2","product":"Car"},
-    {"quantity":106,"gross_revenue":85,"date":"03","company":"Cat2","product":"House"},
-    {"quantity":106,"gross_revenue":100,"date":"02","company":"Cat3","product":"House"},
-    {"quantity":20,"gross_revenue":150,"date":"03","company":"Cat5","product":"Technology"},
-    {"quantity":40,"gross_revenue":100,"date":"01","company":"Cat5","product":"Technology"},
-    {"quantity":20,"gross_revenue":15,"date":"01","company":"Cat5","product":"Car"},
-    {"quantity":20,"gross_revenue":18,"date":"01","company":"Cat5","product":"House"},
-    {"quantity":20,"gross_revenue":2,"date":"01","company":"Cat2","product":"House"},
-    {"quantity":20,"gross_revenue":25,"date":"01","company":"Cat3","product":"House"}
+  var data = [
+    {'name' : 'example1', 'date' : '2011-01-01'},
+    {'name' : 'example1', 'date' : '2011-01-02'},
+    {'name' : 'example1', 'date' : '2011-02-02'},
+    {'name' : 'example1', 'date' : '2011-02-15'},
+    {'name' : 'example1', 'date' : '2011-02-17'},
+    {'name' : 'example1', 'date' : '2012-01-01'},
+    {'name' : 'example1', 'date' : '2012-03-03'},
   ];
 
+  function groupByMonthWeek(data) {
+    var year, month, week
+    return data.reduce(function (acc, obj) {
+      var b = obj.date.split(/\D/);
+    
+      // Get custom week number, zero padded
+      var weekNum = '0' + Math.ceil(b[2]/7);
 
-  var result = [];
+      // Add year if not already present
+      if (!acc[b[0]]) acc[b[0]] = {};
+      year = acc[b[0]];
+    
+      // Add month if not already present
+      if (!year[b[1]]) year[b[1]] = {};
+      month = year[b[1]];
+    
+      // Add week if not already present
+      if (!month[weekNum]) month[weekNum] = [];
 
-  var groupedByProduct = _.groupBy(input, "product");
-  var dates = _.uniq(_.map(input, 'date'));
-  _.forEach(groupedByProduct, function(value, key) {
-      data = [];
-      for (var i = 0; i < dates.length; i++) {
-          data.push(null);
-      _.forEachRight(_.groupBy(groupedByProduct[key], "date"), function(dateValue, dateKey) {
-          data[parseInt(dateKey) - 1] = _.sumBy(dateValue, function(o) {
-              return o.gross_revenue
-          });
-      });
-      result.push({"name": key, "data": data});
-  });
+      // Add object to  week
+      month[weekNum].push(obj);
+
+      return acc;    
+    }, Object.create(null));
+  }
+
+  console.log(groupByMonthWeek(data));
   return (
     <div>ceci est l'accueil</div>
   );
