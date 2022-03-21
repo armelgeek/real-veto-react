@@ -42,15 +42,21 @@ const FromMagasinItemPartial = ({
         ref={ref}
         bg={"whitesmoke"}
         onChange={(value) => {
-          onAddQtyPortion(value);
           setRealQttCC(value);
-          if (isEnough()) {
+          if (value == "") {
+            onAddQtyPortion(0);
+            setRealQttCC(0);
+          } else {
+            setRealQttCC(value * 1);
+            onAddQtyPortion(value * 1);
+          }
+          if (isEnough() || product.quantityBruteCVA - 1 < 0) {
             alert("Le stock ne satisfait pas votre commande");
           }
         }}
         min={0}
         defaultValue={product.qttByCC}
-        max={!isEnough() ? product.doseDefault : product.quantityCCCVA}
+        max={!isEnough() ? product.doseDefault - 1 : product.quantityCCCVA}
       >
         <NumberInputField />
         <NumberInputStepper>

@@ -106,7 +106,7 @@ function Create() {
                   quantityCCCVA: 0,
                   quantityCC: 0,
                   prixParCC: parseFloat(prixParCC),
-                  datePer: datePer,
+                  datePer: new Date(),
                   uniteMesure: "ml",
                   qttByCC: 0,
                   newStockBrute: 0,

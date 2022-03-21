@@ -49,13 +49,19 @@ const FromMagasinItemControl = ({
       ? product?.condval * 1
       : product?.condval * 1 - 1;
   };
-  const checkVal=()=>{
-    if(isSpecialProductHandle(product)){
+  const checkVal = () => {
+    if (isSpecialProductHandle(product)) {
       return getValueCC();
-    }else{
+    } else {
       return getValue();
     }
-  }
+  };
+  const isEnough = () => {
+    return (
+      product.quantityCCCVA - product.qttByCC < 0 &&
+      product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
+    );
+  };
   return (
     <div className="basket-item-control">
       <NumberInput
@@ -63,13 +69,22 @@ const FromMagasinItemControl = ({
         w={28}
         step={1}
         bg={"whitesmoke"}
+        min={0}
+        defaultValue={product?.quantityParProduct}
         onChange={(value) => {
-          onAddQtyBrute(value);
-          setRealQtt(value);
-          if (!canBuyCCFromCva(product)) {
+          if ((value == "")) {
+            setRealQtt(0);
+            onAddQtyBrute(0);
+          } else {
+            setRealQtt(value);
+            onAddQtyBrute(value);
+          }
+
+          if (isEnough(product)) {
             alert("Le stock ne satisfait pas votre commande");
           }
         }}
+        max={product.quantityBruteCVA}
       >
         <NumberInputField />
         <NumberInputStepper>

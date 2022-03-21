@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //import useModal from '../../hooks/useModal';
+import { Link } from "react-router-dom";
 import FromMagasinItem from "./FromMagasinItem";
 import { Card } from "react-bootstrap";
 import { clearFromMagasin } from "../../../../store/frommagasin/actions/frommagasin";
@@ -22,7 +23,7 @@ const calculateTotal = (arr) => {
   return total;
 };
 
-const FromMagasin = ({ setRegenerate }) => {
+const FromMagasin = () => {
   const [type, setType] = useState("vente-cva");
   const [idFournisseur, setIdFournisseur] = useState(1);
   const [vaccinateurId, setVaccinateurId] = useState(null);
@@ -48,7 +49,7 @@ const FromMagasin = ({ setRegenerate }) => {
       if (isSpecialProductHandle(element)) {
         handleMinusCondML(element);
       } else {
-      //  handleMinusProduct(element);
+        //  handleMinusProduct(element);
         handleSoldQuantityCC(element);
       }
     });
@@ -77,8 +78,8 @@ const FromMagasin = ({ setRegenerate }) => {
         dispatch(action("products").update(element));
       });
     }*/
-   dispatch(clearFromMagasin());
-   history.push(HISTORIQUEVENTEVENDEUR);
+    dispatch(clearFromMagasin());
+    history.push(HISTORIQUEVENTEVENDEUR);
   };
 
   const onClearBasket = () => {
@@ -95,14 +96,14 @@ const FromMagasin = ({ setRegenerate }) => {
       <Card>
         <Card.Header className=" bg-dark py-2 text-white d-flex justify-content-between align-items-center">
           <div style={{ width: "60%" }}>
-            BON DE SORTIE {type.toUpperCase()}(
+            BON DE SORTIE {type=="vente-cva" ? "DIRECT" : "CREDIT"}(
             {` ${frommagasins?.length} ${
               frommagasins?.length > 1 ? "articles" : "article"
             }`}
             )
           </div>
           <div style={{ width: "30%" }} className="text-right">
-           <select
+            <select
               className="form-control input-sm"
               onChange={(e) => {
                 setType(e.target.value);
@@ -119,6 +120,14 @@ const FromMagasin = ({ setRegenerate }) => {
           <Card.Body
             style={{ padding: 2, marginTop: 3, marginRight: 2, marginLeft: 2 }}
           >
+            <div>
+              <Link
+                className="btn btn-primary mb-2 btn-sm"
+                to={HISTORIQUEVENTEVENDEUR}
+              >
+                Voir l'historique de vente
+              </Link>
+            </div>
             <div
               style={{
                 overflowY: "auto",

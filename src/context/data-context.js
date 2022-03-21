@@ -1,8 +1,10 @@
 import React from "react";
+import createContext from "./lib/createContext";
+import useContextSelector from "./lib/useContextSelector";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { action, getData } from "../utils/lib/call";
-const GetDataContext = React.createContext();
+const GetDataContext = createContext();
 
 function GetOne({ model, children }) {
   const { id } = useParams();
@@ -63,6 +65,8 @@ function GetAll({ model, options, children }) {
   );
 }
 function Data({ children }) {
+  const setValue = useContextSelector(MyContext, (state) => state);
+
   return (
     <GetDataContext.Consumer>
       {(context) => {

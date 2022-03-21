@@ -13,49 +13,54 @@ import Page from "../../@adminlte/adminlte/Content/Page";
 import NumberFormat from "react-number-format";
 import { withRouter } from "react-router-dom";
 import { displayDate, displayMoney } from "../../utils/functions";
+import { useHistory } from 'react-router-dom';
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   let total = 0;
   arr.forEach((el) => {
-    total += el.prixVente * el.quantityParProduct*1;
+    total += el.prixVente * el.quantityParProductDepot * 1;
   });
   return total;
 };
 function Detail(props) {
-  let history = useLocation();
+  let history = useHistory();
   const { id } = useParams();
   const commande = useSelector(getData("commandes").value);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(action("commandes").get(id));
-  }, [id]);
+  }, [id]);;
   return (
     <Content>
       <ContentHeader title="Détail de sortie ou entrée">
         <ActiveLink title="Détail de sortie ou entrée"></ActiveLink>
       </ContentHeader>
       <Page>
-     
-        <p>
-          {commande[0]?.type == "credit" && <p>Credit</p>}
+        <div className="badge badge-info my-2">
+          {commande[0]?.type == "vente-depot-credit" && <h3>Credit</h3>}
 
-          {commande[0]?.type == "vaccinateur" && <p>Sortie vaccinateur</p>}
+          {commande[0]?.type == "vente-depot-vaccinateur" && (
+            <h3>Credit pour vaccinateur</h3>
+          )}
 
-          {commande[0]?.type == "direct" && <p>Sortie Magasion</p>}
-        </p>
-        {commande[0]?.type == "vaccinateur" && (
-          <div className="border">
+          {commande[0]?.type == "direct" && <h3>Direct</h3>}
+        </div>
+        {commande[0]?.type == "vente-depot-vaccinateur" && (
+          <div className="border pl-3 py-3 bg-white">
             <>
-              <h3>{commande[0]?.vaccinateur.name}</h3>
-              <h5>{commande[0]?.vaccinateur.contact}</h5>
+              <h3 className="my-2">
+                {" "}
+                Nom du vaccinateur : {commande[0]?.vaccinateur.name}
+              </h3>
+              <h5>Contact : {commande[0]?.vaccinateur.contact}</h5>
             </>
           </div>
         )}
-        {commande[0]?.type == "credit" && (
-          <div className="border">
+        {commande[0]?.type == "vente-depot-credit" && (
+          <div className="border pl-3 py-3 bg-white">
             <>
-              <h3>{commande[0]?.emprunter.name}</h3>
-              <h5>{commande[0]?.emprunter.contact}</h5>
+              <h3 className="my-2">Nom:{commande[0]?.emprunter.name}</h3>
+              <h5>Contact: {commande[0]?.emprunter.contact}</h5>
             </>
           </div>
         )}
@@ -64,7 +69,19 @@ function Detail(props) {
             <p className="text-uppercase">
               Commande du : {displayDate(commande[0]?.dateCom)}
             </p>
-            {/* <p className="btn btn-sm btn-green mt-4">payé</p>*/}
+            {commande[0]?.status == true ? (
+              <p className="btn btn-sm btn-green my-2 mt-4">payé</p>
+            ) : (
+              <button
+              className="btn btn-sm btn-warning my-3"
+              onClick={() => {
+                dispatch(setPayerCommande(commande[0]?.id));
+                history.goBack();
+              }}
+            >
+              Marquer comme payé
+            </button>
+            )}
           </div>
         )}
         <table className="table table-bordered ">
@@ -78,13 +95,10 @@ function Detail(props) {
               <tr>
                 <td style={{ width: "40%" }}>{c.name}</td>
                 <td className="d-flex align-items-center">
-                  {displayMoney(c.prixVente)}({"x"} {c.quantityParProduct}
-                  )
+                  {displayMoney(c.prixVente)}({"x"} {c.quantityParProductDepot})
                 </td>
-                
-                <td>
-                  {displayMoney(c.prixVente * c.quantityParProduct)}
-                </td>
+
+                <td>{displayMoney(c.prixVente * c.quantityParProductDepot)}</td>
               </tr>
             ))}
         </table>
@@ -92,18 +106,7 @@ function Detail(props) {
           <strong>Total</strong>:
           {displayMoney(calculateTotal(commande[0]?.contenu))}
         </div>
-        {/*{commande[0]?.status == false && (
-          <button
-            className="btn btn-sm btn-green"
-            onClick={() => {
-              dispatch(setPayerCommande(commande[0]?.id));
-              dispatch(getCredit());
-              history.push(CREDIT);
-            }}
-          >
-            Marquer comme payé
-          </button>
-        )}*/}
+        
       </Page>
     </Content>
   );

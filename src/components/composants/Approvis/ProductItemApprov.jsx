@@ -1,40 +1,25 @@
-import { Button } from "@chakra-ui/button";
-import { useDomEvent } from "framer-motion";
 import React from "react";
 import { Col, ListGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import useApprov from "../../../hooks/useApprov";
 import { displayMoney } from "../../../utils/functions";
-const ProductItemApprov = ({ product }) => {
-  const approvisionnements = useSelector((state) => state.approvisionnements);
-  const dispatch = useDispatch();
-  const { isItemOnApprov, addToApprov } = useApprov(
-    approvisionnements,
-    dispatch
-  );
-  const onClickItem = () => {
-    if (!product) return;
 
-    if (product.id) {
-      //  history.push(`/product/${product.id}`)
-    }
-  };
-
-  const itemOnApprov = isItemOnApprov ? isItemOnApprov(product.id) : false;
-
-  const handleAddToApprov = () => {
-    if (addToApprov) addToApprov(product);
-  };
-
+const ProductItemApprov = ({
+  key,
+  product,
+  isItemOnApprov,
+  handleAddToApprov,
+}) => {
   return (
     <>
-      <ListGroup.Item>
+      <ListGroup.Item key={key}>
         <Row
           className={`product-card m-2 ${!product.id ? "product-loading" : ""}`}
           style={{
-            border: product && itemOnApprov ? "1px solid #a6a5a5" : "",
+            border:
+              product && isItemOnApprov(product.id) ? "1px solid #a6a5a5" : "",
             boxShadow:
-              product && itemOnApprov
+              product && isItemOnApprov(product.id)
                 ? "0 10px 15px rgba(0, 0, 0, .07)"
                 : "none",
           }}
@@ -42,7 +27,9 @@ const ProductItemApprov = ({ product }) => {
           <Col xs={9}>
             <>
               <p>{product?.name}</p>
-              <div class="badge badge-primary">{product?.fournisseur?.name}</div>
+              <div class="badge badge-primary">
+                {product?.fournisseur?.name}
+              </div>
               <p>
                 <strong> {displayMoney(product?.prixFournisseur)}</strong>
               </p>
@@ -53,13 +40,13 @@ const ProductItemApprov = ({ product }) => {
             {product?.id && (
               <button
                 className={` ${
-                  itemOnApprov
+                  isItemOnApprov(product.id)
                     ? "btn btn-danger btn-sm"
                     : "btn btn-green btn-sm"
                 }`}
-                onClick={handleAddToApprov}
+                onClick={() => handleAddToApprov(product)}
               >
-                {!itemOnApprov ? "Ajouter" : "Retirer"}
+                {!isItemOnApprov(product.id) ? "Ajouter" : "Retirer"}
               </button>
             )}
           </Col>
@@ -69,4 +56,4 @@ const ProductItemApprov = ({ product }) => {
   );
 };
 
-export default ProductItemApprov;
+export default React.memo(ProductItemApprov);

@@ -1,12 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { BONDESORTIE } from "../../constants/routes";
 import { action } from '../../utils/lib/call';
 function DeleteFromDepot({ model, entity }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const deleteEntity = () => {
     dispatch(action(model).deleteTransaction(entity, "/delete-from-depot"));
-   // window.location.reload();
+    history.push(BONDESORTIE);
   };
   return (
     <>

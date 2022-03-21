@@ -1,4 +1,13 @@
 import React from "react";
+/** @jsxImportSource @welldone-software/why-did-you-render */
+if (process.env.NODE_ENV === 'development') {
+  const whyDidYouRender = require('@welldone-software/why-did-you-render');
+  whyDidYouRender(React, {
+    trackAllPureComponents: true,
+    titleColor: "green",
+    diffNameColor: "darkturquoise"
+  });
+}
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";

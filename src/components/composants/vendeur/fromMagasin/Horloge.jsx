@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { displayDate } from '../../../../utils/functions';
+import { reactFastCompare } from 'react-fast-compare';
 const date = new Date();
-export default function Horloge() {
+function Horloge() {
   const [dateTime, setDateTime] = useState({
     hours: date.getHours(),
     minutes: date.getMinutes(),
@@ -29,3 +30,4 @@ export default function Horloge() {
     </div>
   );
 }
+export default React.memo(Horloge,reactFastCompare);

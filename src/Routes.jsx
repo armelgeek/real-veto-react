@@ -135,7 +135,7 @@ function Routes() {
         <AdminRoute path={RUPTURE} component={Rupture} />
         <AdminRoute path={CREDIT} component={Credit} />
         <AdminRoute path={PARAMETRES} component={Parametres} />
-        <AdminRoute path={CREDITVACCINATEUR} component={CreditVaccinateur} />
+        <AdminRoute path={CREDITVACCINATEUR}  component={CreditVaccinateur} />
         <AdminRoute path={DIRECT} component={Direct} />
         <AdminRoute path={BONDESORTIE} component={BonDepot} />
         <AdminRoute

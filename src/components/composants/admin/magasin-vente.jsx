@@ -61,7 +61,7 @@ export const MagasinVente = () => {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
-      total += el.quantityCC * 1;
+      total += el.qttByCC * 1;
     });
     return total;
   };

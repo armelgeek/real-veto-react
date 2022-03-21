@@ -93,8 +93,7 @@ export const minusQuantityCc = (product) => {
   if (product.quantityParProduct > 0) {
     if (product.qttByCC > 0) {
       if (!notSatisfaisanteProductCommande(product)) {
-        //   product.quantityBruteCVA -= product.quantityParProduct;
-        if (product.quantityBruteCVA < product.quantityParProduct) {
+        if (product.quantityBruteCVA - product.quantityParProduct < 0) {
           product.quantityParProduct = product.quantityBruteCVA;
           product.quantityBruteCVA = 0;
         } else {
@@ -105,12 +104,22 @@ export const minusQuantityCc = (product) => {
         product.qttByCC = product.doseDefault;
       }
     } else {
-      handleMinusProduct(product);
+      if (product.quantityBruteCVA - product.quantityParProduct < 0) {
+        product.quantityParProduct = product.quantityBruteCVA;
+        product.quantityBruteCVA = 0;
+      } else {
+        product.quantityBruteCVA -= product.quantityParProduct;
+      }
     }
   }
   if (canBuyCCFromCva(product)) {
     if (isBiggerThanLastQuantityCC(product)) {
-      minusQuantityBruteCvaWhenQttCcIsEmpty(product);
+      if (product.quantityBruteCVA - 1 >= 0) {
+        minusQuantityBruteCvaWhenQttCcIsEmpty(product);
+      } else {
+        product.quantityBruteCVA = 0;
+        reinitQuantityCCCva(product, product.quantityCCCVA);
+      }
     } else if (isSameOfLastQuantityCC(product)) {
       reinitQuantityCCCva(product, 0);
     } else if (isLowerThanLastQuantityCC(product)) {
@@ -309,4 +318,13 @@ export const handleSoldProduct = (product) => {
     product.quantityBrute = 0;
   }
   return product;
+};
+
+
+
+export const canBuy = (product) => {
+   if(isSpecialProductHandle(product)){
+     
+   }
+  return true;
 };

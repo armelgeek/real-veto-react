@@ -16,6 +16,7 @@ import {
   cantBuyBruteFromCva,
   handleMinusCondML,
   handleSoldProduct,
+  canBuy,
 } from "../function";
 import { hasAnyBruteStockButHasNoCcStockProduct } from "../mocks/products/mock-has-any-brute-stock-but-has-no-cc-stock-product";
 import { hasAnyBruteStockButHasSomeOfCcStockProduct } from "../mocks/products/mock-has-any-brute-stock-but-has-some-of-cc-stock-product";
@@ -43,6 +44,9 @@ import { productDataNoBruteCCMultiple } from "../mocks/products/mock-initial-pro
 import { hasOneCondValAndHas4CCStockProduct1Brute1 } from "../mocks/products/phyto/mock-has-one-cond-val-and-has-4-cc-stock-product-has-brute 1";
 import { hasOneCondValAndHas4CCStockProduct1BruteIs1 } from "../mocks/products/phyto/mock-has-one-cond-val-and-has-4-cc-stock-product-has-brute-is-1";
 import { hasOneCondValAndHas0CCStockProduct1BruteIs1 } from "../mocks/products/phyto/mock-has-one-cond-val-and-has-0-cc-stock-product-has-brute-is-one";
+import { describe } from "jest-circus";
+import { mockDataError1, mockDataError2, mockDataError3, mockDataError4 } from "../mocks/products/mock-data-error";
+import { CanBuy1 } from '../mocks/products/can-by';
 function copy(object) {
   var output, value, key;
   output = Array.isArray(object) ? [] : {};
@@ -1220,4 +1224,129 @@ describe("avec quantité brute  et cc ", () => {
       prixqttccvente: 0,
     });
   });
+});
+describe("test errors", () => {
+  it("it should return 0 if has nothing", () => {
+    let productBuy = copy(mockDataError1);
+    productBuy.qttByCC = 48;
+    let received = minusQuantityCc(productBuy);
+    expect(received).toStrictEqual({
+      datePer: "2021-11-30",
+      createdAt: "2021-11-26",
+      id: 1,
+      name: "CLOSANTEL 5% 100ML",
+      prixVente: 6000,
+      prixFournisseur: 5700,
+      prixVaccinateur: 5800,
+      type: "FLACON",
+      uniteMesure: "ml",
+      doseDefault: 100,
+      doseRestantEnMg: 0,
+      qttByCC:48,
+      quantityBrute: 150,
+      quantityBruteCVA: 0,
+      quantityCCCVA: 38,
+      quantityParProduct: 0,
+      prixParCC: 300,
+      quantityCC: 0,
+      condml: 0,
+      condval: 0,
+      qttccpvente: 0,
+      prixqttccvente: 0,
+    });
+  });
+  it("it should return 0 if has nothing 2", () => {
+    let productBuy = copy(mockDataError2);
+    productBuy.quantityParProduct = 69;
+    let received = minusQuantityCc(productBuy);
+    expect(received).toStrictEqual({
+      datePer: "2021-11-30",
+      createdAt: "2021-11-26",
+      id: 1,
+      name: "CLOSANTEL 5% 100ML",
+      prixVente: 6000,
+      prixFournisseur: 5700,
+      prixVaccinateur: 5800,
+      type: "FLACON",
+      uniteMesure: "ml",
+      doseDefault: 100,
+      doseRestantEnMg: 0,
+      qttByCC:0,
+      quantityBrute: 150,
+      quantityBruteCVA: 0,
+      quantityCCCVA: 0,
+      quantityParProduct: 1,
+      prixParCC: 300,
+      quantityCC: 0,
+      condml: 0,
+      condval: 0,
+      qttccpvente: 0,
+      prixqttccvente: 0,
+    });
+  });
+  it("it should return 0 if has nothing 3", () => {
+    let productBuy = copy(mockDataError4);
+    productBuy.quantityParProduct = 3;
+    let received = minusQuantityCc(productBuy);
+    expect(received).toStrictEqual({
+      datePer: "2021-11-30",
+      createdAt: "2021-11-26",
+      id: 1,
+      name: "CLOSANTEL 5% 100ML",
+      prixVente: 6000,
+      prixFournisseur: 5700,
+      prixVaccinateur: 5800,
+      type: "FLACON",
+      uniteMesure: "ml",
+      doseDefault: 100,
+      doseRestantEnMg: 0,
+      qttByCC:0,
+      quantityBrute: 150,
+      quantityBruteCVA: 0,
+      quantityCCCVA: 0,
+      quantityParProduct: 1,
+      prixParCC: 300,
+      quantityCC: 0,
+      condml: 0,
+      condval: 0,
+      qttccpvente: 0,
+      prixqttccvente: 0,
+    });
+  });
+  it("it should return 0 if has nothing 4", () => {
+    let productBuy = copy(mockDataError4);
+    productBuy.quantityParProduct = 7;
+    let received = minusQuantityCc(productBuy);
+    expect(received).toStrictEqual({
+      datePer: "2021-11-30",
+      createdAt: "2021-11-26",
+      id: 1,
+      name: "CLOSANTEL 5% 100ML",
+      prixVente: 6000,
+      prixFournisseur: 5700,
+      prixVaccinateur: 5800,
+      type: "FLACON",
+      uniteMesure: "ml",
+      doseDefault: 100,
+      doseRestantEnMg: 0,
+      qttByCC:0,
+      quantityBrute: 150,
+      quantityBruteCVA: 0,
+      quantityCCCVA: 0,
+      quantityParProduct: 1,
+      prixParCC: 300,
+      quantityCC: 0,
+      condml: 0,
+      condval: 0,
+      qttccpvente: 0,
+      prixqttccvente: 0,
+    });
+  });
+});
+describe('can buy', () => {
+  it('is can by cc cva',()=>{
+    let productBuy = copy(CanBuy1);
+    let received = canBuy(productBuy);
+    expect(received).toBe(true);
+  })
 });

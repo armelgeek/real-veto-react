@@ -100,7 +100,7 @@ const Approvisionnement = ({ setRegenerate }) => {
     });*/
     }
     dispatch(clearApprov());
-    setRegenerate(true);
+   //setRegenerate(true);
    history.push(LISTAPPROV);
     console.log(approvisionnements);
   };

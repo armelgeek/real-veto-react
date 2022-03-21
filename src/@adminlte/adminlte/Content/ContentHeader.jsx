@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
+import reactFastCompare  from 'react-fast-compare';
 function ContentHeader({ children, title }) {
   const history = useHistory();
   return (
@@ -37,4 +38,4 @@ function ContentHeader({ children, title }) {
   );
 }
 
-export default ContentHeader;
+export default React.memo(ContentHeader,reactFastCompare);

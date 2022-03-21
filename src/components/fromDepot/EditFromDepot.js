@@ -28,7 +28,7 @@ function copy(object) {
   return output;
 }
 const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
-  const [type, setType] = useState("direct");
+  const [type, setType] = useState("vente-depot");
   const [idFournisseur, setIdFournisseur] = useState(1);
   const [vaccinateurId, setVaccinateurId] = useState(null);
   const [emprunter, setEmprunter] = useState(null);
@@ -43,6 +43,7 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
   }, [commandes]);
   const dispatch = useDispatch();
   const emprunters = useSelector(getData("emprunters").value);
+  const vaccinateurs = useSelector(getData("vaccinateurs").value);
   //const meta = useSelector(getData("commandes").meta);
   //const commandes = useSelector(getData("commandes").value);
   const date = new Date();
@@ -141,7 +142,7 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
       )
     );
 
-    //history.push(SORTIE);
+    history.push(SORTIE);
   };
 
   /* const onCheckOut = () => {
@@ -203,7 +204,7 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
     <>
       <Card>
         <Card.Header className=" bg-dark py-2 text-white d-flex justify-content-between align-items-center">
-          <div style={{ width: "60%" }}>BON DE SORTIE {type.toUpperCase()}</div>
+          <div style={{ width: "60%" }}>BON DE SORTIE</div>
           <div style={{ width: "30%" }} className="text-right">
             <select
               className="form-control input-sm"
@@ -211,10 +212,11 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
                 setType(e.target.value);
               }}
             >
-              <option value="vente-depot-direct" selected>
+              <option value="vente-depot" selected>
                 Comptant
               </option>
               <option value="vente-depot-credit">Credit</option>
+              <option value="vente-depot-vaccinateur">Vaccinateur</option>
             </select>
           </div>
         </Card.Header>
@@ -252,6 +254,22 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
                   >
                     <option value=""></option>
                     {emprunters.map((v) => (
+                      <option value={v.id}>{v.name}</option>
+                    ))}
+                  </select>
+                </>
+              )}
+              {type === "credit" && (
+                <>
+                  <label>Vaccinateur:</label>
+                  <select
+                    className="form-control"
+                    onChange={(e) => {
+                      setVaccinateurId(e.target.value);
+                    }}
+                  >
+                    <option>Selectionner un vaccinateur</option>
+                    {vaccinateurs.map((v) => (
                       <option value={v.id}>{v.name}</option>
                     ))}
                   </select>

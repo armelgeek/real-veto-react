@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "./Footer";
+import reactFastCompare from "react-fast-compare";
 
-export default function Content({ children }) {
+function Content({ children }) {
   return (
     <>
       <div
@@ -13,3 +13,4 @@ export default function Content({ children }) {
     </>
   );
 }
+export default React.memo(Content, reactFastCompare);

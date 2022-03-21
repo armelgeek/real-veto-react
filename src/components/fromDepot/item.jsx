@@ -3,25 +3,25 @@ import { Col, ListGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import useFromDepot from "../../hooks/useFromDepot";
 import { displayMoney } from "../../utils/functions";
-const ProductItem = ({ product }) => {
-  const fromdepots = useSelector((state) => state.fromdepots);
+const ProductItem = ({ key, product }) => {
+const fromdepots = useSelector((state) => state.fromdepots);
   const dispatch = useDispatch();
   const { isItemFromDepot, addFromDepot } = useFromDepot(fromdepots, dispatch);
 
   const itemOnBasket = isItemFromDepot ? isItemFromDepot(product.id) : false;
-  /* useEffect(()=>{
+  useEffect(()=>{
     if(!itemOnBasket){
       product.qttByCC =0;
       product.quantityParProduct=0;
     }
-  },[itemOnBasket])*/
+  },[itemOnBasket])
   const handleAddToBasket = () => {
     if (addFromDepot) addFromDepot(product);
   };
-
   return (
     <>
       <ListGroup.Item
+        key={key}
         className="mb-2 mr-3"
         style={{ width: "100%", border: "1px solid gray" }}
       >
@@ -63,8 +63,7 @@ const ProductItem = ({ product }) => {
               {product.id && (
                 <>
                   <button
-                    disabled={
-                      product.quantityBrute === 0}
+                    disabled={product.quantityBrute === 0}
                     className={`mt-3 ${
                       itemOnBasket
                         ? "btn btn-danger btn-sm"
@@ -72,7 +71,7 @@ const ProductItem = ({ product }) => {
                     }`}
                     onClick={handleAddToBasket}
                   >
-                    {!itemOnBasket ? "Ajouter" : "Retirer"}
+                   {!itemOnBasket ? "Ajouter" : "Retirer"}
                   </button>
                 </>
               )}

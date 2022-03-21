@@ -27,7 +27,7 @@ import {
   ETATSTOCKMAGASIN,
   HISTORIQUEVENTEVENDEURVUEPARADMIN,
 } from "../constants/routes";
-class AdminLTE extends Component {
+class AdminLTE extends React.PureComponent  {
   render() {
     let { children, navigation, title, titleShort } = this.props;
     const { searchbarFilter } = this.props;

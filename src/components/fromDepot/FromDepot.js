@@ -19,7 +19,7 @@ const calculateTotal = (arr) => {
 };
 
 const FromDepot = ({ setRegenerate }) => {
-  const [type, setType] = useState("direct");
+  const [type, setType] = useState("vente-depot");
   const [idFournisseur, setIdFournisseur] = useState(1);
   const [vaccinateurId, setVaccinateurId] = useState(null);
   const [emprunter, setEmprunter] = useState(null);
@@ -30,13 +30,16 @@ const FromDepot = ({ setRegenerate }) => {
   }));
   const dispatch = useDispatch();
   const emprunters = useSelector(getData("emprunters").value);
+  const vaccinateurs = useSelector(getData("vaccinateurs").value);
   const meta = useSelector(getData("commandes").meta);
   const commandes = useSelector(getData("commandes").value);
   const date = new Date();
   const [dateCom, setDateCom] = useState(date);
   useEffect(() => {
+    dispatch(clearFromDepot());
     dispatch(action("commandes").fetch());
     dispatch(action("emprunters").fetch());
+    dispatch(action("vaccinateurs").fetch());
   }, []);
 
   const onCheckOut = () => {
@@ -56,18 +59,16 @@ const FromDepot = ({ setRegenerate }) => {
       action("commandes").createTransaction({
         id: Math.floor(Date.now() / 1000),
         contenu: fromdepots,
-        type: "vente-depot",
+        type: type,
         sorte: "sortie",
-        qtteBrute: 1,
-        qtteCC: 1,
         vaccinateurId: vaccinateurId,
-        status: type === "direct" ? true : false,
+        status: type === "vente-depot" ? true : false,
         emprunterId: emprunter,
         dateCom: dateCom != null ? dateCom : date,
       },'add-from-depot')
     );
-   // dispatch(clearFromDepot());
-  //  history.push(SORTIE);
+   dispatch(clearFromDepot());
+  history.push(SORTIE);
   };
 
   const onClearBasket = () => {
@@ -79,24 +80,26 @@ const FromDepot = ({ setRegenerate }) => {
     dispatch(clearFromDepot());
   };
 
+
   return (
     <>
       <Card>
         <Card.Header className=" bg-dark py-2 text-white d-flex justify-content-between align-items-center">
           <div style={{ width: "60%" }}>BON DE SORTIE </div>
-          {/**{type.toUpperCase()} <div style={{ width: "30%" }} className="text-right">
+          <div style={{ width: "30%" }} className="text-right">
             <select
               className="form-control input-sm"
               onChange={(e) => {
                 setType(e.target.value);
               }}
             >
-              <option value="vente-depot-direct" selected>
+              <option value="vente-depot" selected>
                 Comptant
               </option>
               <option value="vente-depot-credit">Credit</option>
+              <option value="vente-depot-vaccinateur">Vaccinateur</option>
             </select>
-          </div> */}
+          </div>
         </Card.Header>
         <div className="commande-vente">
           <Card.Body
@@ -121,9 +124,9 @@ const FromDepot = ({ setRegenerate }) => {
                   />
                 </div>
               </div>
-              {type === "credit" && (
+              {type === "vente-depot-credit" && (
                 <>
-                  <label>Crediteur:</label>
+                  <label>Nom du crediteur:</label>
                   <select
                     className="form-control"
                     onChange={(e) => {
@@ -137,8 +140,24 @@ const FromDepot = ({ setRegenerate }) => {
                   </select>
                 </>
               )}
+              {type === "vente-depot-vaccinateur" && (
+                <>
+                  <label>Nom du vaccinateur:</label>
+                  <select
+                    className="form-control"
+                    onChange={(e) => {
+                      setVaccinateurId(e.target.value);
+                    }}
+                  >
+                    <option value=""></option>
+                    {vaccinateurs.map((v) => (
+                      <option value={v.id}>{v.name}</option>
+                    ))}
+                  </select>
+                </>
+              )}
               {fromdepots?.length <= 0 && (
-                <div className="alert alert-success ">
+                <div className="alert alert-success mt-2 ">
                   Aucune enregistrement trouvé
                 </div>
               )}
