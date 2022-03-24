@@ -1,34 +1,66 @@
-import axios from "axios";
+import axios from 'axios';
+import _ from 'lodash';
+const user = JSON.parse(localStorage.getItem('user-infos'));
 const defaults = {
-  baseURL: process.env.API_URL || "http:// http://localhost:8100/api",
+  baseURL: process.env.API_URL || 'http://localhost:8100/api/',
+
   headers: () => {
     return {
-      Accept: "application/json",
-      "Content-Type": "application/json",
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: user && user.token ? user.token : {},
     };
   },
   error: {
-    code: "INTERNAL_ERROR",
+    code: 'INTERNAL_ERROR',
     message:
-      "Something went wrong. Please check your internet connection or contact our support.",
+      "Quelque chose s'est mal passé. Veuillez vérifier votre connexion Internet ou contacter notre support.",
     status: 503,
     data: {},
   },
 };
-const api = (method, url,hasFile, variables) =>
+const request = axios;
+request.interceptors.request.use(
+  config => {
+    if (!config.headers.Authorization) {
+      const user = JSON.parse(localStorage.getItem('user-infos'));
+      if (user?.token)
+        request.defaults.headers.common.Authorization = `${user?.token}`;
+    }
+    return config;
+  },
+  error => console.log(error)
+);
+request.interceptors.response.use(
+  response => {
+    if (_.isUndefined(response)) {
+      return [];
+    } else {
+      return response;
+    }
+  },
+  error => console.log(error)
+);
+
+//console.log( user.token);
+const api = (method, url, hasFile, variables) =>
   new Promise((resolve, reject) => {
-    let formData= variables;
-    axios({
+    let formData = variables;
+    request({
       url: `${url}`,
       method,
       headers: defaults.headers(),
-      params: method === "get" ? variables : undefined,
-      data: method !== "get" ? formData : undefined,
+      params: method == 'get' ? variables : undefined,
+      data: method !== 'get' ? formData : undefined,
     }).then(
-      (response) => {
-        resolve(response.data);
+      response => {
+        if (_.isUndefined(response)) {
+          resolve([]);
+        } else {
+          resolve(response.data);
+        }
       },
-      (error) => {
+      error => {
         if (error?.response) {
           if (error?.response?.data?.error) {
             reject(error?.response?.data?.error);
@@ -41,10 +73,11 @@ const api = (method, url,hasFile, variables) =>
       }
     );
   });
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  get: (...args) => api("get", ...args),
-  post: (...args) => api("post", ...args),
-  put: (...args) => api("put", ...args),
-  patch: (...args) => api("patch", ...args),
-  delete: (...args) => api("delete", ...args),
+  get: (...args) => api('get', ...args),
+  post: (...args) => api('post', ...args),
+  put: (...args) => api('put', ...args),
+  patch: (...args) => api('patch', ...args),
+  delete: (...args) => api('delete', ...args),
 };

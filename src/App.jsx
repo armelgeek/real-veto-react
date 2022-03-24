@@ -1,3 +1,4 @@
+import 'react-app-polyfill/stable';
 import logo from "./logo.svg";
 import "./App.css";
 import React, { useState, useEffect, Suspense } from "react";
@@ -21,9 +22,10 @@ import getByRangeDate from "./filters/getByRangeDate";
 import flatify from "./filters/flatify";
 import { vetoProducts } from "./data/product";
 import { action, getData } from "./utils/lib/call";
-import { getCommande } from "./store/actions/commandes";
+import { getTdbCommande } from "./store/actions/commandes";
 import { NoItems } from "./components/composants/journal/NoItems";
-import { LastStock } from './components/composants/journal/LastStock';
+import { LastStock } from "./components/composants/journal/LastStock";
+import { MenuTdb } from "./components/composants/journal/MenuTdb";
 export const groupBy = (array, key, subkey) => {
   return array.reduce((result, currentValue) => {
     if (!subkey) {
@@ -72,7 +74,6 @@ function App() {
     return dates;
   };
 
-  useEffect(() => {}, [startofDate, endDate]);
   useEffect(() => {
     if (dateRange !== null) {
       if (dateRange[0]) {
@@ -93,7 +94,7 @@ function App() {
       setRangeMonth(
         getAllMonthBetweenDates(moment(startofDate), moment(endDate))
       );
-      dispatch(getCommande(startofDate, endDate));
+      dispatch(getTdbCommande('vente-cva',startofDate, endDate));
     }
   }, [startofDate, endDate]);
   useEffect(() => {
@@ -134,8 +135,6 @@ function App() {
             qttByCC,
           });
         } else {
-          console.log(temp);
-          (temp.quantityBruteCVA = 10),
             (temp.quantityParProduct =
               parseInt(temp.quantityParProduct) + parseInt(quantityParProduct));
           temp.qttByCC = parseInt(temp.qttByCC) + parseInt(qttByCC);
@@ -147,14 +146,6 @@ function App() {
     .sort(function (a, b) {
       return a.id > b.id;
     });
-  const getDataa = () => {
-    dispatch(getCommande(startofDate, endDate));
-  };
-  const functtt = () => {
-    /* if (data.some(o => o.name == toPush.name)) {
-  data.find(o => o.name == toPush.name).quantity = toPush.quantity;
-}*/
-  };
   const flato = (data, attribute) => {
     return [...new Set([].concat(...data.map((o) => o[attribute])))];
   };
@@ -163,16 +154,19 @@ function App() {
   return (
     <>
       <Content>
-        <ContentHeader title="Journal de vente">
-          <ActiveLink title="Journal de vente"></ActiveLink>
+        <ContentHeader title="Journal de vente du magasin">
+          <ActiveLink title="Journal de vente du magasin"></ActiveLink>
         </ContentHeader>
         <Page>
+        <MenuTdb/>
           <div className="date-range">
             <div className="d-flex justify-content-between my-3">
               <div>
                 {startofDate && endDate && (
                   <>
-                    <h2>Journal de vente </h2>
+                    <h2 class="text-uppercase my-1">
+                      Journal de vente du magasin{" "}
+                    </h2>
                     <span>
                       Du: {displayDate(startofDate)} Au {displayDate(endDate)}
                     </span>
@@ -185,36 +179,54 @@ function App() {
                   onChange={onChangeDateRange}
                   value={dateRange}
                 />
-                <button
-                  className="ml-3 btn btn-primary btn-sm"
-                  onClick={getDataa}
-                >
-                  Filtrer
-                </button>
+              </div>
+            </div>
+            <div className="bg-white py-3 px-2 mb-2">
+              <div>
+                <span
+                  className="bg-primary px-2"
+                  style={{
+                    width: 5,
+                    height: 5,
+                  }}
+                ></span>
+                 <span className=" ml-2">: Quantité de commande en (FLACON,BOLUS,UNITE,SACHET)</span>
+              </div>
+              <div>
+                <span
+                  className="bg-warning px-2"
+                  style={{
+                    width: 5,
+                    height: 5,
+                  }}
+                ></span>
+                 <span className=" ml-2">: Quantité de vente en ML</span>
               </div>
             </div>
             <div className="table-responsive">
+        
               <table class="table">
                 <tr className="sticky-this">
                   <td>Produit</td>
-                  <td style={{ width: "10%" }}></td>
                   {rangeDate.map((r) => (
                     <>
                       <DateInterval date={r} />
                     </>
                   ))}
-                  <td className="bg-green text-center">INV</td>
-                  <td className="bg-info text-center">INV CC</td>
+                  <td className="bg-thead text-uppercase text-center">Total</td>
+                  <td className="bg-thead text-uppercase text-center">
+                    {" "}
+                    Total CC
+                  </td>
+                  <td className="bg-thead text-uppercase text-center">Stock</td>
+                  <td className="bg-thead text-uppercase text-center">
+                    Stock ML
+                  </td>
                 </tr>
                 {res.map((b) => (
                   <>
-                    <tr>
-                      <td className="bg-gray">{b.name}</td>
-
-                      <td className="text-center">
-                        <tr>Stock</tr>
-                        <tr>Vente</tr>
-                      </td>
+                    <tr class="bg-white">
+                      <td className="bg-thead">{b.name}</td>
                       {rangeDate.map((r) => (
                         <>
                           {groupedBasket[r] != undefined ? (
@@ -228,21 +240,17 @@ function App() {
                           )}
                         </>
                       ))}
-                      <td className="text-center">
-                      <tr className="text-center">
-                        <LastStock
-                          flat={flato(
-                            groupedBasket[last(Object.keys(groupedBasket))],
-                            "contenu"
-                          )}
-                          gr={last(Object.keys(groupedBasket))}
-                          id={b.id}
-                        />
-                      </tr>
-                        <tr>B:{b.quantityParProduct}</tr>
+                      <td className="text-center">{b.quantityParProduct}</td>
 
-                        <tr>CC:{b.qttByCC}</tr>
-                      </td>
+                      <td className="text-center">{b.qttByCC}</td>
+                      <LastStock
+                        flat={flato(
+                          groupedBasket[last(Object.keys(groupedBasket))],
+                          "contenu"
+                        )}
+                        gr={last(Object.keys(groupedBasket))}
+                        id={b.id}
+                      />
                     </tr>
                   </>
                 ))}

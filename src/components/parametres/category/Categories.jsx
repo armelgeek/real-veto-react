@@ -6,8 +6,7 @@ import { AddCategory } from './AddCategory'
 function Categories({categories,meta}) {
     return (
         <div>
-            <h3 className="mb-2 text-bold title">Categorie de produit</h3>
-
+           
             <div className="card mt-2">
             <div className="card-body">
             <AddCategory categories={categories} meta={meta} />

@@ -12,27 +12,33 @@ export const FournisseurInput = ({ fournisseur }) => {
     dispatch(action("fournisseurs").destroy(cat));
     dispatch(action("fournisseurs").fetch());
   };
- 
+
   return (
-    <div key={fournisseur.id} className="mb-2">
-      <div>
+    <div
+      key={fournisseur.id}
+      className="mb-2 d-flex justify-content-center align-items-center"
+    >
+      <div
+        style={{
+          width: "50%",
+        }}
+      >
         {!toggleEdit ? (
           <li className="list-items-row p-1 d-flex justify-content-between align-items-center mb-1 border-1">
-        
             {fournisseur.name}
             <button
-              className="btn btn-secondary btn-sm"
+              className="btn btn-warning btn-sm"
               onClick={() => {
                 setToggleEdit(true);
               }}
             >
               Editer
             </button>
-            </li>
+          </li>
         ) : (
-          <div  className="p-3">
+          <div className="p-3">
             <Form
-            enableReinitialize
+              enableReinitialize
               id={`form-${fournisseur.id}`}
               initialValues={{
                 nom: fournisseur.name,
@@ -51,41 +57,48 @@ export const FournisseurInput = ({ fournisseur }) => {
               }}
               render={() => (
                 <Form.Element>
-                <Form.Field.Input name="nom" label="Nom du fournisseur" placeholder={"Nom du fournisseur"} />
-
-                <button className="btn btn-success btn-sm m-1" type="submit">
-                  Enregistrer
-                </button>
-                <button
-                  className="btn  btn-danger btn-sm m-1"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (
-                      window.confirm(
-                        `Vous voulez vraiment supprimer le fournisseur "${fournisseur.name}" ?`
-                      )
-                    ) {
-                      deleteCateg(fournisseur);
-                    }
-                  }}
-                >
-                  Supprimer
-                </button>
-                <button
-                  className="btn btn-info btn-sm m-1"
-                  onClick={() => {
-                    setToggleEdit(false);
-                  }}
-                >
-                  Annuler
-                </button>
-              </Form.Element>
+                  <Form.Field.Input
+                    name="nom"
+                    placeholder={"Nom du fournisseur"}
+                  />
+                  <div className="d-flex justify-content-center align-items-center">
+                    <button
+                      className="btn btn-success btn-sm m-1"
+                      type="submit"
+                    >
+                      Enregistrer
+                    </button>
+                    <button
+                      className="btn  btn-danger btn-sm m-1"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (
+                          window.confirm(
+                            `Vous voulez vraiment supprimer le fournisseur "${fournisseur.name}" ?`
+                          )
+                        ) {
+                          deleteCateg(fournisseur);
+                        }
+                      }}
+                    >
+                      Supprimer
+                    </button>
+                    <button
+                      className="btn btn-info btn-sm m-1"
+                      onClick={() => {
+                        setToggleEdit(false);
+                      }}
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                </Form.Element>
               )}
             />
-              
           </div>
         )}
       </div>
+      <div></div>{" "}
     </div>
   );
 };

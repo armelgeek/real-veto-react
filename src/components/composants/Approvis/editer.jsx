@@ -14,18 +14,19 @@ import ProductItemEditApprov from "./ProductItemEditApprov";
 import searchByNameAndFournisseur from "../../../filters/searchByNameAndFournisseur";
 import searchByName from "../../../filters/searchByName";
 import searchByFournisseur from "../../../filters/searchByFournisseur";
+import { fetchProductsById } from "../../../store/actions/approv";
 
 export const EditerApprov = () => {
   const { id } = useParams();
   const [regenerate, setRegenerate] = useState(false);
-  const dispatch = useDispatch();
+  const dispatchz = useDispatch();
   const approv = useSelector(getData("approvis").value);
   const meta = useSelector(getData("approvis").meta);
-  const products = useSelector(getData("products").value);
+  const products = useSelector(state => state.products.items);
   const metaproducts = useSelector(getData("products").meta);
   const [productData, setProductData] = useState([]);
   React.useEffect(() => {
-    dispatch(action("approvis").get(id));
+    dispatch(action("products").get(id));
   }, []);
   const [value, setValue] = useState("");
 
@@ -141,16 +142,14 @@ export const EditerApprov = () => {
               </ListGroup>
             </Col>
             <Col xs={7}>
-              {metaproducts.isFetching && <p>"Chargement en cours ...."</p>}
-              {!metaproducts.isFetching && (
                 <EditApprovisionnement
+                  disabled={metaproducts.isFetching}
                   state={state}
                   meta={meta}
                   setState={setState}
                   products={products}
                   approv={approv[approv.length - 1]}
                 />
-              )}
             </Col>
           </Row>
         </Container>

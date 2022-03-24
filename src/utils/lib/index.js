@@ -11,7 +11,5 @@ export {
   metaInitialState,
   itemsFor,
   reducersFor,
-  isFetching,
-  lastUpdatedAt,
-  isFetchingInitial,
+  isFetching
 } from "./reducer";

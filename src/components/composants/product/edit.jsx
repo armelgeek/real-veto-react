@@ -6,13 +6,12 @@ import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
 import ContentHeader from "../../../@adminlte/adminlte/Content/ContentHeader";
 import Page from "../../../@adminlte/adminlte/Content/Page";
 import { PRODUCTS } from "../../../constants/routes";
-import { updateProduct } from "../../../store/actions/products";
+import { fetchProductsById } from "../../../store/actions/products";
 import Error from "../../../utils/admin/Resource/Error";
 import Success from "../../../utils/admin/Resource/Success";
 import Form from "../../../utils/form";
 import { action, getData } from "../../../utils/lib/call";
 import { validationSchema } from "./validation";
-
 function Edit() {
   const { id } = useParams();
   const fournisseurs = useSelector(getData("fournisseurs").value);
@@ -26,6 +25,7 @@ function Edit() {
   const [prixQttCcVente, setPrixQttCCVente] = useState(0);
   const dispatch = useDispatch();
 
+  const [formVal, setFormVal] = useState({});
   const [flac, setFlac] = useState(products[0]?.type);
   useEffect(() => {
     dispatch(action("products").get(id));
@@ -33,47 +33,59 @@ function Edit() {
     setPrixQttCCVente(products[0]?.prixqttccvente);
     setQttCcPVente(products[0]?.qttccpvente);
   }, [id]);
-
+  useEffect(() => {
+    if (!meta.isFetching) {
+      setFormVal({
+        name: products[0]?.name,
+      });
+    }
+  }, [meta]);
   useEffect(() => {
     dispatch(action("fournisseurs").fetch());
     dispatch(action("categories").fetch());
-  }, [history]);
+  }, []);
   return (
     <Content>
       <ContentHeader title="Editer un article">
         <ActiveLink title="Editer un article"></ActiveLink>
       </ContentHeader>
       <Page>
-      
         {meta.success != "" && meta.success != null && (
           <Success message={meta.success} />
         )}
+        {products[0].name}
         {meta.error && <Error error={meta.error} />}
-
         <Form
           id="add-form-product"
-          enableReinitialize
-          initialValues={Form.initialValues(products[0], (get) => ({
-            name: get("name"),
-            type:  get("type"),
-            doseDefault: get("doseDefault"),
-            prixVente: parseFloat(get("prixVente")),
-            prixFournisseur: parseFloat(get("prixFournisseur")),
-            prixVaccinateur: parseFloat(get("prixVaccinateur")),
-            prixParCC: parseFloat(get("prixParCC")),
-            datePer:  get("datePer"),
+          initialValues={{
+            name: products[0]?.name,
+            type: products[0]?.type,
+            doseDefault: products[0]?.doseDefault,
+            prixVente: products[0]?.prixVente,
+            prixFournisseur: products[0]?.prixFournisseur,
+            prixVaccinateur: parseFloat(products[0]?.prixVaccinateur),
+            prixParCC: parseFloat(products[0]?.prixParCC),
+            datePer: products[0]?.datePer,
             uniteMesure: "ml",
-            qttByCC: parseInt(get("prixParCC")),
-            conditionnement: parseInt(get("conditionnement")),
-            categoryId: parseInt(get("categoryId")),
-            datePer: get("datePer"),
-            fournisseurId: parseInt(get("fournisseurId")),
-            condml: parseInt(get("condml")==null ? 0  : get("condml")),
-            condsize: parseInt(get("condsize")==null ? 0 : get("condsize")),
-            qttccpvente: parseInt(get("qttccpvente")==null ? 0  : get("qttccpvente")),
-            prixqttccvente: parseInt(get("prixqttccvente")==null ? 0  : get("prixqttccvente")),
-            
-          }))}
+            conditionnement: products[0]?.conditionnement,
+            categoryId: parseInt(products[0]?.categoryId),
+            datePer: products[0]?.datePer,
+            fournisseurId: parseInt(products[0]?.fournisseurId),
+            condml:
+              products[0]?.condml == null ? 0 : parseInt(products[0]?.condml),
+            condsize:
+              products[0]?.condsize == null
+                ? 0
+                : parseInt(products[0]?.condsize),
+            qttccpvente:
+              products[0]?.qttccpvente == null
+                ? 0
+                : parseInt(products[0]?.qttccpvente),
+            prixqttccvente:
+              products[0]?.prixqttccvente == null
+                ? 0
+                : parseInt(products[0]?.prixqttccvente),
+          }}
           validations={validationSchema}
           onSubmit={(values, form) => {
             const {
@@ -91,7 +103,7 @@ function Edit() {
               condval,
               qttccpvente,
               prixqttccvente,
-              conditionnement
+              conditionnement,
             } = values;
             dispatch(
               action("products").update({
@@ -118,6 +130,16 @@ function Edit() {
                 conditionnement: parseInt(conditionnement),
                 prixqttccvente: parseInt(prixqttccvente),
                 updatedAt: new Date(),
+                refSortie: "0",
+                refQtSortie: 0,
+                qttByCCDepot: 0,
+                condmldepot: 0,
+
+                condvaldepot: 0,
+                qttccpventedepot: 0,
+                prixqttccventedepot: 0,
+                quantityParProductDepot: 0,
+                condsizedepot: 0,
               })
             );
             history.push(PRODUCTS);
@@ -147,10 +169,11 @@ function Edit() {
                       />
                       <Form.Field.Input
                         name="name"
+                        value={values?.name}
                         label="Désignation"
                         placeholder={"Désignation"}
                       />
-                       <Form.Field.Select
+                      <Form.Field.Select
                         name="type"
                         label="Type d'article"
                         emptyValue={false}
@@ -163,7 +186,7 @@ function Edit() {
                           { id: "SACHET", name: "SACHET" },
                         ]}
                       />
-                      {values.type ===  "FLACON" && (
+                      {values.type === "FLACON" && (
                         <div className="ml-3">
                           <Form.Field.Number
                             name="doseDefault"
@@ -200,7 +223,8 @@ function Edit() {
                               <Form.Field.Number
                                 name="prixqttccvente"
                                 disabled={
-                                  values.qttccpvente == null || values.qttccpvente == ""
+                                  values.qttccpvente == null ||
+                                  values.qttccpvente == ""
                                 }
                                 label={`Prix de vente equivalent à ${values.qttccpvente} ML.`}
                                 placeholder={`Prix de vente equivalent à ${values.qttccpvente} ML.`}
@@ -209,13 +233,6 @@ function Edit() {
                           )}
                         </div>
                       )}
-
-                      <Form.Field.Date
-                        type="date"
-                        name="datePer"
-                        label="date de peremption"
-                        placeholder={"date de peremption"}
-                      />
                     </div>
                   </div>
                 </div>

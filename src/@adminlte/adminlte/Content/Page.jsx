@@ -1,5 +1,4 @@
 import React from "react";
-import reactFastCompare from 'react-fast-compare';
 function Page({ children }) {
   return (
     <section class="content" >
@@ -7,4 +6,4 @@ function Page({ children }) {
     </section>
   );
 }
-export default React.memo(Page,reactFastCompare);
+export default React.memo(Page);

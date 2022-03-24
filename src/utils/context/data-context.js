@@ -7,7 +7,7 @@ const GetDataContext = React.createContext();
 
 function GetOne({ model, children }) {
   const { id } = useParams();
-  const [regenerate, setRegenerate] = React.useState(false);
+  const [regenerate, setRegenerate] = React.useState(true);
   const data = useSelector(getData(model).value);
   const meta = useSelector(getData(model).meta);
   const dispatch = useDispatch();

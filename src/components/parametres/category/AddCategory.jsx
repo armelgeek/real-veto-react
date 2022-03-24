@@ -22,18 +22,24 @@ export const AddCategory = ({ categories, meta }) => {
           const { nom } = values;
           dispatch(
             action("categories").create({
-              id: meta.nextId,
               name: nom,
             })
           );
         }}
-        render={() =>(<Form.Element>
-          <Form.Field.Input name="nom" placeholder={"Nom du categorie"} />
-
-          <button className="btn btn-success mt-2  btn-sm " type="submit">
-            Ajouter
-          </button>
-        </Form.Element>)}
+        render={() => (
+          <Form.Element>
+            <div className="d-flex justify-content-center align-items-center">
+              <div style={{
+                width:"300px"
+              }}>
+                <Form.Field.Input name="nom" placeholder={"Nouvelle categorie"} />
+              </div>
+              <button className="btn btn-success ml-2 " type="submit">
+                Ajouter
+              </button>
+            </div>
+          </Form.Element>
+        )}
       />
     </div>
   );

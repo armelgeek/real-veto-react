@@ -26,6 +26,7 @@ import {
   HISTORIQUESORTIECVA,
   ETATSTOCKMAGASIN,
   HISTORIQUEVENTEVENDEURVUEPARADMIN,
+  TDB_DEPOT_VERS_MAGASIN,TDB_VENTE_CBV,TDB_FACTURES
 } from "../constants/routes";
 class AdminLTE extends React.PureComponent  {
   render() {
@@ -57,7 +58,6 @@ class AdminLTE extends React.PureComponent  {
             </Link>
             <div
               class="sidebar"
-              style={{ height: "100vh", maxHeight: "100vh", overflowY: "auto" }}
             >
               <nav class="mt-2">
                 <ul
@@ -66,29 +66,24 @@ class AdminLTE extends React.PureComponent  {
                   role="menu"
                   data-accordion="false"
                 >
-                  <NavTree title={"Journal d'E&S"} route={"/"} />
-                  <NavItem title="Factures">
-                    <NavTree
-                      title={"Nouvelle facture"}
-                      route={NOUVELLEFACTURE}
-                    />
-                    <NavTree title={"Les Factures"} route={LISTAPPROV} />
-                  </NavItem>
-                  <NavItem title="Articles">
-                    <NavTree title={"Liste articles"} route={PRODUCTS} />
-
-                    <NavTree title={"Ajout un article"} route={CREATEPRODUCT} />
+                   <NavTree
+                    title={"Tableau de bord"}
+                    route={"/"}
+                  />
+                  <NavItem title="Factures && Produits">
+                  <NavTree title={"Factures"} route={LISTAPPROV} />
+                  <NavTree title={"Produits"} route={PRODUCTS} />
                   </NavItem>
                   <NavItem title="Dépot">
+                    <NavTree title={"Bon de sortie"} route={BONDESORTIE} />
                     <NavTree title={"Historique de sortie"} route={SORTIE} />
                     <NavTree title={"Credit"} route={CREDIT} />
                     <NavTree title={"Vaccinateur"} route={CREDITVACCINATEUR} />
-                    <NavTree title={"Bon de sortie"} route={BONDESORTIE} />
                   </NavItem>
                   <NavItem title="Magasin">
                     <NavTree title={"Depot vers Magasin"} route={ADMIN} />
                     <NavTree
-                      title={"Historique de sortie Dépôt vers Magasin"}
+                      title={"Historique de 'Dépôt vers Magasin'"}
                       route={HISTORIQUESORTIECVA}
                     />
                     <NavTree
@@ -98,14 +93,6 @@ class AdminLTE extends React.PureComponent  {
                     <NavTree
                       title={"Historique de vente du magasin"}
                       route={HISTORIQUEVENTEVENDEURVUEPARADMIN}
-                    />
-                  </NavItem>
-
-                  <NavItem title="Etat des articles">
-                    <NavTree title={"Article perimés"} route={PERIME} />
-                    <NavTree
-                      title={"Articles en rupture de stock"}
-                      route={RUPTURE}
                     />
                   </NavItem>
                   <NavItem title="Parametres">
@@ -119,12 +106,6 @@ class AdminLTE extends React.PureComponent  {
             </div>
           </aside>
           <div
-            style={{
-              height: "80%",
-              maxHeight: "80%",
-              overflowX: "hidden",
-              overflowY: "auto",
-            }}
           >
             {children}
           </div>

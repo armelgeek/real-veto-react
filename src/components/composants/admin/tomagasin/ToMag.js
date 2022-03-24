@@ -31,6 +31,7 @@ const ToMag = () => {
   const metaSortieDepot = useSelector(getData("sortiedepots").meta);
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(clearMagasin());
     dispatch(action("commandes").fetch());
     dispatch(action("sortiedepots").fetch());
   }, []);

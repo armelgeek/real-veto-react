@@ -27,7 +27,7 @@ function copy(object) {
   }
   return output;
 }
-const EditTo = ({ state, meta, setState, products, commandes }) => {
+const EditToFromMag = ({ state, meta, setState, products, commandes }) => {
   const [type, setType] = useState("direct");
   const [idFournisseur, setIdFournisseur] = useState(1);
   const [vaccinateurId, setVaccinateurId] = useState(null);
@@ -387,4 +387,4 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
   );
 };
 
-export default EditTo;
+export default EditToFromMag;

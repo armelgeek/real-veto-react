@@ -8,16 +8,14 @@ import { displayDate } from "../../../utils/functions";
 export const NoItems = () => {
   return (
     <td className="text-center p-1">
-      <tr style={{ display: "block" }}>
-        <div className="mb-2">
+        {/**<div className="mb-2">
           <span className="text-center  p-1">-</span>
           <span className="text-center  p-1">-</span>
-        </div>{" "}
+        </div>{" "}**/}
         <div>
           <span className="text-center  p-1">-</span>
           <span className="text-center  p-1">-</span>
         </div>
-      </tr>
     </td>
   );
 };

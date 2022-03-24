@@ -11,7 +11,8 @@ import {
   handleSoldQuantityCCDepot,
 } from "../../store/functions/function-depot";
 import { clearFromDepot } from "../../store/fromdepot/actions/fromdepot";
-import { SORTIE } from "../../constants/routes";
+import { SORTIE, CREDITVACCINATEUR, CREDIT } from "../../constants/routes";
+import { Select } from '@chakra-ui/react';
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   const total = arr.reduce((acc, val) => acc + val, 0);
@@ -43,6 +44,16 @@ const FromDepot = ({ setRegenerate }) => {
   }, []);
 
   const onCheckOut = () => {
+    if (dateCom == null || dateCom == "") {
+      alert("Vous avez oublié de mettre la date de l'operation !!!");
+      return;
+    }
+    for (let i = 0; i < fromdepots.length; ++i) {
+      if (fromdepots[i].quantityParProductDepot == 0) {
+        alert("Commande non conforme:" + fromdepots[i].name + " : 0");
+        return;
+      }
+    }
     fromdepots.forEach((element) => {
       delete element.busy;
       delete element.pendingCreate;
@@ -52,23 +63,31 @@ const FromDepot = ({ setRegenerate }) => {
       } else {
         handleSoldQuantityCCDepot(element);
       }
-      console.log(element);
     });
     //console.log(fromdepots);
     dispatch(
-      action("commandes").createTransaction({
-        id: Math.floor(Date.now() / 1000),
-        contenu: fromdepots,
-        type: type,
-        sorte: "sortie",
-        vaccinateurId: vaccinateurId,
-        status: type === "vente-depot" ? true : false,
-        emprunterId: emprunter,
-        dateCom: dateCom != null ? dateCom : date,
-      },'add-from-depot')
+      action("commandes").createTransaction(
+        {
+          id: Math.floor(Date.now() / 1000),
+          contenu: fromdepots,
+          type: type,
+          sorte: "sortie",
+          vaccinateurId: vaccinateurId,
+          status: type === "vente-depot" ? true : false,
+          emprunterId: emprunter,
+          dateCom: dateCom != null || dateCom != "" ? dateCom : date,
+        },
+        "add-from-depot"
+      )
     );
-   dispatch(clearFromDepot());
-  history.push(SORTIE);
+    dispatch(clearFromDepot());
+    if (type === "vente-depot-credit") {
+      history.push(CREDIT);
+    } else if (type === "vente-depot-vaccinateur") {
+      history.push(CREDITVACCINATEUR);
+    } else {
+      history.push(SORTIE);
+    }
   };
 
   const onClearBasket = () => {
@@ -80,15 +99,13 @@ const FromDepot = ({ setRegenerate }) => {
     dispatch(clearFromDepot());
   };
 
-
   return (
     <>
       <Card>
         <Card.Header className=" bg-dark py-2 text-white d-flex justify-content-between align-items-center">
           <div style={{ width: "60%" }}>BON DE SORTIE </div>
           <div style={{ width: "30%" }} className="text-right">
-            <select
-              className="form-control input-sm"
+            <Select
               onChange={(e) => {
                 setType(e.target.value);
               }}
@@ -98,7 +115,7 @@ const FromDepot = ({ setRegenerate }) => {
               </option>
               <option value="vente-depot-credit">Credit</option>
               <option value="vente-depot-vaccinateur">Vaccinateur</option>
-            </select>
+            </Select>
           </div>
         </Card.Header>
         <div className="commande-vente">
@@ -126,14 +143,14 @@ const FromDepot = ({ setRegenerate }) => {
               </div>
               {type === "vente-depot-credit" && (
                 <>
-                  <label>Nom du crediteur:</label>
+                  <label>Nom du persone:</label>
                   <select
-                    className="form-control"
+                    className="form-control mb-2"
                     onChange={(e) => {
                       setEmprunter(e.target.value);
                     }}
                   >
-                    <option value=""></option>
+                    <option>Selectionner une personne</option>
                     {emprunters.map((v) => (
                       <option value={v.id}>{v.name}</option>
                     ))}
@@ -144,12 +161,12 @@ const FromDepot = ({ setRegenerate }) => {
                 <>
                   <label>Nom du vaccinateur:</label>
                   <select
-                    className="form-control"
+                    className="form-control mb-2"
                     onChange={(e) => {
                       setVaccinateurId(e.target.value);
                     }}
                   >
-                    <option value=""></option>
+                    <option>Selectionner un vaccinateur</option>
                     {vaccinateurs.map((v) => (
                       <option value={v.id}>{v.name}</option>
                     ))}
@@ -157,8 +174,8 @@ const FromDepot = ({ setRegenerate }) => {
                 </>
               )}
               {fromdepots?.length <= 0 && (
-                <div className="alert alert-success mt-2 ">
-                  Aucune enregistrement trouvé
+                <div className="alert alert-success">
+                Choississez un produit sur la section "Produits" puis cliquez sur "Ajouter"
                 </div>
               )}
               {fromdepots?.map((product, i) => (

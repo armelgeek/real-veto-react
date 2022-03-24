@@ -96,13 +96,13 @@ const FromMagasin = () => {
       <Card>
         <Card.Header className=" bg-dark py-2 text-white d-flex justify-content-between align-items-center">
           <div style={{ width: "60%" }}>
-            BON DE SORTIE {type=="vente-cva" ? "DIRECT" : "CREDIT"}(
+            BON DE SORTIE (
             {` ${frommagasins?.length} ${
               frommagasins?.length > 1 ? "articles" : "article"
             }`}
             )
           </div>
-          <div style={{ width: "30%" }} className="text-right">
+          <div style={{ width: "40%" }} className="text-right">
             <select
               className="form-control input-sm"
               onChange={(e) => {
@@ -120,7 +120,7 @@ const FromMagasin = () => {
           <Card.Body
             style={{ padding: 2, marginTop: 3, marginRight: 2, marginLeft: 2 }}
           >
-            <div>
+            <div className="d-flex justify-content-end">
               <Link
                 className="btn btn-primary mb-2 btn-sm"
                 to={HISTORIQUEVENTEVENDEUR}

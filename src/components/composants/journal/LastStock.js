@@ -7,36 +7,19 @@ export const LastStock = ({ flat, gr, id }) => {
       : {};
   let lastStock = {
     bruteCva: lastElement.hasOwnProperty("id")
-      ? lastElement.quantityBruteCVA 
+      ? lastElement.quantityBruteCVA
       : 0,
-    ccCva: lastElement.hasOwnProperty("id")
-      ? lastElement.quantityCCCVA
-      : 0,
+    ccCva: lastElement.hasOwnProperty("id") ? lastElement.quantityCCCVA : 0,
   };
   return (
-    <td className="text-center p-1">
-        <tr>
-          <td
-            className={
-              orderItem.length == 0
-                ? `text-center p-1`
-                : `text-center  bg-warning p-1`
-            }
-          >
-            {orderItem.length != 0 ? lastStock.bruteCva : '-'}
-          </td>
-          <td
-            className={
-              orderItem.length == 0
-                ? `text-center p-1`
-                : `text-center bg-primary p-1 text-white`
-            }
-          >
-            {orderItem.length != 0 ? lastStock.ccCva : '-'}
-          </td>
-        </tr>{" "}
-        
-    </td>
+    <>
+      <td className="text-center">
+        {orderItem.length != 0 ? lastStock.bruteCva : 0}
+      </td>
+      <td className="text-center">
+        {orderItem.length != 0 ? lastStock.ccCva : 0}
+      </td>
+    </>
   );
 };
 

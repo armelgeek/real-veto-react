@@ -16,11 +16,14 @@ function DetailProduct() {
   const products = useSelector(getData("products").value);
   useEffect(() => {
     dispatch(action("products").get(id));
-  }, [id]);
+  }, []);
+  const forceRerender = () => {
+    return Math.random(10000);
+  };
   return (
     <Content>
-      <ContentHeader title="Détail de l'article">
-        <ActiveLink title="Détail de l'article"></ActiveLink>
+      <ContentHeader title="Détail du produit">
+        <ActiveLink title="Détail du produit"></ActiveLink>
       </ContentHeader>
       <Page>
         {products[0]?.conditionnement != 2 ||
@@ -47,7 +50,7 @@ function DetailProduct() {
                   </span>
                 </p>
                 <p>
-                  Quantité de vente pour {products[0]?.qttccpvente} ML:{" "}
+                  Prix de vente pour {products[0]?.qttccpvente} ML:{" "}
                   <span className="badge badge-info">
                     {displayMoney(products[0]?.prixqttccvente)}{" "}
                   </span>
@@ -56,8 +59,8 @@ function DetailProduct() {
             </div>
           ))}
         <table className="table table-striped">
-          <tr>
-            <td>
+          <tr className="bg-thead">
+            <td >
               <strong>Nom de l'article:</strong>
             </td>
             <td>{products[0]?.name} </td>
@@ -120,12 +123,7 @@ function DetailProduct() {
                 : displayMoney(products[0]?.prixParCC)}
             </td>
           </tr>
-          <tr>
-            <td>
-              <strong>Date de peremption:</strong>
-            </td>
-            <td>{displayDate(products[0]?.datePer)}</td>
-          </tr>
+        
         </table>
       </Page>
     </Content>

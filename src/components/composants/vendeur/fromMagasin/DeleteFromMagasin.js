@@ -4,9 +4,10 @@ import { useHistory } from "react-router-dom";
 import { action } from "../../../../utils/lib/call";
 function DeleteFromMagasin({ model, entity }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const deleteEntity = () => {
     dispatch(action(model).deleteTransaction(entity, "/delete-from-magasin"));
-   // window.location.reload();
+    history.goBack();
   };
   return (
     <>

@@ -105,10 +105,8 @@ const Products = () => {
   };
   return (
     <>
-      
       <Container fluid>
         <div className="py-2">
-         
           <Row>
             <Col xs={6}>
               <Card className="mt-2">
@@ -120,19 +118,17 @@ const Products = () => {
                       onClick={() => {
                         setValue("");
                         setRegenerate(true);
-                        
                       }}
                     >
                       Mettre à jour
-                    
                     </button>
                   </div>
                 </Card.Header>
                 <Card.Body>
-                  <div >
+                  <div>
+                  
                     <input
                       type="text"
-                      
                       onChange={(e) => {
                         setValue(e.target.value);
                       }}
@@ -143,14 +139,13 @@ const Products = () => {
                       <Data>
                         {({ data, meta }) => (
                           <div className="my-2">
-                            
                             <Select
                               style={{ backgroundColor: "white" }}
                               onChange={(e) => {
                                 setIdFournisseur(e.target.value);
                               }}
                             >
-                            <option>Tous les fournisseurs</option>
+                              <option>Tous les fournisseurs</option>
                               {data.map((d) => (
                                 <option value={d.id} selected={d.id == 2}>
                                   {d.name}
@@ -175,7 +170,8 @@ const Products = () => {
                         {productData.map((p) => (
                           <ProductItem product={p} />
                         ))}
-                        {productData.length == 0 && "Aucune enregistrement trouvé"}
+                        {productData.length == 0 &&
+                          "Aucune enregistrement trouvé"}
                       </div>{" "}
                     </div>
                   </ListGroup>

@@ -1,14 +1,36 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FromMagasinItemControl from "./FromMagasinItemControl";
 import FromMagasinItemPartial from "./FromMagasinItemPartial";
 import { displayMoney, checkHasExistText } from "../../../../utils/functions";
 import { ItaNewInputDose } from "./ItaNewInputDose";
 import { PhytoConditionnementInput } from "./PhytoConditionnementInput";
 import { SovaxInputDose } from "./SovaxInputDose";
+import useFromMagasin from "../../../../hooks/useFromMagasin";
 const FromMagasinItem = ({ product }) => {
   const [realQttCC, setRealQttCC] = useState(null);
   const [realQtt, setRealQtt] = useState(null);
+  const frommagasins = useSelector((state) => state.frommagasins);
+  const dispatch = useDispatch();
+  const { isItemFromMagasin, addFromMagasin } = useFromMagasin(
+    frommagasins,
+    dispatch
+  );
+  
+
+  const itemOnBasket = isItemFromMagasin
+    ? isItemFromMagasin(product.id)
+    : false;
+  /* useEffect(()=>{
+    if(!itemOnBasket){
+      product.qttByCC =0;
+      product.quantityParProduct=0;
+    }
+  },[itemOnBasket])*/
+  const handleAddToBasket = () => {
+    if (addFromMagasin) addFromMagasin(product);
+  };
+
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center border   mb-2 p-2">
@@ -87,6 +109,17 @@ const FromMagasinItem = ({ product }) => {
             )}
           </div>
         )}
+
+        <div>
+            {itemOnBasket && (
+              <button
+                onClick={handleAddToBasket}
+                className="btn btn-danger btn-xs text-right"
+              >
+                X
+              </button>
+            )}
+          </div>
       </div>
     </div>
   );

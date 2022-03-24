@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink,useHistory } from "react-router-dom";
 import Content from "../../../@adminlte/adminlte/Content";
 import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
 import ContentHeader from "../../../@adminlte/adminlte/Content/ContentHeader";
@@ -30,6 +30,7 @@ export const ProductAll = () => {
   const meta = useSelector(getData("products").meta);
   const ref = useRef();
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     dispatch(action("products").fetch());
   }, []);

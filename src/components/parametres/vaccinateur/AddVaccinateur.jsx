@@ -4,13 +4,13 @@ import { useDispatch } from "react-redux";
 import { action } from "../../../utils/lib/call";
 import Form from "../../../utils/form";
 import { validationSchema } from "./validation";
-export const AddVaccinateur = ({ categories,meta }) => {
+export const AddVaccinateur = ({ categories, meta }) => {
   const dispatch = useDispatch();
 
   return (
     <div className="mb-3">
       <Form
-        id="add-form-category"
+        id="add-form-vaccinateur"
         enableReinitialize
         initialValues={{
           nom: "",
@@ -21,7 +21,7 @@ export const AddVaccinateur = ({ categories,meta }) => {
           const { nom, contact } = values;
           dispatch(
             action("vaccinateurs").create({
-              id:meta.nextId,
+              id: meta.nextId,
               name: nom,
               contact: contact,
             })
@@ -29,24 +29,31 @@ export const AddVaccinateur = ({ categories,meta }) => {
         }}
         render={() => (
           <Form.Element>
-          <Form.Field.Input
-            name="nom"
-            label="Nom du vaccinateur"
-            placeholder={"Nom du vaccinateur"}
-          />
-          <Form.Field.Input
-            name="contact"
-            label="Contact du vaccinateur"
-            placeholder={"Contact du vaccinateur"}
-          />
+            <div className="d-flex flex-column justify-content-center align-items-center">
+              <div
+                style={{
+                  width: "300px",
+                }}
+              >
+                <Form.Field.Input
+                  name="nom"
+                  label="Nom du vaccinateur"
+                  placeholder={"Nom du vaccinateur"}
+                />
+                <Form.Field.Input
+                  name="contact"
+                  label="Contact du vaccinateur"
+                  placeholder={"Contact du vaccinateur"}
+                />
 
-          <button className="btn btn-success  btn-sm " type="submit">
-            Ajouter
-          </button>
-        </Form.Element>
+                <button className="btn btn-success mt-2 btn-block " type="submit">
+                  Ajouter
+                </button>
+              </div>
+            </div>
+          </Form.Element>
         )}
       />
-       
     </div>
   );
 };

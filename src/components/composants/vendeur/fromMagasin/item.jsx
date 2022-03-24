@@ -29,7 +29,7 @@ const ProductItem = ({ product }) => {
     <>
       <ListGroup.Item
         className="mb-2 mr-3"
-        style={{ width: "250px", border: "1px solid gray" }}
+        style={{ width: "100%", border: "1px solid gray" }}
       >
       <div className=" d-flex justify-content-between align-items-center">
         <div

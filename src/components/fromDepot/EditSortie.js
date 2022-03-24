@@ -151,16 +151,14 @@ const EditSortie = () => {
               </ListGroup>
             </Col>
             <Col xs={6}>
-            {metaproducts.isFetching && <p>"Chargement en cours ...."</p>}
-              {!metaproducts.isFetching && (
                 <EditFromDepot
+                disabled={metaproducts.isFetching}
                   state={state}
                   meta={metacommandes}
                   setState={setState}
                   products={products}
                   commandes={commandes[0]}
                 />
-              )}
             </Col>
           </Row>
         </Container>

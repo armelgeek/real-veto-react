@@ -43,7 +43,12 @@ import {
   EDITERFACTURE,
   BNC_DEPOT,
   EDIT_SORTIE,
-  DETAIL_SORTIE,EDITDEPOTTOMAGASIN,EDITFROMMAGASIN
+  DETAIL_SORTIE,
+  EDITDEPOTTOMAGASIN,
+  EDITFROMMAGASIN,
+  TDB_DEPOT_VERS_MAGASIN,
+  DEPOT_MAGASIN_DETAIL,
+  DETAIL_MAGASIN_VENTE,
 } from "./constants/routes";
 
 import PublicRoute from "./routes/PublicRoute";
@@ -75,6 +80,8 @@ import {
   NOUVELLEFACTURE,
   DETAILAPPROV,
   LISTAPPROV,
+  TDB_FACTURES,
+  TDB_VENTE_CBV,
 } from "./constants/routes";
 import { Auth, Data } from "./context/auth-context";
 import Vendeur from "./components/composants/vendeur";
@@ -92,8 +99,13 @@ import DetailVendeur from "./components/composants/vendeur/fromMagasin/DetailVen
 import AdminRoute from "./routes/AdminRoute";
 import { EditerApprov } from "./components/composants/Approvis/editer";
 import BonDepot from "./components/fromDepot/index";
-import EditToMag from './components/composants/admin/tomagasin/EditFromMagasin';
-import EditFromMagasin from "./components/composants/admin/tomagasin/EditFromMagasin";
+import { Facturation } from "./components/composants/journal/Facturation";
+import {VenteCBV} from "./components/composants/journal/VenteCBV";
+import { DepotVersMagasin } from "./components/composants/journal/DepotVersMagasin";
+import DepotToMagasinDetail from "./components/composants/admin/tomagasin/DepotToMagasinDetail";
+import DetailMagasinVente from "./components/composants/vendeur/fromMagasin/DetailMagasinVente";
+import EditFromMagasin from './components/composants/vendeur/fromMagasin/EditFromMagasin';
+import EditToMagasin from './components/composants/admin/tomagasin/EditToMagasin';
 function Routes() {
   const dispatch = useDispatch();
   return (
@@ -121,9 +133,15 @@ function Routes() {
       </Auth>*/}
       <Switch>
         <AdminRoute path={HOME} exact component={App} />
+        <AdminRoute path={TDB_FACTURES} component={Facturation} />
+        <AdminRoute path={TDB_VENTE_CBV} component={VenteCBV} />
+        <AdminRoute
+          path={TDB_DEPOT_VERS_MAGASIN}
+          component={DepotVersMagasin}
+        />
         <VendeurRoute path={VENDEUR} component={Vendeur} />
         <VendeurRoute path={DETAILVENDEUR} component={DetailVendeur} />
-        <VendeurRoute path={EDITFROMMAGASIN} component={EditFromMagasin}/>
+        <VendeurRoute path={EDITFROMMAGASIN} component={EditFromMagasin} />
         <AdminRoute path={APPROV} component={Approv} />
         <AdminRoute path={PERIME} component={Perime} />
         <AdminRoute path={PARASUPPL} component={ParametrageSuppl} />
@@ -135,7 +153,7 @@ function Routes() {
         <AdminRoute path={RUPTURE} component={Rupture} />
         <AdminRoute path={CREDIT} component={Credit} />
         <AdminRoute path={PARAMETRES} component={Parametres} />
-        <AdminRoute path={CREDITVACCINATEUR}  component={CreditVaccinateur} />
+        <AdminRoute path={CREDITVACCINATEUR} component={CreditVaccinateur} />
         <AdminRoute path={DIRECT} component={Direct} />
         <AdminRoute path={BONDESORTIE} component={BonDepot} />
         <AdminRoute
@@ -148,7 +166,7 @@ function Routes() {
 
         <AdminRoute path={ENTREE} component={Entree} />
         <AdminRoute path={DETAIL} component={Detail} />
-        <AdminRoute path={DETAIL_SORTIE} exact component={DetailSortie}/>
+        <AdminRoute path={DETAIL_SORTIE} exact component={DetailSortie} />
         <AdminRoute path={PRODUCTDETAIL} component={DetailProduct} />
         <AdminRoute path={BSORTIE} component={BSortie} />
         <AdminRoute path={ADDPROD} component={AddProd} />
@@ -161,13 +179,13 @@ function Routes() {
         <AdminRoute path={SIGNIN} component={SignIn} />
         <AdminRoute path={SIGNUP} component={SignUp} />
         <AdminRoute path={ADMIN} component={AdminDashboard} />
-        <AdminRoute path={EDITDEPOTTOMAGASIN} component={EditToMag} />
+        <AdminRoute path={EDITDEPOTTOMAGASIN} component={EditToMagasin} />
 
         <AdminRoute
           path={HISTORIQUESORTIECVA}
           component={HistoriqueSortieCva}
         />
-
+        <AdminRoute path={DEPOT_MAGASIN_DETAIL} component={DepotToMagasinDetail} />
         <AdminRoute path={ETATSTOCKMAGASIN} component={EtatStockMagasin} />
         <VendeurRoute
           path={HISTORIQUEVENTEVENDEUR}
@@ -176,6 +194,12 @@ function Routes() {
         <AdminRoute
           path={HISTORIQUEVENTEVENDEURVUEPARADMIN}
           component={MagasinVente}
+          
+        />
+         <AdminRoute
+          path={DETAIL_MAGASIN_VENTE}
+          component={DetailMagasinVente}
+          
         />
         
       </Switch>

@@ -1,10 +1,9 @@
-import reduxCrud from "redux-crud";
-import humps from "humps";
-import { singular } from "pluralize";
-import api from "../api";
-import { isArray } from "lodash";
-
-const wrapArray = (objectOrArray) =>
+import reduxCrud from '../crud';
+import humps from 'humps';
+import { singular } from 'pluralize';
+import api from '../api';
+import { isArray } from 'lodash';
+const wrapArray = objectOrArray =>
   isArray(objectOrArray) ? objectOrArray : [objectOrArray];
 
 const transformKeys = (json = {}, key) => {
@@ -22,29 +21,28 @@ const fetchSuccessRequest = (
   ...action,
   records: wrapArray(action.records),
   receivedAt: new Date(),
-  nextId: nextId,
-  success: success || "",
+  success: success || '',
   totalItems: totalItems,
   totalPages: totalPages,
   currentPage: currentPage,
 });
 
 export const fetch =
-  (resourceName, options = {}, params = {}) =>{
-  return async function(dispatch,getState){
+  (resourceName, options = {}, params = {}, successCallback, errorCallback) =>
+  dispatch => {
     const actionCreators = reduxCrud.actionCreatorsFor(resourceName);
     const path = options.path || humps.decamelize(resourceName);
     const reduxCrudOptions = options.replace
       ? { replace: options.replace }
       : undefined;
     const url =
-      options.url || process.env.API_URL || "http://localhost:8100/api";
+      options.url || process.env.API_URL || 'http://localhost:8100/api';
     dispatch(actionCreators.fetchStart());
-    await api
-      .get(`${url}/${path}`,false, params, options)
-      .then((response) => {
-        if (!response.hasOwnProperty("data")) {
-          if (!response.hasOwnProperty("rows")) {
+    return api
+      .get(`${url}/${path}`, false, params, options)
+      .then(response => {
+        if (!response.hasOwnProperty('data')) {
+          if (!response.hasOwnProperty('rows')) {
             dispatch(
               fetchSuccessRequest(
                 actionCreators.fetchSuccess(
@@ -56,80 +54,107 @@ export const fetch =
                 null
               )
             );
+            if (successCallback) {
+              successCallback(transformKeys(response));
+            }
           } else {
             dispatch(
               fetchSuccessRequest(
                 actionCreators.fetchSuccess(
-                  transformKeys(response, "rows"),
+                  transformKeys(response, 'rows'),
                   reduxCrudOptions
                 ),
-                response.nextId,
                 response.totalItems,
                 response.totalPages,
                 response.currentPage
               )
             );
+            if (successCallback) {
+              successCallback(transformKeys(response, 'rows'));
+            }
           }
         } else {
           let data = response.data;
           dispatch(
             fetchSuccessRequest(
               actionCreators.fetchSuccess(
-                transformKeys(data, "rows"),
+                transformKeys(data, 'rows'),
                 reduxCrudOptions
               ),
-              data.nextId,
               data.totalItems,
               data.totalPages,
               data.currentPage
             )
           );
+          if (successCallback) {
+            successCallback(transformKeys(data, 'rows'));
+          }
         }
       })
-      .catch((err) => {
-        console.error(`fetching ${resourceName} failed`);
+      .catch(err => {
         if (err.response) {
+          if (errorCallback) {
+            errorCallback(err.response);
+          }
           dispatch(actionCreators.fetchError(err?.response.data.error));
         } else {
+          if (errorCallback) {
+            errorCallback(err);
+          }
           dispatch(actionCreators.fetchError(err));
         }
       });
-  }
-};
+  };
 
 // Create action
 
 export const create =
-  (resourceName, record, options = {
-    hasFile:false
-  }) =>
-  async (dispatch) => {
+  (
+    resourceName,
+    record,
+    options = {
+      hasFile: false,
+    },
+    successCallback,
+    errorCallback
+  ) =>
+  dispatch => {
     const actionCreators = reduxCrud.actionCreatorsFor(resourceName);
-  
+
     const path = options.path || humps.decamelize(resourceName);
     const url =
-      options.url || process.env.API_URL || "http://localhost:8100/api";
+      options.url || process.env.API_URL || 'http://localhost:8100/api';
     dispatch(actionCreators.createStart(record));
 
-    return await api
-      .post(`${url}/${path}`,options.hasFile, record, options)
-      .then((json) => {
+    return api
+      .post(`${url}/${path}`, options.hasFile, record, {
+        replace: true,
+      })
+      .then(json => {
         dispatch(
-          actionCreators.createSuccess(json, json.id, {
+          actionCreators.createSuccess(record, json.id, {
             receivedAt: new Date(),
-            success:
-              options.success ||
-              "Enregistrement du contenu  reussie avec succès.",
           })
         );
-       if( options.resetForm) options.resetForm({});
+        if (successCallback) {
+          successCallback(record);
+        }
       })
       .catch(function (error) {
         if (error) {
           dispatch(actionCreators.createError(error, record));
+          if (errorCallback) {
+            errorCallback(error);
+          }
         } else if (error.message) {
           dispatch(actionCreators.createError(error, record));
+          if (errorCallback) {
+            errorCallback(error.message);
+          }
         } else if (error?.response?.data?.message) {
+          if (errorCallback) {
+            errorCallback(error?.response.data.message);
+          }
           dispatch(
             actionCreators.createError(error?.response.data.message, record)
           );
@@ -140,42 +165,53 @@ export const create =
 // Update action
 
 export const update =
-  (resourceName, body, options = {
-    hasFile:false
-  }) =>
-  async (dispatch) => {
+  (
+    resourceName,
+    body,
+    options = {
+      hasFile: false,
+    },
+    successCallback,
+    errorCallback
+  ) =>
+  dispatch => {
     const actionCreators = reduxCrud.actionCreatorsFor(resourceName);
     const path =
-      options.path || [humps.decamelize(resourceName), body.id].join("/");
+      options.path || [humps.decamelize(resourceName), body.id].join('/');
     const url =
-      options.url || process.env.API_URL || "http://localhost:8100/api";
+      options.url || process.env.API_URL || 'http://localhost:8100/api';
     dispatch(actionCreators.updateStart(body));
 
-    return await api
-      .put(`${url}/${path}`,options.hasFile, body, options)
-      .then((json) => {
+    return api
+      .put(`${url}/${path}`, options.hasFile, body, options)
+      .then(json => {
         dispatch(
-          actionCreators.updateSuccess(
-            transformKeys(json && { id: body.id }),
-            body.id,
-            {
-              receivedAt: new Date(),
-              success:
-                options.success ||
-                "Modification du contenu reussie acec succès.",
-            }
-          )
+          actionCreators.updateSuccess(body, body.id, {
+            receivedAt: new Date(),
+          })
         );
+        if (successCallback) {
+          successCallback(body);
+        }
       })
-      .catch((error) => {
+      .catch(error => {
         if (error) {
           dispatch(actionCreators.updateError(error, body));
+          if (errorCallback) {
+            errorCallback(error);
+          }
         } else if (error.message) {
           dispatch(actionCreators.updateError(error, body));
+          if (errorCallback) {
+            errorCallback(error.message);
+          }
         } else if (error?.response?.data?.message) {
           dispatch(
             actionCreators.updateError(error?.response.data.message, body)
           );
+          if (errorCallback) {
+            errorCallback(error?.response.data.message);
+          }
         }
       });
   };
@@ -183,38 +219,36 @@ export const update =
 // Destroy action
 
 export const destroy =
-  (resourceName, body, options = {}) =>
-  async (dispatch) => {
+  (resourceName, body, options = {}, successCallback, errorCallback) =>
+  dispatch => {
     const actionCreators = reduxCrud.actionCreatorsFor(resourceName);
     const path =
-      options.path || [humps.decamelize(resourceName), body.id].join("/");
+      options.path || [humps.decamelize(resourceName), body.id].join('/');
     const url =
-      options.url || process.env.API_URL || "http://localhost:8100/api";
+      options.url || process.env.API_URL || 'http://localhost:8100/api';
     dispatch(actionCreators.deleteStart(body));
 
-    return await api
-      .delete(`${url}${path}`,false, body, options)
+    return api
+      .delete(`${url}/${path}`, false, body, options)
       .then(() => {
         dispatch(
-          actionCreators.deleteSuccess(body, {
-            receivedAt: new Date(),
-            success:
-              options.success || "Suppression du contenu reussie avec succès.",
-          })
+          actionCreators.deleteSuccess(body, { receivedAt: new Date() })
         );
+        if (successCallback) {
+          successCallback(body);
+        }
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(actionCreators.deleteError(error, body));
-        //  throw e;
+        if (errorCallback) {
+          errorCallback(error);
+        }
       });
   };
 
-
-
-
 // Exports
 
-export const actionTypesFor = (resourceName) =>
+export const actionTypesFor = resourceName =>
   reduxCrud.actionTypesFor(resourceName);
-export const actionCreatorsFor = (resourceName) =>
+export const actionCreatorsFor = resourceName =>
   reduxCrud.actionCreatorsFor(resourceName);

@@ -37,27 +37,24 @@ function Parametres(props) {
       <Page>
       <Tab.Container id="left-tabs-example" defaultActiveKey="first">
         <Row>
-          <Col sm={3}>
-            <Nav variant="pills" className="flex-column">
-              <Nav.Item>
-                <Nav.Link eventKey="first">Categories de produits</Nav.Link>
+         
+            <Nav variant="pills" className="flex-row justify-content-center">
+              <Nav.Item className="border ml-2">
+                <Nav.Link eventKey="first" className="py-2 px-3 text-uppercase bg-white" >Categories de produits</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="second">Fournisseurs</Nav.Link>
+              <Nav.Item className="border  ml-2">
+                <Nav.Link eventKey="second"  className="py-2 px-3 text-uppercase  bg-white">Fournisseurs</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="three">Vaccinateurs</Nav.Link>
+              <Nav.Item className="border  ml-2">
+                <Nav.Link eventKey="three"  className="py-2 px-3 text-uppercase  bg-white">Vaccinateurs</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="four">Crediteurs</Nav.Link>
+              <Nav.Item className="border  ml-2">
+                <Nav.Link eventKey="four"  className="py-2 px-3 text-uppercase  bg-white">Demandeur de credit</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="autres">Autres</Nav.Link>
-              </Nav.Item>
+            
               
             </Nav>
-          </Col>
-          <Col sm={9}>
+          <Col sm={12}>
             <Tab.Content>
               <Tab.Pane eventKey="first">
                 <Categories categories={categories}  meta={categoriesMeta} />
@@ -70,9 +67,6 @@ function Parametres(props) {
               </Tab.Pane>
               <Tab.Pane eventKey="four">
                 <Emprunters emprunters={emprunters} meta={empruntersMeta}  />
-              </Tab.Pane>
-              <Tab.Pane eventKey="autres">
-                <ParametrageSuppl />
               </Tab.Pane>
             </Tab.Content>
           </Col>

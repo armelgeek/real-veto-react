@@ -10,7 +10,7 @@ const DateInterval = ({ date }) => {
         className={
           weekday == "sam."
             ? ` bg-warning text-white text-center mr-2`
-            : "bg-secondary text-center mr-2"
+            : "bg-dark text-center mr-2"
         }
       >{weekdayNumber}
        

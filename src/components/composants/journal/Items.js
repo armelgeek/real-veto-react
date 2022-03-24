@@ -32,10 +32,9 @@ export const Items = ({ flat, gr, id }) => {
     value = 0;
     valuecc = 0;
   }
-  console.log(orderItem);
   return (
     <td className="text-center p-1">
-        <tr>
+        {/*<tr>
           <td
             className={
               orderItem.length == 0
@@ -54,7 +53,7 @@ export const Items = ({ flat, gr, id }) => {
           >
             {orderItem.length != 0 ? lastStock.ccCva : '-'}
           </td>
-        </tr>{" "}
+        </tr>{" "}*/}
         <tr>
           <td
             className={

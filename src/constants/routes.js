@@ -1,4 +1,7 @@
 export const HOME = "/";
+export const TDB_DEPOT_VERS_MAGASIN = "/tdb-depot-magasin";
+export const TDB_VENTE_CBV = "/tdb-vente-cbv";
+export const TDB_FACTURES = "/tdb-facture";
 export const APPROV = "/approv";
 export const CREATEPRODUCT = "/create-product";
 export const EDITPRODUCT = `/product/edit/:id`;
@@ -45,3 +48,6 @@ export const HISTORIQUEVENTEVENDEURVUEPARADMIN =
   "/historique/vente/admin/vendeur";
 export const ETATSTOCKMAGASIN = "/etat/stock/magasin";
 export const EDITFROMMAGASIN = '/vendeur-commande/:id';
+
+export const DEPOT_MAGASIN_DETAIL = '/depot/to/magasin/detail/:id';
+export const DETAIL_MAGASIN_VENTE = '/magasin/detail/vente/:id';

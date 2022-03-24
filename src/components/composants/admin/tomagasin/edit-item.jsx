@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Col, ListGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-const EditProductItemToMag = ({ state, setState, product }) => {
-
+const EditProductItemToMag = ({ state, setState, product, cloneCommandes }) => {
   const dispatch = useDispatch();
 
   const itemOnBasket = !!state?.find((item) => item?.id === product.id);
-
+  const clc = cloneCommandes?.contenu.find((p) => p.id == product.id);
+  const canMinus = product?.quantityBruteCVA < clc?.quantityParProduct;
   const removeProduct = (id) => {
     setState(state.filter((t) => t.id !== id));
   };
@@ -60,7 +60,7 @@ const EditProductItemToMag = ({ state, setState, product }) => {
                 <>
                   {!itemOnBasket ? (
                     <button
-                      
+
                       className={"btn btn-green btn-sm"}
                       onClick={handleAddToBasket}
                     >
@@ -68,6 +68,7 @@ const EditProductItemToMag = ({ state, setState, product }) => {
                     </button>
                   ) : (
                     <button
+                    disabled={canMinus}
                       className={"btn btn-danger btn-sm"}
                       onClick={() => removeProduct(product?.id)}
                     >

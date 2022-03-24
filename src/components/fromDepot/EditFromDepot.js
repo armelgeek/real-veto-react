@@ -27,7 +27,14 @@ function copy(object) {
   }
   return output;
 }
-const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
+const EditFromDepot = ({
+  state,
+  meta,
+  setState,
+  products,
+  commandes,
+  disabled,
+}) => {
   const [type, setType] = useState("vente-depot");
   const [idFournisseur, setIdFournisseur] = useState(1);
   const [vaccinateurId, setVaccinateurId] = useState(null);
@@ -207,14 +214,13 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
           <div style={{ width: "60%" }}>BON DE SORTIE</div>
           <div style={{ width: "30%" }} className="text-right">
             <select
+              disabled={disabled}
               className="form-control input-sm"
               onChange={(e) => {
                 setType(e.target.value);
               }}
             >
-              <option value="vente-depot" selected>
-                Comptant
-              </option>
+              <option value="vente-depot">Comptant</option>
               <option value="vente-depot-credit">Credit</option>
               <option value="vente-depot-vaccinateur">Vaccinateur</option>
             </select>
@@ -236,6 +242,7 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
                 <label>Date de sortie :</label>
                 <div>
                   <input
+                    disabled={disabled}
                     type="date"
                     onChange={(e) => setDateCom(e.target.value)}
                     value={dateCom}
@@ -243,10 +250,11 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
                   />
                 </div>
               </div>
-              {type === "credit" && (
+              {type === "vente-depot-credit" && (
                 <>
                   <label>Crediteur:</label>
                   <select
+                    disabled={disabled}
                     className="form-control"
                     onChange={(e) => {
                       setEmprunter(e.target.value);
@@ -259,7 +267,7 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
                   </select>
                 </>
               )}
-              {type === "credit" && (
+              {type === "vente-depot-vaccinateur" && (
                 <>
                   <label>Vaccinateur:</label>
                   <select
@@ -321,6 +329,7 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
                 {state?.length > 0 && (
                   <div className="d-flex text-right align-items-end justify-content-end">
                     <button
+                      disabled={disabled}
                       className="btn btn-green btn-sm mr-2"
                       disabled={state?.length === 0}
                       onClick={onCheckOut}
@@ -329,6 +338,7 @@ const EditFromDepot = ({ state, meta, setState, products, commandes }) => {
                       Valider l'operation
                     </button>
                     <button
+                      disabled={disabled}
                       className="btn btn-danger btn-sm"
                       onClick={onClearBasket}
                       type="button"

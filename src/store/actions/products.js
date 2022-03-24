@@ -8,6 +8,9 @@ export const fetchProductsRuptureStock = () =>
 export const fetchProductsByFournisseur = (id) =>
   fetch("products", { path: `/product/fournisseur?id=${id}`, replace: true });
 
+  export const fetchProductsById = (id) =>
+  fetch("products", { path: `/products/${id}`, replace: true });
+  
 export const fetchProductsByCategory = (id) =>
   fetch("products", { path: `/product/category?id=${id}`, replace: true });
 

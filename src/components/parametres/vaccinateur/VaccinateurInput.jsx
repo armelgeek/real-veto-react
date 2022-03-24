@@ -19,7 +19,7 @@ export const VaccinateurInput = ({ vaccinateur }) => {
         {!toggleEdit ? (
           <li className="list-items-row p-1 d-flex justify-content-between align-items-center mb-1 border-1">
             <tr>
-              <td> {vaccinateur.name}({vaccinateur.contact})</td>
+              <td> {vaccinateur.name} - {vaccinateur.contact}</td>
             </tr>
            
             <button

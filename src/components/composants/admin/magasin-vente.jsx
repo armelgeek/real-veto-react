@@ -119,10 +119,11 @@ export const MagasinVente = () => {
           return (
             <Link
               className="btn btn-sm  btn-green"
-              to={`/detail/${data.row.original?.id}`}
+              to={`/magasin/detail/vente/${data.row.original?.id}`}
             >
             Détails
             </Link>
+            
           );
         },
       },
@@ -149,19 +150,13 @@ export const MagasinVente = () => {
                 )}{" "}
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-4 text-right">
               <div>
                 <DateRangePicker
                   locale="fr-FR"
                   onChange={onChangeDateRange}
                   value={dateRange}
                 />
-                <button
-                  className="ml-3 btn btn-primary btn-sm"
-                  onClick={getDataProduct}
-                >
-                  Filtrer
-                </button>
               </div>
             </div>
           </div>

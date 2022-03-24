@@ -10,7 +10,7 @@ import Page from "../../../../@adminlte/adminlte/Content/Page";
 import ContentHeader from "../../../../@adminlte/adminlte/Content/ContentHeader";
 import ActiveLink from "../../../../@adminlte/adminlte/Content/ActiveLink";
 import Content from "../../../../@adminlte/adminlte/Content/index";
-import { displayMoney } from "../../../../utils/functions";
+import { displayDate, displayMoney } from "../../../../utils/functions";
 import { HISTORIQUEVENTEVENDEUR } from "../../../../constants/routes";
 
 const calculateTotal = (arr) => {
@@ -33,28 +33,17 @@ function Detail(props) {
         <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
       </div>
       <div className="p-3">
-        <div class="d-flex justify-content-end">
-          <Link class="btn btn-primary my-3" to={HISTORIQUEVENTEVENDEUR}>
+        <div class="d-flex justify-content-start">
+          <Link class="btn btn-primary btn-sm " to={HISTORIQUEVENTEVENDEUR}>
             Revenir en arriere
           </Link>
         </div>
-        <div className="p-5">
+        <div>
           <p>
-            {commande[0]?.type == "credit" && <p>Credit</p>}
+            {commande[0]?.type == "credit-cva" && <p>Credit</p>}
 
-            {commande[0]?.type == "vaccinateur" && <p>Sortie vaccinateur</p>}
-
-            {commande[0]?.type == "direct" && <p>Sortie Magasion</p>}
           </p>
-          {commande[0]?.type == "vaccinateur" && (
-            <div className="border">
-              <>
-                <h3>{commande[0]?.vaccinateur.name}</h3>
-                <h5>{commande[0]?.vaccinateur.contact}</h5>
-              </>
-            </div>
-          )}
-          {commande[0]?.type == "credit" && (
+          {commande[0]?.type == "credit-cva" && (
             <div className="border">
               <>
                 <h3>{commande[0]?.emprunter.name}</h3>
@@ -64,15 +53,32 @@ function Detail(props) {
           )}
           {commande.length > 0 && (
             <div className="d-flex justify-content-between">
-              <p>
-                Date : {commande[0]?.dateCom}
-                <span className="text-danger ml-3">{commande[0]?.type}</span>
-              </p>
-             
+              <h2 className="my-2">
+                Date : {displayDate(commande[0]?.dateCom)}
+              </h2>
+              <div className="d-flex justify-content-end">
+                <div className="bg-thead p-1 mb-1">
+                  <strong>Recette:</strong>:
+                  <h3 className="text-lg">
+                    {displayMoney(
+                      calculateTotal(
+                        commande[0]?.contenu.map((product) => {
+                          return product.prixVente * product.quantityParProduct;
+                        })
+                      ) +
+                        calculateTotal(
+                          commande[0]?.contenu.map((product) => {
+                            return product.prixParCC * product.qttByCC;
+                          })
+                        )
+                    )}
+                  </h3>
+                </div>
+              </div>
             </div>
           )}
           <table className="table table-bordered">
-            <tr>
+            <tr className="bg-thead">
               <td>Nom de l'article</td>
               <td>Quantité</td>
               <td>Sous total</td>
@@ -97,8 +103,10 @@ function Detail(props) {
                       {c.qttByCC != 0 && (
                         <div className="d-flex align-items-center  py-0">
                           <strong>ML:</strong> {displayMoney(c.prixParCC)} {"x"}{" "}
-                          {c.qttyspecificmirror!=0 ? c.qttyspecificmirror + " Dose" : c.qttByCC + " Ml" } {" = "}{" "}
-                          {displayMoney(c.prixParCC * c.qttByCC)}
+                          {c.qttyspecificmirror != 0
+                            ? c.qttyspecificmirror + " Dose"
+                            : c.qttByCC + " Ml"}{" "}
+                          {" = "} {displayMoney(c.prixParCC * c.qttByCC)}
                         </div>
                       )}
                     </>
@@ -112,21 +120,6 @@ function Detail(props) {
                 </tr>
               ))}
           </table>
-          <div className="d-flex justify-content-end">
-            <strong>Total</strong>:
-            {displayMoney(
-              calculateTotal(
-                commande[0]?.contenu.map((product) => {
-                  return product.prixVente * product.quantityParProduct;
-                })
-              ) +
-                calculateTotal(
-                  commande[0]?.contenu.map((product) => {
-                    return product.prixParCC * product.qttByCC;
-                  })
-                )
-            )}
-          </div>
         </div>{" "}
       </div>{" "}
     </div>

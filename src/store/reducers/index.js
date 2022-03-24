@@ -30,6 +30,7 @@ export default applyUndo(
     emprunters: emprunteurReducer,
     vaccinateurs: vaccinateurReducer,
     commandes: commandeReducer,
+    commandesclone: commandeReducer,
     basket: basketReducer,
     approvisionnements: approvisonnementReducer,
     approvis: approvisReducer,

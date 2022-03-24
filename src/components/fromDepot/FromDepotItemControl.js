@@ -23,14 +23,11 @@ const FromDepotItemControl = ({
 
   const getValue = () => {
     return isEnough() == true
-      ? product?.quantityBrute * 1 - 1
+      ? product?.quantityBrute * 1 
       : product?.quantityBrute * 1;
   };
   const isEnough = () => {
-    return (
-      product.quantityCC - product.qttByCCDepot < 0 &&
-      product.quantityBrute - 1 - product.quantityParProductDepot * 1 < 0
-    );
+    return product.quantityBrute - 1 - product.quantityParProductDepot * 1 < 0;
   };
   return (
     <div className="basket-item-control">
@@ -43,8 +40,14 @@ const FromDepotItemControl = ({
         onChange={(value) => {
           onAddQtyBrute(value);
           setRealQtt(value);
-          if (isEnough()) {
-            alert("Le stock ne satisfait pas votre commande");
+          if (isEnough() == true) {
+            alert(
+              "Le reste du stock est : " +
+                product.quantityBrute +
+                " < " +
+                value +
+                " demandé"
+            );
           }
         }}
         min={0}

@@ -4,7 +4,7 @@ import { values } from "lodash";
 //https://itnext.io/3-small-tips-for-better-redux-performance-in-a-react-app-9cde549df6af
 export function action(model) {
   return {
-    get: (id) => fetch(model, { path: `${model}/${id}` }),
+    get: id => fetch(model, { path: `${model}/${id}`, replace: true }),
     create: (body, options) => create(model, body, options),
     update: (body, options) => update(model, body, options),
     destroy: (body, options) => destroy(model, body, options),

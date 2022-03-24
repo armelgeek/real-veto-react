@@ -64,7 +64,18 @@ const FromDepotItem = ({ product }) => {
             realQtt={realQtt}
             realQttCC={realQttCC}
           />
+          
         </div>
+        <div>
+            {itemOnBasket && (
+              <button
+                onClick={handleAddToBasket}
+                className="btn btn-danger btn-xs text-right"
+              >
+                X
+              </button>
+            )}
+          </div> 
           {/**{product.type === "FLACON" && (
           <div>
           <div className="text-inline text-center">

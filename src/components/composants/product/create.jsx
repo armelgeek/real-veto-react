@@ -89,7 +89,7 @@ function Create() {
                 qttccpvente,
                 conditionnement,
                 prixqttccvente,
-                condsize
+                condsize,
               } = values;
               dispatch(
                 action("products").create({
@@ -118,6 +118,15 @@ function Create() {
                   conditionnement: conditionnement,
                   qttccpvente: parseFloat(qttccpvente),
                   prixqttccvente: parseInt(prixqttccvente),
+                  refSortie: "0",
+                  refQtSortie: 0,
+                  qttByCCDepot: 0,
+                  condmldepot: 0,
+                  condvaldepot: 0,
+                  qttccpventedepot: 0,
+                  prixqttccventedepot: 0,
+                  quantityParProductDepot: 0,
+                  condsizedepot: 0,
                 })
               );
               history.push(PRODUCTS);
@@ -214,13 +223,6 @@ function Create() {
                             )}
                           </div>
                         )}
-                        <Form.Field.Date
-                          type="date"
-                          name="datePer"
-                          defaultValue={new Date("now")}
-                          label="date de peremption"
-                          placeholder={"date de peremption"}
-                        />
                       </div>
                     </div>
                   </div>

@@ -54,6 +54,16 @@ export const EtatStockMagasin = () => {
         <ActiveLink title="Etat de stock du Magasin"></ActiveLink>
       </ContentHeader>
       <Page>
+      <div className="row">
+          <div className="col-lg-6">
+            <div>
+              <h3 className="text-uppercase">Etat de stock du Magasin</h3>
+            </div>
+          </div>
+          <div className="col-lg-6 text-right">
+           
+          </div>{" "}
+        </div>
         <DataTable
           data={products.sort(
             (low, high) => high.quantityBruteCVA - low.quantityBruteCVA

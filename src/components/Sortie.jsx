@@ -34,6 +34,7 @@ function Sortie() {
       setFin(end);
     }
   }, [dateRange]);
+
   const calculateTotal = (arr) => {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
@@ -59,42 +60,33 @@ function Sortie() {
     return total;
   };
 
-  const refDateDeb = useRef(null);
-  const refDateFin = useRef(null);
   const commandes = useSelector(getData("commandes").value);
   const meta = useSelector(getData("commandes").meta);
   const dispatch = useDispatch();
-  const getSortieByDate = () => {
-    setDeb(refDateDeb.current.value);
-    setFin(refDateFin.current.value);
-  };
+
   useEffect(() => {
     dispatch(getSortie(deb, fin));
   }, [deb, fin]);
-  const getDataa = () => {
-    dispatch(getSortie(deb, fin));
-  };
   const columns = React.useMemo(
     () => [
       {
         Header: "Date de commande",
         Cell: (data) => {
-          return <>{displayDate(data.row.original?.createdAt)}</>;
+          return <>{displayDate(data.row.original?.dateCom)}</>;
         },
       },
       {
         Header: "Produits",
-        width: 50,
         Cell: (data) => {
           return (
-            <span>
+            <div style={{ width: "200px" }}>
               {data.row.original?.contenu?.map((d) => (
                 <span>
                   {d.name}
                   {","}
                 </span>
               ))}
-            </span>
+            </div>
           );
         },
       },
@@ -160,12 +152,10 @@ function Sortie() {
               onChange={onChangeDateRange}
               value={dateRange}
             />
-            <button className="ml-3 btn btn-primary btn-sm" onClick={getDataa}>
-              Filtrer
-            </button>
           </div>{" "}
         </div>
         <DataTable
+          filter={false}
           data={commandes.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}

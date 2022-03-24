@@ -13,7 +13,9 @@ import Page from "../../@adminlte/adminlte/Content/Page";
 import NumberFormat from "react-number-format";
 import { withRouter } from "react-router-dom";
 import { displayDate, displayMoney } from "../../utils/functions";
-const calculateTotal = (arr) => {
+const calculateTotal
+
+= (arr) => {
   if (!arr || arr?.length === 0) return 0;
   let total = 0;
   arr.forEach((el) => {

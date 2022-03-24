@@ -10,7 +10,7 @@ import Field from './field/Field';
 const Form = ({ validate, validations, children, ...otherProps }) => (
   <Formik
     {...otherProps}
-    enableReinitialize={false}
+    enableReinitialize={true}
     validationSchema={validations}
     validateOnChange={false}
     validateOnBlur={false}

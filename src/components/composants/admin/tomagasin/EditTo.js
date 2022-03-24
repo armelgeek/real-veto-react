@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
+import _ from 'lodash';
 import { action, getData } from "../../../../utils/lib/call";
 import { displayMoney, checkHasExistText } from "../../../../utils/functions";
 import { useHistory } from "react-router-dom";
@@ -12,6 +13,7 @@ import {
 import { clearFromDepot } from "../../../../store/fromdepot/actions/fromdepot";
 import EditFromDepotItem from "./EditItem";
 import { HISTORIQUESORTIECVA } from "../../../../constants/routes";
+import EditItem from "./EditItem";
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   const total = arr.reduce((acc, val) => acc + val, 0);
@@ -26,7 +28,7 @@ function copy(object) {
   }
   return output;
 }
-const EditTo = ({ state, meta, setState, products, commandes }) => {
+const EditTo = ({ state, meta, setState, realstock, disabled,cloneCommandes, commandes }) => {
   const [type, setType] = useState("direct");
   const [idFournisseur, setIdFournisseur] = useState(1);
   const [vaccinateurId, setVaccinateurId] = useState(null);
@@ -34,8 +36,8 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
   const history = useHistory();
   const [realContent, setRealContent] = useState([]);
 
-  const { fromdepots } = useSelector((state) => ({
-    fromdepots: state.fromdepots,
+  const { tomagasins } = useSelector((state) => ({
+    tomagasins: state.tomagasins,
   }));
   useEffect(() => {
     setRealContent(commandes?.contenu);
@@ -48,7 +50,7 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
   const [dateCom, setDateCom] = useState(date);
   useEffect(() => {
     //  dispatch(action("commandes").fetch());
-    dispatch(action("emprunters").fetch());
+    //dispatch(action("emprunters").fetch());
   }, []);
   function inArray(value, values) {
     for (var i = 0; i < values.length; i++) {
@@ -131,7 +133,7 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
         "update-to-magasin"
       )
     );
-    // history.push(HISTORIQUESORTIECVA);
+     history.push(HISTORIQUESORTIECVA);
   };
 
   /* const onCheckOut = () => {
@@ -141,7 +143,7 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
     console.log("exist", JSON.stringify(exist));
     console.log("added", JSON.stringify(added));
     console.log("missing", JSON.stringify(missing));
-     fromdepots.forEach((element) => {
+     tomagasins.forEach((element) => {
       delete element.busy;
       delete element.pendingCreate;
       handleMinusProductDepot(element);
@@ -152,7 +154,7 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
       }
       console.log(element);
     });*/
-  //console.log(fromdepots);
+  //console.log(tomagasins);
   /*  dispatch(
       action("commandes").create({
         id: Math.floor(Date.now() / 1000),
@@ -184,7 +186,7 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
   const onClearBasket = () => {
     state?.forEach((element) => {
       element.quantityParProduct = 0;
-      element.qttByCCDepot = 0;
+      element.qttByCC = 0;
     });
 
     dispatch(clearFromDepot());
@@ -207,10 +209,14 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
                 overflowX: "hidden",
               }}
             >
+            <div className="alert alert-warning">
+             <span className="text-uppercase">Attention !!!</span> , la modification d'un bon de sortie entraine aussi la mis à jour de stock du produit
+            </div>
               <div class="form-group">
                 <label>Date de sortie :</label>
                 <div>
                   <input
+                    disabled={disabled}
                     type="date"
                     onChange={(e) => setDateCom(e.target.value)}
                     value={dateCom}
@@ -222,6 +228,7 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
                 <>
                   <label>Crediteur:</label>
                   <select
+                    disabled={disabled}
                     className="form-control"
                     onChange={(e) => {
                       setEmprunter(e.target.value);
@@ -240,15 +247,19 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
                 </div>
               )}
               {state?.map((product, i) => (
-                <EditFromDepotItem
+                <>
+                <EditItem
                   key={`${product?.id}_${i}`}
-                  product={product}
+                  product={_.cloneDeep(product)}
                   state={state}
                   index={i}
+                  realcommand={product}
+                  cloneCommandes={cloneCommandes}
+                  realstock={realstock}
                   setState={setState}
-                  basket={fromdepots}
+                  basket={tomagasins}
                   dispatch={dispatch}
-                />
+                /></>
               ))}
             </div>
           </Card.Body>
@@ -267,7 +278,7 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
                       ) +
                         calculateTotal(
                           state?.state?.map((product) => {
-                            return product.prixParCC * product.qttByCCDepot;
+                            return product.prixParCC * product.qttByCC;
                           })
                         )
                     )}
@@ -278,6 +289,7 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
                 {state?.length > 0 && (
                   <div className="d-flex text-right align-items-end justify-content-end">
                     <button
+                      disabled={disabled}
                       className="btn btn-green btn-sm mr-2"
                       disabled={state?.length === 0}
                       onClick={onCheckOut}
@@ -286,6 +298,7 @@ const EditTo = ({ state, meta, setState, products, commandes }) => {
                       Valider l'operation
                     </button>
                     <button
+                      disabled={disabled}
                       className="btn btn-danger btn-sm"
                       onClick={onClearBasket}
                       type="button"

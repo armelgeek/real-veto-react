@@ -1,5 +1,5 @@
-import { combineReducers } from "redux";
-import reduxCrud from "redux-crud";
+import { combineReducers } from 'redux';
+import crud from '../crud';
 
 export const metaInitialState = {
   isFetching: false,
@@ -11,7 +11,7 @@ export const metaInitialState = {
 };
 
 export const metaFor = (resourceName, options = {}) => {
-  const actionTypes = reduxCrud.actionTypesFor(resourceName);
+  const actionTypes = crud.actionTypesFor(resourceName);
 
   return (state = metaInitialState, action) => {
     switch (action.type) {
@@ -19,7 +19,7 @@ export const metaFor = (resourceName, options = {}) => {
         return {
           isLoading: true,
           error: null,
-          success: "",
+          success: '',
         };
       case actionTypes.createError:
         return {
@@ -41,20 +41,20 @@ export const metaFor = (resourceName, options = {}) => {
           ...action.payload,
           isLoading: false,
           error: action.error,
-          success: "",
+          success: '',
         };
       case actionTypes.updateStart:
         return {
           ...state,
           isLoading: true,
           error: null,
-          success: "",
+          success: '',
         };
       case actionTypes.updateError:
         return {
           isLoading: false,
           error: action.error,
-          success: "",
+          success: '',
         };
 
       case actionTypes.updateSuccess:
@@ -78,7 +78,7 @@ export const metaFor = (resourceName, options = {}) => {
           ...state,
           isLoading: true,
           error: null,
-          success: "",
+          success: '',
         };
       case actionTypes.destroySuccess:
         return {
@@ -92,7 +92,7 @@ export const metaFor = (resourceName, options = {}) => {
         return {
           isLoading: false,
           error: action.error,
-          success: "",
+          success: '',
         };
 
       case actionTypes.destroyFailed:
@@ -100,15 +100,16 @@ export const metaFor = (resourceName, options = {}) => {
           ...state,
           isLoading: false,
           error: action.error,
-          success: "",
+          success: '',
         };
       case actionTypes.fetchStart:
         return {
           ...state,
+          isLoading: true,
           didInvalidate: false,
           isFetching: true,
           error: null,
-          success: "",
+          success: '',
         };
 
       case actionTypes.fetchSuccess:
@@ -116,6 +117,7 @@ export const metaFor = (resourceName, options = {}) => {
           ...state,
           didInvalidate: false,
           isFetching: false,
+          isLoading: false,
           success: action.success,
           nextId: action.nextId,
           totalPages: action.totalPages,
@@ -128,6 +130,7 @@ export const metaFor = (resourceName, options = {}) => {
         return {
           ...state,
           isFetching: false,
+          isLoading: false,
           error: action.error,
         };
       default:
@@ -141,16 +144,11 @@ export const metaFor = (resourceName, options = {}) => {
 export const itemsFor =
   (resourceName, options = {}) =>
   (state = {}, action) =>
-    reduxCrud.Map.reducersFor(resourceName, options)(state, action);
+    crud.Map.reducersFor(resourceName, options)(state, action);
 
 export const reducersFor = (resourceName, options = {}) =>
   combineReducers({
     items: itemsFor(resourceName, options),
     meta: metaFor(resourceName, options),
   });
-
-  
-export const isFetching = (state) => state.meta.isFetching;
-export const lastUpdatedAt = (state) => state.meta.lastUpdatedAt;
-export const isFetchingInitial = (state) =>
-  state.meta.isFetching && !state.meta.lastUpdatedAt;
+export const isFetching = state => state.meta.isFetching;

@@ -31,7 +31,7 @@ const calculeTotalAvecRemise = (arr, remise) => {
   return calculateTotal(arr) - remiseEnAriary(arr, remise);
 };
 
-const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
+const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
   const [remise, setRemise] = useState(approv?.remise);
   const [dateEcheance, setDateEcheance] = useState(approv?.dateEcheance);
   const [dateApprovis, setDateApprovis] = useState(approv?.dateApprov);
@@ -114,8 +114,7 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
           element.quantityBrute = commandeLast.quantityBrute;
         }
         return element;
-      } 
-      
+      }
     });
     return {
       exist: exist.filter((e) => e != null),
@@ -155,7 +154,7 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
         "update-facture"
       )
     );
-   history.push(LISTAPPROV);
+    history.push(LISTAPPROV);
   };
 
   const onClearApprov = () => {
@@ -187,12 +186,20 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
             {` ${state?.length} ${state?.length > 1 ? "articles" : "article"}`})
           </div>
         </Card.Header>
-        <Card.Body>
+        <Card.Body
+          style={{
+            height: "500px",
+            maxHeight: "500px",
+            overflowY: "auto",
+            overflowX: "hidden",
+          }}
+        >
           <div class="form-group">
             <label>Date de l'approvisionnement :</label>
             <div>
               <input
                 type="date"
+                disabled={disabled}
                 onChange={(e) => setDateApprovis(e.target.value)}
                 value={dateApprovis}
                 className="form-control"
@@ -241,6 +248,7 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
                         className="form-control"
                         placeholder="Remise"
                         min={0}
+                        disabled={disabled}
                         value={remise}
                         max={100}
                         onChange={(e) => {
@@ -254,6 +262,7 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
                     <td>
                       <input
                         type="date"
+                        disabled={disabled}
                         onChange={(e) => setDateEcheance(e.target.value)}
                         value={dateEcheance}
                         className="form-control"
@@ -285,6 +294,7 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
                     <td>REMARQUE :</td>
                     <td>
                       <textarea
+                        disabled={disabled}
                         className="form-control"
                         onChange={(e) => {
                           setRemarque(e.target.value);
@@ -374,25 +384,29 @@ const EditApprovisionnement = ({ state, meta, setState, approv, products }) => {
                   </strong>
                 </p>
               </div>
-              <div className="d-flex justify-content-end">
-                <button
-                  className="btn btn-green btn-sm mr-2"
-                  onClick={onCheckOut}
-                  type="button"
-                >
-                  Valider l'operation
-                </button>
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => setState(approv?.contenu)}
-                  type="button"
-                >
-                  <span>Annuler</span>
-                </button>
-              </div>
             </>
           )}
         </Card.Body>
+        <Card.Footer>
+          <div className="d-flex justify-content-end">
+            <button
+              disabled={disabled}
+              className="btn btn-green btn-sm mr-2"
+              onClick={onCheckOut}
+              type="button"
+            >
+              Valider l'operation
+            </button>
+            <button
+              disabled={disabled}
+              className="btn btn-danger btn-sm"
+              onClick={() => setState(approv?.contenu)}
+              type="button"
+            >
+              <span>Annuler</span>
+            </button>
+          </div>
+        </Card.Footer>
       </Card>
     </>
   );

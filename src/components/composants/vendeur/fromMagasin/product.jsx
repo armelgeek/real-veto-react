@@ -15,10 +15,8 @@ import Horloge from "./Horloge";
 import searchByNameAndFournisseur from "../../../../filters/searchByNameAndFournisseur";
 import searchByFournisseur from "../../../../filters/searchByFournisseur";
 import searchByName from "../../../../filters/searchByName";
+import { moment } from "moment";
 const Products = () => {
-  const parameterizeObjectQuery = (key, value) => {
-    return '{"' + key + '":"' + value + '"}';
-  };
   const products = useSelector(getData("products").value);
   const meta = useSelector(getData("products").meta);
   const dispatch = useDispatch();
@@ -29,18 +27,8 @@ const Products = () => {
   const refDateFin = useRef(null);
 
   const [productData, setProductData] = useState([]);
-  const commandes = useSelector(getData("commandes").value);
-  const metameta = useSelector(getData("commandes").meta);
-  const [deb, setDeb] = useState(new Date());
-  const [fin, setFin] = useState(new Date());
 
   useEffect(() => {
-    dispatch(getCommandeCVA(deb, fin));
-  }, [deb, fin]);
-
-  useEffect(() => {
-    setDeb(new Date());
-    setFin(new Date());
     dispatch(action("products").fetch());
   }, []);
   useEffect(() => {
@@ -59,7 +47,7 @@ const Products = () => {
     }
   }, [meta]);
   useEffect(() => {
-      setProductData(searchByName(products, value));
+    setProductData(searchByName(products, value));
   }, [value]);
 
   const calculateTotal = (arr) => {
@@ -97,48 +85,31 @@ const Products = () => {
       <Container fluid>
         <div className="py-2">
           <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <div className=" text-white bg-white border-1">
-                <div className=" p-3 bg-thead">
-                  <span style={{ fontSize: "15px" }}>
-                    Total:{" "}
-                    {metameta.isFetching
-                      ? "0 Ar"
-                      : displayMoney(recetteDuJour(commandes))}
-                  </span>
-                </div>
-              </div>
-            </div>
+            <div></div>
             <div>
               <Horloge />
             </div>
-            <div className="bg-thead">
-              <Link className="btn btn-primary" to={HISTORIQUEVENTEVENDEUR}>
-                Voir l'historique de vente
-              </Link>
-            </div>
+            <div className="bg-thead"></div>
           </div>
           <Row>
-            <Col xs={8}>
+            <Col xs={4}>
               <Card className="mt-2">
                 <Card.Header className="bg-dark p-2 text-white d-flex text-uppercase justify-content-between align-items-center">
-                  <div style={{ width: "80%" }}>Produits</div>
+                  <div style={{ width: "60%" }}>Produits</div>
                   <div>
                     <button
                       className="btn btn-green btn-sm"
                       onClick={() => {
                         setValue("");
                         setRegenerate(true);
-                        
                       }}
                     >
                       Mettre à jour
-                    
                     </button>
                   </div>
                 </Card.Header>
                 <Card.Body>
-                  <div class="d-flex  px-5  justify-content-between align-items-center">
+                  <div class="d-flex justify-content-between align-items-center">
                     <input
                       type="text"
                       onChange={(e) => {
@@ -146,33 +117,57 @@ const Products = () => {
                       }}
                       placeholder="Nom du produit"
                       className="form-control mb-2"
-                      style={{ width: "200px" }}
                     />{" "}
-                    
                   </div>
                   <ListGroup>
                     <div
                       style={{
                         overflowY: "auto",
+                        width: "100%",
                         height: "350px",
                         maxHeight: "350px",
                         overflowX: "hidden",
                       }}
                     >
-                      <div class="d-flex justify-content-center flex-wrap">
+                      <div class="d-flex justify-content-start flex-wrap">
                         {productData.map((p) => (
                           <ProductItem product={p} />
                         ))}
-                        {productData.length == 0 && "Aucune enregistrement trouvé"}
+                        {productData.length == 0 &&
+                          "Aucune enregistrement trouvé"}
                       </div>{" "}
                     </div>
                   </ListGroup>
                 </Card.Body>
               </Card>
             </Col>
-            <Col xs={4}>
+            <Col xs={5}>
               <div className=" py-2">
                 <FromMagasin setRegenerate={setRegenerate} />
+              </div>
+            </Col>
+            <Col xs={3}>
+              <div className=" py-2">
+                <Card>
+                  <Card.Header className="bg-dark  text-white d-flex text-uppercase justify-content-between align-items-center">
+                    <div style={{ width: "60%" }}>Rupture de stock</div>
+                  </Card.Header>
+                  <Card.Body className="p-1">
+                    <ListGroup  style={{
+                        overflowY: "auto",
+                        width: "100%",
+                        height: "350px",
+                        maxHeight: "350px",
+                        overflowX: "hidden",
+                      }}>
+                      <ListGroup.Item
+                        style={{ width: "100%", border: "1px solid gray" }}
+                      >
+
+                      </ListGroup.Item>
+                    </ListGroup>
+                  </Card.Body>
+                </Card>
               </div>
             </Col>
           </Row>

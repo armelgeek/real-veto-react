@@ -17,7 +17,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 import { ChakraProvider } from "@chakra-ui/react";
-import "@fontsource/montserrat/600.css";
+import "@fontsource/montserrat/400.css";
 import "./@adminlte/adminlte/css/adminlte.css";
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';

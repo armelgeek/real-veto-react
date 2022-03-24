@@ -11,30 +11,39 @@ import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { VENDEUR } from "../../../../constants/routes";
 import DeleteFromMagasin from "./DeleteFromMagasin";
+import moment from "moment";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/DateRangePicker";
+import DataTable from "../../../../utils/admin/DataTable";
 
 export const HistoriqueVenteVendeur = () => {
-  const [deb, setDeb] = useState(new Date());
-  const [fin, setFin] = useState(new Date());
+  var start = moment().isoWeekday(1).startOf("week");
+  var end = moment().endOf("week");
+  const [deb, setDeb] = useState(start);
+  const [fin, setFin] = useState(end);
+
+  const [dateRange, onChangeDateRange] = useState([start, end]);
   const refDateDeb = useRef(null);
   const refDateFin = useRef(null);
   const commandes = useSelector(getData("commandes").value);
+  const meta = useSelector(getData("commandes").meta);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCommandeCVA(deb, fin));
   }, [deb, fin]);
-  const getByDate = () => {
-    if (refDateDeb.current.value == "") {
-      setDeb(new Date());
+  useEffect(() => {
+    if (dateRange !== null) {
+      if (dateRange[0]) {
+        setDeb(dateRange[0]);
+      }
+      if (dateRange[1]) {
+        setFin(dateRange[1]);
+      }
     } else {
-      setDeb(refDateDeb.current.value);
+      setDeb(start);
+      setFin(end);
     }
-    if (refDateFin.current.value == "") {
-      setFin(new Date());
-    } else {
-      setFin(refDateFin.current.value);
-    }
-  };
+  }, [dateRange]);
   const calculateTotal = (arr) => {
     if (!arr || arr?.length === 0) return 0;
     const total = arr.reduce((acc, val) => acc + val, 0);
@@ -62,6 +71,48 @@ export const HistoriqueVenteVendeur = () => {
     });
     return total;
   };
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Date de commande",
+        Cell: (data) => {
+          return <>{displayDate(data.row.original?.dateCom)}</>;
+        },
+      },
+      {
+        Header: "Total",
+        Cell: (data) => {
+          return (
+            <div>{displayMoney(totalDevente(data.row.original?.contenu))}</div>
+          );
+        },
+      },
+      {
+        Header: "Actions",
+        Cell: (data) => {
+          return (
+            <>
+              <Link
+                to={`/detailvendeur/${data.row.original?.id}`}
+                className="btn btn-green btn-sm mr-2"
+              >
+                Détails
+              </Link>
+              <Link
+                to={`/vendeur-commande/${data.row.original?.id}`}
+                className="btn btn-warning btn-sm mr-2"
+              >
+                Editer
+              </Link>
+              <DeleteFromMagasin model="fromagasins" entity={data.row.original} />
+            </>
+          );
+        },
+      },
+    ],
+    []
+  );
+
   return (
     <>
       <div>
@@ -75,68 +126,35 @@ export const HistoriqueVenteVendeur = () => {
             </Link>
           </div>
           <div className="row">
-            <div className="col-lg-8"></div>
-            <div className="col-lg-4">
-              <div className="d-flex align-items-center mb-3">
-                <input
-                  type="date"
-                  name="datedeb"
-                  ref={refDateDeb}
-                  placeholder="date debut"
-                  className="form-control mr-2"
-                />
-                <input
-                  type="date"
-                  name="datefin"
-                  ref={refDateFin}
-                  placeholder="date fin"
-                  className="form-control mr-2"
-                />
-                <button className="btn btn-primary" onClick={getByDate}>
-                  Filtrer
-                </button>
-              </div>{" "}
+            <div className="col-lg-6">
+              <div>
+                <h3 className="text-uppercase">Historique de vente</h3>
+                <p>{`${displayDate(deb)} ->  ${displayDate(fin)}`}</p>
+                <div
+                  className="bg-thead p-3 my-2"
+                  style={{
+                    width: "30%",
+                  }}
+                >
+                  <h2>Recette: {displayMoney(recetteDuJour(commandes))}</h2>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 text-right">
+              <DateRangePicker
+                locale="fr-FR"
+                onChange={onChangeDateRange}
+                value={dateRange}
+              />
             </div>{" "}
           </div>
-
-          <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Montant Total</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {commandes
-                  .sort((low, high) => high.id - low.id)
-                  .map((p, i) => (
-                    <tr key={i}>
-                      <td>{displayDate(p?.dateCom)}</td>
-                      <td>{displayMoney(totalDevente(p?.contenu))}</td>
-                      <td>
-                        {" "}
-                        <Link
-                          className="btn btn-sm  btn-warning mr-2"
-                          to={`/vendeur-commande/${p.id}`}
-                        >
-                          Editer
-                        </Link>
-                        <Link
-                          className="btn btn-sm  btn-green mr-2"
-                          to={`/detailvendeur/${p.id}`}
-                        >
-                          Afficher le detail
-                        </Link>
-                        <DeleteFromMagasin model="fromagasins" entity={p} />
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <h3>Total:{displayMoney(recetteDuJour(commandes))}</h3>
+          <DataTable
+            data={commandes.sort((low, high) => high.id - low.id)}
+            meta={meta}
+            columns={columns}
+            //  addUrl={NOUVELLEFACTURE}
+            //  urlName={"Ajouter un facture"}
+          />
         </div>{" "}
       </div>
     </>

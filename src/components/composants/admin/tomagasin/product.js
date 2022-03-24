@@ -27,10 +27,8 @@ const Products = () => {
   return (
     <Container>
       <Row>
-        <Col xs={7}>
-          <ToMag />
-        </Col>
-        <Col xs={5}>
+        
+        <Col xs={6}>
           <Card>
             <Card.Header className="bg-dark p-2 text-white d-flex text-uppercase justify-content-between align-items-center">
               Produits
@@ -62,6 +60,9 @@ const Products = () => {
               </ListGroup>{" "}
             </Card.Body>{" "}
           </Card>
+        </Col>
+        <Col xs={6}>
+          <ToMag />
         </Col>
       </Row>
     </Container>

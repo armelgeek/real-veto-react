@@ -6,7 +6,6 @@ import { AddFournisseur } from './AddFournisseur'
 function Fournisseurs({fournisseurs,meta}) {
     return (
         <div>
-            <h3 className="mb-2 text-bold title">Fournisseur de produit</h3>
 
             <div className="card mt-2">
             <div className="card-body">

@@ -1,7 +1,8 @@
 import { fetch } from "../../utils/lib";
 
-export const getCredit = () =>
-  fetch("commandes", { path: `/credit`, replace: true });
+export const getCredit = (deb, fin) =>
+  fetch("commandes", { path: `/credit?deb=${deb}&fin=${fin}`, replace: true });
+  
 export const getCreditVaccinateur = () =>
   fetch("commandes", { path: `/credit-vaccinateur`, replace: true });
 
@@ -20,6 +21,9 @@ export const getResteAPayer = (deb, fin) =>
     path: `/reste-a-payer?deb=${deb}&fin=${fin}`,
     replace: true,
   });
+  export const getTdbCommande = (type,deb, fin) =>
+  fetch("commandes", { path: `/get-tdb-commande?type=${type}&deb=${deb}&fin=${fin}`, replace: true });
+  
 
 export const getEntree = (deb, fin) =>
   fetch("commandes", { path: `/entree?deb=${deb}&fin=${fin}`, replace: true });

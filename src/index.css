@@ -1,10 +1,11 @@
+ body,html{
+  font-family: "Montserrat"!important;
+ }
+
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #198754 !important;
-}
-body{
-  overflow: hidden;
 }
 .nav-link {
   display: block;

@@ -45,21 +45,17 @@ export default function ListApprov() {
   useEffect(() => {
     dispatch(getApprov(deb, fin));
   }, [deb, fin]);
-  const getDataa = () => {
-    dispatch(getApprov(deb, fin));
-  };
   const columns = React.useMemo(
     () => [
       {
         Header: "#",
         accessor: "id",
       },
-     /** {
+     {
         Header: "Produit",
-        maxWidth: "100px",
         Cell: (data) => {
           return (
-            <div>
+            <div style={{width:'200px'}}>
               {data.row.original.contenu.map((c) => (
                 <span>
                   {c.name}
@@ -69,7 +65,7 @@ export default function ListApprov() {
             </div>
           );
         },
-      }, */
+      },
       {
         Header: "Date du facture",
         Cell: (data) => {
@@ -149,13 +145,11 @@ export default function ListApprov() {
               onChange={onChangeDateRange}
               value={dateRange}
             />
-            <button className="ml-3 btn btn-primary btn-sm" onClick={getDataa}>
-              Filtrer
-            </button>
           </div>{" "}
         </div>
 
         <DataTable
+        filter={false}
           data={approvisionnements.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}
