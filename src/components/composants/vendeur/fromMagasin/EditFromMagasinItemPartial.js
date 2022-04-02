@@ -12,26 +12,34 @@ import {
   NumberDecrementStepper,
 } from "@chakra-ui/react";
 
-const FromMagasinItemPartial = ({
+const EditFromMagasinItemPartial = ({
   product,
   setRealQttCC,
   setRealQtt,
   realQtt,
+  index,
+  setState,
+  state,
   realQttCC,
 }) => {
-  const dispatch = useDispatch();
-  const ref = useRef();
-  const { frommagasins } = useSelector((state) => ({
-    frommagasins: state.frommagasins,
-  }));
+ // const dispatch = useDispatch();
+
   const isEnough = () => {
     return (
-      product.quantityCCCVA  - product.qttByCC < 0 &&
+      product.quantityCCCVA - product.qttByCC < 0 &&
       product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
     );
   };
   const onAddQtyPortion = (value) => {
-    dispatch(addQtyFromMagasinPortionItem(product.id, value));
+   // dispatch(addQtyFromMagasinPortionItem(product.id, value));
+  };
+  const updateObjectValue = (index, key, value) => {
+    let temp_state = [...state];
+    temp_state[index] = { ...temp_state[index], [key]: value };
+    setState(temp_state);
+  };
+  const onAddQtyByCC = (value) => {
+    updateObjectValue(index, "qttByCC", value);
   };
   return (
     <div className="basket-item-control">
@@ -39,16 +47,16 @@ const FromMagasinItemPartial = ({
         inputMode={"numeric"}
         w={28}
         step={1}
-        ref={ref}
         bg={"whitesmoke"}
         onChange={(value) => {
           setRealQttCC(value);
+          onAddQtyByCC(value * 1);
           if (value == "") {
-            onAddQtyPortion(0);
+           // onAddQtyPortion(0);
             setRealQttCC(0);
           } else {
             setRealQttCC(value * 1);
-            onAddQtyPortion(value * 1);
+           // onAddQtyPortion(value * 1);
           }
           if (isEnough() || product.quantityBruteCVA - 1 < 0) {
             alert("Le stock ne satisfait pas votre commande");
@@ -90,4 +98,4 @@ const FromMagasinItemPartial = ({
     </div>
   );
 };
-export default FromMagasinItemPartial;
+export default EditFromMagasinItemPartial;

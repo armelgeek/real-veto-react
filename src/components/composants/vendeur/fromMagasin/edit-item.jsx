@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Col, ListGroup, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 const EditProductItemToMag = ({ state, setState, product }) => {
-
   const dispatch = useDispatch();
 
   const itemOnBasket = !!state?.find((item) => item?.id === product.id);
@@ -15,12 +14,62 @@ const EditProductItemToMag = ({ state, setState, product }) => {
       state.some((p) => p.id === product.id) ? state : [product, ...state]
     );
   };
+  const isEmptyBrute = React.useCallback(() => {
+    if (product.quantityBruteCVA > 15 && product.quantityBruteCVA <= 20) {
+      return "yellow";
+    }
+    if (product.quantityBruteCVA > 10 && product.quantityBruteCVA <= 15) {
+      return "#ffdb4c";
+    }
+    if (product.quantityBruteCVA > 5 && product.quantityBruteCVA <= 10) {
+      return " orange";
+    }
+    if (product.quantityBruteCVA > 0 && product.quantityBruteCVA <= 5) {
+      return "#c44e14b8";
+    }
+    if (product.quantityBruteCVA == 0) {
+      return "red";
+    } else {
+      return "green";
+    }
+  }, [product]);
+  const isEmptyCC = React.useCallback(() => {
+    if (product.quantityCCCVA > 15 && product.quantityCCCVA <= 20) {
+      return "yellow";
+    }
+    if (product.quantityCCCVA > 10 && product.quantityCCCVA <= 15) {
+      return "#ffdb4c";
+    }
+    if (product.quantityCCCVA > 5 && product.quantityCCCVA <= 10) {
+      return " orange";
+    }
+    if (product.quantityCCCVA > 0 && product.quantityCCCVA <= 5) {
+      return "#c44e14b8";
+    }
+    if (product.quantityCCCVA == 0) {
+      return "red";
+    } else {
+      return "green";
+    }
 
+    const isEmptyCondVal = React.useCallback(() => {
+      if (product.condval == 0) {
+        return "red";
+      } else {
+        return "green";
+      }
+    }, [product]);
+  }, [product]);
   return (
     <>
       <ListGroup.Item
         className="mb-2 mr-3"
-        style={{ border: "1px solid gray" }}
+        style={{
+          width: "100%",
+          border: "1px solid gray",
+          background: "whitesmoke",
+          borderLeft: `10px solid ${isEmptyBrute()}`,
+        }}
       >
         <div className=" d-flex justify-content-between align-items-center">
           <div
@@ -33,7 +82,14 @@ const EditProductItemToMag = ({ state, setState, product }) => {
             }}
           >
             <div>
-              {product.name}{" "}
+              <div
+                style={{
+                  width: 10,
+                  height: 4,
+                  background: `${isEmptyCC()}`,
+                }}
+              ></div>
+              <div>{product.name} </div>
               <div class="badge badge-primary">
                 {product?.fournisseur?.name}
               </div>
@@ -54,7 +110,7 @@ const EditProductItemToMag = ({ state, setState, product }) => {
             }
             )}
             <strong>CondML: {product.condml}- Condval:{product.condval}</strong> */}
-            </div>{" "}
+            </div>{" "} </div>
             <div>
               {product?.id && (
                 <>
@@ -62,7 +118,8 @@ const EditProductItemToMag = ({ state, setState, product }) => {
                     <button
                       disabled={
                         product.quantityBruteCVA === 0 &&
-                        (product.quantityCCCVA == 0 || product.quantityCCCVA == null)
+                        (product.quantityCCCVA == 0 ||
+                          product.quantityCCCVA == null)
                       }
                       className={"btn btn-green btn-sm"}
                       onClick={handleAddToBasket}
@@ -73,7 +130,8 @@ const EditProductItemToMag = ({ state, setState, product }) => {
                     <button
                       disabled={
                         product.quantityBruteCVA === 0 &&
-                        (product.quantityCCCVA == 0 || product.quantityCCCVA == null)
+                        (product.quantityCCCVA == 0 ||
+                          product.quantityCCCVA == null)
                       }
                       className={"btn btn-danger btn-sm"}
                       onClick={() => removeProduct(product?.id)}
@@ -83,7 +141,6 @@ const EditProductItemToMag = ({ state, setState, product }) => {
                   )}
                 </>
               )}
-            </div>
           </div>
         </div>
       </ListGroup.Item>

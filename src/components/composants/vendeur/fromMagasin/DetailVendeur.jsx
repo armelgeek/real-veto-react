@@ -39,10 +39,7 @@ function Detail(props) {
           </Link>
         </div>
         <div>
-          <p>
-            {commande[0]?.type == "credit-cva" && <p>Credit</p>}
-
-          </p>
+          <p>{commande[0]?.type == "credit-cva" && <p>Credit</p>}</p>
           {commande[0]?.type == "credit-cva" && (
             <div className="border">
               <>
@@ -53,9 +50,18 @@ function Detail(props) {
           )}
           {commande.length > 0 && (
             <div className="d-flex justify-content-between">
-              <h2 className="my-2">
-                Date : {displayDate(commande[0]?.dateCom)}
-              </h2>
+              <div className="my-2">
+                <h2 className="my-2">
+                  Date : {displayDate(commande[0]?.dateCom)}
+                </h2>
+                <Link
+                  to={`/vendeur-commande/${commande[0]?.id}`}
+                  className="btn btn-warning btn-sm mr-2"
+                >
+                  Editer le commande
+                </Link>
+              </div>
+
               <div className="d-flex justify-content-end">
                 <div className="bg-thead p-1 mb-1">
                   <strong>Recette:</strong>:

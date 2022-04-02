@@ -23,12 +23,14 @@ const EditFromMagasin = () => {
   const [regenerate, setRegenerate] = useState(false);
   const dispatch = useDispatch();
   const commandes = useSelector(getData("commandes").value);
+  const commandesclone = useSelector(getData("commandesclone").value);
   const metacommandes = useSelector(getData("commandes").meta);
   const products = useSelector(getData("products").value);
   const metaproducts = useSelector(getData("products").meta);
   const [productData, setProductData] = useState([]);
   React.useEffect(() => {
     dispatch(action("commandes").get(id));
+    dispatch(action("commandesclone").get(id));
   }, [id]);
   const [value, setValue] = useState("");
 
@@ -85,7 +87,7 @@ const EditFromMagasin = () => {
       <div className="bg-dark text-white p-3 d-flex justify-content-center align-items-center">
         <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
       </div>
-      <Container>
+      <Container className="mt-3">
         <Row>
           <Col xs={6}>
             <ListGroup>
@@ -149,16 +151,15 @@ const EditFromMagasin = () => {
             </ListGroup>
           </Col>
           <Col xs={6}>
-            {metaproducts.isFetching && <p>"Chargement en cours ...."</p>}
-            {!metaproducts.isFetching && (
-              <EditToFromMag
-                state={state}
-                meta={metacommandes}
-                setState={setState}
-                products={products}
-                commandes={commandes[0]}
-              />
-            )}
+            <EditToFromMag
+              state={state}
+              meta={metacommandes}
+              commandesclone={commandesclone}
+              disabled={metaproducts.isFetching}
+              setState={setState}
+              products={products}
+              commandes={commandes[0]}
+            />
           </Col>
         </Row>
       </Container>

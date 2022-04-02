@@ -30,6 +30,18 @@ export const EtatStockMagasin = () => {
       accessor: "name",
     },
     {
+      Header: "Fournisseur",
+      Cell: (data) => {
+        return (
+          <div>
+            <h3 className="badge badge-primary">
+              {data.row.original?.fournisseur.name}
+            </h3>
+          </div>
+        );
+      },
+    },
+    {
       Header: "Quantité",
       accessor: "quantityBruteCVA",
     },
@@ -54,15 +66,13 @@ export const EtatStockMagasin = () => {
         <ActiveLink title="Etat de stock du Magasin"></ActiveLink>
       </ContentHeader>
       <Page>
-      <div className="row">
+        <div className="row">
           <div className="col-lg-6">
             <div>
               <h3 className="text-uppercase">Etat de stock du Magasin</h3>
             </div>
           </div>
-          <div className="col-lg-6 text-right">
-           
-          </div>{" "}
+          <div className="col-lg-6 text-right"></div>{" "}
         </div>
         <DataTable
           data={products.sort(

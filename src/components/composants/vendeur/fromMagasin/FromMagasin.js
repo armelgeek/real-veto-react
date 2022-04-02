@@ -58,7 +58,7 @@ const FromMagasin = () => {
         {
           id: Math.floor(Date.now() / 1000),
           contenu: frommagasins,
-          type: "vente-cva",
+          type: type,
           sorte: "sortie",
           vaccinateurId: vaccinateurId,
           status: type === "vente-cva" ? true : false,

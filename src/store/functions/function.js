@@ -320,11 +320,293 @@ export const handleSoldProduct = (product) => {
   return product;
 };
 
-
-
 export const canBuy = (product) => {
-   if(isSpecialProductHandle(product)){
-     
-   }
+  if (isSpecialProductHandle(product)) {
+  }
   return true;
 };
+export const oneSoldOneReturn = (product, initialCommande) => {
+  // 1 vendu,1 retour
+  let etat = "none";
+  if (product.quantityParProduct > 0) {
+    if (product.quantityBruteCVA >= 0) {
+      if (product.quantityParProduct == initialCommande.quantityParProduct) {
+        product.quantityBruteCVA += product.quantityParProduct;
+        product.quantityParProduct = 0;
+        etat = "same-qtt";
+      } else if (
+        initialCommande.quantityParProduct > product.quantityParProduct
+      ) {
+        let diff =
+          initialCommande.quantityParProduct - product.quantityParProduct;
+        initialCommande.quantityParProduct -= diff;
+        initialCommande.quantityBruteCVA += diff;
+        product.quantityParProduct = 0;
+        product.quantityBruteCVA += diff;
+        etat = "minus-qtt";
+        // qttParcommande > qttactuel =  (qttParcommande - qttactuel), commande quantité - (qttParcommande - qttactuel), +(qttParcommande - qttactuel) stock
+        // 3 > 2 = 3 - 2 = 1, qttcommande -= 1,quantiteProduit (qttParcommande - qttactuel)
+      } else if (
+        initialCommande.quantityParProduct < product.quantityParProduct
+      ) {
+        let differ =
+          product.quantityParProduct - initialCommande.quantityParProduct;
+        // qttParcommande < qttactuel =  (qttactuel - qttParcommande), commande quantité + (qttactuel - qttParcommande), -(qttParcommande - qttactuel) stock
+        // 4 < 5 = 5 - 4 = 1,qttcommande +=1 , stock + (qttParcommande - qttactuel)
+        initialCommande.quantityParProduct += differ;
+        initialCommande.quantityBruteCVA -= differ;
+        product.quantityParProduct = 0;
+        product.quantityBruteCVA -= differ;
+        etat = "add-qtt";
+      }
+    }
+  }
+  return { product, initialCommande, etat };
+};
+
+export const mlSoldIncrement = (product, initialCommande) => {
+  let etat = "none";
+  if (product.qttByCC > 0) {
+    if (product.quantityParProduct > 0) {
+      product.quantityBruteCVA += product.quantityParProduct;
+      product.quantityParProduct = 0;
+    }
+    if (product.quantityCCCVA >= 0) {
+      if (product.qttByCC == initialCommande.qttByCC) {
+        etat = "same-qtt-cc";
+      } else if (initialCommande.qttByCC > product.qttByCC) {
+        etat = "minus-qtt-cc";
+        // 90 20
+        let diff = initialCommande.qttByCC - product.qttByCC;
+        // 90 - 20 = 70
+        initialCommande.qttByCC -= diff;
+        // 20
+        if (product.quantityCCCVA + diff > product.doseDefault) {
+          // 40 + 70 =110 > 100
+          initialCommande.quantityBruteCVA += 1;
+          // + 1 boite
+          initialCommande.quantityCCCVA =
+            product.quantityCCCVA + diff - product.doseDefault;
+          // 110 - 100 = 10
+        } else {
+          // 40 + 14 = 64 < 100
+
+          initialCommande.quantityCCCVA += diff;
+        }
+        //initialCommande.qttByCC -= diff;
+        //initialCommande.quantityCCCVA += diff;
+        // 21 > 20
+      } else if (initialCommande.qttByCC < product.qttByCC) {
+        // 19 < 20
+        etat = "add-qtt-cc";
+        let differ = product.qttByCC - initialCommande.qttByCC;
+        // 20 - 10 = 10
+        initialCommande.qttByCC += differ;
+        // 10 +10 = 20
+        if (product.quantityCCCVA - differ > 0) {
+          // 40 - 10 = 30
+          initialCommande.quantityCCCVA -= differ;
+        } else {
+          // 40 - 40 = 0
+          product.quantityCCCVA = 0;
+        }
+      }
+      if (product.quantityCCCVA + product.qttByCC > product.doseDefault) {
+        //20 + reste ML > dosedefault  qttbrute +1, qttcc = quantityCCCVA + qttByCC - doseDefault
+        // 90 + 20 > 100
+        product.quantityBruteCVA += 1;
+        product.quantityCCCVA =
+          product.quantityCCCVA + product.qttByCC - product.doseDefault;
+      } else {
+        // 20 + 20 < 100
+        product.quantityCCCVA += product.qttByCC;
+      }
+      product.qttByCC = 0;
+    }
+  } else {
+    if (product.quantityParProduct > 0) {
+      if (product.quantityBruteCVA >= 0) {
+        if (product.quantityParProduct == initialCommande.quantityParProduct) {
+          product.quantityBruteCVA += product.quantityParProduct;
+          product.quantityParProduct = 0;
+          etat = "same-qtt";
+        } else if (
+          initialCommande.quantityParProduct > product.quantityParProduct
+        ) {
+          let diff =
+            initialCommande.quantityParProduct - product.quantityParProduct;
+          initialCommande.quantityParProduct -= diff;
+          initialCommande.quantityBruteCVA += diff;
+          product.quantityParProduct = 0;
+          product.quantityBruteCVA += diff;
+          etat = "minus-qtt";
+          // qttParcommande > qttactuel =  (qttParcommande - qttactuel), commande quantité - (qttParcommande - qttactuel), +(qttParcommande - qttactuel) stock
+          // 3 > 2 = 3 - 2 = 1, qttcommande -= 1,quantiteProduit (qttParcommande - qttactuel)
+        } else if (
+          initialCommande.quantityParProduct < product.quantityParProduct
+        ) {
+          let differ =
+            product.quantityParProduct - initialCommande.quantityParProduct;
+          // qttParcommande < qttactuel =  (qttactuel - qttParcommande), commande quantité + (qttactuel - qttParcommande), -(qttParcommande - qttactuel) stock
+          // 4 < 5 = 5 - 4 = 1,qttcommande +=1 , stock + (qttParcommande - qttactuel)
+          initialCommande.quantityParProduct += differ;
+          initialCommande.quantityBruteCVA -= differ;
+          product.quantityParProduct = 0;
+          product.quantityBruteCVA -= differ;
+          etat = "add-qtt";
+        }
+      }
+    }
+  }
+  return { product, initialCommande, etat };
+};
+
+export const oneSoldOneReturnCond = (product, initialCommande) => {
+  let etat = "none";
+  if (product.quantityParProduct > 0) {
+    if (product.condval >= 0) {
+      if (product.quantityParProduct == initialCommande.quantityParProduct) {
+        if (product.condval + product.quantityParProduct < product.condsize) {
+          product.condval += product.quantityParProduct;
+        } else {
+          product.condval = product.condsize;
+        }
+        product.quantityParProduct = 0;
+        etat = "same-qtt-cond";
+      } else if (
+        initialCommande.quantityParProduct > product.quantityParProduct
+      ) {
+        let diff =
+          initialCommande.quantityParProduct - product.quantityParProduct;
+        initialCommande.quantityParProduct -= diff;
+        initialCommande.condval += diff;
+        product.quantityParProduct = 0;
+
+        if (product.condval + diff < product.condsize) {
+          product.condval += diff;
+        } else {
+          product.condval = product.condsize;
+        }
+        etat = "minus-qtt-cond";
+        // qttParcommande > qttactuel =  (qttParcommande - qttactuel), commande quantité - (qttParcommande - qttactuel), +(qttParcommande - qttactuel) stock
+        // 3 > 2 = 3 - 2 = 1, qttcommande -= 1,quantiteProduit (qttParcommande - qttactuel)
+      } else if (
+        initialCommande.quantityParProduct < product.quantityParProduct
+      ) {
+        let differ =
+          product.quantityParProduct - initialCommande.quantityParProduct;
+        // qttParcommande < qttactuel =  (qttactuel - qttParcommande), commande quantité + (qttactuel - qttParcommande), -(qttParcommande - qttactuel) stock
+        // 4 < 5 = 5 - 4 = 1,qttcommande +=1 , stock + (qttParcommande - qttactuel)
+        initialCommande.quantityParProduct += differ;
+        initialCommande.condval -= differ;
+        product.quantityParProduct = 0;
+  
+        if (product.condval - differ >= 0) {
+          product.condval -= differ;
+        } else {
+          product.condval = 0;
+        }
+        etat = "add-qtt-cond";
+      }
+    }
+  } else {
+    initialCommande.quantityParProduct = initialCommande.quantityParProduct;
+    product.quantityParProduct = product.quantityParProduct;
+  }
+  return { product, initialCommande, etat };
+};
+
+export const mlSoldIncrementCond = (product, initialCommande) => {
+  // 1 vendu,1 retour
+  let etat = "none";
+  if (product.qttByCC > 0) {
+    if (product.quantityParProduct > 0) {
+      product.condval += product.quantityParProduct;
+      product.quantityParProduct = 0;
+    }
+    if (product.quantityCCCVA >= 0) {
+      if (product.qttByCC == initialCommande.qttByCC) {
+        etat = "same-qtt-cc-cond";
+      } else if (initialCommande.qttByCC > product.qttByCC) {
+        etat = "minus-qtt-cc-cond";
+        let diff = initialCommande.qttByCC - product.qttByCC;
+        //200 - 100 = 100
+        initialCommande.qttByCC -= diff;
+        // 100
+        //200 + 100 = 100 > 250
+        if (product.quantityCCCVA + diff > product.condml) {
+          initialCommande.condval += 1;
+          // + 1 boite
+          initialCommande.quantityCCCVA =
+            product.quantityCCCVA + diff - product.condml;
+          // 200+  100 - 250
+        } else {
+          initialCommande.quantityCCCVA += diff;
+        }
+        // 21 > 20
+      } else if (initialCommande.qttByCC < product.qttByCC) {
+        // 19 < 20
+        etat = "add-qtt-cc-cond";
+        let differ = product.qttByCC - initialCommande.qttByCC;
+        // 20 - 19 = 1
+        initialCommande.qttByCC += differ;
+        if (product.quantityCCCVA - differ > 0) {
+          initialCommande.quantityCCCVA -= differ;
+        } else {
+          product.quantityCCCVA = 0;
+        }
+      }
+
+      if (product.quantityCCCVA + product.qttByCC > product.condml) {
+        // 200 + 32 > 50
+        let diff = product.quantityCCCVA + product.qttByCC - product.condml;
+        // 200 + 100 = 300 > 250
+        // 50
+        // + 1
+        if (product.condval + 1 < product.condsize) {
+          product.condval += 1;
+        } else {
+          product.condval = product.condsize;
+        }
+        product.quantityCCCVA = diff;
+      } else {
+        // 20 + 20 < 100
+        product.quantityCCCVA += product.qttByCC;
+      }
+      product.qttByCC = 0;
+    }
+  } else {
+    if (product.quantityParProduct > 0) {
+      oneSoldOneReturnCond(product,initialCommande);
+    }
+  }
+
+  return { product, initialCommande, etat };
+};
+
+// cas normal
+
+// 20 + reste ML > dosedefault  qttbrute +1, qttcc = dose - reste
+// 1 flacon + 20 ML , 20 + reste ML > dosedefault  qttbrute +1, qttcc = dose - reste , +1
+//1 flacon + 20 ML , 20 + reste ML < dosedefault  qttbrute +1, qttcc -= qttCC
+
+// cas modification
+
+// qttParcommande > qttactuel =  (qttParcommande - qttactuel), commande quantité - (qttParcommande - qttactuel), +(qttParcommande - qttactuel) stock
+// 3 > 2 = 3 - 2 = 1, qttcommande -= 1,quantiteProduit (qttParcommande - qttactuel)
+// qttParcommande < qttactuel =  (qttactuel - qttParcommande), commande quantité + (qttactuel - qttParcommande), -(qttParcommande - qttactuel) stock
+// 4 < 5 = 5 - 4 = 1,qttcommande +=1 , stock + (qttParcommande - qttactuel)
+
+// cas tikaz
+// 1 vendu , 1 retour
+// 100 ml, reste ML + 100 < dosedefault, reste ML + 100
+//100 ml, reste ML + 100 > dosedefault, on calcue la difference qttcc, + 1 condval ( + 1 condval > 4 donc ,)
+// 1 cond , 100ML ,  reste ML + 100 > dosedefault, on calcue la difference qttcc, + 1 condval +1 cond,
+//  1 cond , 100ML , +1 cond,  reste ML + 100 < dosedefault,+1 cond, qttc = reste ML + 100
+//
+
+//date : 11 12 13 14 15
+//qtt  : 10  9  8  7  6
+//       +1
+//       11   +1 + 1 +1
+//       -1 -1  - 1

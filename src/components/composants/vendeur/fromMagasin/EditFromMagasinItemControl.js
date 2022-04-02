@@ -49,7 +49,8 @@ const EditFromMagasinItemControl = ({
         bg={"whitesmoke"}
         onChange={(value) => {
           onAddQtyBrute(Number(value));
-          setRealQtt(Number(value));
+          console.log(value);
+         // setRealQtt(Number(value));
           if (isEnough()) {
             alert("Le stock ne satisfait pas votre commande");
           }

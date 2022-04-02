@@ -12,7 +12,8 @@ import {
 } from "../../../../store/functions/function-depot";
 import { clearFromDepot } from "../../../../store/fromdepot/actions/fromdepot";
 import EditFromDepotItem from "./EditItem";
-import {HISTORIQUEVENTEVENDEUR } from '../../../../constants/routes';
+import { HISTORIQUEVENTEVENDEUR } from "../../../../constants/routes";
+import { Link } from "react-router-dom";
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   const total = arr.reduce((acc, val) => acc + val, 0);
@@ -27,7 +28,15 @@ function copy(object) {
   }
   return output;
 }
-const EditToFromMag = ({ state, meta, setState, products, commandes }) => {
+const EditToFromMag = ({
+  state,
+  commandesclone,
+  meta,
+  setState,
+  disabled,
+  products,
+  commandes,
+}) => {
   const [type, setType] = useState("direct");
   const [idFournisseur, setIdFournisseur] = useState(1);
   const [vaccinateurId, setVaccinateurId] = useState(null);
@@ -51,68 +60,19 @@ const EditToFromMag = ({ state, meta, setState, products, commandes }) => {
     //  dispatch(action("commandes").fetch());
     dispatch(action("emprunters").fetch());
   }, []);
-  function inArray(value, values) {
-    for (var i = 0; i < values.length; i++) {
-      if (value === values[i]) return true;
-    }
-    return false;
-  }
 
-  function isInArray(value, array) {
-    return array.find((a) => value.id === a.id);
-  }
   const getContenu = () => {
     // console.log(missing);
     const missing = copy(realContent).filter(
       (e) => !state.find((a) => e.id === a.id)
     );
-    /* missing.forEach((element) => {
-
-      action("products").update({
-        id: element.id,
-        quantityBruteCVA: element.quantityBruteCVA - element.quantityParProduct,
-        quantityParProduct: 0,
-      });
-    });*/
     const added = state.filter(
-      (e) => !copy(realContent).find((a) => e.id === a.id)
+      (e) => !copy(state).find((a) => e.id === a.id)
     );
 
-    const exist = state.map((element) => {
-      let commandeLast = copy(realContent).find((p) => p.id === element.id);
-
-      if (commandeLast != null || commandeLast != undefined) {
-        // if(element.quantityParProduct){}
-        let qtt = 0;
-        if (
-          element.quantityParProduct * 1 >
-          commandeLast.quantityParProduct * 1
-        ) {
-          qtt =
-            element.quantityParProduct * 1 -
-            commandeLast.quantityParProduct * 1;
-          element.quantityBruteCVA = commandeLast.quantityBruteCVA + qtt;
-        }
-        if (
-          commandeLast.quantityParProduct * 1 >
-          element.quantityParProduct * 1
-        ) {
-          qtt =
-            commandeLast.quantityParProduct * 1 -
-            element.quantityParProduct * 1;
-          element.quantityBruteCVA = commandeLast.quantityBruteCVA - qtt;
-        }
-        if (
-          element.quantityParProduct * 1 ==
-          commandeLast.quantityParProduct * 1
-        ) {
-          element.quantityBruteCVA = commandeLast.quantityBruteCVA;
-        }
-        return element;
-      } else {
-        return null;
-      }
-    });
+    const exist = copy(realContent).map((element) =>
+      state.find((p) => p.id === element.id)
+    );
     return {
       exist: exist.filter((e) => e != null),
       added,
@@ -123,146 +83,25 @@ const EditToFromMag = ({ state, meta, setState, products, commandes }) => {
   const onCheckOut = () => {
     const { exist, added, missing } = getContenu();
     dispatch(
-      action("commandes").updateTransaction({
-        id: commandes?.id,
-        contenu: state,
-        type: "vente-cva",
-        sorte: "sortie",
-        sorte: "sortie",
-        status: true,
-        dateCom: dateCom != null ? dateCom : date,
-        exist:exist,
-        added:added,
-        missing:missing,
-      },'update-from-magasin')
+      action("commandes").updateTransaction(
+        {
+          id: commandes?.id,
+          contenu: state,
+          type: "vente-cva",
+          sorte: "sortie",
+          sorte: "sortie",
+          status: true,
+          dateCom: dateCom != null ? dateCom : date,
+          exist: exist,
+          added: added,
+          missing: missing,
+        },
+        "update-from-magasin"
+      )
     );
 
-    /*copy(state).forEach((element) => {
-      if (!isInArray(element, added)) {
-        console.log("exist ----", element);
-        const actualProduct = products.find((p) => p.id == element.id);
-        const commandeLast = copy(realContent).find((p) => p.id == element.id);
-        let qtt = 0;
-        if (
-          element.quantityParProduct * 1 >
-          commandeLast?.quantityParProduct * 1
-        ) {
-          qtt =
-            element.quantityParProduct * 1 -
-            commandeLast?.quantityParProduct * 1;
-          element.quantityBruteCVA = copy(actualProduct).quantityBruteCVA + qtt;
-          console.log(
-            "+ plus",
-            element.quantityParProduct * 1 -
-              commandeLast?.quantityParProduct * 1
-          );
-        }
-        if (
-          commandeLast?.quantityParProduct * 1 >
-          element.quantityParProduct * 1
-        ) {
-          qtt =
-            commandeLast?.quantityParProduct * 1 -
-            element.quantityParProduct * 1;
-          element.quantityBruteCVA = copy(actualProduct).quantityBruteCVA - qtt;
-          console.log(
-            "-moins",
-            commandeLast?.quantityParProduct * 1 -
-              element.quantityParProduct * 1
-          );
-        }
-        if (
-          element.quantityParProduct * 1 ==
-          commandeLast?.quantityParProduct * 1
-        ) {
-          element.quantityBruteCVA = copy(actualProduct).quantityBruteCVA;
-        }
-
-        //  console.log(element.name, updateQtt(is, element, commandeLast, qtt));
-        //console.log(element.name, element.quantityBruteCVA);
-        dispatch(
-          action("products").update({
-            id: element.id,
-            quantityBruteCVA: element.quantityBruteCVA,
-            quantityParProduct: 0,
-          })
-        );
-      } else {
-        console.log("added---" + JSON.stringify(element));
-
-        dispatch(
-          action("products").update({
-            id: element.id,
-            quantityBruteCVA:
-              element.quantityBruteCVA + element.quantityParProduct * 1,
-            quantityParProduct: 0,
-          })
-        );
-      }
-    });
-    if (missing.length > 0) {
-      console.log("misssing", missing);
-      missing.map((e) => {
-        const actualp = products.find((p) => p.id == e.id);
-        console.log(actualp);
-        dispatch(
-          action("products").update({
-            id: e.id,
-            quantityBruteCVA: actualp.quantityBruteCVA - e.quantityParProduct * 1,
-            quantityParProduct: 0,
-          })
-        );
-      });
-    }*/
-   // history.push(HISTORIQUEVENTEVENDEUR);
+    // history.push(HISTORIQUEVENTEVENDEUR);
   };
-
-  /* const onCheckOut = () => {
-    const { exist, added, missing } = getContenu();
-    console.log("state", state.length);
-    console.log("realcont", realContent.length);
-    console.log("exist", JSON.stringify(exist));
-    console.log("added", JSON.stringify(added));
-    console.log("missing", JSON.stringify(missing));
-     fromdepots.forEach((element) => {
-      delete element.busy;
-      delete element.pendingCreate;
-      handleMinusProductDepot(element);
-      if (element.condmldepot != 0 && element.qttccpventedepot != 0) {
-        handlePhtyoSpecificDepot(element);
-      } else {
-        handleSoldQuantityCCDepot(element);
-      }
-      console.log(element);
-    });*/
-  //console.log(fromdepots);
-  /*  dispatch(
-      action("commandes").create({
-        id: Math.floor(Date.now() / 1000),
-        contenu: state?.state,
-        type: "vente-depot",
-        sorte: "sortie",
-        qtteBrute: 1,
-        qtteCC: 1,
-        vaccinateurId: vaccinateurId,
-        status: type === "direct" ? true : false,
-        emprunterId: emprunter,
-        dateCom: dateCom != null ? dateCom : date,
-      })
-    );*/
-  /*if (!meta.error) {
-      state?.state?.forEach((element) => {
-        let idElement = element.id;
-        element.quantityParProduct = 0;
-        element.qttByCCDepot = 0;
-        element.qttyspecificmirrordepot = 0;
-        element.id = idElement;
-        dispatch(action("products").update(element));
-      });
-    }
-    //dispatch(clearFromDepot());
-    //   history.push(SORTIE);
-  };*/
 
   const onClearBasket = () => {
     state?.forEach((element) => {
@@ -277,12 +116,19 @@ const EditToFromMag = ({ state, meta, setState, products, commandes }) => {
       <Card>
         <Card.Header className=" bg-dark py-3 text-white d-flex justify-content-between align-items-center">
           <div style={{ width: "60%" }}>BON DE SORTIE</div>
-          
         </Card.Header>
         <div className="commande-vente">
           <Card.Body
             style={{ padding: 12, marginTop: 3, marginRight: 2, marginLeft: 2 }}
           >
+            <div className="d-flex justify-content-end">
+              <Link
+                className="btn btn-primary mb-2 btn-sm"
+                to={HISTORIQUEVENTEVENDEUR}
+              >
+                Voir l'historique de vente
+              </Link>
+            </div>
             <div
               style={{
                 overflowY: "auto",
@@ -296,6 +142,7 @@ const EditToFromMag = ({ state, meta, setState, products, commandes }) => {
                 <div>
                   <input
                     type="date"
+                    disabled={disabled}
                     onChange={(e) => setDateCom(e.target.value)}
                     value={dateCom}
                     className="form-control"
@@ -306,6 +153,7 @@ const EditToFromMag = ({ state, meta, setState, products, commandes }) => {
                 <>
                   <label>Crediteur:</label>
                   <select
+                    disabled={disabled}
                     className="form-control"
                     onChange={(e) => {
                       setEmprunter(e.target.value);
@@ -323,17 +171,21 @@ const EditToFromMag = ({ state, meta, setState, products, commandes }) => {
                   Aucune enregistrement trouvé
                 </div>
               )}
-              {state?.map((product, i) => (
-                <EditFromDepotItem
-                  key={`${product?.id}_${i}`}
-                  product={product}
-                  state={state}
-                  index={i}
-                  setState={setState}
-                  basket={fromdepots}
-                  dispatch={dispatch}
-                />
-              ))}
+              {state
+                ?.sort(
+                  (low, high) => high.quantityBruteCVA - low.quantityBruteCVA
+                )
+                .map((product, i) => (
+                  <EditFromDepotItem
+                    key={`${product?.id}_${i}`}
+                    product={product}
+                    state={state}
+                    index={i}
+                    setState={setState}
+                    basket={fromdepots}
+                    dispatch={dispatch}
+                  />
+                ))}
             </div>
           </Card.Body>
 

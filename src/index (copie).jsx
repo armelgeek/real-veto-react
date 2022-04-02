@@ -8,8 +8,8 @@ if (process.env.NODE_ENV === 'development') {
     diffNameColor: "darkturquoise"
   });
 }
-import './index.css';
 import ReactDOM from "react-dom";
+import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Routes from "./Routes";
 import { Provider } from "react-redux";

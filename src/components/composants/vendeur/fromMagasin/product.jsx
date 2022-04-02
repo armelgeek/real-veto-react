@@ -82,7 +82,7 @@ const Products = () => {
       <div className="bg-dark text-white py-3 d-flex justify-content-center align-items-center">
         <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
       </div>
-      <Container fluid>
+      <Container>
         <div className="py-2">
           <div class="d-flex justify-content-between align-items-center">
             <div></div>
@@ -91,8 +91,9 @@ const Products = () => {
             </div>
             <div className="bg-thead"></div>
           </div>
+         
           <Row>
-            <Col xs={4}>
+            <Col xs={6}>
               <Card className="mt-2">
                 <Card.Header className="bg-dark p-2 text-white d-flex text-uppercase justify-content-between align-items-center">
                   <div style={{ width: "60%" }}>Produits</div>
@@ -130,9 +131,14 @@ const Products = () => {
                       }}
                     >
                       <div class="d-flex justify-content-start flex-wrap">
-                        {productData.map((p) => (
-                          <ProductItem product={p} />
-                        ))}
+                        {productData
+                          .sort(
+                            (low, high) =>
+                              high.quantityBruteCVA - low.quantityBruteCVA
+                          )
+                          .map((p) => (
+                            <ProductItem product={p} />
+                          ))}
                         {productData.length == 0 &&
                           "Aucune enregistrement trouvé"}
                       </div>{" "}
@@ -141,33 +147,9 @@ const Products = () => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col xs={5}>
+            <Col xs={6}>
               <div className=" py-2">
                 <FromMagasin setRegenerate={setRegenerate} />
-              </div>
-            </Col>
-            <Col xs={3}>
-              <div className=" py-2">
-                <Card>
-                  <Card.Header className="bg-dark  text-white d-flex text-uppercase justify-content-between align-items-center">
-                    <div style={{ width: "60%" }}>Rupture de stock</div>
-                  </Card.Header>
-                  <Card.Body className="p-1">
-                    <ListGroup  style={{
-                        overflowY: "auto",
-                        width: "100%",
-                        height: "350px",
-                        maxHeight: "350px",
-                        overflowX: "hidden",
-                      }}>
-                      <ListGroup.Item
-                        style={{ width: "100%", border: "1px solid gray" }}
-                      >
-
-                      </ListGroup.Item>
-                    </ListGroup>
-                  </Card.Body>
-                </Card>
               </div>
             </Col>
           </Row>
