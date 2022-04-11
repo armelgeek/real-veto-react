@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FromMagasinItemControl from "./FromMagasinItemControl";
 import FromMagasinItemPartial from "./FromMagasinItemPartial";
@@ -7,26 +7,61 @@ import { ItaNewInputDose } from "./ItaNewInputDose";
 import { PhytoConditionnementInput } from "./PhytoConditionnementInput";
 import { SovaxInputDose } from "./SovaxInputDose";
 import useFromMagasin from "../../../../hooks/useFromMagasin";
+import FromMagasinItemLitre from "./FromMagasinItemLitre";
+import { isSpecialProductHandle,blockItOnSold } from "./block-it";
 const FromMagasinItem = ({ product }) => {
-  const [realQttCC, setRealQttCC] = useState(null);
-  const [realQtt, setRealQtt] = useState(null);
+  const [realQttCC, setRealQttCC] = useState(product?.qttByCC);
+  const [realQtt, setRealQtt] = useState(product?.quantityParProduct);
+  const [realQttLitre, setRealQttLitre] = useState(0);
+  const [maxRealQtt, setMaxRealQtt] = useState(2000);
+  const [maxRealQttCC, setMaxRealQttCC] = useState(2000);
+  const [maxRealQttByLitre, setMaxRealQttByLitre] = useState(2000);
   const frommagasins = useSelector((state) => state.frommagasins);
   const dispatch = useDispatch();
   const { isItemFromMagasin, addFromMagasin } = useFromMagasin(
     frommagasins,
     dispatch
   );
-  
+  useEffect(() => {
+    /**  if (realQttCC > 2) {
+      alert("attention c'est la merte");
+      setMaxRealQtt(2);
+      setMaxRealQttCC(10);
+      setRealQttCC(10);
+      setRealQtt(1);
+      setRealQttLitre(1);
+      setMaxRealQttByLitre(1);
+    }
+    console.log("qtt", realQtt);
+    console.log("qttv", realQttCC);
+    console.log("condval", realQttLitre); */
 
+    const { normalQtt, normalQttCC,normalQttLitre,isSpecific, isValid } = blockItOnSold(
+      realQtt,
+      realQttCC,
+      realQttLitre,
+      product
+    );
+    if (!isValid) {
+      alert("stock insuffisant :(");
+      if (!isSpecific) {
+        setRealQtt(normalQtt);
+        setMaxRealQtt(normalQtt);
+        setRealQttCC(normalQttCC);
+        setMaxRealQttCC(normalQttCC);
+      }else{
+        setRealQttLitre(normalQttLitre);
+        setMaxRealQttByLitre(normalQttLitre);
+        setRealQtt(normalQtt);
+        setMaxRealQtt(normalQtt);
+        setRealQttCC(normalQttCC);
+        setMaxRealQttCC(normalQttCC);
+      }
+    }
+  }, [realQtt, realQttCC, realQttLitre]);
   const itemOnBasket = isItemFromMagasin
     ? isItemFromMagasin(product.id)
     : false;
-  /* useEffect(()=>{
-    if(!itemOnBasket){
-      product.qttByCC =0;
-      product.quantityParProduct=0;
-    }
-  },[itemOnBasket])*/
   const handleAddToBasket = () => {
     if (addFromMagasin) addFromMagasin(product);
   };
@@ -61,14 +96,26 @@ const FromMagasinItem = ({ product }) => {
             </strong>
           </span>
         </div>
-        <div className="text-inline text-center">
+        {product.condml !== 0 && product.qttccpvente !== 0 && (
+          <div className="text-inline text-center mr-3">
+            <h5 className="mb-1 text-uppercase">Boite</h5>
+            <FromMagasinItemLitre
+              product={product}
+              setRealQttLitre={setRealQttLitre}
+              realQttLitre={realQttLitre}
+              maxRealQttByLitre={maxRealQttByLitre}
+            />{" "}
+          </div>
+        )}
+        <div className="text-inline text-center mr-2">
           <h5 className="mb-1">{product.type}</h5>
+
           <FromMagasinItemControl
             product={product}
-            setRealQttCC={setRealQttCC}
             setRealQtt={setRealQtt}
+            setMaxRealQtt={setMaxRealQtt}
+            maxRealQtt={maxRealQtt}
             realQtt={realQtt}
-            realQttCC={realQttCC}
           />
         </div>
         {product.type === "FLACON" && (
@@ -78,16 +125,12 @@ const FromMagasinItem = ({ product }) => {
               <ItaNewInputDose
                 product={product}
                 setRealQttCC={setRealQttCC}
-                setRealQtt={setRealQtt}
-                realQtt={realQtt}
                 realQttCC={realQttCC}
               />
             )}
             {checkHasExistText(product.name, "sovax") && (
               <SovaxInputDose
                 setRealQttCC={setRealQttCC}
-                setRealQtt={setRealQtt}
-                realQtt={realQtt}
                 realQttCC={realQttCC}
                 product={product}
               />
@@ -98,28 +141,32 @@ const FromMagasinItem = ({ product }) => {
               !checkHasExistText(product.name, "ita new") && (
                 <FromMagasinItemPartial
                   setRealQttCC={setRealQttCC}
-                  setRealQtt={setRealQtt}
-                  realQtt={realQtt}
                   realQttCC={realQttCC}
+                  maxRealQttCC={maxRealQttCC}
                   product={product}
                 />
               )}
             {product.condml !== 0 && product.qttccpvente !== 0 && (
-              <PhytoConditionnementInput product={product} />
+              <PhytoConditionnementInput
+                product={product}
+                setRealQttCC={setRealQttCC}
+                realQttCC={realQttCC}
+                maxRealQttCC={maxRealQttCC}
+              />
             )}
           </div>
         )}
 
-        <div>
-            {itemOnBasket && (
-              <button
-                onClick={handleAddToBasket}
-                className="btn btn-danger btn-xs text-right"
-              >
-                X
-              </button>
-            )}
-          </div>
+        <div className="ml-2">
+          {itemOnBasket && (
+            <button
+              onClick={handleAddToBasket}
+              className="btn btn-danger btn-xs text-right"
+            >
+              X
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

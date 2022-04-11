@@ -14,14 +14,18 @@ import DeleteFromMagasin from "./DeleteFromMagasin";
 import moment from "moment";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/DateRangePicker";
 import DataTable from "../../../../utils/admin/DataTable";
-
+import { setSearchByDate } from "../../../../store/actions/search/search";
+const isModified = (contenu) => {
+  for (let i = 0; i < contenu.length; ++i) {
+    if (contenu[i].correction > 0 || contenu[i].correctionml > 0) {
+      return true;
+    } else return false;
+  }
+};
 export const HistoriqueVenteVendeur = () => {
-  var start = moment().isoWeekday(1).startOf("week");
-  var end = moment().endOf("week");
-  const [deb, setDeb] = useState(start);
-  const [fin, setFin] = useState(end);
-
-  const [dateRange, onChangeDateRange] = useState([start, end]);
+  const search = useSelector((state) => state.searchbydate);
+  console.log(search);
+  const [dateRange, onChangeDateRange] = useState([search.deb, search.fin]);
   const refDateDeb = useRef(null);
   const refDateFin = useRef(null);
   const commandes = useSelector(getData("commandes").value);
@@ -29,19 +33,13 @@ export const HistoriqueVenteVendeur = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCommandeCVA(deb, fin));
-  }, [deb, fin]);
+    dispatch(getCommandeCVA(search.deb, search.fin));
+  }, [search.deb, search.fin]);
   useEffect(() => {
     if (dateRange !== null) {
       if (dateRange[0]) {
-        setDeb(dateRange[0]);
+        dispatch(setSearchByDate(dateRange[0], dateRange[1]));
       }
-      if (dateRange[1]) {
-        setFin(dateRange[1]);
-      }
-    } else {
-      setDeb(start);
-      setFin(end);
     }
   }, [dateRange]);
   const calculateTotal = (arr) => {
@@ -64,19 +62,76 @@ export const HistoriqueVenteVendeur = () => {
       )
     );
   };
-  const recetteDuJour = (arr) => {
+  const recetteDuJour = (arr = []) => {
     let total = 0;
-    arr.map((c) => {
-      total += totalDevente(c?.contenu);
-    });
+    if (commandes.length > 0) {
+      arr.map((c) => {
+        total += totalDevente(c?.contenu);
+      });
+    } else {
+      total = 0;
+    }
+
     return total;
   };
   const columns = React.useMemo(
     () => [
       {
-        Header: "Date de commande",
+        Header: "Date",
         Cell: (data) => {
           return <>{displayDate(data.row.original?.dateCom)}</>;
+        },
+      },
+      {
+        Header: "Produits",
+        Cell: (data) => {
+          return (
+            <div style={{ width: "350px" }}>
+              {data.row.original?.isdeleted == true && (
+                <>
+                  <div className="badge badge-danger">Supprimé</div>
+                  <div className="text text-danger">
+                    Date de suppression :{" "}
+                    {displayDate(data.row.original?.deletedat)}
+                  </div>
+                </>
+              )}
+              {data.row.original?.isdeleted == null && (
+                <p>
+                  {isModified(data.row.original?.contenu) && (
+                    <div className="badge badge-warning">Modifié</div>
+                  )}
+                </p>
+              )}
+              {data.row.original?.contenu?.map((d) => (
+                <span>
+                  <span
+                    style={{
+                      background: "white",
+                      color:
+                        data.row.original?.isdeleted == true
+                          ? "red"
+                          : "inherit",
+                      padding: 2,
+                    }}
+                  >
+                    {d.name}
+                  </span>
+                  <span
+                    style={{
+                      color:
+                        data.row.original?.isdeleted == true
+                          ? "red"
+                          : "inherit",
+                    }}
+                  >
+                    {" "}
+                    {" || "}
+                  </span>
+                </span>
+              ))}
+            </div>
+          );
         },
       },
       {
@@ -104,7 +159,10 @@ export const HistoriqueVenteVendeur = () => {
               >
                 Editer
               </Link>
-              <DeleteFromMagasin model="fromagasins" entity={data.row.original} />
+              <DeleteFromMagasin
+                model="fromagasins"
+                entity={data.row.original}
+              />
             </>
           );
         },
@@ -119,7 +177,7 @@ export const HistoriqueVenteVendeur = () => {
         <div className="bg-dark text-white p-3 d-flex justify-content-center align-items-center">
           <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
         </div>
-        <div className="p-3">
+        <div className="p-3 container">
           <div class="d-flex justify-content-end">
             <Link class="btn btn-primary my-3" to={VENDEUR}>
               Revenir en arriere
@@ -129,7 +187,9 @@ export const HistoriqueVenteVendeur = () => {
             <div className="col-lg-6">
               <div>
                 <h3 className="text-uppercase">Historique de vente</h3>
-                <p>{`${displayDate(deb)} ->  ${displayDate(fin)}`}</p>
+                <p>{`${displayDate(search.deb)} ->  ${displayDate(
+                  search.fin
+                )}`}</p>
                 <div
                   className="bg-thead p-3 my-2"
                   style={{

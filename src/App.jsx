@@ -214,14 +214,7 @@ function App() {
                     </>
                   ))}
                   <td className="bg-thead text-uppercase text-center">Total</td>
-                  <td className="bg-thead text-uppercase text-center">
-                    {" "}
-                    Total CC
-                  </td>
-                  <td className="bg-thead text-uppercase text-center">Stock</td>
-                  <td className="bg-thead text-uppercase text-center">
-                    Stock ML
-                  </td>
+                  <td className="bg-thead text-uppercase text-center">Total ML</td>
                 </tr>
                 {res.map((b) => (
                   <>
@@ -243,14 +236,7 @@ function App() {
                       <td className="text-center">{b.quantityParProduct}</td>
 
                       <td className="text-center">{b.qttByCC}</td>
-                      <LastStock
-                        flat={flato(
-                          groupedBasket[last(Object.keys(groupedBasket))],
-                          "contenu"
-                        )}
-                        gr={last(Object.keys(groupedBasket))}
-                        id={b.id}
-                      />
+                       
                     </tr>
                   </>
                 ))}

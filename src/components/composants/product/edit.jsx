@@ -16,7 +16,7 @@ function Edit() {
   const { id } = useParams();
   const fournisseurs = useSelector(getData("fournisseurs").value);
   const categories = useSelector(getData("categories").value);
-  const products = useSelector(getData("products").value);
+  const products = useSelector(getData("products").item);
   const meta = useSelector(getData("products").meta);
   const history = useHistory();
   const [categoryId, setCategoryId] = useState(1);
@@ -53,7 +53,7 @@ function Edit() {
         {meta.success != "" && meta.success != null && (
           <Success message={meta.success} />
         )}
-        {products[0].name}
+        {products.name}
         {meta.error && <Error error={meta.error} />}
         <Form
           id="add-form-product"

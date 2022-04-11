@@ -13,7 +13,6 @@ function DefaultColumnFilter({
   column: { filterValue, preFilteredRows, setFilter },
 }) {
   const count = preFilteredRows.length;
-
   return (
     <input
       className="form-control"
@@ -53,7 +52,36 @@ function GlobalFilter({
 }
 export default function DataTable({
   columns,
-  data,
+  data = [],
+  meta,
+  addUrl,
+  urlName,
+  footer,
+  tip = "",
+  filter = true,
+  paginate = true,
+  guide,
+}) {
+  return (
+    <>
+      <DataTableData
+        columns={columns}
+        data={meta.isFetching ? [] : data}
+        meta={meta}
+        addUrl={addUrl}
+        urlName={urlName}
+        footer={footer}
+        tip={tip}
+        filter={filter}
+        paginate={paginate}
+        guide={guide}
+      />
+    </>
+  );
+}
+function DataTableData({
+  columns,
+  data = [],
   meta,
   addUrl,
   urlName,
@@ -113,11 +141,7 @@ export default function DataTable({
         )}
         <div>
           {addUrl && urlName && (
-            <Link
-              className="btn btn-sm btn-green"
-              variant="solid"
-              to={addUrl}
-            >
+            <Link className="btn btn-sm btn-green" variant="solid" to={addUrl}>
               {urlName}
             </Link>
           )}
@@ -155,7 +179,12 @@ export default function DataTable({
             <>
               {page.length == 0 && (
                 <tr>
-                  <td colSpan={colspan} style={( guide ? {"textAlign":"left"} : {"textAlign":"center"})}>
+                  <td
+                    colSpan={colspan}
+                    style={
+                      guide ? { textAlign: "left" } : { textAlign: "center" }
+                    }
+                  >
                     {guide ? (
                       <div
                         style={{

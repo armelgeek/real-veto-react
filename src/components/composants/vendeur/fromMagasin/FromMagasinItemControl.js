@@ -21,10 +21,9 @@ import {
 
 const FromMagasinItemControl = ({
   product,
-  setRealQttCC,
   setRealQtt,
+  maxRealQtt,
   realQtt,
-  realQttCC,
 }) => {
   const dispatch = useDispatch();
   const onAddQtyBrute = (value) => {
@@ -39,37 +38,16 @@ const FromMagasinItemControl = ({
     }
     return output;
   }
-  const getValue = () => {
-    return canBuyCCFromCva(copy(product)) == true
-      ? product?.quantityBruteCVA * 1
-      : product?.quantityBruteCVA * 1 - 1;
-  };
-  const getValueCC = () => {
-    return hasCondVal(copy(product)) == true
-      ? product?.condval * 1
-      : product?.condval * 1 - 1;
-  };
-  const checkVal = () => {
-    if (isSpecialProductHandle(product)) {
-      return getValueCC();
-    } else {
-      return getValue();
-    }
-  };
-  const isEnough = () => {
-    return (
-      product.quantityCCCVA - product.qttByCC < 0 &&
-      product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
-    );
-  };
+
   return (
     <div className="basket-item-control">
+    
       <NumberInput
         inputMode={"numeric"}
         w={28}
-        step={1}
         bg={"whitesmoke"}
         min={0}
+        value={realQtt}
         defaultValue={product?.quantityParProduct}
         onChange={(value) => {
           if ((value == "")) {
@@ -79,12 +57,8 @@ const FromMagasinItemControl = ({
             setRealQtt(value);
             onAddQtyBrute(value);
           }
-
-          if (isEnough(product)) {
-            alert("Le stock ne satisfait pas votre commande");
-          }
         }}
-        max={product.quantityBruteCVA}
+        max={maxRealQtt}
       >
         <NumberInputField />
         <NumberInputStepper>
@@ -92,6 +66,7 @@ const FromMagasinItemControl = ({
           <NumberDecrementStepper />
         </NumberInputStepper>
       </NumberInput>
+
     </div>
   );
 };

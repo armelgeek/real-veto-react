@@ -79,14 +79,13 @@ const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
         quantityParProduct: 0,
       });
     });*/
-    const added = state.filter(
-      (e) => !copy(realContent).find((a) => e.id === a.id)
+    const added = copy(realContent).filter(
+      (e) => !state.find((a) => e.id === a.id)
     );
 
-    const exist = state.map((element) => {
-      let commandeLast = copy(realContent).find((p) => p.id === element.id);
+    const exist = copy(realContent).map((element) => state.find((p) => p.id == element.id));
 
-      if (commandeLast != null || commandeLast != undefined) {
+      /*if (commandeLast != null || commandeLast != undefined) {
         // if(element.quantityParProduct){}
         let qtt = 0;
         if (
@@ -114,8 +113,7 @@ const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
           element.quantityBrute = commandeLast.quantityBrute;
         }
         return element;
-      }
-    });
+      }*/
     return {
       exist: exist.filter((e) => e != null),
       added,

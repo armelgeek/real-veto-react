@@ -16,6 +16,7 @@ import searchByNameAndFournisseur from "../../../../filters/searchByNameAndFourn
 import searchByFournisseur from "../../../../filters/searchByFournisseur";
 import searchByName from "../../../../filters/searchByName";
 import { moment } from "moment";
+import { clearFromMagasin } from "../../../../store/frommagasin/actions/frommagasin";
 const Products = () => {
   const products = useSelector(getData("products").value);
   const meta = useSelector(getData("products").meta);
@@ -101,8 +102,8 @@ const Products = () => {
                     <button
                       className="btn btn-green btn-sm"
                       onClick={() => {
-                        setValue("");
                         setRegenerate(true);
+                    //    dispatch(clearFromMagasin());
                       }}
                     >
                       Mettre à jour

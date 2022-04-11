@@ -8,6 +8,8 @@ import {
   ADD_QTY_PORTION_FROM_MAGASIN_ITEM,
   MINUS_QTY_PORTION_FROM_MAGASIN_ITEM,
   ADD_QTY_NUMBER_FROM_MAGASIN_ITEM,
+  MINUS_QTY_LITRE_NUMBER_FROM_MAGASIN_ITEM,
+  ADD_QTY_LITRE_NUMBER_FROM_MAGASIN_ITEM,
 } from "../constants";
 
 export const setFromMagasinItems = (items = []) => ({
@@ -41,6 +43,18 @@ export const setQtyFromMagasinItem = (id, value) => ({
     value: value,
   },
 });
+
+export const setQtyLitreFromMagasinItem = (id, value) => ({
+  type: ADD_QTY_LITRE_NUMBER_FROM_MAGASIN_ITEM,
+  payload: {
+    id: id,
+    value: value,
+  },
+});
+
+
+
+
 export const minusQtyFromMagasinItem = (id) => ({
   type: MINUS_QTY_FROM_MAGASIN_ITEM,
   payload: { id: id },

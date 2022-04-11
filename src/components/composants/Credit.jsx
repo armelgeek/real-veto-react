@@ -74,15 +74,12 @@ function Credit(props) {
       },
       {
         Header: "Produits",
-        width: 50,
-        Cell: (data) => {
+        accessor:'contenu',
+        Cell:({ cell: { value } }) => {
           return (
             <div style={{ width: "100px" }}>
-              {data.row.original?.contenu?.map((d) => (
-                <span>
-                  {d.name}
-                  {","}
-                </span>
+              {value != null  && value.map(e => (
+                <p>{e.id}</p>
               ))}
             </div>
           );
@@ -110,23 +107,23 @@ function Credit(props) {
         Header: "Contact",
         accessor: "emprunter.contact",
       },
-      
+
       {
         Header: "Quantité",
-        Cell: (data) => {
+        Cell:({ cell: { value } }) => {
           return (
             <div>
-              {quantiteBruteTotal(data.row.original?.contenu)}
+              {quantiteBruteTotal(value?.contenu)}
             </div>
           );
         },
       },
       {
         Header: "Total",
-        Cell: (data) => {
+        Cell: ({ cell: { value } }) => {
           return (
             <div>
-              {displayMoney(calculateTotal(data.row.original?.contenu))}
+              {displayMoney(calculateTotal(value?.contenu))}
             </div>
           );
         },

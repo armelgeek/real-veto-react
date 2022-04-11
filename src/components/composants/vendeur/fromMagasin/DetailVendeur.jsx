@@ -12,6 +12,7 @@ import ActiveLink from "../../../../@adminlte/adminlte/Content/ActiveLink";
 import Content from "../../../../@adminlte/adminlte/Content/index";
 import { displayDate, displayMoney } from "../../../../utils/functions";
 import { HISTORIQUEVENTEVENDEUR } from "../../../../constants/routes";
+import { isSpecialProductHandle } from '../../../../store/functions/function';
 
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
@@ -32,7 +33,7 @@ function Detail(props) {
       <div className="bg-dark text-white p-3 d-flex justify-content-center align-items-center">
         <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
       </div>
-      <div className="p-3">
+      <div className="py-5 container">
         <div class="d-flex justify-content-start">
           <Link class="btn btn-primary btn-sm " to={HISTORIQUEVENTEVENDEUR}>
             Revenir en arriere
@@ -94,6 +95,19 @@ function Detail(props) {
                 <tr>
                   <td style={{ width: "40%" }}>{c.name}</td>
                   <>
+ 
+                  {isSpecialProductHandle(c) && (
+                      <>
+                        {c.qttbylitre != 0 && (
+                          <div className="d-flex align-items-center py-0 px-2">
+                            <strong>Boite :</strong>
+                            {displayMoney(c.prixVente)} ({"x"}{" "}
+                            {c.qttbylitre}) {" = "}
+                            {displayMoney(c.prixVente * c.qttbylitre)}
+                          </div>
+                        )}
+                      </>
+                    )}
                     {c.quantityParProduct != 0 && (
                       <div className="d-flex align-items-center py-0">
                         <strong>{c.type}:</strong>

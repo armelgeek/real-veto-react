@@ -7,6 +7,7 @@ import createSuccess from "./create/success";
 import deleteError from "./delete/error";
 import deleteStart from "./delete/start";
 import deleteSuccess from "./delete/success";
+import getSuccess from "./get/success";
 import fetchSuccess from "./fetch/success";
 import updateError from "./update/error";
 import updateStart from "./update/start";
@@ -20,6 +21,7 @@ const baseReducers = {
   deleteStart,
   deleteSuccess,
   fetchSuccess,
+  getSuccess,
   updateError,
   updateStart,
   updateSuccess

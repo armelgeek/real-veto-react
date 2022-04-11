@@ -12,12 +12,11 @@ const EditFromMagasinItemControl = ({
   index,
   state,
   setState,
-  setRealQttCC,
   setRealQtt,
   realQtt,
-  realQttCC,
+  maxRealQtt,
 }) => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   const updateObjectValue = (index, key, value) => {
     let temp_state = [...state];
@@ -27,37 +26,25 @@ const EditFromMagasinItemControl = ({
   const onAddQtyBrute = (value) => {
     updateObjectValue(index, "quantityParProduct", value);
   };
-
-  const getValue = () => {
-    return isEnough() == true
-      ? product?.quantityBruteCVA * 1 - 1
-      : product?.quantityBruteCVA * 1;
-  };
-  const isEnough = () => {
-    return (
-      product.quantityCCCVA - product.qttByCC < 0 &&
-      product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
-    );
-  };
   return (
     <div className="basket-item-control">
       <NumberInput
         inputMode={"numeric"}
         w={28}
-        disabled={product?.condml != 0 && product?.qttccpvente != 0}
-        step={1}
         bg={"whitesmoke"}
         onChange={(value) => {
-          onAddQtyBrute(Number(value));
-          console.log(value);
-         // setRealQtt(Number(value));
-          if (isEnough()) {
-            alert("Le stock ne satisfait pas votre commande");
+          if (value == "") {
+            setRealQtt(0);
+            onAddQtyBrute(0);
+          } else {
+            setRealQtt(Number(value));
+            onAddQtyBrute(Number(value));
           }
         }}
         min={0}
+        value={realQtt}
         defaultValue={product?.quantityParProduct}
-        max={getValue()}
+        max={maxRealQtt}
       >
         <NumberInputField />
         <NumberInputStepper>

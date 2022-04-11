@@ -49,6 +49,7 @@ import {
   TDB_DEPOT_VERS_MAGASIN,
   DEPOT_MAGASIN_DETAIL,
   DETAIL_MAGASIN_VENTE,
+  CORRECTION,HISTORIQUECORRECTION,DETAILCORRECTION
 } from "./constants/routes";
 
 import PublicRoute from "./routes/PublicRoute";
@@ -84,7 +85,7 @@ import {
   TDB_VENTE_CBV,
 } from "./constants/routes";
 import { Auth, Data } from "./context/auth-context";
-import Vendeur from "./components/composants/vendeur";
+
 import VendeurRoute from "./routes/VendeurRoute";
 import { logout } from "./store/actions/user";
 import { useDispatch } from "react-redux";
@@ -106,10 +107,14 @@ import DepotToMagasinDetail from "./components/composants/admin/tomagasin/DepotT
 import DetailMagasinVente from "./components/composants/vendeur/fromMagasin/DetailMagasinVente";
 import EditFromMagasin from './components/composants/vendeur/fromMagasin/EditFromMagasin';
 import EditToMagasin from './components/composants/admin/tomagasin/EditToMagasin';
+import Vendeur from './components/composants/vendeur/index';
+import CorrectionFromMagasin from "./components/composants/vendeur/correction/CorrectionFromMagasin";
+import { HistoriqueDeCorrection } from './components/composants/vendeur/correction/list';
+import DetailCorrection from './components/composants/vendeur/correction/DetailCorrection';
 function Routes() {
   const dispatch = useDispatch();
   return (
-    <BrowserRouter>
+    <BrowserRouter  basename="/index.html">
       {/* <Header />*/}
       {/*<Auth>
         <Data>
@@ -201,6 +206,13 @@ function Routes() {
           component={DetailMagasinVente}
           
         />
+         <AdminRoute
+          path={CORRECTION}
+          component={CorrectionFromMagasin}
+          
+        />
+        <AdminRoute path={HISTORIQUECORRECTION} component={HistoriqueDeCorrection}/>
+        <AdminRoute path={DETAILCORRECTION} component={DetailCorrection}/>
         
       </Switch>
       {/*<Footer/>*/}

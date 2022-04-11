@@ -17,6 +17,7 @@ import {
   handlePhtyoSpecific,
   handleMinusCondML,
 } from "../../../../store/functions/function";
+import { resetSearchByDate } from "../../../../store/actions/search/search";
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   const total = arr.reduce((acc, val) => acc + val, 0);
@@ -35,12 +36,10 @@ const FromMagasin = () => {
   }));
   const dispatch = useDispatch();
   const emprunters = useSelector(getData("emprunters").value);
-  const meta = useSelector(getData("commandes").meta);
-  const commandes = useSelector(getData("commandes").value);
+  const [IsInvalid, setIsInvalid] = useState(false)
   const date = new Date();
   const [dateCom, setDateCom] = useState(date);
   useEffect(() => {
-    dispatch(action("commandes").fetch());
     dispatch(action("emprunters").fetch());
   }, []);
 
@@ -68,18 +67,8 @@ const FromMagasin = () => {
         "add-from-magasin"
       )
     );
-    /*if (!meta.error) {
-      frommagasins.forEach((element) => {
-        let idElement = element.id;
-        element.quantityParProduct = 0;
-        element.qttByCC = 0;
-        element.qttyspecificmirror = 0;
-        element.id = idElement;
-        dispatch(action("products").update(element));
-      });
-    }*/
-    dispatch(clearFromMagasin());
-    history.push(HISTORIQUEVENTEVENDEUR);
+   //dispatch(clearFromMagasin());
+  // history.push(HISTORIQUEVENTEVENDEUR);
   };
 
   const onClearBasket = () => {
@@ -87,7 +76,7 @@ const FromMagasin = () => {
       element.quantityParProduct = 0;
       element.qttByCC = 0;
     });
-
+    dispatch(resetSearchByDate());
     dispatch(clearFromMagasin());
   };
 

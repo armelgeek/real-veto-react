@@ -51,17 +51,17 @@ export default function ListApprov() {
         Header: "#",
         accessor: "id",
       },
-     {
+      {
         Header: "Produit",
         Cell: (data) => {
           return (
-            <div style={{width:'200px'}}>
-              {data.row.original.contenu.map((c) => (
-                <span>
-                  {c.name}
-                  {","}
-                </span>
-              ))}
+            <div style={{ width: "200px" }}>
+              {data.row.original?.contenu?.map((c) => (
+                    <span> 
+                      {c.name}
+                      {","}
+                    </span>
+                  ))}
             </div>
           );
         },
@@ -149,7 +149,7 @@ export default function ListApprov() {
         </div>
 
         <DataTable
-        filter={false}
+          filter={false}
           data={approvisionnements.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}

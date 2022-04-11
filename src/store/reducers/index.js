@@ -19,9 +19,10 @@ import checkoutReducer from "../basket/reducers/checkout";
 import sortiedepotReducer from "./sortiedepot";
 import fromdepotsReducer from "../fromdepot/reducers/fromdepot";
 import { countReducer } from "./undoTest";
+import { searchReducer } from "./search/search";
 
-export default applyUndo(
-  combineReducers({
+export default combineReducers({
+    searchbydate:searchReducer,
     count: countReducer,
     auth: userReducer,
     products: productReducer,
@@ -41,5 +42,4 @@ export default applyUndo(
     tomagasins: toMagasinReducer,
     frommagasins: fromMagasinReducer,
     sortiedepots: sortiedepotReducer,
-  })
-);
+  });

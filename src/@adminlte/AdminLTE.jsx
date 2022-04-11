@@ -26,9 +26,12 @@ import {
   HISTORIQUESORTIECVA,
   ETATSTOCKMAGASIN,
   HISTORIQUEVENTEVENDEURVUEPARADMIN,
-  TDB_DEPOT_VERS_MAGASIN,TDB_VENTE_CBV,TDB_FACTURES
+  TDB_DEPOT_VERS_MAGASIN,
+  TDB_VENTE_CBV,
+  TDB_FACTURES,
+  CORRECTION,HISTORIQUECORRECTION
 } from "../constants/routes";
-class AdminLTE extends React.PureComponent  {
+class AdminLTE extends React.PureComponent {
   render() {
     let { children, navigation, title, titleShort } = this.props;
     const { searchbarFilter } = this.props;
@@ -56,9 +59,7 @@ class AdminLTE extends React.PureComponent  {
                 {title}
               </span>
             </Link>
-            <div
-              class="sidebar"
-            >
+            <div class="sidebar">
               <nav class="mt-2">
                 <ul
                   class="nav nav-pills nav-sidebar flex-column"
@@ -66,13 +67,10 @@ class AdminLTE extends React.PureComponent  {
                   role="menu"
                   data-accordion="false"
                 >
-                   <NavTree
-                    title={"Tableau de bord"}
-                    route={"/"}
-                  />
+                  <NavTree title={"Tableau de bord"} route={"/"} />
                   <NavItem title="Factures && Produits">
-                  <NavTree title={"Factures"} route={LISTAPPROV} />
-                  <NavTree title={"Produits"} route={PRODUCTS} />
+                    <NavTree title={"Factures"} route={LISTAPPROV} />
+                    <NavTree title={"Produits"} route={PRODUCTS} />
                   </NavItem>
                   <NavItem title="Dépot">
                     <NavTree title={"Bon de sortie"} route={BONDESORTIE} />
@@ -86,6 +84,20 @@ class AdminLTE extends React.PureComponent  {
                       title={"Historique de 'Dépôt vers Magasin'"}
                       route={HISTORIQUESORTIECVA}
                     />
+                  </NavItem>
+                  <NavItem title="Correction">
+                  <NavTree
+                    title={"Ajouter une correction"}
+                    route={CORRECTION}
+                  />
+                    <NavTree
+                      title={"Historique de correction"}
+                      route={HISTORIQUECORRECTION}
+                    />
+                  </NavItem>
+
+                  
+                  <NavItem title="Vente">
                     <NavTree
                       title={"Etat de stock magasin"}
                       route={ETATSTOCKMAGASIN}
@@ -94,6 +106,7 @@ class AdminLTE extends React.PureComponent  {
                       title={"Historique de vente du magasin"}
                       route={HISTORIQUEVENTEVENDEURVUEPARADMIN}
                     />
+
                   </NavItem>
                   <NavItem title="Parametres">
                     <NavTree
@@ -105,10 +118,7 @@ class AdminLTE extends React.PureComponent  {
               </nav>
             </div>
           </aside>
-          <div
-          >
-            {children}
-          </div>
+          <div>{children}</div>
         </div>
         {/**
         <Footer /> */}

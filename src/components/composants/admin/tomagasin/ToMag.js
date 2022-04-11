@@ -50,7 +50,6 @@ const ToMag = () => {
           contenu: tomagasins,
           type: "cva",
           sorte: "sortie",
-          refSortie: `CVA_${meta.nextId}_${day}_${monthIndex}_${year}_${hours}_${minutes}_${second}`,
           status: true,
           dateCom: dateCom != null ? dateCom : date,
         },
@@ -87,9 +86,9 @@ const ToMag = () => {
     dispatch(action("products").update(element));
     });*/}
 
-    dispatch(clearMagasin());
+   dispatch(clearMagasin());
     //console.log(basket);
-    history.push(HISTORIQUESORTIECVA);
+  history.push(HISTORIQUESORTIECVA);
   };
 
   const annulerCommande = () => {

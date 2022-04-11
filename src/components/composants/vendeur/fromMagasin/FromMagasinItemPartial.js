@@ -16,6 +16,8 @@ const FromMagasinItemPartial = ({
   product,
   setRealQttCC,
   setRealQtt,
+  setMaxRealQttCC,
+  maxRealQttCC,
   realQtt,
   realQttCC,
 }) => {
@@ -24,12 +26,7 @@ const FromMagasinItemPartial = ({
   const { frommagasins } = useSelector((state) => ({
     frommagasins: state.frommagasins,
   }));
-  const isEnough = () => {
-    return (
-      product.quantityCCCVA  - product.qttByCC < 0 &&
-      product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
-    );
-  };
+
   const onAddQtyPortion = (value) => {
     dispatch(addQtyFromMagasinPortionItem(product.id, value));
   };
@@ -38,8 +35,6 @@ const FromMagasinItemPartial = ({
       <NumberInput
         inputMode={"numeric"}
         w={28}
-        step={1}
-        ref={ref}
         bg={"whitesmoke"}
         onChange={(value) => {
           setRealQttCC(value);
@@ -50,13 +45,12 @@ const FromMagasinItemPartial = ({
             setRealQttCC(value * 1);
             onAddQtyPortion(value * 1);
           }
-          if (isEnough() || product.quantityBruteCVA - 1 < 0) {
-            alert("Le stock ne satisfait pas votre commande");
-          }
+       
         }}
         min={0}
-        defaultValue={product.qttByCC}
-        max={!isEnough() ? product.doseDefault - 1 : product.quantityCCCVA}
+        value={realQttCC}
+        defaultValue={product?.qttByCC}
+        max={maxRealQttCC}
       >
         <NumberInputField />
         <NumberInputStepper>

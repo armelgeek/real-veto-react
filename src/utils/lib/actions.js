@@ -12,7 +12,6 @@ const transformKeys = (json = {}, key) => {
 };
 const fetchSuccessRequest = (
   action,
-  nextId,
   totalItems,
   totalPages,
   currentPage,
@@ -26,6 +25,55 @@ const fetchSuccessRequest = (
   totalPages: totalPages,
   currentPage: currentPage,
 });
+const getSuccessRequest = action => ({
+  ...action,
+  records: action.records,
+  receivedAt: new Date(),
+});
+export const get =
+  (
+    resourceName,
+    resourceId,
+    options = {},
+    params = {},
+    successCallback,
+    errorCallback
+  ) =>
+  dispatch => {
+    const actionCreators = reduxCrud.actionCreatorsFor(resourceName);
+    const path = options.path || humps.decamelize(resourceName);
+    const reduxCrudOptions = options.replace
+      ? { replace: options.replace }
+      : undefined;
+    const url =
+      options.url || process.env.API_URL || 'http://localhost:8100/api';
+    dispatch(actionCreators.getStart());
+    return api
+      .get(`${url}/${path}/${resourceId}`, false, params, options)
+      .then(response => {
+        dispatch(
+          getSuccessRequest(
+            actionCreators.getSuccess(transformKeys(response), reduxCrudOptions)
+          )
+        );
+        if (successCallback) {
+          successCallback(transformKeys(response));
+        }
+      })
+      .catch(err => {
+        if (err.response) {
+          if (errorCallback) {
+            errorCallback(err.response);
+          }
+          dispatch(actionCreators.getError(err?.response.data.error));
+        } else {
+          if (errorCallback) {
+            errorCallback(err);
+          }
+          dispatch(actionCreators.getError(err));
+        }
+      });
+  };
 
 export const fetch =
   (resourceName, options = {}, params = {}, successCallback, errorCallback) =>

@@ -80,6 +80,7 @@ function Sortie() {
         Cell: (data) => {
           return (
             <div style={{ width: "200px" }}>
+  
               {data.row.original?.contenu?.map((d) => (
                 <span>
                   {d.name}

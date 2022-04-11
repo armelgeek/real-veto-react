@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink,useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import Content from "../../../@adminlte/adminlte/Content";
 import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
 import ContentHeader from "../../../@adminlte/adminlte/Content/ContentHeader";
@@ -20,13 +20,13 @@ import { displayMoney } from "../../../utils/functions";
 import Nav from "../../../utils/admin/Nav";
 import Guide from "./Guide";
 import { CrudAction } from "../../../utils/admin/Resource/CrudAction";
-import { ActionCreators } from 'react-redux-undo';
+import { ActionCreators } from "react-redux-undo";
 //initialize datatable
 /*   $(document).ready(function () {
       $('table').DataTable();
   });*/
 export const ProductAll = () => {
-  const products = useSelector(getData("products").value);
+  const products = useSelector(getData("products").value) || [];
   const meta = useSelector(getData("products").meta);
   const ref = useRef();
   const dispatch = useDispatch();
@@ -39,8 +39,7 @@ export const ProductAll = () => {
     dispatch(action("products").fetch());
   };
 
-  const columns = React.useMemo(
-    () => [
+  const columns = [
       {
         Header: "Id",
         accessor: "id",
@@ -111,9 +110,7 @@ export const ProductAll = () => {
           );
         },
       },
-    ],
-    []
-  );
+    ];
   return (
     <Content>
       <ContentHeader title="Tous les produits">

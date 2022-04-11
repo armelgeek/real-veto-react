@@ -13,7 +13,7 @@ import {
   MINUS_QTY_PORTION__DOSE_SOVAX_FROM_MAGASIN_ITEM,
   ADD_QTY_PORTION_DOSE_SOVAX_FROM_MAGASIN_ITEM,
   ADD_QTY_PORTION_PHYTO_COND_FROM_MAGASIN_ITEM,
-  MINUS_QTY_PORTION_PHYTO_COND_FROM_MAGASIN_ITEM,
+  MINUS_QTY_PORTION_PHYTO_COND_FROM_MAGASIN_ITEM,ADD_QTY_LITRE_NUMBER_FROM_MAGASIN_ITEM
 } from "../constants";
 import {
   handleMinusProduct,
@@ -48,11 +48,18 @@ export default (state = [], action) => {
 
         return product;
       });
-      id;
+
     case ADD_QTY_NUMBER_FROM_MAGASIN_ITEM:
       return state.map((product) => {
         if (product.id === action.payload.id) {
           product.quantityParProduct = Number(action.payload.value);
+        }
+        return product;
+      });
+      case ADD_QTY_LITRE_NUMBER_FROM_MAGASIN_ITEM:
+      return state.map((product) => {
+        if (product.id === action.payload.id) {
+          product.qttbylitre = Number(action.payload.value);
         }
         return product;
       });

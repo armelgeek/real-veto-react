@@ -33,7 +33,15 @@ function reducersFor(resourceName, args = {}, emptyState, reducers) {
           emptyState,
           action.data && action.data.replace
         );
-
+      case actionTypes.getSuccess:
+          return reducers.getSuccess(
+            config,
+            state,
+            action.records,
+            emptyState,
+            action.data && action.data.replace
+          );
+    
       case actionTypes.createStart:
         return reducers.createStart(config, state, record);
 

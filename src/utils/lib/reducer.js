@@ -3,11 +3,9 @@ import crud from '../crud';
 
 export const metaInitialState = {
   isFetching: false,
-  didInvalidate: false,
   lastUpdatedAt: null,
   error: null,
   success: null,
-  nextId: null,
 };
 
 export const metaFor = (resourceName, options = {}) => {
@@ -102,7 +100,7 @@ export const metaFor = (resourceName, options = {}) => {
           error: action.error,
           success: '',
         };
-      case actionTypes.fetchStart:
+      case actionTypes.getStart:
         return {
           ...state,
           isLoading: true,
@@ -111,15 +109,31 @@ export const metaFor = (resourceName, options = {}) => {
           error: null,
           success: '',
         };
+      case actionTypes.getSuccess:
+        return {
+          ...state,
+          isFetching: false,
+        };
+      case actionTypes.getError:
+        return {
+          ...state,
+          isFetching: false,
+          error: action.error,
+        };
+
+      case actionTypes.fetchStart:
+        return {
+          ...state,
+          isFetching: true,
+          error: null,
+          success: '',
+        };
 
       case actionTypes.fetchSuccess:
         return {
           ...state,
-          didInvalidate: false,
           isFetching: false,
-          isLoading: false,
           success: action.success,
-          nextId: action.nextId,
           totalPages: action.totalPages,
           totalItems: action.totalItems,
           currentPage: action.currentPage,
@@ -151,4 +165,3 @@ export const reducersFor = (resourceName, options = {}) =>
     items: itemsFor(resourceName, options),
     meta: metaFor(resourceName, options),
   });
-export const isFetching = state => state.meta.isFetching;

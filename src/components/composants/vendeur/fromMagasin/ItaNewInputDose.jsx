@@ -14,20 +14,12 @@ import {
 export const ItaNewInputDose = ({
   product,
   setRealQttCC,
-  setRealQtt,
-  realQtt,
   realQttCC,
+  maxRealQttCC
 }) => {
   const dispatch = useDispatch();
   const onAddQtyPortion = (value) => {
     dispatch(addQtyFromMagasinDoseItem(product.id, value));
-  };
-
-  const isEnough = () => {
-    return (
-      product.quantityCCCVA  - product.qttByCC < 0 &&
-      product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
-    );
   };
   return (
     <div className="basket-item-control">
@@ -39,13 +31,11 @@ export const ItaNewInputDose = ({
         onChange={(value) => {
           onAddQtyPortion(value);
           setRealQttCC(value);
-          if(isEnough()){
-            alert("Le stock ne satisfait pas votre commande");
-          }
         }}
         min={0}
-        defaultValue={0}
-        max={!isEnough() ? product.doseDefault : product.quantityCCCVA}
+        value={realQttCC}
+        defaultValue={product?.qttByCC}
+        max={maxRealQttCC}
       >
         <NumberInputField />
         <NumberInputStepper>

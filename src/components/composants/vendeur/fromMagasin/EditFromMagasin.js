@@ -23,14 +23,14 @@ const EditFromMagasin = () => {
   const [regenerate, setRegenerate] = useState(false);
   const dispatch = useDispatch();
   const commandes = useSelector(getData("commandes").value);
-  const commandesclone = useSelector(getData("commandesclone").value);
+  const realcommande = useSelector(getData("commandesclone").value);
   const metacommandes = useSelector(getData("commandes").meta);
   const products = useSelector(getData("products").value);
   const metaproducts = useSelector(getData("products").meta);
   const [productData, setProductData] = useState([]);
   React.useEffect(() => {
     dispatch(action("commandes").get(id));
-    dispatch(action("commandesclone").get(id));
+    dispatch(action("commandesclone").getWithPath(id,'commandes'));
   }, [id]);
   const [value, setValue] = useState("");
 
@@ -154,7 +154,7 @@ const EditFromMagasin = () => {
             <EditToFromMag
               state={state}
               meta={metacommandes}
-              commandesclone={commandesclone}
+              realcommande={realcommande[0]?.contenu}
               disabled={metaproducts.isFetching}
               setState={setState}
               products={products}

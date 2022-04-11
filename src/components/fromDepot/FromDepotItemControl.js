@@ -38,8 +38,8 @@ const FromDepotItemControl = ({
         step={1}
         bg={"whitesmoke"}
         onChange={(value) => {
-          onAddQtyBrute(value);
-          setRealQtt(value);
+          onAddQtyBrute(Number(value));
+          setRealQtt(Number(value));
           if (isEnough() == true) {
             alert(
               "Le reste du stock est : " +

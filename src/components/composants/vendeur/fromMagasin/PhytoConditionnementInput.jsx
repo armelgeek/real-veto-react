@@ -11,35 +11,36 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
-export const PhytoConditionnementInput = ({ product }) => {
+
+export const PhytoConditionnementInput = ({
+  product,
+  setRealQttCC,
+  realQttCC,
+  maxRealQttCC,
+}) => {
   const dispatch = useDispatch();
   const onAddQtyPortion = (value) => {
     dispatch(addQtyFromMagasinPhytoCondItem(product.id, value));
-  };
-  const total = () => {
-    if (product.quantityBruteCVA > 0) {
-      return product.condml * 1;
-    } else {
-      if (product.condval > 0) {
-        return product.condml;
-      } else {
-        return product.quantityCCCVA * 1;
-      }
-    }
   };
   return (
     <div className="basket-item-control">
       <NumberInput
         inputMode={"decimal"}
         w={28}
-        step={product?.qttccpvcheckMaxente}
         bg={"whitesmoke"}
         onChange={(value) => {
-          onAddQtyPortion(value);
+          if (value == "") {
+            onAddQtyPortion(0);
+            setRealQttCC(0);
+          } else {
+            onAddQtyPortion(Number(value));
+            setRealQttCC(Number(value));
+          }
         }}
         min={0}
-        defaultValue={0}
-     //   max={total()}
+        value={realQttCC}
+        defaultValue={product?.qttByCC}
+        max={maxRealQttCC}
       >
         <NumberInputField />
         <NumberInputStepper>

@@ -23,6 +23,7 @@ const EditProductItemToMag = ({ state, setState, product, cloneCommandes }) => {
         style={{ border: "1px solid gray" }}
       >
         <div className=" d-flex justify-content-between align-items-center">
+
           <div
             className={` ${!product.id ? "product-loading" : ""}`}
             style={{
@@ -33,7 +34,15 @@ const EditProductItemToMag = ({ state, setState, product, cloneCommandes }) => {
             }}
           >
             <div>
-              {product.name}{" "}
+            {clc?.correctiontype == 4 && (
+                <div className="badge badge-danger">
+                  <h2 textTransform="uppercase">
+                    CE PRODUIT A ETE RETIRÉ
+                  </h2>
+                </div>
+              )}
+              <div>
+              {product.name}{" "}</div>
               <div class="badge badge-primary">
                 {product?.fournisseur?.name}
               </div>
@@ -58,6 +67,7 @@ const EditProductItemToMag = ({ state, setState, product, cloneCommandes }) => {
             <div>
               {product?.id && (
                 <>
+               
                   {!itemOnBasket ? (
                     <button
 

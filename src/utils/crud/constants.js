@@ -6,6 +6,7 @@ const DELETE_ERROR = "deleteError";
 const DELETE_START = "deleteStart";
 const DELETE_SUCCESS = "deleteSuccess";
 const FETCH_SUCCESS = "fetchSuccess";
+const GET_SUCCESS='getSuccess';
 const UPDATE_ERROR = "updateError";
 const UPDATE_START = "updateStart";
 const UPDATE_SUCCESS = "updateSuccess";
@@ -22,6 +23,7 @@ export default {
     DELETE_START,
     DELETE_SUCCESS,
     FETCH_SUCCESS,
+    GET_SUCCESS,
     UPDATE_ERROR,
     UPDATE_START,
     UPDATE_SUCCESS

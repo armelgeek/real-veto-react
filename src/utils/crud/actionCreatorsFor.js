@@ -1,91 +1,114 @@
-import merge from "ramda/src/merge";
-import * as invariant from "invariant";
+import merge from 'ramda/src/merge';
+import * as invariant from 'invariant';
 
-import actionTypesFor from "./actionTypesFor";
-import assertNotArray from "./utils/assertNotArray";
-import constants from "./constants";
-import getDefaultConfig from "./getDefaultConfig";
-
+import actionTypesFor from './actionTypesFor';
+import assertNotArray from './utils/assertNotArray';
+import getDefaultConfig from './getDefaultConfig';
 
 function actionCreatorsFor(resourceName, config) {
   if (resourceName == null)
-    throw new Error("actionCreatorsFor: Expected resourceName");
+    throw new Error('actionCreatorsFor: Expected resourceName');
 
   config = config || getDefaultConfig(resourceName);
-  config = merge(config, {resourceName});
+  config = merge(config, { resourceName });
 
   const actionTypes = actionTypesFor(resourceName);
-  const key = config.key || constants.DEFAULT_KEY;
 
   function assertError(actionCreatorName, error) {
-    invariant(error != null, "Expected error in " + actionCreatorName);
+    invariant(error != null, 'Expected error in ' + actionCreatorName);
   }
 
   function assertOneRecord(actionCreatorName, record) {
-    invariant(record != null, "Expected record in " + actionCreatorName);
-    assertNotArray(config, "createStart", record);
-   
+    invariant(record != null, 'Expected record in ' + actionCreatorName);
+    assertNotArray(config, 'createStart', record);
   }
 
   function assertManyRecords(actionCreatorName, records) {
-    invariant(records != null, "Expected records " + actionCreatorName);
+    invariant(records != null, 'Expected records ' + actionCreatorName);
   }
 
   return {
-    fetchStart(data) {
+    getStart(data) {
       return {
         data: data,
-        type: actionTypes.fetchStart
+        type: actionTypes.getStart,
       };
     },
 
-    fetchSuccess(records, data) {
-      var name = "fetchSuccess";
-      assertManyRecords(name, records);
-
+    getSuccess(records, data) {
+      var name = 'getSuccess';
+      invariant(records != null, 'Expected record in ' + name);
       return {
         data: data,
         records: records,
-        type: actionTypes.fetchSuccess
+        type: actionTypes.getSuccess,
       };
     },
-
-    fetchError(error, data) {
-      var name = "fetchError";
+    getError(error, data) {
+      var name = 'getError';
       assertError(name, error);
 
       return {
         data: data,
         error: error,
-        type: actionTypes.fetchError
+        type: actionTypes.getError,
+      };
+    },
+
+    fetchStart(data) {
+      return {
+        data: data,
+        type: actionTypes.fetchStart,
+      };
+    },
+
+    fetchSuccess(records, data) {
+      var name = 'fetchSuccess';
+      assertManyRecords(name, records);
+
+      return {
+        data: data,
+        records: records,
+        type: actionTypes.fetchSuccess,
+      };
+    },
+
+    fetchError(error, data) {
+      var name = 'fetchError';
+      assertError(name, error);
+
+      return {
+        data: data,
+        error: error,
+        type: actionTypes.fetchError,
       };
     },
 
     createStart(record, data) {
-      var name = "createStart";
+      var name = 'createStart';
       assertOneRecord(name, record);
 
       return {
         data: data,
         record: record,
-        type: actionTypes.createStart
+        type: actionTypes.createStart,
       };
     },
 
     createSuccess(record, clientGeneratedKey, data) {
-      var name = "createSuccess";
+      var name = 'createSuccess';
       assertOneRecord(name, record);
 
       return {
         cid: clientGeneratedKey,
         data: data,
         record: record,
-        type: actionTypes.createSuccess
+        type: actionTypes.createSuccess,
       };
     },
 
     createError(error, record, data) {
-      var name = "createError";
+      var name = 'createError';
       assertError(name, error);
       assertOneRecord(name, record);
 
@@ -93,34 +116,34 @@ function actionCreatorsFor(resourceName, config) {
         data: data,
         error: error,
         record: record,
-        type: actionTypes.createError
+        type: actionTypes.createError,
       };
     },
 
     updateStart(record, data) {
-      var name = "updateStart";
+      var name = 'updateStart';
       assertOneRecord(name, record);
 
       return {
         data: data,
         record: record,
-        type: actionTypes.updateStart
+        type: actionTypes.updateStart,
       };
     },
 
     updateSuccess(record, data) {
-      var name = "updateSuccess";
+      var name = 'updateSuccess';
       assertOneRecord(name, record);
 
       return {
         data: data,
         record: record,
-        type: actionTypes.updateSuccess
+        type: actionTypes.updateSuccess,
       };
     },
 
     updateError(error, record, data) {
-      var name = "updateError";
+      var name = 'updateError';
       assertError(name, error);
       assertOneRecord(name, record);
 
@@ -128,34 +151,34 @@ function actionCreatorsFor(resourceName, config) {
         data: data,
         error: error,
         record: record,
-        type: actionTypes.updateError
+        type: actionTypes.updateError,
       };
     },
 
     deleteStart(record, data) {
-      var name = "deleteStart";
+      var name = 'deleteStart';
       assertOneRecord(name, record);
 
       return {
         data: data,
         record: record,
-        type: actionTypes.deleteStart
+        type: actionTypes.deleteStart,
       };
     },
 
     deleteSuccess(record, data) {
-      var name = "deleteSuccess";
+      var name = 'deleteSuccess';
       assertOneRecord(name, record);
 
       return {
         data: data,
         record: record,
-        type: actionTypes.deleteSuccess
+        type: actionTypes.deleteSuccess,
       };
     },
 
     deleteError(error, record, data) {
-      var name = "deleteError";
+      var name = 'deleteError';
       assertError(name, error);
       assertOneRecord(name, record);
 
@@ -163,9 +186,9 @@ function actionCreatorsFor(resourceName, config) {
         data: data,
         error: error,
         record: record,
-        type: actionTypes.deleteError
+        type: actionTypes.deleteError,
       };
-    }
+    },
   };
 }
 

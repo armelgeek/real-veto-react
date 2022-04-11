@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
-import _ from 'lodash';
+import _ from "lodash";
 import { action, getData } from "../../../../utils/lib/call";
-import { displayMoney, checkHasExistText } from "../../../../utils/functions";
+import { displayMoney, checkHasExistText,displayDate } from "../../../../utils/functions";
 import { useHistory } from "react-router-dom";
 import {
   handleMinusProductDepot,
@@ -28,7 +28,15 @@ function copy(object) {
   }
   return output;
 }
-const EditTo = ({ state, meta, setState, realstock, disabled,cloneCommandes, commandes }) => {
+const EditTo = ({
+  state,
+  meta,
+  setState,
+  realstock,
+  disabled,
+  cloneCommandes,
+  commandes,
+}) => {
   const [type, setType] = useState("direct");
   const [idFournisseur, setIdFournisseur] = useState(1);
   const [vaccinateurId, setVaccinateurId] = useState(null);
@@ -79,10 +87,11 @@ const EditTo = ({ state, meta, setState, realstock, disabled,cloneCommandes, com
       (e) => !copy(realContent).find((a) => e.id === a.id)
     );
 
-    const exist = state.map((element) => {
-      let commandeLast = copy(realContent).find((p) => p.id === element.id);
+    const exist = copy(realContent).map((element) =>
+      state.find((p) => p.id === element.id)
+    );
 
-      if (commandeLast != null || commandeLast != undefined) {
+    /*  if (commandeLast != null || commandeLast != undefined) {
         // if(element.quantityParProduct){}
         let qtt = 0;
         if (
@@ -105,9 +114,9 @@ const EditTo = ({ state, meta, setState, realstock, disabled,cloneCommandes, com
           element.quantityBrute = commandeLast.quantityBrute + qtt;
           element.quantityBruteCVA -= qtt;
         }
+        element.quantityParProduct = 0;
         return element;
-      }
-    });
+      }*/
     return {
       exist: exist.filter((e) => e != null),
       added,
@@ -133,7 +142,7 @@ const EditTo = ({ state, meta, setState, realstock, disabled,cloneCommandes, com
         "update-to-magasin"
       )
     );
-     history.push(HISTORIQUESORTIECVA);
+    history.push(HISTORIQUESORTIECVA);
   };
 
   /* const onCheckOut = () => {
@@ -209,11 +218,13 @@ const EditTo = ({ state, meta, setState, realstock, disabled,cloneCommandes, com
                 overflowX: "hidden",
               }}
             >
-            <div className="alert alert-warning">
-             <span className="text-uppercase">Attention !!!</span> , la modification d'un bon de sortie entraine aussi la mis à jour de stock du produit
-            </div>
+              <div className="alert alert-warning">
+                <span className="text-uppercase">Attention !!!</span> , la
+                modification d'un bon de sortie entraine aussi la mis à jour de
+                stock du produit
+              </div>
               <div class="form-group">
-                <label>Date de sortie :</label>
+                <label>Date de sortie : {displayDate(dateCom)}</label>
                 <div>
                   <input
                     disabled={disabled}
@@ -248,18 +259,19 @@ const EditTo = ({ state, meta, setState, realstock, disabled,cloneCommandes, com
               )}
               {state?.map((product, i) => (
                 <>
-                <EditItem
-                  key={`${product?.id}_${i}`}
-                  product={_.cloneDeep(product)}
-                  state={state}
-                  index={i}
-                  realcommand={product}
-                  cloneCommandes={cloneCommandes}
-                  realstock={realstock}
-                  setState={setState}
-                  basket={tomagasins}
-                  dispatch={dispatch}
-                /></>
+                  <EditItem
+                    key={`${product?.id}_${i}`}
+                    product={_.cloneDeep(product)}
+                    state={state}
+                    index={i}
+                    realcommand={product}
+                    cloneCommandes={cloneCommandes}
+                    realstock={realstock}
+                    setState={setState}
+                    basket={tomagasins}
+                    dispatch={dispatch}
+                  />
+                </>
               ))}
             </div>
           </Card.Body>

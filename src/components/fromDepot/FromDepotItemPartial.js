@@ -39,8 +39,8 @@ const FromDepotItemPartial = ({
         ref={ref}
         bg={"whitesmoke"}
         onChange={(value) => {
-          onAddQtyPortion(value);
-          setRealQttCC(value);
+          onAddQtyPortion(Number(value));
+          setRealQttCC(Number(value));
           if (isEnough()) {
             alert("Le stock ne satisfait pas votre commande");
           }

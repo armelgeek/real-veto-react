@@ -188,77 +188,202 @@ const notSatifyCommande = (product) => {
 };
 export const minusCondML = (product) => {
   if (hasCondVal(product)) {
-    if (product.quantityParProduct > 0) {
-      if (product.qttByCC > 0) {
-        if (!notSatifyCommande(product)) {
-          if (product.condval < product.quantityParProduct) {
-            if (product.condval - product.quantityParProduct < 0) {
-              if (canBuyBruteFromCva(product)) {
-                product.quantityBruteCVA -= 1;
-                product.condval = product.condsize - 1;
-              } else {
-                product.condval = 0;
-              }
-            } else {
-              product.quantityParProduct = product.condval;
-              product.condval = 0;
-            }
+    console.log("condval");
+    if (product.qttbylitre > 0) {
+      if (product.quantityParProduct > 0) {
+        if (product.qttByCC > 0) {
+          //  1 1 10
+          if (product.quantityBruteCVA - product.qttbylitre >= 0) {
+            product.quantityBruteCVA =
+              Number(product.quantityBruteCVA) - product.qttbylitre;
+          } else {
+            product.quantityBruteCVA = 0;
+          }
+          if (product.condval - product.quantityParProduct < 0) {
+            product.condval =
+              product.condsize - product.quantityParProduct + product.condval;
+            product.quantityBruteCVA -= 1;
+            product.quantityCCCVA =
+              product.condml - Number(product.quantityCCCVA) + product.qttByCC;
           } else {
             product.condval -= product.quantityParProduct;
-            product.quantityCCCVA -= product.qttByCC;
+          }
+          if (product.quantityCCCVA - product.qttByCC > 0) {
+            /** product.quantityCCCVA =
+              Number(product.quantityCCCVA) - product.qttByCC;  */
+          } else if (product.quantityCCCVA - product.qttByCC == 0) {
+            product.quantityCCCVA = 0;
+          } else {
+            console.log("ici");
+            if (product.condval - 1 < 0) {
+              if (product.quantityBruteCVA - 1 > 0) {
+                let difference =
+                  product.qttByCC - Number(product.quantityCCCVA);
+                product.condval = product.condsize - 1;
+                product.quantityBruteCVA -= 1;
+                product.quantityCCCVA = product.condml - difference;
+              } else if (product.condval - 1 == 0) {
+                product.condval = 0;
+                product.quantityCCCVA =
+                  product.condml -
+                  product.qttByCC -
+                  Number(product.quantityCCCVA);
+              }
+            } else {
+              if (Number(product.quantityCCCVA) - product.qttByCC < 0) {
+                let difference =
+                  product.qttByCC - Number(product.quantityCCCVA);
+                product.condval -= 1;
+                product.quantityCCCVA = product.condml - difference;
+              } else if (Number(product.quantityCCCVA) - product.qttByCC > 0) {
+                product.quantityCCCVA -= product.qttByCC;
+              } else if (Number(product.quantityCCCVA) - product.qttByCC == 0) {
+                product.quantityCCCVA = 0;
+              }
+            }
+          }
+        } else {
+          // 1 1 0
+          if (product.condval - product.quantityParProduct < 0) {
+            product.condval =
+              product.condsize - product.quantityParProduct + product.condval;
+            product.quantityBruteCVA -= 1;
+            product.quantityCCCVA =
+              product.condml - Number(product.quantityCCCVA) + product.qttByCC;
+          }
+          if (product.quantityBruteCVA - product.qttbylitre >= 0) {
+            product.quantityBruteCVA =
+              Number(product.quantityBruteCVA) - product.qttbylitre;
+          } else {
+            product.quantityBruteCVA = 0;
           }
         }
-        if (product.qttByCC >= product.condml) {
-          product.qttByCC = product.condml;
-        }
       } else {
-        product.condval -= product.quantityParProduct;
-        if (product.condval < 0) {
-          if (canBuyBruteFromCva(product)) {
-            product.quantityBruteCVA -= 1;
-            product.condval = product.condsize - 1;
+        if (product.qttByCC > 0) {
+          // 1 0 10
+          if (product.quantityCCCVA - product.qttByCC > 0) {
+            if (product.quantityBruteCVA - product.qttbylitre >= 0) {
+              product.quantityBruteCVA =
+                Number(product.quantityBruteCVA) - product.qttbylitre;
+            } else {
+              product.quantityBruteCVA = 0;
+            }
+            product.quantityCCCVA =
+              Number(product.quantityCCCVA) - product.qttByCC;
           } else {
-            product.condval = 0;
+            if (product.condval - 1 < 0) {
+              if (product.quantityBruteCVA - 1 >= 0) {
+                product.condval = product.condsize - 1;
+                product.quantityBruteCVA -= 1;
+              }
+            } else {
+              if (product.quantityCCCVA - product.qttByCC < 0) {
+                product.condval -= 1;
+                product.quantityCCCVA = 10;
+                product.condml -
+                  Number(product.quantityCCCVA) -
+                  product.qttByCC;
+              } else if (product.quantityCCCVA - product.qttByCC > 0) {
+                product.quantityCCCVA -= product.qttByCC;
+              } else if (product.quantityCCCVA - product.qttByCC == 0) {
+                product.quantityCCCVA = 0;
+              }
+              product.condval -= 1;
+              product.quantityCCCVA =
+                product.condml -
+                Number(product.quantityCCCVA) +
+                product.qttByCC;
+            }
+          }
+        } else {
+          // 1 0 0
+          if (product.quantityBruteCVA - product.qttbylitre >= 0) {
+            product.quantityBruteCVA =
+              Number(product.quantityBruteCVA) - product.qttbylitre;
+          } else {
+            product.quantityBruteCVA = 0;
           }
         }
       }
     } else {
-      if (isBiggerThanLastQuantityCC(product)) {
-        minusCondValWhenQttCcIsEmpty(product);
-        if (product.condval == 0) {
-          if (canBuyBruteFromCva(product)) {
-            if (
-              getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product) > 0
-            ) {
+      if (product.quantityParProduct > 0) {
+        if (product.qttByCC > 0) {
+          if (product.condval - product.quantityParProduct < 0) {
+            if (product.quantityBruteCVA - 1 >= 0) {
               product.quantityBruteCVA -= 1;
-              reinitQuantityCCCva(
-                product,
-                product.condml -
-                  getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product)
-              );
               product.condval = product.condsize - 1;
+            } else {
+              product.quantityBruteCVA = 0;
+              product.condval = 0;
             }
           }
+          if (product.condval - product.quantityParProduct == 0) {
+            product.condval = 0;
+          } else {
+            product.condval -= product.quantityParProduct;
+          }
+
+          if (Number(product.quantityCCCVA) - product.qttByCC < 0) {
+            let difference = product.qttByCC - Number(product.quantityCCCVA);
+            product.condval -= 1;
+            product.quantityCCCVA = product.condml - difference;
+          } else if (Number(product.quantityCCCVA) - product.qttByCC > 0) {
+            product.quantityCCCVA -= product.qttByCC;
+          } else if (Number(product.quantityCCCVA) - product.qttByCC == 0) {
+            product.quantityCCCVA = 0;
+          }
         } else {
-          reinitQuantityCCCva(
-            product,
-            product.condml -
-              getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product)
-          );
+          product.condval -= product.quantityParProduct;
+          if (product.condval < 0) {
+            if (canBuyBruteFromCva(product)) {
+              product.quantityBruteCVA -= 1;
+              product.condval = product.condsize - 1;
+            } else {
+              product.condval = 0;
+            }
+          }
         }
       } else {
-        if (isSameOfLastQuantityCC(product)) {
-          return false;
-        } else if (isLowerThanLastQuantityCC(product)) {
-          if (canBuyCCFromCva(product))
-            product.quantityCCCVA -= product.qttByCC;
-          else product.quantityCCCVA = 0;
+        if (isBiggerThanLastQuantityCC(product)) {
+          minusCondValWhenQttCcIsEmpty(product);
+          if (product.condval == 0) {
+            if (canBuyBruteFromCva(product)) {
+              if (
+                getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product) >
+                0
+              ) {
+                product.quantityBruteCVA -= 1;
+                reinitQuantityCCCva(
+                  product,
+                  product.condml -
+                    getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(
+                      product
+                    )
+                );
+                product.condval = product.condsize - 1;
+              }
+            }
+          } else {
+            reinitQuantityCCCva(
+              product,
+              product.condml -
+                getRestQuantityCCWhenOrderIsBiggerThanLastQuantityCC(product)
+            );
+          }
         } else {
+          if (isSameOfLastQuantityCC(product)) {
+            return false;
+          } else if (isLowerThanLastQuantityCC(product)) {
+            if (canBuyCCFromCva(product))
+              product.quantityCCCVA -= product.qttByCC;
+            else product.quantityCCCVA = 0;
+          } else {
+          }
         }
       }
     }
   } else {
-    if (canBuyBruteFromCva(product)) {
+    /** if (canBuyBruteFromCva(product)) {
       product.quantityBruteCVA -= 1;
       reinitQuantityCCCva(
         product,
@@ -282,7 +407,7 @@ export const minusCondML = (product) => {
       } else {
         reinitQuantityCCCva(product, 0);
       }
-    }
+    } */
   }
   return product;
 };
@@ -500,7 +625,7 @@ export const oneSoldOneReturnCond = (product, initialCommande) => {
         initialCommande.quantityParProduct += differ;
         initialCommande.condval -= differ;
         product.quantityParProduct = 0;
-  
+
         if (product.condval - differ >= 0) {
           product.condval -= differ;
         } else {
@@ -577,7 +702,7 @@ export const mlSoldIncrementCond = (product, initialCommande) => {
     }
   } else {
     if (product.quantityParProduct > 0) {
-      oneSoldOneReturnCond(product,initialCommande);
+      oneSoldOneReturnCond(product, initialCommande);
     }
   }
 

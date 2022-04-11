@@ -51,3 +51,8 @@ export const EDITFROMMAGASIN = '/vendeur-commande/:id';
 
 export const DEPOT_MAGASIN_DETAIL = '/depot/to/magasin/detail/:id';
 export const DETAIL_MAGASIN_VENTE = '/magasin/detail/vente/:id';
+
+export const CORRECTION = '/corrections'
+export const HISTORIQUECORRECTION = "/historique/corrections";
+
+export const DETAILCORRECTION = `/detailcorrection/:id`;

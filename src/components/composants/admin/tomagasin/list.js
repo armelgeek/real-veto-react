@@ -10,10 +10,16 @@ import { getCVA } from "../../../../store/actions/commandes";
 import { displayDate, displayMoney } from "../../../../utils/functions";
 import { Link } from "react-router-dom";
 import DeleteToMagasin from "./DeleteToMagasin";
-import moment from 'moment';
+import moment from "moment";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/DateRangePicker";
 import DataTable from "../../../../utils/admin/DataTable";
-
+const isModified = (contenu) => {
+  for (let i = 0; i < contenu.length; ++i) {
+    if (contenu[i].correction > 0) {
+      return true;
+    } else return false;
+  }
+};
 export const HistoriqueSortieCva = () => {
   var start = moment().isoWeekday(1).startOf("week");
   var end = moment().endOf("week");
@@ -29,7 +35,7 @@ export const HistoriqueSortieCva = () => {
   useEffect(() => {
     dispatch(getCVA(deb, fin));
   }, [deb, fin]);
-  
+
   useEffect(() => {
     if (dateRange !== null) {
       if (dateRange[0]) {
@@ -47,14 +53,14 @@ export const HistoriqueSortieCva = () => {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
-      total += el.prixVente * el.quantityParProduct*1;
+      total += el.prixVente * el.quantityParProduct * 1;
     });
     return total;
-  }; 
+  };
   const quantiteBruteTotal = (arr) => {
     let total = 0;
     arr?.forEach((el) => {
-      total += el.quantityParProduct*1;
+      total += el.quantityParProduct * 1;
     });
     return total;
   };
@@ -65,70 +71,94 @@ export const HistoriqueSortieCva = () => {
       total += el.quantityCC;
     });
     return total;
-  }; 
+  };
 
   const columns = [
-      {
-        Header: "Date de commande",
-        Cell: (data) => {
-          return <>{displayDate(data.row.original?.dateCom)}</>;
-        },
+    {
+      Header: "Date",
+      Cell: (data) => {
+        return <div>{displayDate(data.row.original?.dateCom)}</div>;
       },
-      {
-        Header: "Produits",
-        Cell: (data) => {
-          return (
-            <div style={{width:"100px"}}>
-              {data.row.original?.contenu?.map((d) => (
-                <span>
+    },
+    {
+      Header: "Produits",
+      Cell: (data) => {
+        return (
+          <div style={{ width: "350px" }}>
+            {data.row.original?.isdeleted == true && (
+              <>
+                <div className="badge badge-danger">Supprimé</div>
+                <div className="text text-danger">
+                  Date de suppression :{" "}
+                  {displayDate(data.row.original?.deletedat)}
+                </div>
+              </>
+            )}
+            {data.row.original?.isdeleted == null && (<p>
+              {isModified(data.row.original?.contenu) && (
+                <div className="badge badge-warning">Modifié</div>
+              )}
+            </p>)}
+            {data.row.original?.contenu?.map((d) => (
+              <span>
+                <span
+                  style={{
+                    background:"white",
+                    color: data.row.original?.isdeleted == true ? "red":"inherit",
+                    padding: 2,
+                  }}
+                >
                   {d.name}
-                  {","}
                 </span>
-              ))}
-            </div>
-          );
-        },
+                <span   style={{
+                  color: data.row.original?.isdeleted == true ? "red":"inherit"
+                }}> {" || "}</span>
+              </span>
+            ))}
+          </div>
+        );
       },
-      {
-        Header: "Quantité",
-        Cell: (data) => {
-          return <div>{quantiteBruteTotal(data.row.original?.contenu)}</div>;
-        },
+    },
+    {
+      Header: "Qté",
+      Cell: (data) => {
+        return <div>{quantiteBruteTotal(data.row.original?.contenu)}</div>;
       },
-      {
-        Header: "Total",
-        Cell: (data) => {
-          return (
-            <div>
-              {displayMoney(calculateTotal(data.row.original?.contenu))}
-            </div>
-          );
-        },
+    },
+    {
+      Header: "Total",
+      Cell: (data) => {
+        return (
+          <div>{displayMoney(calculateTotal(data.row.original?.contenu))}</div>
+        );
       },
-      {
-        Header: "Actions",
-        Cell: (data) => {
-          return (
-            <>
-              <Link
-                to={`/depot/to/magasin/detail/${data.row.original?.id}`}
-                className="btn btn-green btn-sm mr-2"
-              >
-                Détails
-              </Link>
-              <Link
-                to={`/depot/to/magasin/edit/${data.row.original?.id}`}
-                className="btn btn-warning btn-sm mr-2"
-              >
-                Editer
-              </Link>
-              <DeleteToMagasin model="tomagasins" entity={data.row.original} />
-            </>
-          );
-        },
+    },
+    {
+      Header: "Actions",
+      Cell: (data) => {
+        const isDisabled = data.row.original?.isdeleted==true ? true: false;
+        return (
+          <>
+            <Link
+              to={`/depot/to/magasin/detail/${data.row.original?.id}`}
+              className={`btn btn-green btn-sm mr-2`}
+              disabled={isDisabled}
+            >
+              Détails
+            </Link>
+            <Link
+              to={`/depot/to/magasin/edit/${data.row.original?.id}`}
+              className={`btn btn-warning btn-sm mr-2`}
+              disabled={isDisabled}
+            >
+              Editer
+            </Link>
+            <DeleteToMagasin model="tomagasins" isDisabled={isDisabled} entity={data.row.original} />
+          </>
+        );
       },
-    ];
-
+    },
+  ];
 
   return (
     <Content>
@@ -136,10 +166,12 @@ export const HistoriqueSortieCva = () => {
         <ActiveLink title="Historique sortie vers Magasin"></ActiveLink>
       </ContentHeader>
       <Page>
-      <div className="row">
+        <div className="row">
           <div className="col-lg-6">
             <div>
-              <h3 className="text-uppercase">Historique de sortie vers Magasin</h3>
+              <h3 className="text-uppercase">
+                Historique de sortie vers Magasin
+              </h3>
               <p>{`${displayDate(deb)} ->  ${displayDate(fin)}`}</p>
             </div>
           </div>
@@ -150,10 +182,9 @@ export const HistoriqueSortieCva = () => {
               value={dateRange}
             />
           </div>{" "}
-          
         </div>
         <DataTable
-        filter={false}
+          filter={false}
           data={commandes.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}

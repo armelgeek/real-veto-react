@@ -36,6 +36,11 @@ export const getCommandeCVA = (deb, fin) =>
     path: `/vente-cva?deb=${deb}&fin=${fin}`,
     replace: true,
   });
+  export const getCommandeVenteCorrection = (deb, fin) =>
+  fetch("commandes", {
+    path: `/vente-correction?deb=${deb}&fin=${fin}`,
+    replace: true,
+  });
 export const getCVA = (deb, fin) =>
   fetch("commandes", { path: `/cva?deb=${deb}&fin=${fin}`, replace: true });
 

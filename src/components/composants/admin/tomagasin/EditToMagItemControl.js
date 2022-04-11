@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { displayDate } from '../../../../utils/functions';
 import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
-  NumberDecrementStepper,Text
+  NumberDecrementStepper,
+  Text,
 } from "@chakra-ui/react";
 const EditToMagItemControl = ({
   product,
@@ -19,33 +21,17 @@ const EditToMagItemControl = ({
   realQtt,
   realQttCC,
 }) => {
-  function clone(obj) {
-    if (null == obj || "object" != typeof obj) return obj;
-    var copy = obj.constructor();
-    for (var attr in obj) {
-      if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
-    }
-    return copy;
-  }
-
-  const dispatch = useDispatch();
   const updateObjectValue = (index, key, value) => {
     let temp_state = [...state];
     temp_state[index] = { ...temp_state[index], [key]: value };
+    console.log(temp_state);
     setState(temp_state);
   };
   const onAddQtyBrute = (value) => {
+    console.log(value);
     updateObjectValue(index, "quantityParProduct", value);
   };
-  
-  const onAddQtyRestitue = (value) => {
-    updateObjectValue(index, "quantityrestitueParProduct", value);
-  };
-  const getValue = () => {
-    return isEnough() == true
-      ? product?.quantityBrute * 1 - 1
-      : product?.quantityBrute * 1;
-  };
+
   const isEnough = () => {
     return stock?.quantityBruteCVA < realcommand?.quantityParProduct;
   };
@@ -53,6 +39,8 @@ const EditToMagItemControl = ({
     <div className="basket-item-control">
       {isEnough() ? (
         <>
+        <div>
+
           <NumberInput
             inputMode={"numeric"}
             w={28}
@@ -69,7 +57,7 @@ const EditToMagItemControl = ({
                 alert("Le stock ne satisfait pas votre commande");
               }
             }}
-            defaultValue={product?.quantityParProduct}
+            defaultValue={realcommand?.quantityParProduct}
           >
             <NumberInputField />
             <NumberInputStepper>
@@ -77,25 +65,37 @@ const EditToMagItemControl = ({
               <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
-          <Text textTransform="uppercase">Restituable</Text>
-          <NumberInput
-            inputMode={"numeric"}
-            w={28}
-            step={1}
-            bg={"whitesmoke"}
-            min={0}
-            onChange={(value) => {
-              onAddQtyRestitue(Number(value));
-            }}
-            defaultValue={stock?.quantityBruteCVA}
-            max={stock?.quantityBruteCVA}
-          >
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+          </div>
+          {realcommand?.correctiontype == 4 ? (
+            <div>
+              <Text textTransform="uppercase" className="text text-danger">
+                CE PRODUIT A ETE RETIRÉ
+              </Text>
+            </div>
+          ) : (
+            <div>
+              <Text textTransform="uppercase">Restituable</Text>
+              <NumberInput
+                inputMode={"numeric"}
+                w={28}
+                step={1}
+                bg={"whitesmoke"}
+                min={0}
+                onChange={(value) => {
+                  onAddQtyBrute(Number(value));
+                  setRealQtt(Number(value));
+                }}
+                defaultValue={stock?.quantityBruteCVA}
+                max={stock?.quantityBrute}
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+            </div>
+          )}
         </>
       ) : (
         <>
@@ -116,7 +116,7 @@ const EditToMagItemControl = ({
             }}
             min={0}
             defaultValue={product?.quantityParProduct}
-            max={stock?.quantityBruteCVA}
+            max={stock?.quantityBrute}
           >
             <NumberInputField />
             <NumberInputStepper>

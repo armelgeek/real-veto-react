@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { action } from '../../../../utils/lib/call';
-function DeleteToMagasin({ model, entity }) {
+function DeleteToMagasin({ model,isDisabled, entity }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const deleteEntity = () => {
@@ -13,6 +13,7 @@ function DeleteToMagasin({ model, entity }) {
     <>
       <button
         className="btn btn-danger btn-sm"
+        disabled={isDisabled}
         onClick={(e) => {
           e.preventDefault();
           if (window.confirm(`Vous voulez vraiment supprimer le produit ?`)) {

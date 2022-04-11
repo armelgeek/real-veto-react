@@ -14,38 +14,29 @@ import {
 export const SovaxInputDose = ({
   product,
   setRealQttCC,
-  setRealQtt,
-  realQtt,
+  maxRealQttCC,
   realQttCC,
 }) => {
   const dispatch = useDispatch();
   const onAddQtyPortion = (value) => {
     dispatch(addQtyFromMagasinSovaxItem(product.id, value));
   };
-  const isEnough = () => {
-    return (
-      product.quantityCCCVA - product.qttByCC < 0 &&
-      product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
-    );
-  };
+
   return (
     <div className="basket-item-control">
-    {/**{product.quantityCCCVA - product.qttByCC}**/}
       <NumberInput
         inputMode={"numeric"}
         w={28}
         step={1}
         bg={"whitesmoke"}
         onChange={(value) => {
-          onAddQtyPortion(value);
-          setRealQttCC(value);
-          if (isEnough()) {
-            alert("Le stock ne satisfait pas votre commande");
-          }
+          onAddQtyPortion(Number(value));
+          setRealQttCC(Number(value));
         }}
         min={0}
-        defaultValue={0}
-        max={!isEnough() ? product.doseDefault/2 : product.quantityCCCVA / 2}
+        value={realQttCC}
+        defaultValue={product?.qttByCC}
+        max={maxRealQttCC}
       >
         <NumberInputField />
         <NumberInputStepper>

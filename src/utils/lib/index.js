@@ -2,6 +2,7 @@ export {
   fetch,
   create,
   update,
+  get,
   destroy,
   actionTypesFor,
   actionCreatorsFor,
@@ -11,5 +12,4 @@ export {
   metaInitialState,
   itemsFor,
   reducersFor,
-  isFetching
 } from "./reducer";

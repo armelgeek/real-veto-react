@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
 import { action, getData } from "../../../../utils/lib/call";
-import { displayMoney, checkHasExistText } from "../../../../utils/functions";
+import {
+  displayMoney,
+  checkHasExistText,
+  displayDate,
+} from "../../../../utils/functions";
 
 import { useHistory } from "react-router-dom";
 import {
@@ -30,7 +34,8 @@ function copy(object) {
 }
 const EditToFromMag = ({
   state,
-  commandesclone,
+  realcommande,
+
   meta,
   setState,
   disabled,
@@ -66,8 +71,8 @@ const EditToFromMag = ({
     const missing = copy(realContent).filter(
       (e) => !state.find((a) => e.id === a.id)
     );
-    const added = state.filter(
-      (e) => !copy(state).find((a) => e.id === a.id)
+    const added = copy(realContent).filter(
+      (e) => !state.find((a) => e.id === a.id)
     );
 
     const exist = copy(realContent).map((element) =>
@@ -87,6 +92,7 @@ const EditToFromMag = ({
         {
           id: commandes?.id,
           contenu: state,
+          commande: state,
           type: "vente-cva",
           sorte: "sortie",
           sorte: "sortie",
@@ -99,7 +105,7 @@ const EditToFromMag = ({
         "update-from-magasin"
       )
     );
-
+    console.log(state);
     // history.push(HISTORIQUEVENTEVENDEUR);
   };
 
@@ -138,7 +144,7 @@ const EditToFromMag = ({
               }}
             >
               <div class="form-group">
-                <label>Date de sortie :</label>
+                <label>Date de sortie : {displayDate(dateCom)}</label>
                 <div>
                   <input
                     type="date"
@@ -179,6 +185,7 @@ const EditToFromMag = ({
                   <EditFromDepotItem
                     key={`${product?.id}_${i}`}
                     product={product}
+                    realcommande={realcommande.find((r) => r.id == product.id)}
                     state={state}
                     index={i}
                     setState={setState}

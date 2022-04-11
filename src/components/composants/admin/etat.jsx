@@ -46,6 +46,10 @@ export const EtatStockMagasin = () => {
       accessor: "quantityBruteCVA",
     },
     {
+      Header: "Conditionnement (ML)",
+      accessor: "condval",
+    },
+    {
       Header: "Reste en ML",
       accessor: "quantityCC",
       Cell: (data) => {
