@@ -7,12 +7,9 @@ import {
   MINUS_QTY_APPROV_ITEM,
   REMOVE_FROM_APPROV,
   SET_APPROV_ITEMS,
+  ADD_REMISE_PER_PRODUCT,ADD_REMISE_PER_PRODUCT_PERCENT
 } from "../constants";
 
-const indexSameProduct = (state, product) => {
-  const sameProduct = (p) => p.id === product.id;
-  return state.find(sameProduct);
-};
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = [], action) => {
   switch (action.type) {
@@ -37,7 +34,7 @@ export default (state = [], action) => {
     case ADD_NUMBER_QTY_ITEM:
       return state.map((product) => {
         if (product.id == action.payload.id) {
-          product.quantityParProduct =Number(action.payload.qtt);
+          product.quantityParProduct = Number(action.payload.qtt);
         }
         return product;
       });
@@ -48,13 +45,27 @@ export default (state = [], action) => {
         }
         return product;
       });
-      case ADD_QTY_NUMBER_APPROV_ITEM:
-        return state.map((product) => {
-          if (product.id === action.payload.id) {
-            product.quantityParProduct = action.payload.value;
-          }
-          return product;
-        });
+    case ADD_QTY_NUMBER_APPROV_ITEM:
+      return state.map((product) => {
+        if (product.id === action.payload.id) {
+          product.quantityParProduct = action.payload.value;
+        }
+        return product;
+      });
+    case ADD_REMISE_PER_PRODUCT:
+      return state.map((product) => {
+        if (product.id === action.payload.id) {
+          product.remise = action.payload.value;
+        }
+        return product;
+      });
+    case ADD_REMISE_PER_PRODUCT_PERCENT:
+      return state.map((product) => {
+        if (product.id === action.payload.id) {
+          product.remisePerProduct = action.payload.value;
+        }
+        return product;
+      });
     default:
       return state;
   }

@@ -7,6 +7,7 @@ import { ItaNewInputDose } from "./ItaNewInputDose";
 import { PhytoConditionnementInput } from "./PhytoConditionnementInput";
 import { SovaxInputDose } from "./SovaxInputDose";
 import EditFromDepotItemControl from "./EditFromDepotItemControl";
+import { isSpecialProductHandle } from '../../store/functions/function';
 const EditFromDepotItem = ({ state, index, setState, product }) => {
   const [realQttCC, setRealQttCC] = useState(null);
   const [realQtt, setRealQtt] = useState(null);
@@ -18,7 +19,9 @@ const EditFromDepotItem = ({ state, index, setState, product }) => {
           <span className="text-lowercase">
             <strong>
               {product.quantityParProductDepot != 0 &&
-                displayMoney(product.prixVente)}
+                displayMoney(
+                  isSpecialProductHandle(product) ? product.prixlitre : product.prixVente
+                )}
               {product.quantityParProductDepot == 0 &&
                 product.prixParCC != 0 && (
                   <>
@@ -58,7 +61,7 @@ const EditFromDepotItem = ({ state, index, setState, product }) => {
             realQttCC={realQttCC}
           />
         </div>
-       {/** {product.type === "FLACON" && (
+        {/** {product.type === "FLACON" && (
           <div className="text-inline text-center">
             <h5 className="mb-1">{product.categoryId == 3 ? "DOSE" : "ML"}</h5>
             {checkHasExistText(product.name, "ita new") && (

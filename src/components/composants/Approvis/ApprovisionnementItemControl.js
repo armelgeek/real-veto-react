@@ -38,7 +38,6 @@ const ApprovisionnementItemControl = ({ product }) => {
         }}
         min={0}
         defaultValue={product.quantityParProduct}
-        step={1}
       >
         <NumberInputField />
         <NumberInputStepper>

@@ -1,31 +1,60 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { CategoryInput } from './CategoryInput'
-import { AddCategory } from './AddCategory'
+import React from "react";
+import PropTypes from "prop-types";
+import DataTable from "../../../utils/admin/DataTable";
+import { action, getData } from "../../../utils/lib/call";
+import { useSelector, useDispatch } from "react-redux";
+import Content from "../../../@adminlte/adminlte/Content";
+import ContentHeader from "../../../@adminlte/adminlte/Content/ContentHeader";
+import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
+import Page from "../../../@adminlte/adminlte/Content/Page";
+import { ADD_CATEGORIES } from '../../../constants/routes';
+import { CrudAction } from "../../../utils/admin/Resource/CrudAction";
 
-function Categories({categories,meta}) {
-    return (
-        <div>
-           
-            <div className="card mt-2">
-            <div className="card-body">
-            <AddCategory categories={categories} meta={meta} />
-              <ol class="list-items">
-                  
-                {categories.map((c) => (
-                  <CategoryInput category={c} />
-                ))}
-              </ol>
-              
-            </div>
-          </div>
-        </div>
-    )
+function Categories() {
+  const categories = useSelector(getData("categories").value);
+  const meta = useSelector(getData("categories").meta);
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(action("categories").fetch());
+  }, []);
+
+  const columns = [
+    {
+      Header: "Nom",
+      accessor: "name",
+    },      {
+      Header: "Actions",
+      Cell: (data) => {
+        return (
+          
+          <CrudAction
+            detail={false}
+            route={"categories"}
+            model={"categories"}
+            modelKey={"name"}
+            data={data}
+          />
+        );
+      }}
+  
+  ];
+
+  return (
+    <Content>
+      <ContentHeader title="Categories">
+        <ActiveLink title="Categories"></ActiveLink>
+      </ContentHeader>
+      <Page>
+        <DataTable
+          data={categories.sort((low, high) => high.id - low.id)}
+          meta={meta}
+          columns={columns}
+          addUrl={ADD_CATEGORIES}
+          urlName={"Ajouter une categorie"}
+        />
+      </Page>
+    </Content>
+  );
 }
 
-Categories.propTypes = {
-
-}
-
-export default Categories
-
+export default Categories;

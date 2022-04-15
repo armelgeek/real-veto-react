@@ -16,8 +16,28 @@ function Edit() {
   const { id } = useParams();
   const fournisseurs = useSelector(getData("fournisseurs").value);
   const categories = useSelector(getData("categories").value);
-  const products = useSelector(getData("products").item);
+  const products = useSelector(getData("products").value);
   const meta = useSelector(getData("products").meta);
+  const [proda, setProda] = useState({
+    name: '',
+    type: '',
+    doseDefault: '',
+    prixlitre:'',
+    prixVente: '',
+    prixFournisseur: '',
+    prixVaccinateur: '',
+    prixParCC: '',
+    datePer: '',
+    uniteMesure: "ml",
+    conditionnement: '',
+    categoryId: '',
+    datePer: '',
+    fournisseurId: '',
+    condml:'',
+    condsize: '',
+    qttccpvente:'',
+    prixqttccvente:'',
+  });
   const history = useHistory();
   const [categoryId, setCategoryId] = useState(1);
   const [cond, setCond] = useState(1);
@@ -26,17 +46,18 @@ function Edit() {
   const dispatch = useDispatch();
 
   const [formVal, setFormVal] = useState({});
-  const [flac, setFlac] = useState(products[0]?.type);
+  const [flac, setFlac] = useState(proda.type);
   useEffect(() => {
-    dispatch(action("products").get(id));
-    setFlac(products[0]?.type);
-    setPrixQttCCVente(products[0]?.prixqttccvente);
-    setQttCcPVente(products[0]?.qttccpvente);
+    dispatch(action("products").fetch());
+    setFlac(proda.type);
+    setPrixQttCCVente(proda.prixqttccvente);
+    setQttCcPVente(proda.qttccpvente);
   }, [id]);
   useEffect(() => {
     if (!meta.isFetching) {
+      setProda(products?.find((p) => p.id == id));
       setFormVal({
-        name: products[0]?.name,
+        name: proda.name,
       });
     }
   }, [meta]);
@@ -46,8 +67,8 @@ function Edit() {
   }, []);
   return (
     <Content>
-      <ContentHeader title="Editer un article">
-        <ActiveLink title="Editer un article"></ActiveLink>
+      <ContentHeader title="Editer un produit">
+        <ActiveLink title="Editer un produit"></ActiveLink>
       </ContentHeader>
       <Page>
         {meta.success != "" && meta.success != null && (
@@ -58,33 +79,27 @@ function Edit() {
         <Form
           id="add-form-product"
           initialValues={{
-            name: products[0]?.name,
-            type: products[0]?.type,
-            doseDefault: products[0]?.doseDefault,
-            prixVente: products[0]?.prixVente,
-            prixFournisseur: products[0]?.prixFournisseur,
-            prixVaccinateur: parseFloat(products[0]?.prixVaccinateur),
-            prixParCC: parseFloat(products[0]?.prixParCC),
-            datePer: products[0]?.datePer,
+            name: proda.name,
+            type: proda.type,
+            doseDefault: proda.doseDefault,
+            prixlitre:proda.prixlitre,
+            prixVente: proda.prixVente,
+            prixFournisseur: proda?.prixFournisseur,
+            prixVaccinateur: proda.prixVaccinateur,
+            prixParCC: proda.prixParCC,
+            datePer: proda.datePer,
             uniteMesure: "ml",
-            conditionnement: products[0]?.conditionnement,
-            categoryId: parseInt(products[0]?.categoryId),
-            datePer: products[0]?.datePer,
-            fournisseurId: parseInt(products[0]?.fournisseurId),
-            condml:
-              products[0]?.condml == null ? 0 : parseInt(products[0]?.condml),
-            condsize:
-              products[0]?.condsize == null
-                ? 0
-                : parseInt(products[0]?.condsize),
+            conditionnement: proda.conditionnement,
+            categoryId: proda.categoryId,
+            datePer: proda.datePer,
+            fournisseurId: proda.fournisseurId,
+            condml: proda.condml == null ? 0 : proda.condml,
+            condsize: proda.condsize == null ? 0 : proda.condsize,
             qttccpvente:
-              products[0]?.qttccpvente == null
-                ? 0
-                : parseInt(products[0]?.qttccpvente),
+              proda.qttccpvente == null ? 0 : proda.qttccpvente,
             prixqttccvente:
-              products[0]?.prixqttccvente == null
-                ? 0
-                : parseInt(products[0]?.prixqttccvente),
+              proda.prixqttccvente == null ? 0 : proda.prixqttccvente,
+              
           }}
           validations={validationSchema}
           onSubmit={(values, form) => {
@@ -92,6 +107,7 @@ function Edit() {
               name,
               type,
               doseDefault,
+              prixlitre,
               prixVente,
               prixFournisseur,
               prixVaccinateur,
@@ -104,26 +120,28 @@ function Edit() {
               qttccpvente,
               prixqttccvente,
               conditionnement,
+              condsize
             } = values;
             dispatch(
               action("products").update({
-                id: products[0]?.id,
+                id: proda.id,
                 name: name,
                 type: type,
                 doseDefault: doseDefault,
                 prixVente: parseFloat(prixVente),
                 prixFournisseur: parseFloat(prixFournisseur),
                 prixVaccinateur: parseFloat(prixVaccinateur),
+                prixlitre:parseFloat(prixlitre),
                 prixParCC: parseFloat(prixParCC),
                 datePer: new Date(datePer),
-                qttByCC: parseFloat(products[0]?.qttByCC),
-                quantityBrute: parseFloat(products[0]?.quantityBrute),
-                quantityBruteCVA: parseFloat(products[0]?.quantityBruteCVA),
-                quantityCCCVA: parseFloat(products[0]?.quantityCCCVA),
-                quantityCC: parseFloat(products[0]?.quantityCC),
+                qttByCC: parseFloat(proda.qttByCC),
+                quantityBrute: parseFloat(proda.quantityBrute),
+                quantityBruteCVA: parseFloat(proda.quantityBruteCVA),
+                quantityCCCVA: parseFloat(proda.quantityCCCVA),
+                quantityCC: parseFloat(proda.quantityCC),
                 uniteMesure: "ml",
                 condml: parseFloat(condml),
-                condval: parseFloat(condval),
+                condsize: parseFloat(condsize),
                 qttccpvente: parseFloat(qttccpvente),
                 fournisseurId: parseInt(fournisseurId),
                 categoryId: parseInt(categoryId),
@@ -134,17 +152,26 @@ function Edit() {
                 refQtSortie: 0,
                 qttByCCDepot: 0,
                 condmldepot: 0,
-
-                condvaldepot: 0,
+                condvaldepot: 0,qttyspecificmirror:0,
                 qttccpventedepot: 0,
                 prixqttccventedepot: 0,
                 quantityParProductDepot: 0,
                 condsizedepot: 0,
+                qttbylitre: 0,
+                remise: 0,
+                condval: 0,
+                correction: 0,
+                correctionml: 0,
+                correctionl: 0,
+                correctiontml: 0,
+                correctiontl: 0,
+                correctiontype: 0,
               })
             );
             history.push(PRODUCTS);
           }}
           render={({ values }) => (
+            
             <Form.Element>
               <div className="row">
                 <div className="col-lg-6">
@@ -157,14 +184,14 @@ function Edit() {
                         name="categoryId"
                         label="Categorie"
                         valueKey="name"
-                        selectValue={products[0]?.categoryId}
+                        selectValue={proda.categoryId}
                         options={categories}
                       />
                       <Form.Field.Select
                         name="fournisseurId"
                         label="Fournisseur"
                         valueKey="name"
-                        selectValue={products[0]?.fournisseurId}
+                        selectValue={proda.fournisseurId}
                         options={fournisseurs}
                       />
                       <Form.Field.Input
@@ -188,15 +215,16 @@ function Edit() {
                       />
                       {values.type === "FLACON" && (
                         <div className="ml-3">
-                          <Form.Field.Number
+                          <Form.Field.Input
                             name="doseDefault"
-                            label="Quantité en ml"
-                            placeholder={"Quantité en ml"}
+                            label="Quantité en ml ou dose ou litre"
+                            placeholder={"Quantité en ml ou dose ou litre"}
                           />
                           <Form.Field.Select
                             name="conditionnement"
                             label="Conditionnement"
                             valueKey="name"
+                            
                             emptyValue={false}
                             options={[
                               { id: 1, name: "Sans conditionnement" },
@@ -205,23 +233,25 @@ function Edit() {
                           />
                           {values.conditionnement == 2 && (
                             <>
-                              <Form.Field.Number
+
+                              <Form.Field.Input
                                 name="condml"
-                                label="Conditionnement"
+                                label="Conditionnement (ML)"
                                 placeholder={"Conditionnement en ML"}
                               />
-                              <Form.Field.Number
+                              <Form.Field.Input
                                 name="condsize"
-                                label="Diviser par "
-                                placeholder={"Diviser par"}
+                                label="Diviser en combien de flacon"
+                                placeholder={"Diviser en combien de flacon"}
                               />
-                              <Form.Field.Number
+                              <Form.Field.Input
                                 name="qttccpvente"
-                                label="Conditionnement de vente par ML"
-                                placeholder={"Quantité cc par vente."}
+                                label="Quantité de vente en ML"
+                                placeholder={"Quantité de vente en ML"}
                               />
-                              <Form.Field.Number
+                              <Form.Field.Input
                                 name="prixqttccvente"
+                                value={values?.prixqttccvente}
                                 disabled={
                                   values.qttccpvente == null ||
                                   values.qttccpvente == ""
@@ -241,19 +271,27 @@ function Edit() {
                   <div className="card">
                     <div className="card-header bg-dark text-white">Vente</div>
                     <div className="card-body">
-                      <Form.Field.Number
+                      <Form.Field.Input
                         name="prixFournisseur"
+                        value={values?.prixFournisseur}
                         label="prix unitaire"
                         placeholder={"prix unitaire"}
                       />
-
-                      <Form.Field.Number
+                      {values.conditionnement == 2 && (
+                        <Form.Field.Input
+                           name="prixlitre"
+                           value={values?.prixlitre}
+                           label="Prix d'un litre"
+                            placeholder={"Prix d'un litre"}
+                                />)}
+                      <Form.Field.Input
                         name="prixVente"
                         label="Prix de vente"
+                        value={values?.prixVente}
                         placeholder={"prix de vente"}
                       />
                       {flac == "FLACON" && (
-                        <Form.Field.Number
+                        <Form.Field.Input
                           type={
                             qttCcPVente == null || qttCcPVente == ""
                               ? "text"
@@ -271,7 +309,8 @@ function Edit() {
                           placeholder={"Prix de vente ml"}
                         />
                       )}
-                      <Form.Field.Number
+                      <Form.Field.Input
+                        value={values?.prixVaccinateur}
                         name="prixVaccinateur"
                         label="Prix du vaccinateur"
                         placeholder={"prix du vaccinateur"}

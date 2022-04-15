@@ -12,6 +12,7 @@ import ActiveLink from "../../../../@adminlte/adminlte/Content/ActiveLink";
 import Content from "../../../../@adminlte/adminlte/Content/index";
 import { displayDate, displayMoney } from "../../../../utils/functions";
 import { HISTORIQUEVENTEVENDEUR } from "../../../../constants/routes";
+import { isSpecialProductHandle } from '../../../../store/functions/function';
 
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
@@ -56,9 +57,8 @@ function DetailMagasinVente(props) {
                       {displayMoney(
                         calculateTotal(
                           commande[0]?.contenu.map((product) => {
-                            return (
-                              product.prixVente * product.quantityParProduct
-                            );
+                            return isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProduct : product.prixVente * product.quantityParProduct;
+          
                           })
                         ) +
                           calculateTotal(

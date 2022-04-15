@@ -31,6 +31,12 @@ function DetailProduct() {
             <div className="card card-info">
               <div className="card-header">Conditionnement</div>
               <div className="card-body">
+               <p>
+                  Prix d'un litre:{" "}
+                  <span className="badge badge-info">
+                    {products[0]?.prixlitre}
+                  </span>
+                </p>
                 <p>
                   Conditionnement (ML):{" "}
                   <span className="badge badge-info">

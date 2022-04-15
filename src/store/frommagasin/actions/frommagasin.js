@@ -10,6 +10,7 @@ import {
   ADD_QTY_NUMBER_FROM_MAGASIN_ITEM,
   MINUS_QTY_LITRE_NUMBER_FROM_MAGASIN_ITEM,
   ADD_QTY_LITRE_NUMBER_FROM_MAGASIN_ITEM,
+  ADD_TO_QTT_BRUTE
 } from "../constants";
 
 export const setFromMagasinItems = (items = []) => ({
@@ -51,7 +52,13 @@ export const setQtyLitreFromMagasinItem = (id, value) => ({
     value: value,
   },
 });
-
+export const setQttBrute = (id, value) => ({
+  type: ADD_TO_QTT_BRUTE,
+  payload: {
+    id: id,
+    value: value,
+  },
+});
 
 
 

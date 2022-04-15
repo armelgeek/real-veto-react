@@ -1,9 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { action, getData } from "../../lib/call";
+import { useHistory } from 'react-router-dom';
 function Drop({ model, entity,attribute }) {
   const dispatch = useDispatch();
- 
+  const history = useHistory();
   const deleteEntity = () => {
     dispatch(action(model).destroy(entity));
   };

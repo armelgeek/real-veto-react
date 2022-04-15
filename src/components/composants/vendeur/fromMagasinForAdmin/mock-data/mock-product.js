@@ -1,0 +1,25 @@
+export const hasProduct = {
+    datePer: "2021-11-30",
+    createdAt: "2021-11-26",
+    id: 1,
+    name: "CLOSANTEL 5% 100ML",
+    prixVente: 6000,
+    prixFournisseur: 5700,
+    prixVaccinateur: 5800,
+    type: "FLACON",
+    uniteMesure: "ml",
+    doseDefault: 100,
+    qttySpecificMirror: null,
+    qttByCC: 0,
+    quantityBrute: 150,
+    quantityBruteCVA: 100,
+    quantityCCCVA: 100,
+    quantityParProduct: 1,
+    prixParCC: 300,
+    quantityCC: null,
+    condml: null,
+    condval: null,
+    qttccpvente: null,
+    prixqttccvente: null
+  };
+  

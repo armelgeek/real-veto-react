@@ -7,7 +7,7 @@ import { action, getData } from "../../../../utils/lib/call";
 import { useDispatch } from "react-redux";
 import { getCommandeCVA } from "../../../../store/actions/commandes";
 import { displayDate, displayMoney } from "../../../../utils/functions";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { VENDEUR } from "../../../../constants/routes";
 import DeleteFromMagasin from "./DeleteFromMagasin";
@@ -15,6 +15,7 @@ import moment from "moment";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/DateRangePicker";
 import DataTable from "../../../../utils/admin/DataTable";
 import { setSearchByDate } from "../../../../store/actions/search/search";
+import { isSpecialProductHandle } from "./block-it";
 const isModified = (contenu) => {
   for (let i = 0; i < contenu.length; ++i) {
     if (contenu[i].correction > 0 || contenu[i].correctionml > 0) {
@@ -24,7 +25,7 @@ const isModified = (contenu) => {
 };
 export const HistoriqueVenteVendeur = () => {
   const search = useSelector((state) => state.searchbydate);
-  console.log(search);
+  const { type } = useParams();
   const [dateRange, onChangeDateRange] = useState([search.deb, search.fin]);
   const refDateDeb = useRef(null);
   const refDateFin = useRef(null);
@@ -33,7 +34,7 @@ export const HistoriqueVenteVendeur = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCommandeCVA(search.deb, search.fin));
+    dispatch(getCommandeCVA(search.deb, search.fin, type));
   }, [search.deb, search.fin]);
   useEffect(() => {
     if (dateRange !== null) {
@@ -51,12 +52,17 @@ export const HistoriqueVenteVendeur = () => {
   const totalDevente = (arr) => {
     return (
       calculateTotal(
-        arr.map((product) => {
-          return product.prixVente * product.quantityParProduct;
+        arr?.map((product) => {
+          return isSpecialProductHandle(product)
+            ? product.prixqttccvente *
+                product.quantityParProduct *
+                product.qttccpvente +
+                product.prixlitre * product.qttbylitre
+            : product.prixVente * product.quantityParProduct;
         })
       ) +
       calculateTotal(
-        arr.map((product) => {
+        arr?.map((product) => {
           return product.prixParCC * product.qttByCC;
         })
       )
@@ -87,12 +93,12 @@ export const HistoriqueVenteVendeur = () => {
         Cell: (data) => {
           return (
             <div style={{ width: "350px" }}>
-              {data.row.original?.isdeleted == true && (
+              {data.row.original.isdeleted == true && (
                 <>
                   <div className="badge badge-danger">Supprimé</div>
                   <div className="text text-danger">
                     Date de suppression :{" "}
-                    {displayDate(data.row.original?.deletedat)}
+                    {displayDate(data.row.original.deletedat)}
                   </div>
                 </>
               )}
@@ -147,22 +153,26 @@ export const HistoriqueVenteVendeur = () => {
         Cell: (data) => {
           return (
             <>
-              <Link
-                to={`/detailvendeur/${data.row.original?.id}`}
-                className="btn btn-green btn-sm mr-2"
-              >
-                Détails
-              </Link>
-              <Link
-                to={`/vendeur-commande/${data.row.original?.id}`}
-                className="btn btn-warning btn-sm mr-2"
-              >
-                Editer
-              </Link>
-              <DeleteFromMagasin
-                model="fromagasins"
-                entity={data.row.original}
-              />
+              {!data.row.original.isdeleted && (
+                <>
+                  <Link
+                    to={`/detailvendeur/${data.row.original?.id}`}
+                    className="btn btn-green btn-sm mr-2"
+                  >
+                    Détails
+                  </Link>
+                  <Link
+                    to={`/vendeur-commande/${data.row.original?.id}`}
+                    className="btn btn-warning btn-sm mr-2"
+                  >
+                    Editer
+                  </Link>
+                  <DeleteFromMagasin
+                    model="fromagasins"
+                    entity={data.row.original}
+                  />
+                </>
+              )}
             </>
           );
         },
@@ -186,7 +196,9 @@ export const HistoriqueVenteVendeur = () => {
           <div className="row">
             <div className="col-lg-6">
               <div>
-                <h3 className="text-uppercase">Historique de vente</h3>
+                <h3 className="text-uppercase">
+                  {type == "vente-cva" ? "Historique de vente" : "CREDIT"}
+                </h3>
                 <p>{`${displayDate(search.deb)} ->  ${displayDate(
                   search.fin
                 )}`}</p>
@@ -212,6 +224,7 @@ export const HistoriqueVenteVendeur = () => {
             data={commandes.sort((low, high) => high.id - low.id)}
             meta={meta}
             columns={columns}
+            filter={false}
             //  addUrl={NOUVELLEFACTURE}
             //  urlName={"Ajouter un facture"}
           />

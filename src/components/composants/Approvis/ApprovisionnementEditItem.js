@@ -4,6 +4,7 @@ import NumberFormat from "react-number-format";
 import { useDispatch } from "react-redux";
 import { displayMoney } from "../../../utils/functions";
 import ApprovisionnementEditItemControl from "./ApprovisionnementEditItemControl";
+import EditApprovisionnementRemise from "./EditApprovisionnementRemise";
 const ApprovisionnementEditItem = ({
   product,
   index,
@@ -41,6 +42,7 @@ const ApprovisionnementEditItem = ({
                 )}
               </td>
             </tr>
+            <EditApprovisionnementRemise product={product} />
           </table>
         </div>
 
@@ -53,12 +55,12 @@ const ApprovisionnementEditItem = ({
           />
         </div>
         <div>
-            <button
-              onClick={() => removeProduct(product?.id)}
-              className="btn btn-danger btn-xs text-right"
-            >
-              X
-            </button>
+          <button
+            onClick={() => removeProduct(product?.id)}
+            className="btn btn-danger btn-xs text-right"
+          >
+            X
+          </button>
         </div>
       </div>
     </div>

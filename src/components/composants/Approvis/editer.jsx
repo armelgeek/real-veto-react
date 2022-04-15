@@ -14,20 +14,19 @@ import ProductItemEditApprov from "./ProductItemEditApprov";
 import searchByNameAndFournisseur from "../../../filters/searchByNameAndFournisseur";
 import searchByName from "../../../filters/searchByName";
 import searchByFournisseur from "../../../filters/searchByFournisseur";
-import { fetchProductsById } from "../../../store/actions/approv";
 
 export const EditerApprov = () => {
   const { id } = useParams();
   const [regenerate, setRegenerate] = useState(false);
-  const dispatchz = useDispatch();
+  const dispatch = useDispatch();
   const approv = useSelector(getData("approvis").value);
   const meta = useSelector(getData("approvis").meta);
-  const products = useSelector(state => state.products.items);
+  const products = useSelector(getData("products").value);
   const metaproducts = useSelector(getData("products").meta);
   const [productData, setProductData] = useState([]);
   React.useEffect(() => {
-    dispatch(action("products").get(id));
-  }, []);
+    dispatch(action("approvis").get(id));
+  }, [id]);
   const [value, setValue] = useState("");
 
   const [state, setState] = useState([]);
@@ -62,8 +61,8 @@ export const EditerApprov = () => {
     dispatch(action("products").fetch());
   }, []);
   React.useEffect(() => {
-    if (meta.isFetching) {
-      setState(approv[approv.length - 1]?.contenu);
+    if (!meta.isFetching) {
+      setState(approv[0]?.contenu);
     }
   }, [meta]);
   useEffect(() => {
@@ -71,7 +70,7 @@ export const EditerApprov = () => {
       setProductData(products);
     }
   }, [metaproducts]);
-  console.log(approv);
+  console.log(id);
   return (
     <Content>
       <ContentHeader title="Edition de facture">
@@ -142,14 +141,14 @@ export const EditerApprov = () => {
               </ListGroup>
             </Col>
             <Col xs={7}>
-                <EditApprovisionnement
-                  disabled={metaproducts.isFetching}
-                  state={state}
-                  meta={meta}
-                  setState={setState}
-                  products={products}
-                  approv={approv[approv.length - 1]}
-                />
+              <EditApprovisionnement
+                disabled={metaproducts.isFetching==true}
+                state={state}
+                meta={meta}
+                setState={setState}
+                products={products}
+                approv={approv[0]}
+              />
             </Col>
           </Row>
         </Container>

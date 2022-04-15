@@ -12,8 +12,15 @@ import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
 import Page from "../../../@adminlte/adminlte/Content/Page";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import moment from "moment";
-import DataTable from '../../../utils/admin/DataTable';
-
+import DataTable from "../../../utils/admin/DataTable";
+import { isSpecialProductHandle } from "../vendeur/fromMagasin/block-it";
+const isModified = (contenu) => {
+  for (let i = 0; i < contenu.length; ++i) {
+    if (contenu[i].correction > 0 || contenu[i].correctionml > 0) {
+      return true;
+    } else return false;
+  }
+};
 export const MagasinVente = () => {
   var start = moment().isoWeekday(1).startOf("week");
   var end = moment().endOf("week");
@@ -43,93 +50,128 @@ export const MagasinVente = () => {
   }, [dateRange]);
   const calculateTotal = (arr) => {
     if (!arr || arr?.length === 0) return 0;
-    let total = 0;
-    arr.forEach((el) => {
-      total += el.prixVente * 1;
-    });
+    const total = arr.reduce((acc, val) => acc + val, 0);
     return total;
   };
-  const quantiteBruteTotal = (arr) => {
-    if (!arr || arr?.length === 0) return 0;
+
+  const totalDevente = (arr) => {
+    return (
+      calculateTotal(
+        arr?.map((product) => {
+          return isSpecialProductHandle(product)
+            ? product.prixqttccvente *
+                product.quantityParProduct *
+                product.qttccpvente +
+                product.prixVente * product.qttbylitre
+            : product.prixVente * product.quantityParProduct;
+        })
+      ) +
+      calculateTotal(
+        arr?.map((product) => {
+          return product.prixParCC * product.qttByCC;
+        })
+      )
+    );
+  };
+  const recetteDuJour = (arr = []) => {
     let total = 0;
-    arr.forEach((el) => {
-      total += el.quantityParProduct * 1;
-    });
+    if (commandes.length > 0) {
+      arr.map((c) => {
+        total += totalDevente(c?.contenu);
+      });
+    } else {
+      total = 0;
+    }
+
     return total;
   };
-  const quantiteCCTotal = (arr) => {
-    if (!arr || arr?.length === 0) return 0;
-    let total = 0;
-    arr.forEach((el) => {
-      total += el.qttByCC * 1;
-    });
-    return total;
-  };
-  const getDataProduct = () => {
-    dispatch(getCommandeCVA(deb, fin));
-  };
-  
   const columns = React.useMemo(
     () => [
       {
         Header: "Date",
         Cell: (data) => {
-          return (
-            <>
-              <span >
-                {displayDate(data.row.original?.dateCom)}
-              </span>
-            </>
-          );
+          return <>{displayDate(data.row.original?.dateCom)}</>;
         },
       },
       {
-        Header: "Quantité",
+        Header: "Produits",
         Cell: (data) => {
           return (
-            <>
-              <span>
-                {quantiteBruteTotal(data.row.original?.contenu)}
-              </span>
-            </>
-          );
-        },
-        
-      },
-      {
-        Header: "Quantité en ML",
-        Cell: (data) => {
-          return (
-            <>
-              <span className="badge badge-primary">
-              {quantiteCCTotal(data.row.original?.contenu)}
-              </span>
-            </>
+            <div style={{ width: "350px" }}>
+              {data.row.original?.isdeleted == true && (
+                <>
+                  <div className="badge badge-danger">Supprimé</div>
+                  <div className="text text-danger">
+                    Date de suppression :{" "}
+                    {displayDate(data.row.original?.deletedat)}
+                  </div>
+                </>
+              )}
+              {data.row.original?.isdeleted == null && (
+                <p>
+                  {isModified(data.row.original?.contenu) && (
+                    <div className="badge badge-warning">Modifié</div>
+                  )}
+                </p>
+              )}
+              {data.row.original?.contenu?.map((d) => (
+                <span>
+                  <span
+                    style={{
+                      background: "white",
+                      color:
+                        data.row.original?.isdeleted == true
+                          ? "red"
+                          : "inherit",
+                      padding: 2,
+                    }}
+                  >
+                    {d.name}
+                  </span>
+                  <span
+                    style={{
+                      color:
+                        data.row.original?.isdeleted == true
+                          ? "red"
+                          : "inherit",
+                    }}
+                  >
+                    {" "}
+                    {" || "}
+                  </span>
+                </span>
+              ))}
+            </div>
           );
         },
       },
       {
         Header: "Total",
         Cell: (data) => {
-          return <div>{displayMoney(calculateTotal(data.row.original?.contenu))}</div>;
+          return (
+            <div>{displayMoney(totalDevente(data.row.original?.contenu))}</div>
+          );
         },
-      },{
+      },
+      {
         Header: "Actions",
         Cell: (data) => {
           return (
-            <Link
-              className="btn btn-sm  btn-green"
-              to={`/magasin/detail/vente/${data.row.original?.id}`}
-            >
-            Détails
-            </Link>
-            
+            <>
+              <Link
+                className="btn btn-sm  btn-green"
+                to={`/magasin/detail/vente/${data.row.original?.id}`}
+              >
+                Détails
+              </Link>
+            </>
           );
         },
       },
     ],
     []
   );
+
   return (
     <>
       <Content>
@@ -161,7 +203,7 @@ export const MagasinVente = () => {
             </div>
           </div>
           <DataTable
-          filter={false}
+            filter={false}
             data={commandes}
             meta={meta}
             columns={columns}

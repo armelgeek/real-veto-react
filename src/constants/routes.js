@@ -43,16 +43,34 @@ export const DEPOTOMAGASIN = "/depot/to/magasin/";
 
 export const EDITDEPOTTOMAGASIN = "/depot/to/magasin/edit/:id";
 export const HISTORIQUESORTIECVA = "/historique/sortie/cva";
-export const HISTORIQUEVENTEVENDEUR = "/historique/vente/vendeur";
+export const HISTORIQUEVENTEVENDEUR = "/historique/vente/vendeur/:type";
 export const HISTORIQUEVENTEVENDEURVUEPARADMIN =
   "/historique/vente/admin/vendeur";
 export const ETATSTOCKMAGASIN = "/etat/stock/magasin";
-export const EDITFROMMAGASIN = '/vendeur-commande/:id';
+export const EDITFROMMAGASIN = "/vendeur-commande/:id";
 
-export const DEPOT_MAGASIN_DETAIL = '/depot/to/magasin/detail/:id';
-export const DETAIL_MAGASIN_VENTE = '/magasin/detail/vente/:id';
+export const DEPOT_MAGASIN_DETAIL = "/depot/to/magasin/detail/:id";
+export const DETAIL_MAGASIN_VENTE = "/magasin/detail/vente/:id";
 
-export const CORRECTION = '/corrections'
+export const CORRECTION = "/corrections";
 export const HISTORIQUECORRECTION = "/historique/corrections";
 
 export const DETAILCORRECTION = `/detailcorrection/:id`;
+export const FOURNISSEURS = `/fournisseurs/list`;
+export const ADD_FOURNISSEUR = `/add-fournisseur`;
+export const EDIT_FOURNISSEUR = `/fournisseurs/edit/:id`;
+
+export const CATEGORIES = `/categories/list`;
+export const ADD_CATEGORIES = `/add-categories`;
+export const EDIT_CATEGORIES = `/categories/edit/:id`;
+export const EMPRUNTEURS = `/emprunteurs/list`;
+export const ADD_EMPRUNTEUR = `/add-emprunteurs`;
+export const EDIT_EMPRUNTEUR = `/emprunters/edit/:id`;
+export const VACCINATEURS = `/vaccinateurs/list`;
+export const ADD_VACCINATEUR = `/add-vaccinateurs`;
+export const EDIT_VACCINATEUR = `/vaccinateurs/edit/:id`;
+export const CREDIT_VENDEUR = '/credits';
+export const VENDEUR_ADMIN = '/vendre/in/admin';
+export const EDITFROMMAGASIN_ADMIN = "/vendeur-admin-commande/:id";
+export const DETAILVENDEUR_ADMIN = `/detailvendeuradmin/:id`;
+export const HISTORIQUEVENTEVENDEUR_ADMIN = '/historique-admin/vente/vendeur/:type'

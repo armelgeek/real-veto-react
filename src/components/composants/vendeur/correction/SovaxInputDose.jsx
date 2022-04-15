@@ -39,13 +39,10 @@ export const SovaxInputDose = ({
         onChange={(value) => {
           onAddQtyPortion(value);
           setRealQttCC(value);
-          if (isEnough()) {
-            alert("Le stock ne satisfait pas votre commande");
-          }
+          
         }}
         min={0}
         defaultValue={product.quantityCCCVA}
-        max={!isEnough() ? product.doseDefault/2 : product.quantityCCCVA / 2}
       >
         <NumberInputField />
         <NumberInputStepper>

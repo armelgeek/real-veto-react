@@ -6,8 +6,16 @@ function DeleteFromMagasin({ model, entity }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const deleteEntity = () => {
-    dispatch(action(model).deleteTransaction(entity, "/delete-from-magasin"));
-    history.goBack();
+    dispatch(
+      action(model).createTransaction(
+        {
+          commande: entity,
+          original: entity,
+        },
+        "/delete-from-magasin"
+      )
+    );
+    // history.goBack();
   };
   return (
     <>

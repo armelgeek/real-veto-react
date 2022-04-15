@@ -35,7 +35,7 @@ export const EtatStockMagasin = () => {
         return (
           <div>
             <h3 className="badge badge-primary">
-              {data.row.original?.fournisseur.name}
+              {data.row.original?.fournisseur?.name}
             </h3>
           </div>
         );
@@ -79,9 +79,7 @@ export const EtatStockMagasin = () => {
           <div className="col-lg-6 text-right"></div>{" "}
         </div>
         <DataTable
-          data={products.sort(
-            (low, high) => high.quantityBruteCVA - low.quantityBruteCVA
-          )}
+          data={products}
           meta={meta}
           columns={columns}
         />

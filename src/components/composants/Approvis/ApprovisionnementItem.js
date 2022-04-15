@@ -4,10 +4,14 @@ import NumberFormat from "react-number-format";
 import { useDispatch } from "react-redux";
 import { displayMoney } from "../../../utils/functions";
 import ApprovisionnementItemControl from "./ApprovisionnementItemControl";
+import ApprovisionnementRemise from "./ApprovisionnementRemise";
 const ApprovisionnementItem = ({ product, isItemOnApprov, addToApprov }) => {
   const dispatch = useDispatch();
   const handleAddToApprov = () => {
     if (addToApprov) addToApprov(product);
+  };
+  const getHt = () => {
+    return product.prixFournisseur * product.quantityParProduct;
   };
 
   const itemOnApprov = isItemOnApprov ? isItemOnApprov(product.id) : false;
@@ -17,7 +21,7 @@ const ApprovisionnementItem = ({ product, isItemOnApprov, addToApprov }) => {
         <div style={{ width: "65%" }}>
           <table border="1">
             <tr>
-              <td>Nom de l'article : </td>
+              <td>Nom du produit : </td>
               <td>{product?.name}</td>
             </tr>
             <tr>
@@ -33,17 +37,9 @@ const ApprovisionnementItem = ({ product, isItemOnApprov, addToApprov }) => {
                 )}
               </td>
             </tr>
-            {/**<tr>
-              <td>Remise en Ariary :{product.remise}</td>
-              <td>
-                {" "}
-                <input
-                  type="number"
-                  onChange={(e) => (product.remise = e.target.value)}
-                  className="form-control"
-                />
-              </td>
-            </tr>**/}
+            {product.quantityParProduct != 0 && (
+              <ApprovisionnementRemise product={product} />
+            )}
           </table>
         </div>
         <div className="d-flex mt-3">

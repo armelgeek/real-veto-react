@@ -16,6 +16,8 @@ import Error from "../../../utils/admin/Resource/Error";
 function Create() {
   const fournisseurs = useSelector(getData("fournisseurs").value);
   const categories = useSelector(getData("categories").value);
+  const metacategories = useSelector(getData("categories").meta);
+  const metafournisseurs = useSelector(getData("fournisseurs").meta);
   const meta = useSelector(getData("products").meta);
   const [qttCcPVente, setQttCcPVente] = useState(0);
   const [prixQttCcVente, setPrixQttCCVente] = useState(0);
@@ -46,7 +48,7 @@ function Create() {
             initialValues={{
               name: "",
               type: "BOLUS",
-              doseDefault: 0,
+              doseDefault: 0,prixlitre:0,
               prixVente: 0,
               prixFournisseur: 0,
               prixVaccinateur: 0,
@@ -66,7 +68,6 @@ function Create() {
               quantityCC: 0,
               condml: 0,
               condval: 0,
-              condsize: 0,
               conditionnement: 1,
               qttccpvente: 0,
               prixqttccvente: 0,
@@ -89,15 +90,15 @@ function Create() {
                 qttccpvente,
                 conditionnement,
                 prixqttccvente,
-                condsize,
+                condsize,prixlitre
               } = values;
               dispatch(
                 action("products").create({
-                  id: meta.nextId,
                   name: name,
                   type: type,
                   doseDefault: doseDefault,
                   prixVente: parseFloat(prixVente),
+                  prixlitre: parseFloat(prixlitre),
                   prixFournisseur: parseFloat(prixFournisseur),
                   prixVaccinateur: parseFloat(prixVaccinateur),
                   quantityParProduct: 0,
@@ -127,6 +128,18 @@ function Create() {
                   prixqttccventedepot: 0,
                   quantityParProductDepot: 0,
                   condsizedepot: 0,
+                  doseRestantEnMg: 0,
+                  qttbylitre: 0,
+                  remise: 0,
+                  condval: 0,
+                  correction: 0,
+                  correctionml: 0,
+                  correctionl: 0,
+                  correctiontml: 0,
+                  correctiontl: 0,
+                  correctiontype: 0,
+                  qttyspecificmirror: 0,
+                  remisePerProduct: 1,
                 })
               );
               history.push(PRODUCTS);
@@ -140,26 +153,35 @@ function Create() {
                         Information générale
                       </div>
                       <div className="card-body">
+                        {metacategories.isFetching == true && (
+                          <p>Recuperation des categories</p>
+                        )}
                         <Form.Field.Select
                           name="categoryId"
                           label="Categorie"
                           emptyValue={true}
                           valueKey="name"
+                          disabled={metacategories.isFetching}
                           defaultValue={1}
                           options={categories}
                         />
+                        {metafournisseurs.isFetching == true && (
+                          <p>Recuperation des fournisseurs</p>
+                        )}
+
                         <Form.Field.Select
                           name="fournisseurId"
                           label="Fournisseur"
                           emptyValue={true}
                           valueKey="name"
                           options={fournisseurs}
+                          disabled={metafournisseurs.isFetching}
                         />
 
                         <Form.Field.Input
                           name="name"
                           label="Désignation"
-                          placeholder={"Désignation"}
+                          placeholder={"Désignation (Tikaz 1L )"}
                         />
                         <Form.Field.Select
                           name="type"
@@ -176,10 +198,10 @@ function Create() {
                         />
                         {values.type === "FLACON" && (
                           <div className="ml-3">
-                            <Form.Field.Number
+                            <Form.Field.Input
                               name="doseDefault"
-                              label="Quantité en ml"
-                              placeholder={"Quantité en ml"}
+                              label="Quantité en ml ou dose ou en litre"
+                              placeholder={"Quantité en ml ou dose ou en litre"}
                             />
                             <Form.Field.Select
                               name="conditionnement"
@@ -192,25 +214,26 @@ function Create() {
                             />
                             {values.conditionnement == 2 && (
                               <>
-                                <Form.Field.Number
+                                
+                                <Form.Field.Input
                                   name="condml"
                                   defaultValue={0}
                                   label="Conditionnement (ML)"
                                   placeholder={"Conditionnement en ML"}
                                 />
-                                <Form.Field.Number
+                                <Form.Field.Input
                                   name="condsize"
                                   defaultValue={0}
                                   label="Diviser en combien de flacon"
                                   placeholder={"Diviser en combien de flacon"}
                                 />
-                                <Form.Field.Number
+                                <Form.Field.Input
                                   name="qttccpvente"
                                   defaultValue={0}
                                   label="Quantité de vente en ML"
                                   placeholder={"Quantité de vente en ML"}
                                 />
-                                <Form.Field.Number
+                                <Form.Field.Input
                                   name="prixqttccvente"
                                   disabled={
                                     values.qttccpvente == null ||
@@ -232,7 +255,12 @@ function Create() {
                         Vente
                       </div>
                       <div className="card-body">
-                        <Form.Field.Number
+                      {values.conditionnement == 2 && (<Form.Field.Input
+                                   name="prixlitre"
+                                   label="Prix d'un litre"
+                                    placeholder={"Prix d'un litre"}
+                                />)}
+                        <Form.Field.Input
                           name="prixFournisseur"
                           defaultValue={0}
                           label="prix unitaire"
@@ -241,14 +269,14 @@ function Create() {
 
                         {/** Prix du fournisseur */}
 
-                        <Form.Field.Number
+                        <Form.Field.Input
                           name="prixVente"
                           defaultValue={0}
                           label="Prix de vente"
                           placeholder={"prix de vente"}
                         />
 
-                        <Form.Field.Number
+                        <Form.Field.Input
                           name="prixVaccinateur"
                           defaultValue={0}
                           label="Prix du vaccinateur"
@@ -256,13 +284,7 @@ function Create() {
                         />
                         <>
                           {values.type === "FLACON" && (
-                            <Form.Field.Number
-                              type={
-                                values.qttccpvente == null ||
-                                values.qttccpvente == ""
-                                  ? "text"
-                                  : "text"
-                              }
+                            <Form.Field.Input
                               data={
                                 values.qttccpvente != 0 &&
                                 values.qttccpvente != "" &&

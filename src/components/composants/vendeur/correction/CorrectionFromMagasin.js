@@ -19,6 +19,7 @@ import searchByNameAndFournisseur from "../../../../filters/searchByNameAndFourn
 import searchByFournisseur from "../../../../filters/searchByFournisseur";
 import searchByName from "../../../../filters/searchByName";
 import { moment } from "moment";
+import { isSpecialProductHandle } from '../fromMagasin/block-it';
 export default function CorrectionFromMagasin() {
     const products = useSelector(getData("products").value);
     const meta = useSelector(getData("products").meta);
@@ -63,7 +64,7 @@ export default function CorrectionFromMagasin() {
       return (
         calculateTotal(
           arr.map((product) => {
-            return product.prixVente * product.quantityParProduct;
+            return isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProduct : product.prixVente * product.quantityParProduct;
           })
         ) +
         calculateTotal(

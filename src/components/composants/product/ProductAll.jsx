@@ -54,7 +54,7 @@ export const ProductAll = () => {
           return (
             <>
               <span className="badge badge-primary">
-                {data.row.original?.fournisseur?.name}
+                {data.row.original?.fournisseur!=null ? data.row.original?.fournisseur?.name:""}
               </span>
             </>
           );

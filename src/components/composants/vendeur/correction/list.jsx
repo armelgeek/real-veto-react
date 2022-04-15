@@ -15,6 +15,7 @@ import moment from "moment";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/DateRangePicker";
 import DataTable from "../../../../utils/admin/DataTable";
 import { setSearchByDate } from "../../../../store/actions/search/search";
+import { isSpecialProductHandle } from '../../../../store/functions/function';
 const isModified = (contenu) => {
   for (let i = 0; i < contenu.length; ++i) {
     if (contenu[i].correction > 0 || contenu[i].correctionml > 0) {
@@ -52,7 +53,8 @@ export const HistoriqueDeCorrection = () => {
     return (
       calculateTotal(
         arr.map((product) => {
-          return product.prixVente * product.quantityParProduct;
+          return isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProduct : product.prixVente * product.quantityParProduct;
+          ;
         })
       ) +
       calculateTotal(

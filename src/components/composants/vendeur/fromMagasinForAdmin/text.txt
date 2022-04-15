@@ -1,0 +1,31 @@
+ {/*if (element.refQtSortie == null) {
+   // element.refQtSortie = element.quantityParProduct;
+  } else {
+    /*if (element.refQtSortie != Number(sortiedepot[0].quantiteSortie)) {
+      element.refQtSortie += element.quantityParProduct;
+    }*/
+  }}
+ {/**  if (Number(sortiedepot[0].quantiteSortie == element.refQtSortie)) {
+    sortiedepot[0].status = true;
+    dispatch(action("sortiedepots").update(sortiedepot[0]));
+    element.refQtSortie = null;
+    if (sortiedepot.length > 1) {
+      element.refSortie = sortiedepot[1].refSortie;
+      dispatch(
+        action("commandes").update({
+          id: Number(meta.nextId),
+          refSortie: sortiedepot[1].refSortie,
+        })
+      );
+    }
+    //le resaka reste in aza hadino
+  } else {
+    element.refSortie = sortiedepot[0].refSortie;
+    dispatch(
+      action("commandes").update({
+        id: Number(meta.nextId),
+        refSortie: sortiedepot[0].refSortie,
+      })
+    );
+  }*/}
+     

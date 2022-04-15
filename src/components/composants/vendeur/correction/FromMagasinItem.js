@@ -8,6 +8,7 @@ import { PhytoConditionnementInput } from "./PhytoConditionnementInput";
 import { SovaxInputDose } from "./SovaxInputDose";
 import useFromMagasin from "../../../../hooks/useFromMagasin";
 import FromMagasinItemLitre from "./FromMagasinItemLitre";
+import FromMagasinItemBrute from "./FromMagasinItemBrute";
 const FromMagasinItem = ({ product }) => {
   const [realQttCC, setRealQttCC] = useState(null);
   const [realQtt, setRealQtt] = useState(null);
@@ -36,20 +37,24 @@ const FromMagasinItem = ({ product }) => {
       <div className="d-flex justify-content-between align-items-center border   mb-2 p-2">
         <div style={{ width: "45%" }}>
           <p className="text-blue">{product.name}</p>
-          <div class="badge badge-primary">
-            {product?.fournisseur?.name}
-          </div>
+          <div class="badge badge-primary">{product?.fournisseur?.name}</div>
+        </div>
+        <div className="text-inline text-center mr-3">
+          <h5 className="mb-1 text-uppercase">Dépot</h5>
+          <FromMagasinItemBrute product={product} />{" "}
         </div>
         {product.condml !== 0 && product.qttccpvente !== 0 && (
-        <div className="text-inline text-center mr-3">
-        <h5 className="mb-1 text-uppercase">Boite</h5>
-        <FromMagasinItemLitre
-          product={product}
-          setRealQttCC={setRealQttCC}
-          setRealQtt={setRealQtt}
-          realQtt={realQtt}
-          realQttCC={realQttCC}
-        /> </div>)}
+          <div className="text-inline text-center mr-3">
+            <h5 className="mb-1 text-uppercase">Litre</h5>
+            <FromMagasinItemLitre
+              product={product}
+              setRealQttCC={setRealQttCC}
+              setRealQtt={setRealQtt}
+              realQtt={realQtt}
+              realQttCC={realQttCC}
+            />{" "}
+          </div>
+        )}
         <div className="text-inline text-center mr-2">
           <h5 className="mb-1">{product.type}</h5>
 

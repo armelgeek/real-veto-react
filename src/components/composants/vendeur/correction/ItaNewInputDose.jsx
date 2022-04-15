@@ -39,13 +39,10 @@ export const ItaNewInputDose = ({
         onChange={(value) => {
           onAddQtyPortion(value);
           setRealQttCC(value);
-          if(isEnough()){
-            alert("Le stock ne satisfait pas votre commande");
-          }
+         
         }}
         min={0}
         defaultValue={product.quantityCCCVA}
-        max={!isEnough() ? product.doseDefault : product.quantityCCCVA}
       >
         <NumberInputField />
         <NumberInputStepper>

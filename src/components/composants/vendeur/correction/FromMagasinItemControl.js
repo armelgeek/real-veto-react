@@ -77,15 +77,19 @@ const FromMagasinItemControl = ({
         }
         onChange={(value) => {
           if (value == "") {
-            setRealQtt(0);
-            onAddQtyBrute(0);
+            setRealQtt(
+              isSpecialProductHandle(product)
+                ? product?.condval
+                : product?.quantityBruteCVA
+            );
+            onAddQtyBrute(
+              isSpecialProductHandle(product)
+                ? product?.condval
+                : product?.quantityBruteCVA
+            );
           } else {
             setRealQtt(value);
             onAddQtyBrute(value);
-          }
-
-          if (isEnough(product)) {
-            alert("Le stock ne satisfait pas votre commande");
           }
         }}
         //max={product.quantityBruteCVA}

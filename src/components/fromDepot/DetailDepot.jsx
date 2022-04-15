@@ -12,6 +12,7 @@ import ActiveLink from "../../@adminlte/adminlte/Content/ActiveLink";
 import Content from "../../@adminlte/adminlte/Content/index";
 import { displayMoney } from "../../utils/functions";
 import { HISTORIQUEVENTEDEPOT } from "../../constants/routes";
+import { isSpecialProductHandle } from '../../store/functions/function';
 
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
@@ -82,14 +83,30 @@ function DetailDepot(props) {
                 <tr>
                   <td style={{ width: "40%" }}>{c.name}</td>
                   <>
-                    {c.quantityParProductDepot != 0 && (
-                      <div className="d-flex align-items-center py-0">
-                        <strong>{c.type}:</strong>
-                        {displayMoney(c.prixVente)} ({"x"}{" "}
-                        {c.quantityParProductDepot}) {" = "}
-                        {displayMoney(c.prixVente * c.quantityParProductDepot)}
-                      </div>
-                    )}
+                  {isSpecialProductHandle(c) ? (
+                      <>
+                      {c.quantityParProductDepot != 0 && (
+                          <div className="d-flex align-items-center py-0">
+                            <strong>{c.type}:</strong>
+                            {displayMoney(c.prixlitre)} ({"x"}{" "}
+                            {c.quantityParProductDepot}) {" = "}
+                            {displayMoney(c.prixlitre * c.quantityParProductDepot)}
+                          </div>
+                        )}
+                      </>
+                  ):(
+                            <>
+                            {c.quantityParProductDepot != 0 && (
+                                <div className="d-flex align-items-center py-0">
+                                  <strong>{c.type}:</strong>
+                                  {displayMoney(c.prixVente)} ({"x"}{" "}
+                                  {c.quantityParProductDepot}) {" = "}
+                                  {displayMoney(c.prixVente * c.quantityParProductDepot)}
+                                </div>
+                              )}
+                            </>
+                  )}
+                 
                   </>
 
                   {c.type == "FLACON" && (
@@ -105,7 +122,7 @@ function DetailDepot(props) {
                   )}
                   <td>
                     {displayMoney(
-                      c.prixVente * c.quantityParProductDepot +
+                      isSpecialProductHandle(c) ? c.prixlitre * c.quantityParProductDepot : c.prixVente * c.quantityParProductDepot +
                         c.prixParCC * c.qttByCCDepot
                     )}
                   </td>
@@ -117,7 +134,7 @@ function DetailDepot(props) {
             {displayMoney(
               calculateTotal(
                 commande[0]?.contenu.map((product) => {
-                  return product.prixVente * product.quantityParProductDepot;
+                  return isSpecialProductHandle(c) ? c.prixlitre * c.quantityParProductDepot : c.prixVente * c.quantityParProductDepot;
                 })
               ) +
                 calculateTotal(

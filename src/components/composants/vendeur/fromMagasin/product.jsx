@@ -17,6 +17,8 @@ import searchByFournisseur from "../../../../filters/searchByFournisseur";
 import searchByName from "../../../../filters/searchByName";
 import { moment } from "moment";
 import { clearFromMagasin } from "../../../../store/frommagasin/actions/frommagasin";
+import { isBlocked } from "./block-it";
+import { isSpecialProductHandle } from '../../../../store/functions/function';
 const Products = () => {
   const products = useSelector(getData("products").value);
   const meta = useSelector(getData("products").meta);
@@ -44,11 +46,11 @@ const Products = () => {
 
   useEffect(() => {
     if (!meta.isFetching) {
-      setProductData(products);
+      setProductData(products.filter(p=> !isBlocked(p)));
     }
   }, [meta]);
   useEffect(() => {
-    setProductData(searchByName(products, value));
+    setProductData(searchByName(products.filter(p=> !isBlocked(p)), value));
   }, [value]);
 
   const calculateTotal = (arr) => {
@@ -61,7 +63,8 @@ const Products = () => {
     return (
       calculateTotal(
         arr.map((product) => {
-          return product.prixVente * product.quantityParProduct;
+          return isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProduct : product.prixVente * product.quantityParProduct;
+          
         })
       ) +
       calculateTotal(
@@ -71,13 +74,7 @@ const Products = () => {
       )
     );
   };
-  const recetteDuJour = (arr) => {
-    let total = 0;
-    arr.map((c) => {
-      total += totalDevente(c?.contenu);
-    });
-    return total;
-  };
+
   return (
     <>
       <div className="bg-dark text-white py-3 d-flex justify-content-center align-items-center">

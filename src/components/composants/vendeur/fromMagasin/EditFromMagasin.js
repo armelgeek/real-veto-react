@@ -23,14 +23,14 @@ const EditFromMagasin = () => {
   const [regenerate, setRegenerate] = useState(false);
   const dispatch = useDispatch();
   const commandes = useSelector(getData("commandes").value);
-  const realcommande = useSelector(getData("commandesclone").value);
+  //const realcommande = useSelector(getData("commandesclone").value);
   const metacommandes = useSelector(getData("commandes").meta);
   const products = useSelector(getData("products").value);
   const metaproducts = useSelector(getData("products").meta);
   const [productData, setProductData] = useState([]);
   React.useEffect(() => {
     dispatch(action("commandes").get(id));
-    dispatch(action("commandesclone").getWithPath(id,'commandes'));
+    // dispatch(action("commandesclone").getWithPath(id, "commandes"));
   }, [id]);
   const [value, setValue] = useState("");
 
@@ -48,27 +48,13 @@ const EditFromMagasin = () => {
   const [identif, setIdentif] = useState();
 
   React.useEffect(() => {
-    if (identif != null) {
-      setProductData(searchByNameAndFournisseur(products, value, identif));
-    } else {
-      setProductData(searchByName(products, value));
-    }
+    setProductData(searchByName(products, value));
   }, [value]);
-  React.useEffect(() => {
-    if (value != "") {
-      setProductData(searchByNameAndFournisseur(products, value, identif));
-    } else {
-      setProductData(searchByFournisseur(products, identif));
-    }
-  }, [identif]);
 
   React.useEffect(() => {
     dispatch(action("products").fetch());
   }, []);
-  React.useEffect(() => {
-    //recuperer la premiere ligne dans le tableau fournisseur
-    // dispatch(fetchProductsByFournisseur(identif));
-  }, [identif]);
+
   React.useEffect(() => {
     if (!metacommandes.isFetching) {
       setState(commandes[0]?.contenu);
@@ -79,9 +65,6 @@ const EditFromMagasin = () => {
       setProductData(products);
     }
   }, [metaproducts]);
-  const setValueOf = (val) => {
-    setState(val);
-  };
   return (
     <div>
       <div className="bg-dark text-white p-3 d-flex justify-content-center align-items-center">
@@ -104,28 +87,6 @@ const EditFromMagasin = () => {
                     placeholder="Rechercher un produit"
                     className="form-control mb-2"
                   />
-                  <GetAll model="fournisseurs">
-                    <Data>
-                      {({ data, meta }) => (
-                        <div className="my-2">
-                          <select
-                            className="form-control"
-                            selected={identif == 2}
-                            onChange={(e) => {
-                              setIdentif(e.target.value);
-                            }}
-                          >
-                            <option value="">
-                              Selectionner un fournisseur
-                            </option>
-                            {data.map((d) => (
-                              <option value={d.id}>{d.name}</option>
-                            ))}
-                          </select>
-                        </div>
-                      )}
-                    </Data>
-                  </GetAll>
                   <div
                     style={{
                       overflowY: "auto",
@@ -138,6 +99,7 @@ const EditFromMagasin = () => {
                       {productData.map((p) => (
                         <EditProductItemToMag
                           state={state}
+                          realproduct={products}
                           setState={setState}
                           product={p}
                         />
@@ -154,7 +116,6 @@ const EditFromMagasin = () => {
             <EditToFromMag
               state={state}
               meta={metacommandes}
-              realcommande={realcommande[0]?.contenu}
               disabled={metaproducts.isFetching}
               setState={setState}
               products={products}

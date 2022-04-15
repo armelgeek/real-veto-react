@@ -26,6 +26,7 @@ export default combineReducers({
     count: countReducer,
     auth: userReducer,
     products: productReducer,
+    realproducts: productReducer,
     categories: categoriesReducer,
     fournisseurs: fournisseursReducer,
     emprunters: emprunteurReducer,

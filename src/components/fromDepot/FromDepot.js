@@ -13,6 +13,7 @@ import {
 import { clearFromDepot } from "../../store/fromdepot/actions/fromdepot";
 import { SORTIE, CREDITVACCINATEUR, CREDIT } from "../../constants/routes";
 import { Select } from '@chakra-ui/react';
+import { isSpecialProductHandle } from '../composants/vendeur/fromMagasin/block-it';
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   const total = arr.reduce((acc, val) => acc + val, 0);
@@ -198,9 +199,7 @@ const FromDepot = ({ setRegenerate }) => {
                     {displayMoney(
                       calculateTotal(
                         fromdepots.map((product) => {
-                          return (
-                            product.prixVente * product.quantityParProductDepot
-                          );
+                          return isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProductDepot : product.prixVente * product.quantityParProductDepot;
                         })
                       ) +
                         calculateTotal(

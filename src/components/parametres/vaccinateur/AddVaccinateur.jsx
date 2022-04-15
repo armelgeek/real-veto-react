@@ -1,59 +1,86 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { action } from "../../../utils/lib/call";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Form from "../../../utils/form";
 import { validationSchema } from "./validation";
-export const AddVaccinateur = ({ categories, meta }) => {
+import Content from "../../../@adminlte/adminlte/Content";
+import ContentHeader from "../../../@adminlte/adminlte/Content/ContentHeader";
+import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
+import Page from "../../../@adminlte/adminlte/Content/Page";
+import { action, getData } from "../../../utils/lib/call";
+import { useHistory } from "react-router-dom";
+function CreateVaccinateur() {
+  const vaccinateurs = useSelector(getData("vaccinateurs").value);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   return (
-    <div className="mb-3">
-      <Form
-        id="add-form-vaccinateur"
-        enableReinitialize
-        initialValues={{
-          nom: "",
-          contact: "",
-        }}
-        validations={validationSchema}
-        onSubmit={(values, form) => {
-          const { nom, contact } = values;
-          dispatch(
-            action("vaccinateurs").create({
-              id: meta.nextId,
-              name: nom,
-              contact: contact,
-            })
-          );
-        }}
-        render={() => (
-          <Form.Element>
-            <div className="d-flex flex-column justify-content-center align-items-center">
-              <div
-                style={{
-                  width: "300px",
-                }}
-              >
-                <Form.Field.Input
-                  name="nom"
-                  label="Nom du vaccinateur"
-                  placeholder={"Nom du vaccinateur"}
-                />
-                <Form.Field.Input
-                  name="contact"
-                  label="Contact du vaccinateur"
-                  placeholder={"Contact du vaccinateur"}
-                />
-
-                <button className="btn btn-success mt-2 btn-block " type="submit">
-                  Ajouter
-                </button>
-              </div>
-            </div>
-          </Form.Element>
-        )}
-      />
-    </div>
+    <>
+      <Content>
+        <ContentHeader title="Ajouter un vaccinateur">
+          <ActiveLink title="Ajouter un vaccinateur"></ActiveLink>
+        </ContentHeader>
+        <Page>
+          <Form
+            id="add-form-vaccinateurs"
+            enableReinitialize
+            initialValues={{
+              name: "",
+              contact:""
+            }}
+            validations={validationSchema}
+            onSubmit={(values, form) => {
+              const { name, contact } = values;
+              dispatch(
+                action("vaccinateurs").create({
+                  name: name,
+                  contact: contact,
+                })
+              );
+              history.goBack();
+            }}
+            render={({ values }) => (
+              <Form.Element>
+                <div className="row">
+                  <div className="col-lg-6">
+                    <div className="card">
+                      <div className="card-header bg-dark text-white">
+                        Information générale
+                      </div>
+                      <div className="card-body">
+                        <Form.Field.Input
+                          name="name"
+                          label="Nom"
+                          placeholder={"Nom"}
+                        />
+                        <Form.Field.Input
+                          name="contact"
+                          label="Téléphone"
+                          placeholder={"Téléphone"}
+                        />
+                        <div className="mt-3">
+                          <button
+                            className="btn btn-green  btn-sm "
+                            type="submit"
+                          >
+                            Ajouter
+                          </button>
+                          <button
+                            className="btn btn-danger ml-2  btn-sm "
+                            type="reset"
+                          >
+                            Annuler
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Form.Element>
+            )}
+          />
+        </Page>
+      </Content>
+    </>
   );
-};
+}
+
+export default CreateVaccinateur;

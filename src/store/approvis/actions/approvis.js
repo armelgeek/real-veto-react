@@ -7,7 +7,7 @@ import {
   REMOVE_FROM_APPROV,
   SET_APPROV_ITEMS,
   ADD_NUMBER_QTY_ITEM,
-  ADD_QTY_NUMBER_APPROV_ITEM
+  ADD_QTY_NUMBER_APPROV_ITEM,ADD_REMISE_PER_PRODUCT,ADD_REMISE_PER_PRODUCT_PERCENT
 } from "../constants";
 
 
@@ -48,6 +48,20 @@ export const minusQtyApprovItem = (id) => ({
 });
 export const setQtyApprovItem =(id,value)=>({
   type : ADD_QTY_NUMBER_APPROV_ITEM,
+  payload:{
+    id:id,
+    value:value
+  }
+}) 
+export const setRemisePerProduct =(id,value)=>({
+  type : ADD_REMISE_PER_PRODUCT,
+  payload:{
+    id:id,
+    value:value
+  }
+}) 
+export const setRemisePercent =(id,value)=>({
+  type : ADD_REMISE_PER_PRODUCT_PERCENT,
   payload:{
     id:id,
     value:value

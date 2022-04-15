@@ -19,9 +19,7 @@ const calculateTotal = (arr) => {
 
   return total;
 };
-const remiseEnAriary = (arr, remise) => {
-  return (calculateTotal(arr) * remise) / 100;
-};
+
 function copy(object) {
   var output, value, key;
   output = Array.isArray(object) ? [] : {};
@@ -32,7 +30,7 @@ function copy(object) {
   return output;
 }
 const calculeTotalAvecRemise = (arr, remise) => {
-  return calculateTotal(arr) - remiseEnAriary(arr, remise);
+  return calculateTotal(arr) - remise;
 };
 
 const Approvisionnement = ({ setRegenerate }) => {
@@ -69,13 +67,17 @@ const Approvisionnement = ({ setRegenerate }) => {
           contenu: getContenu(approvisionnements),
           totalht: calculateTotal(
             approvisionnements.map(
-              (product) => product.prixFournisseur * product.quantityParProduct
+              (product) =>
+                product.prixFournisseur * product.quantityParProduct -
+                product.remise
             )
           ),
           remise: remise,
           total: calculeTotalAvecRemise(
             approvisionnements.map(
-              (product) => product.prixFournisseur * product.quantityParProduct
+              (product) =>
+                product.prixFournisseur * product.quantityParProduct -
+                product.remise
             ),
             remise
           ),
@@ -100,8 +102,8 @@ const Approvisionnement = ({ setRegenerate }) => {
     });*/
     }
     dispatch(clearApprov());
-   //setRegenerate(true);
-   history.push(LISTAPPROV);
+    //setRegenerate(true);
+    history.push(LISTAPPROV);
     console.log(approvisionnements);
   };
 
@@ -154,7 +156,7 @@ const Approvisionnement = ({ setRegenerate }) => {
               <div className="d-flex justify-content-end align-items-center my-3 ">
                 <table>
                   <tr>
-                    <td>REMISE :</td>
+                    <td>REMISE : (en Ariary)</td>
                     <td>
                       <input
                         type="number"
@@ -243,7 +245,7 @@ const Approvisionnement = ({ setRegenerate }) => {
                       value={remiseEnAriary(
                         approvisionnements.map(
                           (product) =>
-                            product.prixFournisseur * product.quantityParProduct
+                            product.prixFournisseur * product.quantityParProduct -product.remise
                         ),
                         remise
                       )}

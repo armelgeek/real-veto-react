@@ -53,7 +53,7 @@ const SelectButton = forwardRef(
           ref={ref}
         >
           {emptyValue && <option value="">Selectionner</option>}
-          {options.map((value) => (
+          {options?.map((value) => (
             <option
               defaultChecked={`${selectValue}`}
               value={`${valueKey ? value.id : value}`}

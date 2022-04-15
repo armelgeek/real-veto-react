@@ -18,6 +18,7 @@ import { clearFromDepot } from "../../../../store/fromdepot/actions/fromdepot";
 import EditFromDepotItem from "./EditItem";
 import { HISTORIQUEVENTEVENDEUR } from "../../../../constants/routes";
 import { Link } from "react-router-dom";
+import { isSpecialProductHandle, locked } from "./block-it";
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   const total = arr.reduce((acc, val) => acc + val, 0);
@@ -34,8 +35,6 @@ function copy(object) {
 }
 const EditToFromMag = ({
   state,
-  realcommande,
-
   meta,
   setState,
   disabled,
@@ -58,7 +57,6 @@ const EditToFromMag = ({
   const dispatch = useDispatch();
   const emprunters = useSelector(getData("emprunters").value);
   //const meta = useSelector(getData("commandes").meta);
-  //const commandes = useSelector(getData("commandes").value);
   const date = new Date();
   const [dateCom, setDateCom] = useState(date);
   useEffect(() => {
@@ -87,26 +85,30 @@ const EditToFromMag = ({
 
   const onCheckOut = () => {
     const { exist, added, missing } = getContenu();
-    dispatch(
-      action("commandes").updateTransaction(
-        {
-          id: commandes?.id,
-          contenu: state,
-          commande: state,
-          type: "vente-cva",
-          sorte: "sortie",
-          sorte: "sortie",
-          status: true,
-          dateCom: dateCom != null ? dateCom : date,
-          exist: exist,
-          added: added,
-          missing: missing,
-        },
-        "update-from-magasin"
-      )
-    );
-    console.log(state);
-    // history.push(HISTORIQUEVENTEVENDEUR);
+
+    if (!locked(state)) {
+      dispatch(
+        action("commandes").updateTransaction(
+          {
+            id: commandes?.id,
+            contenu: state,
+            commande: state,
+            type: "vente-cva",
+            sorte: "sortie",
+            sorte: "sortie",
+            status: true,
+            dateCom: dateCom != null ? dateCom : date,
+            exist: exist,
+            added: added,
+            missing: missing,
+          },
+          "update-from-magasin"
+        )
+      );
+      //history.push(HISTORIQUEVENTEVENDEUR);
+    } else {
+      alert("modification non conforme,veuillez verifier");
+    }
   };
 
   const onClearBasket = () => {
@@ -185,9 +187,10 @@ const EditToFromMag = ({
                   <EditFromDepotItem
                     key={`${product?.id}_${i}`}
                     product={product}
-                    realcommande={realcommande.find((r) => r.id == product.id)}
+                    realcommande={commandes[0]?.find((e) => e.id == product.id)}
                     state={state}
                     index={i}
+                    products={products?.find((e) => e.id == product.id)}
                     setState={setState}
                     basket={fromdepots}
                     dispatch={dispatch}
@@ -198,26 +201,31 @@ const EditToFromMag = ({
 
           {state?.length > 0 && (
             <Card.Footer className="d-flex align-items-center justify-content-between">
-              <div style={{ width: "30%" }}>
+              <div style={{ width: "40%" }}>
                 <h2 className="p-2 text-uppercase bg-primary">
                   <strong data-test-id="total-price-orders">
                     Total:
                     {displayMoney(
                       calculateTotal(
                         state?.map((product) => {
-                          return product.prixVente * product.quantityParProduct;
+                          return isSpecialProductHandle(product)
+                            ? product.prixqttccvente *
+                                product.quantityParProduct *
+                                product.qttccpvente +
+                                product.prixVente * product.qttbylitre
+                            : product.prixVente * product.quantityParProduct;
                         })
                       ) +
                         calculateTotal(
-                          state?.state?.map((product) => {
-                            return product.prixParCC * product.qttByCCDepot;
+                          state?.map((product) => {
+                            return product.prixParCC * product.qttByCC;
                           })
                         )
                     )}
                   </strong>
                 </h2>
               </div>
-              <div style={{ width: "70%" }}>
+              <div style={{ width: "60%" }}>
                 {state?.length > 0 && (
                   <div className="d-flex text-right align-items-end justify-content-end">
                     <button
@@ -230,7 +238,7 @@ const EditToFromMag = ({
                     </button>
                     <button
                       className="btn btn-danger btn-sm"
-                      onClick={onClearBasket}
+                      onClick={() => history.goBack()}
                       type="button"
                     >
                       <span>Annuler</span>

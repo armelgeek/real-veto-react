@@ -45,30 +45,13 @@ const EditSortie = () => {
     };
   }, [regenerate]);
 
-  const [identif, setIdentif] = useState();
-
-  React.useEffect(() => {
-    if (identif != null) {
-      setProductData(searchByNameAndFournisseur(products, value, identif));
-    } else {
-      setProductData(searchByName(products, value));
-    }
+  React.useEffect(() => {setProductData(searchByName(products, value));
   }, [value]);
-  React.useEffect(() => {
-    if (value != "") {
-      setProductData(searchByNameAndFournisseur(products, value, identif));
-    } else {
-      setProductData(searchByFournisseur(products, identif));
-    }
-  }, [identif]);
 
   React.useEffect(() => {
     dispatch(action("products").fetch());
   }, []);
-  React.useEffect(() => {
-    //recuperer la premiere ligne dans le tableau fournisseur
-    // dispatch(fetchProductsByFournisseur(identif));
-  }, [identif]);
+  
   React.useEffect(() => {
     if (!metacommandes.isFetching) {
       setState(commandes[0]?.contenu);
@@ -105,28 +88,7 @@ const EditSortie = () => {
                       placeholder="Rechercher un produit"
                       className="form-control mb-2"
                     />
-                    <GetAll model="fournisseurs">
-                      <Data>
-                        {({ data, meta }) => (
-                          <div className="my-2">
-                            <select
-                              className="form-control"
-                              selected={identif == 2}
-                              onChange={(e) => {
-                                setIdentif(e.target.value);
-                              }}
-                            >
-                              <option value="">
-                                Selectionner un fournisseur
-                              </option>
-                              {data.map((d) => (
-                                <option value={d.id}>{d.name}</option>
-                              ))}
-                            </select>
-                          </div>
-                        )}
-                      </Data>
-                    </GetAll>
+                    
                     <div
                       style={{
                         overflowY: "auto",

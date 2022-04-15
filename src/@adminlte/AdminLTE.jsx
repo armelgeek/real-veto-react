@@ -29,7 +29,12 @@ import {
   TDB_DEPOT_VERS_MAGASIN,
   TDB_VENTE_CBV,
   TDB_FACTURES,
-  CORRECTION,HISTORIQUECORRECTION
+  CORRECTION,
+  HISTORIQUECORRECTION,
+  FOURNISSEURS,
+  CATEGORIES,
+  VACCINATEURS,
+  EMPRUNTEURS,
 } from "../constants/routes";
 class AdminLTE extends React.PureComponent {
   render() {
@@ -86,33 +91,40 @@ class AdminLTE extends React.PureComponent {
                     />
                   </NavItem>
                   <NavItem title="Correction">
-                  <NavTree
-                    title={"Ajouter une correction"}
-                    route={CORRECTION}
-                  />
+                    <NavTree
+                      title={"Ajouter une correction"}
+                      route={CORRECTION}
+                    />
                     <NavTree
                       title={"Historique de correction"}
                       route={HISTORIQUECORRECTION}
                     />
                   </NavItem>
 
-                  
                   <NavItem title="Vente">
+                  <NavTree
+                      title={"Effectuer une vente"}
+                      route={"/vendre/in/admin"}
+                    />
                     <NavTree
                       title={"Etat de stock magasin"}
                       route={ETATSTOCKMAGASIN}
                     />
                     <NavTree
                       title={"Historique de vente du magasin"}
-                      route={HISTORIQUEVENTEVENDEURVUEPARADMIN}
+                      route={'/historique-admin/vente/vendeur/vente-cva'}
                     />
-
+                    <NavTree
+                      title={"Crédit"}
+                      route={"/historique-admin/vente/vendeur/credit-cva"}
+                    />
                   </NavItem>
                   <NavItem title="Parametres">
-                    <NavTree
-                      title={"Parametres générales"}
-                      route={PARAMETRES}
-                    />
+                    <NavTree title={"Categories"} route={CATEGORIES} />
+                    <NavTree title={"Fournisseurs"} route={FOURNISSEURS} />
+                    <NavTree title={"Demandeurs de credit"} route={EMPRUNTEURS} />
+                    <NavTree title={"Vaccinateurs"} route={VACCINATEURS} />
+                    
                   </NavItem>
                 </ul>
               </nav>

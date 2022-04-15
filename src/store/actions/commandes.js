@@ -31,9 +31,9 @@ export const getEntree = (deb, fin) =>
 export const getSortie = (deb, fin) =>
   fetch("commandes", { path: `/sortie?deb=${deb}&fin=${fin}`, replace: true });
 
-export const getCommandeCVA = (deb, fin) =>
+export const getCommandeCVA = (deb, fin,type) =>
   fetch("commandes", {
-    path: `/vente-cva?deb=${deb}&fin=${fin}`,
+    path: `/vente-cva?deb=${deb}&fin=${fin}&type=${type}`,
     replace: true,
   });
   export const getCommandeVenteCorrection = (deb, fin) =>

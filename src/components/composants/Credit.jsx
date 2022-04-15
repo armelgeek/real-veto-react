@@ -45,6 +45,14 @@ function Credit(props) {
     });
     return total;
   };
+  const calculateTotalNormal = (arr) => {
+    if (!arr || arr?.length === 0) return 0;
+    let total = 0;
+    arr.forEach((el) => {
+      total += el.prixVente * el.quantityParProductDepot;
+    });
+    return total;
+  };
   const quantiteBruteTotal = (arr) => {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
@@ -79,7 +87,7 @@ function Credit(props) {
           return (
             <div style={{ width: "100px" }}>
               {value != null  && value.map(e => (
-                <p>{e.id}</p>
+                <p>{e.name}</p>
               ))}
             </div>
           );
@@ -106,17 +114,6 @@ function Credit(props) {
       {
         Header: "Contact",
         accessor: "emprunter.contact",
-      },
-
-      {
-        Header: "Quantité",
-        Cell:({ cell: { value } }) => {
-          return (
-            <div>
-              {quantiteBruteTotal(value?.contenu)}
-            </div>
-          );
-        },
       },
       {
         Header: "Total",

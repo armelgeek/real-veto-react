@@ -13,6 +13,7 @@ import {
 import { clearFromDepot } from "../../store/fromdepot/actions/fromdepot";
 import { SORTIE } from "../../constants/routes";
 import EditFromDepotItem from "./EditFromDepotItem";
+import { isSpecialProductHandle } from '../composants/vendeur/fromMagasin/block-it';
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
   const total = arr.reduce((acc, val) => acc + val, 0);
@@ -310,7 +311,7 @@ const EditFromDepot = ({
                       calculateTotal(
                         state?.map((product) => {
                           return (
-                            product.prixVente * product.quantityParProductDepot
+                            isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProductDepot : product.prixVente * product.quantityParProductDepot
                           );
                         })
                       ) +

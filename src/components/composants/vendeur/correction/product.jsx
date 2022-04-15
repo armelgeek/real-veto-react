@@ -16,6 +16,7 @@ import searchByNameAndFournisseur from "../../../../filters/searchByNameAndFourn
 import searchByFournisseur from "../../../../filters/searchByFournisseur";
 import searchByName from "../../../../filters/searchByName";
 import { moment } from "moment";
+import { isSpecialProductHandle } from '../../../../store/functions/function';
 const Products = () => {
   const products = useSelector(getData("products").value);
   const meta = useSelector(getData("products").meta);
@@ -60,7 +61,8 @@ const Products = () => {
     return (
       calculateTotal(
         arr.map((product) => {
-          return product.prixVente * product.quantityParProduct;
+          return isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProduct : product.prixVente * product.quantityParProduct;
+            
         })
       ) +
       calculateTotal(

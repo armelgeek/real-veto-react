@@ -19,8 +19,8 @@ const DetailApprov = () => {
   }, [id]);
   return (
     <Content>
-      <ContentHeader title="Détail d'approv.">
-        <ActiveLink title="Detail d'approv."></ActiveLink>
+      <ContentHeader title="Détail du facture">
+        <ActiveLink title="Detail de facture"></ActiveLink>
       </ContentHeader>
       <Page>
         <div className="bg-white p-2">
@@ -76,7 +76,7 @@ const DetailApprov = () => {
               ))}
               <tr>
                 <td>
-                  <strong>Remise :</strong> {approv[0]?.remise} %
+                  <strong>Remise :</strong> {approv[0]?.remise} Ar
                 </td>
               </tr>
               <tr>

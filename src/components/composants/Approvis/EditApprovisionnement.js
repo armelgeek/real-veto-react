@@ -16,6 +16,7 @@ import { LISTAPPROV } from "../../../constants/routes";
 import { handleSoldProduct } from "../../../store/functions/function";
 import useApprov from "../../../hooks/useApprov";
 import { arrayMissing } from "../../../utils/array";
+import {displayDate} from "../../../utils/functions";
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
 
@@ -32,13 +33,13 @@ const calculeTotalAvecRemise = (arr, remise) => {
 };
 
 const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
-  const [remise, setRemise] = useState(approv?.remise);
-  const [dateEcheance, setDateEcheance] = useState(approv?.dateEcheance);
-  const [dateApprovis, setDateApprovis] = useState(approv?.dateApprov);
+  const [remise, setRemise] = useState(state?.remise);
+  const [dateEcheance, setDateEcheance] = useState(state?.dateEcheance);
+  const [dateApprovis, setDateApprovis] = useState(state?.dateApprov);
   const [realContent, setRealContent] = useState(approv?.contenu);
-  const [remarque, setRemarque] = useState(approv?.remarque);
+  const [remarque, setRemarque] = useState(state?.remarque);
   const [is, setIs] = useState("");
-  const [typePaye, setTypePaye] = useState(approv?.typePaye);
+  const [typePaye, setTypePaye] = useState(state?.typePaye);
   const dispatch = useDispatch();
   const history = useHistory();
   const updateQtt = (is, element, last, qtt) => {
@@ -71,49 +72,13 @@ const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
     const missing = copy(realContent).filter(
       (e) => !state.find((a) => e.id === a.id)
     );
-    /* missing.forEach((element) => {
-
-      action("products").update({
-        id: element.id,
-        quantityBrute: element.quantityBrute - element.quantityParProduct,
-        quantityParProduct: 0,
-      });
-    });*/
     const added = copy(realContent).filter(
       (e) => !state.find((a) => e.id === a.id)
     );
 
-    const exist = copy(realContent).map((element) => state.find((p) => p.id == element.id));
-
-      /*if (commandeLast != null || commandeLast != undefined) {
-        // if(element.quantityParProduct){}
-        let qtt = 0;
-        if (
-          element.quantityParProduct * 1 >
-          commandeLast.quantityParProduct * 1
-        ) {
-          qtt =
-            element.quantityParProduct * 1 -
-            commandeLast.quantityParProduct * 1;
-          element.quantityBrute = commandeLast.quantityBrute + qtt;
-        }
-        if (
-          commandeLast.quantityParProduct * 1 >
-          element.quantityParProduct * 1
-        ) {
-          qtt =
-            commandeLast.quantityParProduct * 1 -
-            element.quantityParProduct * 1;
-          element.quantityBrute = commandeLast.quantityBrute - qtt;
-        }
-        if (
-          element.quantityParProduct * 1 ==
-          commandeLast.quantityParProduct * 1
-        ) {
-          element.quantityBrute = commandeLast.quantityBrute;
-        }
-        return element;
-      }*/
+    const exist = copy(realContent).map((element) =>
+      state.find((p) => p.id == element.id)
+    );
     return {
       exist: exist.filter((e) => e != null),
       added,
@@ -131,13 +96,17 @@ const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
           contenu: state,
           totalht: calculateTotal(
             state.map(
-              (product) => product.prixFournisseur * product.quantityParProduct
+              (product) =>
+                product.prixFournisseur * product.quantityParProduct -
+                product.remise
             )
           ),
           remise: remise,
           total: calculeTotalAvecRemise(
             state.map(
-              (product) => product.prixFournisseur * product.quantityParProduct
+              (product) =>
+                product.prixFournisseur * product.quantityParProduct -
+                product.remise
             ),
             remise
           ),
@@ -177,6 +146,7 @@ const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
         </>
       ))}
  */}
+
       <Card>
         <Card.Header className="d-flex justify-content-between align-items-center bg-dark text-white">
           <div>
@@ -212,17 +182,7 @@ const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
               </div>
             </>
           )}
-          {!meta.isFetching && state?.length <= 0 && (
-            <div className="d-flex justify-content-end">
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={() => setState(approv?.contenu)}
-                type="button"
-              >
-                <span>Annuler</span>
-              </button>
-            </div>
-          )}
+         
           {meta.isFetching && <p>Chargement en cours ...</p>}
           {state?.map((product, i) => (
             <ApprovisionnementEditItem
@@ -248,7 +208,6 @@ const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
                         min={0}
                         disabled={disabled}
                         value={remise}
-                        max={100}
                         onChange={(e) => {
                           setRemise(e.target.value);
                         }}

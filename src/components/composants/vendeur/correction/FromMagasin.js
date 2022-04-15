@@ -7,7 +7,7 @@ import { Card } from "react-bootstrap";
 import { clearFromMagasin } from "../../../../store/frommagasin/actions/frommagasin";
 import { action, getData } from "../../../../utils/lib/call";
 import { displayMoney, checkHasExistText } from "../../../../utils/functions";
-import { HISTORIQUEVENTEVENDEUR } from "../../../../constants/routes";
+import { CORRECTION } from "../../../../constants/routes";
 import { useHistory } from "react-router-dom";
 import Lang from "../../../../constants/lang";
 import {
@@ -73,8 +73,8 @@ const FromMagasin = () => {
         dispatch(action("products").update(element));
       });
     }*/
-    //dispatch(clearFromMagasin());
-   // history.push(HISTORIQUEVENTEVENDEUR);
+    dispatch(clearFromMagasin());
+    history.push(CORRECTION);
   };
 
   const onClearBasket = () => {

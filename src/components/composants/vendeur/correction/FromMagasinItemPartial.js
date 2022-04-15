@@ -4,6 +4,7 @@ import {
   addQtyFromMagasinPortionItem,
   minusQtyFromMagasinPortionItem,
 } from "../../../../store/frommagasin/actions/frommagasin";
+import { isSpecialProductHandle } from "../fromMagasin/block-it";
 import {
   NumberInput,
   NumberInputField,
@@ -26,7 +27,7 @@ const FromMagasinItemPartial = ({
   }));
   const isEnough = () => {
     return (
-      product.quantityCCCVA  - product.qttByCC < 0 &&
+      product.quantityCCCVA - product.qttByCC < 0 &&
       product.quantityBruteCVA - 1 - product.quantityParProduct * 1 < 0
     );
   };
@@ -41,22 +42,22 @@ const FromMagasinItemPartial = ({
         step={1}
         ref={ref}
         bg={"whitesmoke"}
+        defaultValue={product.quantityCCCVA}
         onChange={(value) => {
-          setRealQttCC(value);
           if (value == "") {
-            onAddQtyPortion(0);
-            setRealQttCC(0);
+            onAddQtyPortion(product.quantityCCCVA);
+            setRealQttCC(product.quantityCCCVA);
           } else {
             setRealQttCC(value * 1);
             onAddQtyPortion(value * 1);
           }
-          if (isEnough() || product.quantityBruteCVA - 1 < 0) {
-            alert("Le stock ne satisfait pas votre commande");
-          }
         }}
         min={0}
-        defaultValue={product.quantityCCCVA}
-        max={!isEnough() ? product.doseDefault - 1 : product.quantityCCCVA}
+        max={
+          isSpecialProductHandle(product)
+            ? product?.condml
+            : product?.doseDefault
+        }
       >
         <NumberInputField />
         <NumberInputStepper>

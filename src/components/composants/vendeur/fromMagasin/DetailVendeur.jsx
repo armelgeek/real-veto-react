@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import NumberFormat from "react-number-format";
 import { withRouter } from "react-router-dom";
 import { action, getData } from "../../../../utils/lib/call";
@@ -12,7 +12,7 @@ import ActiveLink from "../../../../@adminlte/adminlte/Content/ActiveLink";
 import Content from "../../../../@adminlte/adminlte/Content/index";
 import { displayDate, displayMoney } from "../../../../utils/functions";
 import { HISTORIQUEVENTEVENDEUR } from "../../../../constants/routes";
-import { isSpecialProductHandle } from '../../../../store/functions/function';
+import { isSpecialProductHandle } from "../../../../store/functions/function";
 
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
@@ -21,7 +21,7 @@ const calculateTotal = (arr) => {
 };
 
 function Detail(props) {
-  let history = useLocation();
+  let history = useHistory();
   const { id } = useParams();
   const commande = useSelector(getData("commandes").value);
   const dispatch = useDispatch();
@@ -35,17 +35,16 @@ function Detail(props) {
       </div>
       <div className="py-5 container">
         <div class="d-flex justify-content-start">
-          <Link class="btn btn-primary btn-sm " to={HISTORIQUEVENTEVENDEUR}>
+          <button class="btn btn-primary btn-sm " onClick={()=> history.goBack()}>
             Revenir en arriere
-          </Link>
+          </button>
         </div>
         <div>
-          <p>{commande[0]?.type == "credit-cva" && <p>Credit</p>}</p>
           {commande[0]?.type == "credit-cva" && (
-            <div className="border">
+            <div className="bg-info my-3 py-2">
               <>
-                <h3>{commande[0]?.emprunter.name}</h3>
-                <h5>{commande[0]?.emprunter.contact}</h5>
+                <h3 className="p-2">Nom:{commande[0]?.emprunter.name}</h3>
+                <h5 className="p-2">Contact:{commande[0]?.emprunter.contact}</h5>
               </>
             </div>
           )}
@@ -69,12 +68,17 @@ function Detail(props) {
                   <h3 className="text-lg">
                     {displayMoney(
                       calculateTotal(
-                        commande[0]?.contenu.map((product) => {
-                          return product.prixVente * product.quantityParProduct;
+                        commande[0]?.contenu?.map((product) => {
+                          return isSpecialProductHandle(product)
+                            ? product.prixqttccvente *
+                                product.quantityParProduct *
+                                product.qttccpvente +
+                                product.prixlitre * product.qttbylitre
+                            : product.prixVente * product.quantityParProduct;
                         })
                       ) +
                         calculateTotal(
-                          commande[0]?.contenu.map((product) => {
+                          commande[0]?.contenu?.map((product) => {
                             return product.prixParCC * product.qttByCC;
                           })
                         )
@@ -95,22 +99,21 @@ function Detail(props) {
                 <tr>
                   <td style={{ width: "40%" }}>{c.name}</td>
                   <>
- 
-                  {isSpecialProductHandle(c) && (
+                    {isSpecialProductHandle(c) && (
                       <>
                         {c.qttbylitre != 0 && (
                           <div className="d-flex align-items-center py-0 px-2">
-                            <strong>Boite :</strong>
-                            {displayMoney(c.prixVente)} ({"x"}{" "}
-                            {c.qttbylitre}) {" = "}
-                            {displayMoney(c.prixVente * c.qttbylitre)}
+                            <strong>Litre :</strong>
+                            {displayMoney(c.prixlitre)} ({"x"} {c.qttbylitre}){" "}
+                            {" = "}
+                            {displayMoney(c.prixlitre * c.qttbylitre)}
                           </div>
                         )}
                       </>
                     )}
                     {c.quantityParProduct != 0 && (
                       <div className="d-flex align-items-center py-0">
-                        <strong>{c.type}:</strong>
+                        <strong className="text-lowercase">{c.type}:</strong>
                         {displayMoney(c.prixVente)} ({"x"}{" "}
                         {c.quantityParProduct}) {" = "}
                         {displayMoney(c.prixVente * c.quantityParProduct)}
@@ -122,20 +125,28 @@ function Detail(props) {
                     <>
                       {c.qttByCC != 0 && (
                         <div className="d-flex align-items-center  py-0">
-                          <strong>ML:</strong> {displayMoney(c.prixParCC)} {"x"}{" "}
+                          <strong>ml:</strong> {displayMoney(c.prixParCC)} {"x"}{" "}
                           {c.qttyspecificmirror != 0
                             ? c.qttyspecificmirror + " Dose"
-                            : c.qttByCC + " Ml"}{" "}
+                            : c.qttByCC + " ml"}{" "}
                           {" = "} {displayMoney(c.prixParCC * c.qttByCC)}
                         </div>
                       )}
                     </>
                   )}
                   <td>
-                    {displayMoney(
-                      c.prixVente * c.quantityParProduct +
-                        c.prixParCC * c.qttByCC
-                    )}
+                    {isSpecialProductHandle(c)
+                      ? displayMoney(
+                          c.prixqttccvente *
+                            c.quantityParProduct *
+                            c.qttccpvente +
+                            c.prixlitre * c.qttbylitre +
+                            c.prixParCC * c.qttByCC
+                        )
+                      : displayMoney(
+                          c.prixVente * c.quantityParProduct +
+                            c.prixParCC * c.qttByCC
+                        )}
                   </td>
                 </tr>
               ))}

@@ -226,6 +226,9 @@ function App() {
                             <Items
                               flat={flato(groupedBasket[r], "contenu")}
                               gr={r}
+                              quantityb={b.quantityBruteCVA}
+                              quantityc={b.quantityCCCVA}
+                              quantitycond={b.condval}
                               id={b.id}
                             />
                           ) : (
