@@ -116,15 +116,7 @@ const FromMagasin = () => {
             style={{ padding: 2, marginTop: 3, marginRight: 2, marginLeft: 2 }}
           >
             <div className="d-flex justify-content-end">
-              <Link className="btn btn-danger mb-2 mr-2 btn-sm" to={`/historique/vente/vendeur/credit-cva`}>
-                CREDITS
-              </Link>
-              <Link
-                className="btn btn-primary mb-2 btn-sm text-uppercase"
-                to={`/historique/vente/vendeur/vente-cva`}
-              >
-                Voir l'historique de vente
-              </Link>
+             
             </div>
             <div
               style={{

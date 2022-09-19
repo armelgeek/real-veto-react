@@ -47,7 +47,7 @@ function EditVaccinateur() {
               action("vaccinateurs").update({
                 id: proda.id,
                 name: name,
-                conact: contact,
+                contact: contact,
               })
             );
             history.goBack();

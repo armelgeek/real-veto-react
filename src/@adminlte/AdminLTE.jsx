@@ -35,6 +35,7 @@ import {
   CATEGORIES,
   VACCINATEURS,
   EMPRUNTEURS,
+  CHANGE_PRIX,
 } from "../constants/routes";
 class AdminLTE extends React.PureComponent {
   render() {
@@ -58,7 +59,13 @@ class AdminLTE extends React.PureComponent {
               CABINET VETERINAIRE AMBALAVAO
             </h4>
           </div>
-          <aside className="main-sidebar sidebar-dark-primary">
+          <aside
+            className="main-sidebar sidebar-dark-primary"
+            style={{
+              maxHeight: "100%",
+              overflow: "auto",
+            }}
+          >
             <Link to={homeTo} className="brand-link border-0">
               <span className="ml-4 brand-text font-weight-light text-center text-uppercase">
                 {title}
@@ -102,7 +109,7 @@ class AdminLTE extends React.PureComponent {
                   </NavItem>
 
                   <NavItem title="Vente">
-                  <NavTree
+                    <NavTree
                       title={"Effectuer une vente"}
                       route={"/vendre/in/admin"}
                     />
@@ -112,7 +119,7 @@ class AdminLTE extends React.PureComponent {
                     />
                     <NavTree
                       title={"Historique de vente du magasin"}
-                      route={'/historique-admin/vente/vendeur/vente-cva'}
+                      route={"/historique-admin/vente/vendeur/vente-cva"}
                     />
                     <NavTree
                       title={"Crédit"}
@@ -120,11 +127,14 @@ class AdminLTE extends React.PureComponent {
                     />
                   </NavItem>
                   <NavItem title="Parametres">
+                    <NavTree title={"Rectification"} route={CHANGE_PRIX} />
                     <NavTree title={"Categories"} route={CATEGORIES} />
                     <NavTree title={"Fournisseurs"} route={FOURNISSEURS} />
-                    <NavTree title={"Demandeurs de credit"} route={EMPRUNTEURS} />
+                    <NavTree
+                      title={"Demandeurs de credit"}
+                      route={EMPRUNTEURS}
+                    />
                     <NavTree title={"Vaccinateurs"} route={VACCINATEURS} />
-                    
                   </NavItem>
                 </ul>
               </nav>

@@ -4,7 +4,7 @@ import Content from "../../../@adminlte/adminlte/Content";
 import ContentHeader from "../../../@adminlte/adminlte/Content/ContentHeader";
 import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
 import Page from "../../../@adminlte/adminlte/Content/Page";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { action, getData } from "../../../utils/lib/call";
 import NumberFormat from "react-number-format";
@@ -26,6 +26,12 @@ function DetailProduct() {
         <ActiveLink title="Détail du produit"></ActiveLink>
       </ContentHeader>
       <Page>
+      <Link
+        className="btn btn-sm btn-warning mr-2"
+        to={`/changer/prix/${id}`}
+      >
+        Rectification de prix
+      </Link>
         {products[0]?.conditionnement != 2 ||
           (products[0]?.conditionnement != null && (
             <div className="card card-info">
@@ -64,6 +70,7 @@ function DetailProduct() {
               </div>
             </div>
           ))}
+
         <table className="table table-striped">
           <tr className="bg-thead">
             <td >

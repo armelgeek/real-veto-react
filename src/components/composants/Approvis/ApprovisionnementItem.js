@@ -37,9 +37,7 @@ const ApprovisionnementItem = ({ product, isItemOnApprov, addToApprov }) => {
                 )}
               </td>
             </tr>
-            {product.quantityParProduct != 0 && (
-              <ApprovisionnementRemise product={product} />
-            )}
+          
           </table>
         </div>
         <div className="d-flex mt-3">

@@ -89,7 +89,21 @@ const Products = () => {
             </div>
             <div className="bg-thead"></div>
           </div>
-         
+          <div class="d-flex justify-content-center mt-2 align-items-center">
+          <Link className="btn bg-dark mb-2 mr-2 btn-sm" to={`/historique/vente/vendeur/credit-cva`}>
+                Credits
+              </Link>
+              
+              <Link
+                className="btn bg-thead text-white  mb-2 mx-3 btn-sm"
+                to={`/historique/vente/vendeur/vente-cva`}
+              >
+                Historique de vente
+              </Link>
+              <Link className="btn bg-dark mb-2 mr-2 btn-sm" to={`/historique/vente/vendeur/credit-cva`}>
+                Stocks
+              </Link>
+          </div>
           <Row>
             <Col xs={6}>
               <Card className="mt-2">

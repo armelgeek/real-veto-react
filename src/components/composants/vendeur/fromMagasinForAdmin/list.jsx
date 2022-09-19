@@ -154,22 +154,27 @@ export const HistoriqueVenteVendeurAdmin = () => {
         Cell: (data) => {
           return (
             <>
-              <Link
-                to={`/detailvendeuradmin/${data.row.original?.id}`}
-                className="btn btn-green btn-sm mr-2"
-              >
-                Détails
-              </Link>
-              <Link
-                to={`/vendeur-admin-commande/${data.row.original?.id}`}
-                className="btn btn-warning btn-sm mr-2"
-              >
-                Editer
-              </Link>
-              <DeleteFromMagasinAdmin
-                model="fromagasins"
-                entity={data.row.original}
-              />
+              {!data.row.original?.isdeleted && (
+                <>
+                  {" "}
+                  <Link
+                    to={`/detailvendeuradmin/${data.row.original?.id}`}
+                    className="btn btn-green btn-sm mr-2"
+                  >
+                    Détails
+                  </Link>
+                  <Link
+                    to={`/vendeur-admin-commande/${data.row.original?.id}`}
+                    className="btn btn-warning btn-sm mr-2"
+                  >
+                    Editer
+                  </Link>
+                  <DeleteFromMagasinAdmin
+                    model="fromagasins"
+                    entity={data.row.original}
+                  />
+                </>
+              )}
             </>
           );
         },

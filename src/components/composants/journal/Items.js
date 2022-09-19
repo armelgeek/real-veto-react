@@ -19,6 +19,7 @@ export const Items = ({ flat, gr, quantityb, quantityc, quantitycond, id }) => {
   };
   let value = 0;
   let valuecc = 0;
+  let valuel = 0;
   if (orderItem) {
     value = orderItem
       .map((item) => item.quantityParProduct * 1)
@@ -26,13 +27,21 @@ export const Items = ({ flat, gr, quantityb, quantityc, quantitycond, id }) => {
     valuecc = orderItem
       .map((item) => item.qttByCC)
       .reduce((prev, curr) => prev + curr, 0);
+    valuel = orderItem
+      .map((item) => item.qttbylitre)
+      .reduce((prev, curr) => prev + curr, 0);
   } else {
     value = 0;
     valuecc = 0;
+    valuel = 0;
   }
+  let price = orderItem.map((item) => item.prixVente);
   return (
-    <td className="text-center p-1">
-     <tr>
+    <td
+      className="text-center p-1"
+      title={"prix de vente:" + price[0] != undefined ? price[0] : ""}
+    >
+      {/**<tr>
           <td
             className={
               orderItem.length == 0
@@ -51,8 +60,17 @@ export const Items = ({ flat, gr, quantityb, quantityc, quantitycond, id }) => {
           >
             {orderItem.length != 0 ? lastStock.ccCva : '-'}
           </td>
-        </tr>
+        </tr>*/}
       <tr>
+        <td
+          className={
+            orderItem.length == 0
+              ? `text-center p-1`
+              : `text-center bg-secondary p-1 text-white`
+          }
+        >
+          {valuel != 0 ? valuel : "-"}
+        </td>
         <td
           className={
             orderItem.length == 0

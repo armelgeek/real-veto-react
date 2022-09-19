@@ -68,6 +68,7 @@ import {
   EDITFROMMAGASIN_ADMIN,
   DETAILVENDEUR_ADMIN,
   VENDEUR_ADMIN,
+  CHANGE_PRIX,
 } from "./constants/routes";
 
 import PublicRoute from "./routes/PublicRoute";
@@ -149,10 +150,11 @@ import Vaccinateurs from "./components/parametres/vaccinateur/Vaccinateurs";
 import CreateVaccinateur from "./components/parametres/vaccinateur/AddVaccinateur";
 import EditVaccinateur from "./components/parametres/vaccinateur/EditVaccinateur";
 import VendeurAdmin from "./components/composants/vendeur/fromMagasinForAdmin";
+import ChangerPrix from './components/change-prix/index';
 function Routes() {
   const dispatch = useDispatch();
   return (
-    <BrowserRouter basename="/index.html">
+    <BrowserRouter>
       {/* <Header />*/}
       {/*<Auth>
         <Data>
@@ -196,6 +198,7 @@ function Routes() {
           path={HISTORIQUEVENTEVENDEUR_ADMIN}
           component={HistoriqueVenteVendeurAdmin}
         />
+        <AdminRoute path={CHANGE_PRIX} component={ChangerPrix} />
         <AdminRoute path={APPROV} component={Approv} />
         <AdminRoute path={PERIME} component={Perime} />
         <AdminRoute path={PARASUPPL} component={ParametrageSuppl} />

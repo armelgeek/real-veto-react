@@ -74,3 +74,4 @@ export const VENDEUR_ADMIN = '/vendre/in/admin';
 export const EDITFROMMAGASIN_ADMIN = "/vendeur-admin-commande/:id";
 export const DETAILVENDEUR_ADMIN = `/detailvendeuradmin/:id`;
 export const HISTORIQUEVENTEVENDEUR_ADMIN = '/historique-admin/vente/vendeur/:type'
+export const CHANGE_PRIX = '/changer/prix/:id';

@@ -26,7 +26,7 @@ const calculateTotal = (arr) => {
   });
   return total;
 };
-const getCorrection = (product,attribute,tl) => {
+export const getCorrection = (product,attribute,tl) => {
   if (product[t] == 1) {
     return {
       text: "plus (+" + product[attribute] + ")("+tl+")",

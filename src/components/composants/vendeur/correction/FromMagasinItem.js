@@ -39,10 +39,10 @@ const FromMagasinItem = ({ product }) => {
           <p className="text-blue">{product.name}</p>
           <div class="badge badge-primary">{product?.fournisseur?.name}</div>
         </div>
-        <div className="text-inline text-center mr-3">
+        {/**<div className="text-inline text-center mr-3">
           <h5 className="mb-1 text-uppercase">Dépot</h5>
           <FromMagasinItemBrute product={product} />{" "}
-        </div>
+        </div>**/}
         {product.condml !== 0 && product.qttccpvente !== 0 && (
           <div className="text-inline text-center mr-3">
             <h5 className="mb-1 text-uppercase">Litre</h5>

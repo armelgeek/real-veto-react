@@ -119,6 +119,7 @@ function App() {
           quantityBruteCVA,
           quantityCCCVA,
           qttByCC,
+          qttbylitre
         }
       ) => {
         var temp = r.find((o) => o.id === id);
@@ -133,11 +134,13 @@ function App() {
             quantityCCCVA,
             quantityParProduct,
             qttByCC,
+            qttbylitre
           });
         } else {
             (temp.quantityParProduct =
               parseInt(temp.quantityParProduct) + parseInt(quantityParProduct));
           temp.qttByCC = parseInt(temp.qttByCC) + parseInt(qttByCC);
+          temp.qttbylitre = parseInt(temp.qttbylitre) + parseInt(qttbylitre);
         }
         return r;
       },
@@ -182,6 +185,16 @@ function App() {
               </div>
             </div>
             <div className="bg-white py-3 px-2 mb-2">
+            <div>
+                <span
+                  className="bg-secondary px-2"
+                  style={{
+                    width: 5,
+                    height: 5,
+                  }}
+                ></span>
+                 <span className=" ml-2">: Quantité de commande en litre (special pour les PHYTO)</span>
+              </div>
               <div>
                 <span
                   className="bg-primary px-2"

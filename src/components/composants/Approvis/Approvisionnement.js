@@ -91,7 +91,7 @@ const Approvisionnement = ({ setRegenerate }) => {
       )
     );
     {
-      /*approvisionnements.forEach((element) => {
+    approvisionnements.forEach((element) => {
       dispatch(
         action("products").update({
           ...element,
@@ -99,7 +99,7 @@ const Approvisionnement = ({ setRegenerate }) => {
           quantityParProduct: 0,
         })
       );
-    });*/
+    })
     }
     dispatch(clearApprov());
     //setRegenerate(true);
@@ -242,10 +242,10 @@ const Approvisionnement = ({ setRegenerate }) => {
                   Remise:
                   <strong>
                     <NumberFormat
-                      value={remiseEnAriary(
+                      value={calculateTotal(
                         approvisionnements.map(
                           (product) =>
-                            product.prixFournisseur * product.quantityParProduct -product.remise
+                            product.prixFournisseur * product.quantityParProduct - product.remise
                         ),
                         remise
                       )}

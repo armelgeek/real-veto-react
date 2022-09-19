@@ -13,6 +13,7 @@ import Page from "../../../../@adminlte/adminlte/Content/Page";
 import { displayDate, displayMoney } from "../../../../utils/functions";
 import { HISTORIQUECORRECTION } from "../../../../constants/routes";
 import { isSpecialProductHandle } from "../../../../store/functions/function";
+import { getCorrection } from "../../admin/tomagasin/DepotToMagasinDetail";
 
 const calculateTotal = (arr) => {
   if (!arr || arr?.length === 0) return 0;
@@ -56,28 +57,63 @@ function DetailCorrection(props) {
                   <td style={{ width: "40%" }}>{c.name}</td>
                   <>
                   
+                  {c.qttbybrute != 0 && (
+                      <div className="d-flex align-items-center py-0">
+                        <strong className="text-lowercase">Depot:</strong>
+                        {displayMoney(c.prixVente)} ({"x"}{" "}
+                        {c.qttbybrute}) {" = "}
+                        {displayMoney(c.prixVente * c.qttbybrute)}
+                      </div>
+                    )}
                     {isSpecialProductHandle(c) && (
                       <>
                         {c.qttbylitre != 0 && (
                           <div className="d-flex align-items-center py-0 px-2">
-                            <strong>Boite : {c.qttbylitre}</strong>
+                            <strong>Litre :</strong>
+                            {displayMoney(c.prixlitre)} ({"x"} {c.qttbylitre}){" "}
+                            {" = "}
+                            {displayMoney(c.prixlitre * c.qttbylitre)}
                           </div>
                         )}
                       </>
                     )}
                     {c.quantityParProduct != 0 && (
-                      <div className="d-flex align-items-center py-0 px-2">
-                        <strong>
-                          {c.type}: {c.quantityParProduct}
-                        </strong>
-                      </div>
-                    )}
-                    {c.qttByCC != 0 && (
-                      <div className="d-flex align-items-center py-0 px-2">
-                        <strong>ML: {c.qttByCC}</strong>
+                      <div className="d-flex align-items-center py-0">
+                        <strong className="text-lowercase">{c.type}:</strong>
+                        {displayMoney(c.prixVente)} ({"x"}{" "}
+                        {c.quantityParProduct}) {" = "}
+                        {displayMoney(c.prixVente * c.quantityParProduct)}
                       </div>
                     )}
                   </>
+
+                  {c.type == "FLACON" && (
+                    <>
+                      {c.qttByCC != 0 && (
+                        <div className="d-flex align-items-center  py-0">
+                          <strong>ml:</strong> {displayMoney(c.prixParCC)} {"x"}{" "}
+                          {c.qttyspecificmirror != 0
+                            ? c.qttyspecificmirror + " Dose"
+                            : c.qttByCC + " ml"}{" "}
+                          {" = "} {displayMoney(c.prixParCC * c.qttByCC)}
+                        </div>
+                      )}
+                    </>
+                  )}
+                  <td>
+                    {isSpecialProductHandle(c)
+                      ? displayMoney(
+                          c.prixqttccvente *
+                            c.quantityParProduct *
+                            c.qttccpvente +
+                            c.prixlitre * c.qttbylitre +
+                            c.prixParCC * c.qttByCC
+                        )
+                      : displayMoney(
+                          c.prixVente * c.quantityParProduct +
+                            c.prixParCC * c.qttByCC
+                        )}
+                  </td>
                 </tr>
               ))}
           </table>

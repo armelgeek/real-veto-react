@@ -290,7 +290,7 @@ function Edit() {
                         value={values?.prixVente}
                         placeholder={"prix de vente"}
                       />
-                      {flac == "FLACON" && (
+                      {values.type === "FLACON" && (
                         <Form.Field.Input
                           type={
                             qttCcPVente == null || qttCcPVente == ""

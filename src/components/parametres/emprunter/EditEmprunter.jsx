@@ -48,7 +48,7 @@ function EditEmprunter() {
               action("emprunters").update({
                 id: proda.id,
                 name: name,
-                conact: contact,
+                contact: contact,
               })
             );
             history.goBack();

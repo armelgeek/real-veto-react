@@ -105,7 +105,7 @@ const EditToFromMag = ({
           "update-from-magasin"
         )
       );
-      //history.push(HISTORIQUEVENTEVENDEUR);
+      history.push(HISTORIQUEVENTEVENDEUR);
     } else {
       alert("modification non conforme,veuillez verifier");
     }
