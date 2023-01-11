@@ -13,13 +13,22 @@ import {
 } from "@chakra-ui/react";
 export const ItaNewInputDose = ({
   product,
+  index,
+  state,
+  setState,
   setRealQttCC,
   realQttCC,
   maxRealQttCC
 }) => {
   const dispatch = useDispatch();
+ 
+  const updateObjectValue = (index, key, value) => {
+    let temp_state = [...state];
+    temp_state[index] = { ...temp_state[index], [key]: value };
+    setState(temp_state);
+  };
   const onAddQtyPortion = (value) => {
-    dispatch(addQtyFromMagasinDoseItem(product.id, value));
+    updateObjectValue(index, "prixParCC", value);
   };
   return (
     <div className="basket-item-control">
@@ -34,8 +43,8 @@ export const ItaNewInputDose = ({
         }}
         min={0}
         value={realQttCC}
-        defaultValue={product?.qttByCC}
-        max={maxRealQttCC}
+        defaultValue={product?.prixParCC}
+    //    max={maxRealQttCC}
       >
         <NumberInputField />
         <NumberInputStepper>

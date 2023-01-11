@@ -27,7 +27,7 @@ export const EditPhytoConditionnementInput = ({
     setState(temp_state);
   };
   const onAddQtyPortion = (value) => {
-    updateObjectValue(index, "qttByCC", value);
+    updateObjectValue(index, "prixqttccvente", value);
   };
   
   return (
@@ -38,8 +38,8 @@ export const EditPhytoConditionnementInput = ({
         bg={"whitesmoke"}
         onChange={(value) => {
           if (value == "") {
-            onAddQtyPortion(0);
-            setRealQttCC(0);
+            onAddQtyPortion(product?.prixqttccvente);
+            setRealQttCC(product?.prixqttccvente);
           } else {
             setRealQttCC(Number(value));
             onAddQtyPortion(Number(value));
@@ -47,7 +47,7 @@ export const EditPhytoConditionnementInput = ({
         }}
         min={0}
         value={realQttCC}
-        defaultValue={product?.qttByCC}
+        defaultValue={product?.prixqttccvente}
       >
         <NumberInputField />
         <NumberInputStepper>

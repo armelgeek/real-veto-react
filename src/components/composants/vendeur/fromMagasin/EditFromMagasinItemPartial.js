@@ -29,7 +29,7 @@ const EditFromMagasinItemPartial = ({
     setState(temp_state);
   };
   const onAddQtyByCC = (value) => {
-    updateObjectValue(index, "qttByCC", value);
+    updateObjectValue(index, "prixParCC", value);
   };
   return (
     <div className="basket-item-control">
@@ -39,8 +39,8 @@ const EditFromMagasinItemPartial = ({
         bg={"whitesmoke"}
         onChange={(value) => {
           if (value == "") {
-            onAddQtyByCC(product?.qttByCC);
-            setRealQttCC(product?.qttByCC);
+            onAddQtyByCC(product?.prixParCC);
+            setRealQttCC(product?.prixParCC);
           } else {
             setRealQttCC(value * 1);
             onAddQtyByCC(value * 1); 

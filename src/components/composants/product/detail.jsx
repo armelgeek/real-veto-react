@@ -26,12 +26,15 @@ function DetailProduct() {
         <ActiveLink title="Détail du produit"></ActiveLink>
       </ContentHeader>
       <Page>
+      <div className="d-flex justify-content-end">
       <Link
-        className="btn btn-sm btn-warning mr-2"
-        to={`/changer/prix/${id}`}
+        className="btn btn-sm btn-warning mr-2 mb-2"
+        to={`/price/change/${id}`}
       >
         Rectification de prix
       </Link>
+      </div>
+     
         {products[0]?.conditionnement != 2 ||
           (products[0]?.conditionnement != null && (
             <div className="card card-info">

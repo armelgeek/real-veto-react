@@ -18,7 +18,8 @@ import searchByName from "../../../../filters/searchByName";
 import { moment } from "moment";
 import { clearFromMagasin } from "../../../../store/frommagasin/actions/frommagasin";
 import { isBlocked } from "./block-it";
-import { isSpecialProductHandle } from '../../../../store/functions/function';
+import { isSpecialProductHandle } from "../../../../store/functions/function";
+import HeaderVendeur from "../../../HeaderVendeur";
 const Products = () => {
   const products = useSelector(getData("products").value);
   const meta = useSelector(getData("products").meta);
@@ -46,11 +47,16 @@ const Products = () => {
 
   useEffect(() => {
     if (!meta.isFetching) {
-      setProductData(products.filter(p=> !isBlocked(p)));
+      setProductData(products.filter((p) => !isBlocked(p)));
     }
   }, [meta]);
   useEffect(() => {
-    setProductData(searchByName(products.filter(p=> !isBlocked(p)), value));
+    setProductData(
+      searchByName(
+        products.filter((p) => !isBlocked(p)),
+        value
+      )
+    );
   }, [value]);
 
   const calculateTotal = (arr) => {
@@ -63,8 +69,9 @@ const Products = () => {
     return (
       calculateTotal(
         arr.map((product) => {
-          return isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProduct : product.prixVente * product.quantityParProduct;
-          
+          return isSpecialProductHandle(product)
+            ? product.prixlitre * product.quantityParProduct
+            : product.prixVente * product.quantityParProduct;
         })
       ) +
       calculateTotal(
@@ -77,95 +84,100 @@ const Products = () => {
 
   return (
     <>
-      <div className="bg-dark text-white py-3 d-flex justify-content-center align-items-center">
-        <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
-      </div>
       <Container>
-        <div className="py-2">
-          <div class="d-flex justify-content-between align-items-center">
-            <div></div>
-            <div>
-              <Horloge />
-            </div>
-            <div className="bg-thead"></div>
+        <HeaderVendeur />
+      </Container>
+      <Container>
+        <div className="d-flex align-items-center flex-row mr-2">
+          <div
+            class="badge badge-success"
+            style={{
+              borderRadius: "100%",
+            }}
+          >
+            30
           </div>
-          <div class="d-flex justify-content-center mt-2 align-items-center">
-          <Link className="btn bg-dark mb-2 mr-2 btn-sm" to={`/historique/vente/vendeur/credit-cva`}>
-                Credits
-              </Link>
-              
-              <Link
-                className="btn bg-thead text-white  mb-2 mx-3 btn-sm"
-                to={`/historique/vente/vendeur/vente-cva`}
-              >
-                Historique de vente
-              </Link>
-              <Link className="btn bg-dark mb-2 mr-2 btn-sm" to={`/historique/vente/vendeur/credit-cva`}>
-                Stocks
-              </Link>
+          <div className="mx-2">:Quantité</div>
+          <div
+            class="badge badge-warning"
+            style={{
+              borderRadius: "100%",
+            }}
+          >
+            3
           </div>
-          <Row>
-            <Col xs={6}>
-              <Card className="mt-2">
-                <Card.Header className="bg-dark p-2 text-white d-flex text-uppercase justify-content-between align-items-center">
-                  <div style={{ width: "60%" }}>Produits</div>
-                  <div>
-                    <button
-                      className="btn btn-green btn-sm"
-                      onClick={() => {
-                        setRegenerate(true);
-                    //    dispatch(clearFromMagasin());
-                      }}
-                    >
-                      Mettre à jour
-                    </button>
-                  </div>
-                </Card.Header>
-                <Card.Body>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <input
-                      type="text"
-                      onChange={(e) => {
-                        setValue(e.target.value);
-                      }}
-                      placeholder="Nom du produit"
-                      className="form-control mb-2"
-                    />{" "}
-                  </div>
-                  <ListGroup>
-                    <div
-                      style={{
-                        overflowY: "auto",
-                        width: "100%",
-                        height: "350px",
-                        maxHeight: "350px",
-                        overflowX: "hidden",
-                      }}
-                    >
-                      <div class="d-flex justify-content-start flex-wrap">
-                        {productData
-                          .sort(
-                            (low, high) =>
-                              high.quantityBruteCVA - low.quantityBruteCVA
-                          )
-                          .map((p) => (
-                            <ProductItem product={p} />
-                          ))}
-                        {productData.length == 0 &&
-                          "Aucune enregistrement trouvé"}
-                      </div>{" "}
-                    </div>
-                  </ListGroup>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col xs={6}>
-              <div className=" py-2">
-                <FromMagasin setRegenerate={setRegenerate} />
-              </div>
-            </Col>
-          </Row>
+          <div className="mx-2">:Conditionnement (ML)</div>
+          <div
+            class="badge badge-info"
+            style={{
+              borderRadius: "100%",
+            }}
+          >
+            200
+          </div>
+          <div className="mx-2">:Reste en ML</div>
         </div>
+        <Row>
+          <Col xs={6}>
+            <Card className="mt-2">
+              <Card.Header className="bg-dark p-2 text-white d-flex text-uppercase justify-content-between align-items-center">
+                <div style={{ width: "60%" }}>Produits</div>
+                <div>
+                  <button
+                    className="btn btn-green btn-sm"
+                    onClick={() => {
+                      setRegenerate(true);
+                      //    dispatch(clearFromMagasin());
+                    }}
+                  >
+                    Mettre à jour
+                  </button>
+                </div>
+              </Card.Header>
+              <Card.Body>
+                <div class="d-flex justify-content-between align-items-center">
+                  <input
+                    type="text"
+                    onChange={(e) => {
+                      setValue(e.target.value);
+                    }}
+                    placeholder="Nom du produit"
+                    className="form-control mb-2"
+                  />
+                </div>
+                <ListGroup>
+                  <div
+                    style={{
+                      overflowY: "auto",
+                      width: "100%",
+                      height: "350px",
+                      maxHeight: "350px",
+                      overflowX: "hidden",
+                    }}
+                  >
+                    <div class="d-flex justify-content-start flex-wrap">
+                      {productData
+                        .sort(
+                          (low, high) =>
+                            high.quantityBruteCVA - low.quantityBruteCVA
+                        )
+                        .map((p) => (
+                          <ProductItem product={p} />
+                        ))}
+                      {productData.length == 0 &&
+                        "Aucune enregistrement trouvé"}
+                    </div>{" "}
+                  </div>
+                </ListGroup>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col xs={6}>
+            <div className=" py-2">
+              <FromMagasin setRegenerate={setRegenerate} />
+            </div>
+          </Col>
+        </Row>
       </Container>
     </>
   );

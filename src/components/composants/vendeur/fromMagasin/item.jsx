@@ -96,10 +96,11 @@ const ProductItem = ({ product }) => {
   return (
     <>
       <ListGroup.Item
-        className="mb-2 mr-3"
+        className="mb-2"
         style={{
           width: "100%",
           border: "1px solid gray",
+          padding: "10px",
           background: "whitesmoke",
           borderLeft: `10px solid ${isEmptyBrute()}`,
         }}
@@ -114,21 +115,28 @@ const ProductItem = ({ product }) => {
                   : "none",
             }}
           >
-            <div
-              style={{
-                width: 10,
-                height: 4,
-                background: `${isEmptyCC()}`,
-              }}
-            ></div>
-          
-            <div>
-              <div>{product.name}</div>
-              <div class="badge badge-primary">
-                {product?.fournisseur?.name}
+            <div className="d-flex justify-content-center align-items-center">
+              <div className="d-flex flex-column mr-2 align-items-center w-20">
+                <div class="badge badge-success mb-1" style={{
+                  borderRadius:"100%"
+                }}>{product.quantityBruteCVA}</div>
+                <div class="badge badge-warning mb-1" style={{
+                borderRadius:"100%"
+                }}>{product.condval}</div>
+                <div class="badge badge-info mb-1" style={{
+                  borderRadius:"100%"
+                }}>{product.quantityCC}</div>
               </div>
-              <br />
-              {/**    <strong>
+              <div>
+                <div>
+                  <div>{product.name}</div>
+                  <div class="badge badge-primary">
+                    {product?.fournisseur?.name}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/**    <strong>
               {product.type}:{product.quantityBruteCVA}
 
              
@@ -144,7 +152,6 @@ const ProductItem = ({ product }) => {
             }
             )}
             <strong>CondML: {product.condml}- Condval:{product.condval}</strong> */}
-            </div>{" "}
           </div>
           <div>
             {product.id && (

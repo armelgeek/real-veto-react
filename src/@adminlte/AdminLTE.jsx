@@ -36,7 +36,10 @@ import {
   VACCINATEURS,
   EMPRUNTEURS,
   CHANGE_PRIX,
+  OP_COMMANDES,
+  PRICE_CHANGE
 } from "../constants/routes";
+import { SCOPES } from "../constants/permissions";
 class AdminLTE extends React.PureComponent {
   render() {
     let { children, navigation, title, titleShort } = this.props;
@@ -52,99 +55,136 @@ class AdminLTE extends React.PureComponent {
       title = [title];
     }
     return (
-      <>
-        <div class="wrapper position-relative">
-          <div className="bg-dark m-0  p-2  text-center">
-            <h4 className="m-0 p-2 text-white">
-              CABINET VETERINAIRE AMBALAVAO
-            </h4>
-          </div>
-          <aside
-            className="main-sidebar sidebar-dark-primary"
-            style={{
-              maxHeight: "100%",
-              overflow: "auto",
-            }}
-          >
-            <Link to={homeTo} className="brand-link border-0">
-              <span className="ml-4 brand-text font-weight-light text-center text-uppercase">
-                {title}
-              </span>
-            </Link>
-            <div class="sidebar">
-              <nav class="mt-2">
-                <ul
-                  class="nav nav-pills nav-sidebar flex-column"
-                  data-widget="treeview"
-                  role="menu"
-                  data-accordion="false"
-                >
-                  <NavTree title={"Tableau de bord"} route={"/"} />
-                  <NavItem title="Factures && Produits">
-                    <NavTree title={"Factures"} route={LISTAPPROV} />
-                    <NavTree title={"Produits"} route={PRODUCTS} />
-                  </NavItem>
-                  <NavItem title="Dépot">
-                    <NavTree title={"Bon de sortie"} route={BONDESORTIE} />
-                    <NavTree title={"Historique de sortie"} route={SORTIE} />
-                    <NavTree title={"Credit"} route={CREDIT} />
-                    <NavTree title={"Vaccinateur"} route={CREDITVACCINATEUR} />
-                  </NavItem>
-                  <NavItem title="Magasin">
-                    <NavTree title={"Depot vers Magasin"} route={ADMIN} />
-                    <NavTree
-                      title={"Historique de 'Dépôt vers Magasin'"}
-                      route={HISTORIQUESORTIECVA}
-                    />
-                  </NavItem>
-                  <NavItem title="Correction">
-                    <NavTree
-                      title={"Ajouter une correction"}
-                      route={CORRECTION}
-                    />
-                    <NavTree
-                      title={"Historique de correction"}
-                      route={HISTORIQUECORRECTION}
-                    />
-                  </NavItem>
-
-                  <NavItem title="Vente">
-                    <NavTree
-                      title={"Effectuer une vente"}
-                      route={"/vendre/in/admin"}
-                    />
-                    <NavTree
-                      title={"Etat de stock magasin"}
-                      route={ETATSTOCKMAGASIN}
-                    />
-                    <NavTree
-                      title={"Historique de vente du magasin"}
-                      route={"/historique-admin/vente/vendeur/vente-cva"}
-                    />
-                    <NavTree
-                      title={"Crédit"}
-                      route={"/historique-admin/vente/vendeur/credit-cva"}
-                    />
-                  </NavItem>
-                  <NavItem title="Parametres">
-                    <NavTree title={"Rectification"} route={CHANGE_PRIX} />
-                    <NavTree title={"Categories"} route={CATEGORIES} />
-                    <NavTree title={"Fournisseurs"} route={FOURNISSEURS} />
-                    <NavTree
-                      title={"Demandeurs de credit"}
-                      route={EMPRUNTEURS}
-                    />
-                    <NavTree title={"Vaccinateurs"} route={VACCINATEURS} />
-                  </NavItem>
-                </ul>
-              </nav>
-            </div>
-          </aside>
-          <div>{children}</div>
+      <div class="wrapper">
+        <div className="bg-dark m-0  p-2  text-center">
+          <h4 className="m-0 p-2 text-white">
+            CABINET VETERINAIRE AMBALAVAO
+          </h4>
         </div>
-        {/**
-        <Footer /> */}
-      </>
+        <aside
+          className="main-sidebar sidebar-dark-primary"
+          style={{
+            maxHeight: "100%",
+            overflow: "auto",
+          }}
+        >
+          <Link to={homeTo} className="brand-link border-0">
+            <span className="ml-4 brand-text font-weight-light text-center text-uppercase">
+              {title}
+            </span>
+          </Link>
+          <div class="sidebar position-relative">
+            {/**<div style={{
+                          position: 'absolute',
+                          bottom: 0,
+                          right: 0,
+                          left: 0,
+                          backgroundColor:'#4DDAB8'
+                        }}>
+                          <button>
+                          Plus de menus
+                          </button>
+                        </div>**/}
+            <nav class="mt-2">
+              <ul
+                class="nav nav-pills nav-sidebar flex-column"
+                data-widget="treeview"
+                role="menu"
+                data-accordion="false"
+              >
+                <NavTree title={"Tableau de bord"} route={"/"} scopes={[SCOPES.canShowDashboard]} />
+                <NavItem title="Factures && Produits" scopes={[SCOPES.canShowFactureProducts]}>
+                  <NavTree title={"Factures"} route={LISTAPPROV} scopes={[SCOPES.canShowFactures]} />
+                  <NavTree title={"Produits"} route={PRODUCTS} scopes={[SCOPES.canShowProducts]} />
+                  <NavTree title={"Changer Prix"} route={PRICE_CHANGE} scopes={[SCOPES.canShowProducts]} />
+                </NavItem>
+                <NavItem title="Dépot" scopes={[SCOPES.canShowDepot]}>
+                  <NavTree title={"Bon de sortie"} route={BONDESORTIE} scopes={[SCOPES.canShowBonDeSortie]} />
+                  <NavTree title={"Historique de sortie"} route={SORTIE} scopes={[SCOPES.canShowHistoriqueDeSortie]} />
+                  <NavTree title={"Credit"} route={CREDIT} scopes={[SCOPES.canShowCredit]} />
+                  <NavTree title={"Vaccinateur"} route={CREDITVACCINATEUR} scopes={[SCOPES.canShowVaccinateur]} />
+                </NavItem>
+                <NavItem title="Magasin" scopes={[SCOPES.canShowMagasin]}>
+                  <NavTree title={"Depot vers Magasin"} route={ADMIN} scopes={[SCOPES.canShowDepotVersMagasin]} />
+                  <NavTree
+                    title={"Historique de 'Dépôt vers Magasin'"}
+                    route={HISTORIQUESORTIECVA}
+                    scopes={[SCOPES.canHistoriqueDeDM]}
+                  />
+                  {/**  <NavTree
+                      title={"Operation sur les commandes"}
+                      route={OP_COMMANDES}
+                    /> */}
+
+                </NavItem>
+                <NavItem title="Correction" scopes={[SCOPES.canShowCorrection]}>
+                  <NavTree
+                    title={"Ajouter une correction"}
+                    route={CORRECTION}
+                    scopes={[SCOPES.canAddCorrection]}
+                  />
+                  <NavTree
+                    title={"Historique de correction"}
+                    route={HISTORIQUECORRECTION}
+                    scopes={[SCOPES.canShowHistoriqueDeCorrection]}
+                  />
+                </NavItem>
+
+                <NavItem title="Vente" scopes={[SCOPES.canShowVente]}>
+                  <NavTree
+                    title={"Effectuer une vente"}
+                    route={"/vendre/in/admin"}
+                    scopes={[SCOPES.canShowEffectuerUneVente]}
+                  />
+                  <NavTree
+                    title={"Etat de stock magasin"}
+                    route={ETATSTOCKMAGASIN}
+                    scopes={[SCOPES.canShowEtatDeStockMagasin]}
+                  />
+                  <NavTree
+                    title={"Historique de vente du magasin"}
+                    route={"/historique-admin/vente/vendeur/vente-cva"}
+                    scopes={[SCOPES.canShowHistoriqueDeVenteDuMagasin]}
+                  />
+                  <NavTree
+                    title={"Crédit"}
+                    route={"/historique-admin/vente/vendeur/credit-cva"}
+                    scopes={[SCOPES.canShowVenteCredit]}
+                  />
+                </NavItem>
+                <NavItem title="Parametres" scopes={[SCOPES.canShowParameter]}>
+                  <NavTree title={"Categories"} route={CATEGORIES} scopes={[SCOPES.canShowCategory]} />
+                  <NavTree 
+                    title={"Fournisseurs"} 
+                    route={FOURNISSEURS}
+                    scopes={[SCOPES.canShowFournisseur]} />
+                  <NavTree
+                    title={"Demandeurs de credit"}
+                    route={EMPRUNTEURS}
+                    scopes={[SCOPES.canShowDemandeurCredit]}
+                  />
+                  <NavTree title={"Vaccinateurs"} route={VACCINATEURS} scopes={[SCOPES.canShowVaccinateur]} />
+                </NavItem>
+              </ul>
+            </nav>
+          </div>
+        </aside>
+        <>{children}</>
+        <footer class="main-footer" style={{
+          backgroundColor: '#f4f6f9'
+        }}>
+            <div>
+              <strong style={{
+                color: "transparent"
+              }}>Copyright © 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong>
+            </div>
+            <div style={{
+                color: "transparent"
+              }} >
+            <b>Version</b> 2.4.13
+            </div>
+        </footer>
+      </div>
     );
   }
 }

@@ -15,6 +15,8 @@ import moment from "moment";
 import { displayDate, displayMoney } from "../utils/functions";
 import DataTable from "../utils/admin/DataTable";
 import DeleteFromDepot from "./fromDepot/DeleteFromDepot";
+import Gate from "./Gate";
+import { SCOPES } from "../constants/permissions";
 function Sortie() {
   var start = moment().isoWeekday(1).startOf("week");
   var end = moment().endOf("week");
@@ -79,12 +81,41 @@ function Sortie() {
         Header: "Produits",
         Cell: (data) => {
           return (
-            <div style={{ width: "200px" }}>
-  
+            <div style={{ width: "350px" }}>
+              {data.row.original?.isdeleted == true && (
+                <>
+                  <div className="badge badge-danger">Supprimé</div>
+                  <div className="text text-danger">
+                    Date de suppression :{" "}
+                    {displayDate(data.row.original?.deletedat)}
+                  </div>
+                </>
+              )}
               {data.row.original?.contenu?.map((d) => (
                 <span>
-                  {d.name}
-                  {","}
+                  <span
+                    style={{
+                      background: "white",
+                      color:
+                        data.row.original?.isdeleted == true
+                          ? "red"
+                          : "inherit",
+                      padding: 2,
+                    }}
+                  >
+                    {d.name}
+                  </span>
+                  <span
+                    style={{
+                      color:
+                        data.row.original?.isdeleted == true
+                          ? "red"
+                          : "inherit",
+                    }}
+                  >
+                    {" "}
+                    {" || "}
+                  </span>
                 </span>
               ))}
             </div>
@@ -110,23 +141,34 @@ function Sortie() {
       {
         Header: "Actions",
         Cell: (data) => {
-          return (
+          const isDisabled =
+            data.row.original?.isdeleted == true ? true : false;
+          return !isDisabled ? (
             <>
-              <Link
-                to={`/depot/detail/${data.row.original?.id}`}
-                className="btn btn-green btn-sm mr-2"
-              >
-                Détails
-              </Link>
-              <Link
-                to={`/editer/commande/${data.row.original?.id}`}
-                className="btn btn-warning btn-sm mr-2"
-              >
-                Editer
-              </Link>
-              <DeleteFromDepot model="fromdepots" entity={data.row.original} />
+              <Gate scopes={[SCOPES.canShowDeleteHistoricDeSortieDepot]}>
+                <Link
+                  to={`/depot/detail/${data.row.original?.id}`}
+                  className="btn btn-green btn-sm mr-2"
+                >
+                  Détails
+                </Link>
+              </Gate>
+              <Gate scopes={[SCOPES.canShowEditHistoricDeSortieDepot]}>
+                <Link
+                  to={`/editer/commande/${data.row.original?.id}`}
+                  className="btn btn-warning btn-sm mr-2"
+                >
+                  Editer
+                </Link>
+              </Gate>
+              <Gate scopes={[SCOPES.canShowDeleteHistoricDeSortieDepot]}>
+                <DeleteFromDepot
+                  model="fromdepots"
+                  entity={data.row.original}
+                />
+              </Gate>
             </>
-          );
+          ) : null;
         },
       },
     ],

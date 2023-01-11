@@ -44,6 +44,7 @@ export const DEPOTOMAGASIN = "/depot/to/magasin/";
 export const EDITDEPOTTOMAGASIN = "/depot/to/magasin/edit/:id";
 export const HISTORIQUESORTIECVA = "/historique/sortie/cva";
 export const HISTORIQUEVENTEVENDEUR = "/historique/vente/vendeur/:type";
+export const STOCKCVA = "/stock-cva";
 export const HISTORIQUEVENTEVENDEURVUEPARADMIN =
   "/historique/vente/admin/vendeur";
 export const ETATSTOCKMAGASIN = "/etat/stock/magasin";
@@ -75,3 +76,5 @@ export const EDITFROMMAGASIN_ADMIN = "/vendeur-admin-commande/:id";
 export const DETAILVENDEUR_ADMIN = `/detailvendeuradmin/:id`;
 export const HISTORIQUEVENTEVENDEUR_ADMIN = '/historique-admin/vente/vendeur/:type'
 export const CHANGE_PRIX = '/changer/prix/:id';
+export const OP_COMMANDES = '/opcommandes';
+export const PRICE_CHANGE = '/price/change/:id';

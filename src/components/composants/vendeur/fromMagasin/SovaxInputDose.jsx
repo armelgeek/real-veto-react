@@ -13,15 +13,21 @@ import {
 } from "@chakra-ui/react";
 export const SovaxInputDose = ({
   product,
+  index,
+  state,
+  setState,
   setRealQttCC,
   maxRealQttCC,
   realQttCC,
 }) => {
-  const dispatch = useDispatch();
-  const onAddQtyPortion = (value) => {
-    dispatch(addQtyFromMagasinSovaxItem(product.id, value));
+  const updateObjectValue = (index, key, value) => {
+    let temp_state = [...state];
+    temp_state[index] = { ...temp_state[index], [key]: value };
+    setState(temp_state);
   };
-
+  const onAddQtyPortion = (value) => {
+    updateObjectValue(index, "prixParCC", value);
+  };
   return (
     <div className="basket-item-control">
       <NumberInput
@@ -30,13 +36,18 @@ export const SovaxInputDose = ({
         step={1}
         bg={"whitesmoke"}
         onChange={(value) => {
-          onAddQtyPortion(Number(value));
+          if(value==""){
+            setRealQttCC(product?.prixParCC);
+          }else{
+            onAddQtyPortion(Number(value));
           setRealQttCC(Number(value));
+          }
+         
         }}
         min={0}
         value={realQttCC}
-        defaultValue={product?.qttByCC}
-        max={maxRealQttCC}
+        defaultValue={product?.prixParCC}
+       // max={maxRealQttCC}
       >
         <NumberInputField />
         <NumberInputStepper>

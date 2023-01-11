@@ -9,7 +9,7 @@ import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
 import Page from "../../../@adminlte/adminlte/Content/Page";
 import { ADD_EMPRUNTEUR, ADD_VACCINATEUR } from "../../../constants/routes";
 import { CrudAction } from "../../../utils/admin/Resource/CrudAction";
-
+import { SCOPES } from "../../../constants/permissions";
 function Emprunters() {
   const emprunteurs = useSelector(getData("emprunters").value);
   const meta = useSelector(getData("emprunters").meta);
@@ -31,7 +31,9 @@ function Emprunters() {
       Cell: (data) => {
         return (
           <CrudAction
-            detail={false}
+            edit={[SCOPES.canEditEmprunter]}
+            detail={[SCOPES.canViewEmprunter]}
+            remove={[SCOPES.canDeleteEmprunter]}
             route={"emprunters"}
             model={"emprunters"}
             modelKey={"name"}
@@ -49,6 +51,7 @@ function Emprunters() {
       </ContentHeader>
       <Page>
         <DataTable
+          scopes={[SCOPES.canCreateEmprunter]}
           data={emprunteurs.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}

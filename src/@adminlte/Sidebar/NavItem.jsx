@@ -2,32 +2,31 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import NavTree from "./NavTree";
+import Gate from '../../components/Gate';
 
-const NavItem = ({ children, title }) => {
+const NavItem = ({ children, title, scopes = [] }) => {
   const [isActive, setIsActive] = useState(false);
-  const handleToggle = (e) => {
-    e.preventDefault();
-    setIsActive(!isActive);
-  };
   return (
-    <li
-      as={NavLink}
-      class={`nav-item ${isActive ? "menu-is-opening" : null} menu-open`}
-    >
-      <a href="#"  class="nav-link">
-        <i class="nav-icon fas fa-tachometer-alt"></i>
-        <p>
-          {title}
-          <i className={`right fas fa-angle-left`}></i>
-        </p>
-      </a>
-      <ul
-        className="nav nav-treeview"
-        style={{ display: `block` }}
+    <Gate scopes={scopes}>
+      <li
+        as={NavLink}
+        class={`nav-item ${isActive ? "menu-is-opening" : null} menu-open`}
       >
-        {children}
-      </ul>
-    </li>
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <p>
+            {title}
+            <i className={`right fas fa-angle-left`}></i>
+          </p>
+        </a>
+        <ul
+          className="nav nav-treeview"
+          style={{ display: `block` }}
+        >
+          {children}
+        </ul>
+      </li>
+    </Gate>
   );
 };
 

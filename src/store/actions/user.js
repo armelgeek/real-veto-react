@@ -1,3 +1,4 @@
+import { createBrowserHistory } from 'history';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -6,7 +7,9 @@ import {
   LOGOUT,
   REFRESH_TOKEN,
 } from "../../constants/actions";
+
 import axios from "axios";
+ const history = createBrowserHistory();
 const SIGNUP_URL = process.env.SIGNUP_URL || "http://localhost:8100/api/signup";
 const SIGNIN_URL = process.env.SIGNIN_URL || "http://localhost:8100/api/signin";
 
@@ -22,7 +25,7 @@ export const register =
         })
         .then(function (response) {
           if (response.data.token) {
-            localStorage.setItem("user-veto", JSON.stringify(response.data));
+            localStorage.setItem("user-veto", JSON.stringify(response.data.token));
           }
           dispatch({
             type: REGISTER_SUCCESS,
@@ -32,6 +35,7 @@ export const register =
               error: null,
             },
           });
+           history.push('/');
         })
         .catch(function (error) {
           dispatch({
@@ -65,7 +69,7 @@ export const login =
       })
       .then(function (response) {
         if (response.data.token) {
-          localStorage.setItem("user-veto", JSON.stringify(response.data));
+          localStorage.setItem("user-veto", JSON.stringify(response.data.token));
         }
         dispatch({
           type: LOGIN_SUCCESS,
@@ -75,6 +79,7 @@ export const login =
             error: null,
           },
         });
+        history.push('/');
       })
       .catch(function (error) {
         dispatch({

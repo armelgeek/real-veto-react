@@ -1,14 +1,15 @@
 import axios from 'axios';
 import _ from 'lodash';
-const user = JSON.parse(localStorage.getItem('user-infos'));
+import { toast } from 'react-toastify';
+import { createBrowserHistory } from 'history';
+ const history = createBrowserHistory();
 const defaults = {
   baseURL: process.env.API_URL || 'http://localhost:8100/api/',
-
   headers: () => {
     return {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: user && user.token ? user.token : {},
+      Accept: "application/json",
+      "Content-Type": "application/json; charset=UTF-8",
+      "x-access-token": localStorage.getItem("user-veto"),
     };
   },
   error: {
@@ -20,31 +21,27 @@ const defaults = {
   },
 };
 const request = axios;
-request.interceptors.request.use(
-  config => {
-    if (!config.headers.Authorization) {
-      const user = JSON.parse(localStorage.getItem('user-infos'));
-      if (user?.token)
-        request.defaults.headers.common.Authorization = `${user?.token}`;
-    }
-    return config;
-  },
-  error => console.log(error)
-);
 request.interceptors.response.use(
-  response => {
-    if (_.isUndefined(response)) {
-      return [];
-    } else {
-      return response;
-    }
+  (response) => {
+   // if (response.data.success==true) {
+      if (_.isUndefined(response)) {
+        return [];
+      } else {
+        return response;
+      }
+   // }
   },
-  error => console.log(error)
+  (error) => {
+    var status = error.response.status;
+    /**if(status == 403){
+      history.push('/signin');
+    }**/
+    //  toast.error(error.response.message)
+  }
 );
-
 //console.log( user.token);
-const api = (method, url, hasFile, variables) =>
-  new Promise((resolve, reject) => {
+const api = (method, url, hasFile, variables) =>{
+  let promise = new Promise((resolve, reject) => {
     let formData = variables;
     request({
       url: `${url}`,
@@ -54,6 +51,7 @@ const api = (method, url, hasFile, variables) =>
       data: method !== 'get' ? formData : undefined,
     }).then(
       response => {
+        console.log('response')
         if (_.isUndefined(response)) {
           resolve([]);
         } else {
@@ -61,6 +59,7 @@ const api = (method, url, hasFile, variables) =>
         }
       },
       error => {
+        console.log('error');
         if (error?.response) {
           if (error?.response?.data?.error) {
             reject(error?.response?.data?.error);
@@ -72,7 +71,19 @@ const api = (method, url, hasFile, variables) =>
         }
       }
     );
-  });
+  },5000);
+  toast.promise(
+    promise,
+    {
+     // pending: 'Promise is pending',
+     // success: 'Promise resolved 👌',
+      error: "Une erreur s'est produite... 🤯"
+    }
+
+)
+   return promise;
+}
+  
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   get: (...args) => api('get', ...args),

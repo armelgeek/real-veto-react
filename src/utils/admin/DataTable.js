@@ -9,6 +9,7 @@ import {
   usePagination,
 } from "react-table";
 import { Link } from "react-router-dom";
+import Gate from '../../components/Gate';
 function DefaultColumnFilter({
   column: { filterValue, preFilteredRows, setFilter },
 }) {
@@ -53,6 +54,7 @@ function GlobalFilter({
 export default function DataTable({
   columns,
   data = [],
+  scopes = [],
   meta,
   addUrl,
   urlName,
@@ -68,6 +70,7 @@ export default function DataTable({
         columns={columns}
         data={meta.isFetching ? [] : data}
         meta={meta}
+        scopes={scopes}
         addUrl={addUrl}
         urlName={urlName}
         footer={footer}
@@ -82,6 +85,7 @@ export default function DataTable({
 function DataTableData({
   columns,
   data = [],
+  scopes = [],
   meta,
   addUrl,
   urlName,
@@ -141,9 +145,11 @@ function DataTableData({
         )}
         <div>
           {addUrl && urlName && (
-            <Link className="btn btn-sm btn-green" variant="solid" to={addUrl}>
-              {urlName}
-            </Link>
+            <Gate scopes={scopes}>
+              <Link className="btn btn-sm btn-green" variant="solid" to={addUrl}>
+                {urlName}
+              </Link>
+            </Gate>
           )}
         </div>
       </div>

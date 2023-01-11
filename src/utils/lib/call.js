@@ -1,4 +1,4 @@
-import { create, get, fetch, update, destroy } from ".";
+import { create, get,getNoParams, fetch, update, destroy } from ".";
 import { values } from "lodash";
 //importer { createSelector } à partir de 'reselect' ;
 //https://itnext.io/3-small-tips-for-better-redux-performance-in-a-react-app-9cde549df6af
@@ -6,6 +6,7 @@ export function action(model, api) {
   return {
     get: (id) => get(model, id, { replace: true }),
     getWithPath: (id, path) => get(model, id, { path: path, replace: true }),
+    getNoParams: (path) => getNoParams(model, { path: path, replace: true }),
     create: (body, options) => create(model, body, options),
     update: (body, options) => update(model, body, options),
     destroy: (body, options) => destroy(model, body, options),

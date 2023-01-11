@@ -71,7 +71,7 @@ const FromMagasin = () => {
         )
       );
       dispatch(clearFromMagasin());
-      history.push(HISTORIQUEVENTEVENDEUR);
+      history.push('/historique/vente/vendeur/vente-cva');
     } else {
       alert("commande non-conforme,veuillez verifier!!");
     }

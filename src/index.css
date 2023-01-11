@@ -1,7 +1,19 @@
- body,html{
-  font-family: "Montserrat"!important;
- }
-
+body,
+html {
+  font-family: "Montserrat" !important;
+  margin: 0px;
+  height: 100vh;
+}
+html{
+  position: relative;
+}
+.wrapper-content {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
@@ -36,4 +48,114 @@ table {
   position: sticky;
   top: 0; /* Don't forget this, required for the stickiness */
   box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+.bg-thead {
+  color: white;
+  background-color: #2d9c69 !important;
+}
+.sticky-this {
+  background: white;
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+.login-box {
+  width: 100%!important;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-control:focus {
+  border-color: #78d6aa !important;
+  box-shadow: 0 0 0 0.2rem #a7f0ce !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  color: #198754 !important;
+  content: ">" !important;
+}
+.breadcrumb-item > a {
+  color: #198754 !important;
+}
+
+.date_range_container{
+}
+.grid_date {
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    grid-auto-flow: row;
+    grid-template-rows: repeat(7,1fr);
+    width:100%;
+}
+.date_range_title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.date_range_title h3{
+   padding: 0;
+    margin: 0;
+}
+.date_range_flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width:100%;
+  padding: 12px 0;
+}
+.date_range_flex i {
+  font-size: 15px;
+}
+.day_name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  border: 1px solid #000;
+}
+.day {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  font-size: 12px;
+  border: 1px solid #000;
+  position: relative;
+  
+}
+.day h4{
+    padding: 0;
+    margin: 0;
+    font-weight:400;
+  }
+.day::hover{
+    background:rgb(221, 210, 210)
+  }
+.day small{
+    color:red;
+    padding:0;
+    margin:0;
+    margin-top:5px;
+    font-weight:bold;
+  }
+.is_today{
+    background-color: red;
+}
+.is_between{
+  background-color: red;
+}
+.is_selected{
+    background-color: green;
+    color:white;
+} 
+.is_selected small{
+   color:white;
+}
+.is_after_to_day{
+    background-color: rgb(221, 210, 210);
+    cursor: pointer;
+    color:gray
 }

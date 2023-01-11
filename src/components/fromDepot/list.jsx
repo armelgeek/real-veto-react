@@ -54,11 +54,17 @@ export const HistoriqueVenteVendeur = () => {
       )
     );
   };
-  const recetteDuJour = (arr) => {
+  const recetteDuJour = (arr = []) => {
+    let filteredCommande = arr.filter(v => v.isdeleted!=true);
     let total = 0;
-    arr.map((c) => {
-      total += totalDevente(c?.contenu);
-    });
+    if (commandes.length > 0) {
+      filteredCommande.map((c) => {
+        total += totalDevente(c?.contenu);
+      });
+    } else {
+      total = 0;
+    }
+
     return total;
   };
   return (

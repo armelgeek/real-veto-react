@@ -58,25 +58,29 @@ export const MagasinVente = () => {
     return (
       calculateTotal(
         arr?.map((product) => {
-          return isSpecialProductHandle(product)
+          if(product.isdeleted!=true){
+          return isSpecialProductHandle(product) 
             ? product.prixqttccvente *
                 product.quantityParProduct *
                 product.qttccpvente +
                 product.prixVente * product.qttbylitre
             : product.prixVente * product.quantityParProduct;
+          }
         })
+      
       ) +
       calculateTotal(
         arr?.map((product) => {
-          return product.prixParCC * product.qttByCC;
+          return product.isdeleted!=true && product.prixParCC * product.qttByCC;
         })
       )
     );
   };
   const recetteDuJour = (arr = []) => {
+    let filteredCommande = arr.filter(v => v.isdeleted!=true);
     let total = 0;
     if (commandes.length > 0) {
-      arr.map((c) => {
+      filteredCommande.map((c) => {
         total += totalDevente(c?.contenu);
       });
     } else {

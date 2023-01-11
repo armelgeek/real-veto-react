@@ -51,9 +51,6 @@ const EditFromMagasin = () => {
     setProductData(searchByName(products, value));
   }, [value]);
 
-  React.useEffect(() => {
-    dispatch(action("products").fetch());
-  }, []);
 
   React.useEffect(() => {
     if (!metacommandes.isFetching) {
@@ -72,47 +69,8 @@ const EditFromMagasin = () => {
       </div>
       <Container className="mt-3">
         <Row>
-          <Col xs={6}>
-            <ListGroup>
-              <Card>
-                <Card.Header className="d-flex justify-content-between align-items-center bg-dark text-white">
-                  Produits
-                </Card.Header>
-                <Card.Body>
-                  <input
-                    type="text"
-                    onChange={(e) => {
-                      setValue(e.target.value);
-                    }}
-                    placeholder="Rechercher un produit"
-                    className="form-control mb-2"
-                  />
-                  <div
-                    style={{
-                      overflowY: "auto",
-                      height: "350px",
-                      maxHeight: "350px",
-                      overflowX: "hidden",
-                    }}
-                  >
-                    <>
-                      {productData.map((p) => (
-                        <EditProductItemToMag
-                          state={state}
-                          realproduct={products}
-                          setState={setState}
-                          product={p}
-                        />
-                      ))}
-                      {productData.length == 0 &&
-                        "Aucune enregistrement trouvé"}
-                    </>{" "}
-                  </div>
-                </Card.Body>
-              </Card>
-            </ListGroup>
-          </Col>
-          <Col xs={6}>
+          
+          <Col xs={12}>
             <EditToFromMag
               state={state}
               meta={metacommandes}

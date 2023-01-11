@@ -14,7 +14,6 @@ const EditFromMagasinItemControl = ({
   setState,
   setRealQtt,
   realQtt,
-  maxRealQtt,
 }) => {
   //const dispatch = useDispatch();
 
@@ -24,7 +23,7 @@ const EditFromMagasinItemControl = ({
     setState(temp_state);
   };
   const onAddQtyBrute = (value) => {
-    updateObjectValue(index, "quantityParProduct", value);
+    updateObjectValue(index, "prixVente", value);
   };
   return (
     <div className="basket-item-control">
@@ -34,8 +33,8 @@ const EditFromMagasinItemControl = ({
         bg={"whitesmoke"}
         onChange={(value) => {
           if (value == "") {
-            setRealQtt(product?.quantityParProduct);
-            onAddQtyBrute(product?.quantityParProduct);
+            setRealQtt(product?.prixVente);
+            onAddQtyBrute(product?.prixVente);
           } else {
             setRealQtt(Number(value));
             onAddQtyBrute(Number(value));

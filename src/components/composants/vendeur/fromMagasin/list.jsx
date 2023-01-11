@@ -16,6 +16,7 @@ import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/DateRangePic
 import DataTable from "../../../../utils/admin/DataTable";
 import { setSearchByDate } from "../../../../store/actions/search/search";
 import { isSpecialProductHandle } from "./block-it";
+import HeaderVendeur from "../../../HeaderVendeur";
 const isModified = (contenu) => {
   for (let i = 0; i < contenu.length; ++i) {
     if (contenu[i].correction > 0 || contenu[i].correctionml > 0) {
@@ -32,7 +33,7 @@ export const HistoriqueVenteVendeur = () => {
   const commandes = useSelector(getData("commandes").value);
   const meta = useSelector(getData("commandes").meta);
   const dispatch = useDispatch();
-
+ 
   useEffect(() => {
     dispatch(getCommandeCVA(search.deb, search.fin, type));
   }, [search.deb, search.fin]);
@@ -69,9 +70,10 @@ export const HistoriqueVenteVendeur = () => {
     );
   };
   const recetteDuJour = (arr = []) => {
+    let filteredCommande = arr.filter(v => v.isdeleted!=true);
     let total = 0;
     if (commandes.length > 0) {
-      arr.map((c) => {
+      filteredCommande.map((c) => {
         total += totalDevente(c?.contenu);
       });
     } else {
@@ -184,15 +186,8 @@ export const HistoriqueVenteVendeur = () => {
   return (
     <>
       <div>
-        <div className="bg-dark text-white p-3 d-flex justify-content-center align-items-center">
-          <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
-        </div>
-        <div className="p-3 container">
-          <div class="d-flex justify-content-end">
-            <Link class="btn btn-primary my-3" to={VENDEUR}>
-              Revenir en arriere
-            </Link>
-          </div>
+        <Container>
+          <HeaderVendeur />
           <div className="row">
             <div className="col-lg-6">
               <div>
@@ -228,7 +223,7 @@ export const HistoriqueVenteVendeur = () => {
             //  addUrl={NOUVELLEFACTURE}
             //  urlName={"Ajouter un facture"}
           />
-        </div>{" "}
+        </Container>
       </div>
     </>
   );

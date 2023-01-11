@@ -14,6 +14,8 @@ import DataTable from "../../../utils/admin/DataTable";
 import { NOUVELLEFACTURE } from "../../../constants/routes";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import DeleteApprov from "./DeleteApprov";
+import { SCOPES } from "../../../constants/permissions";
+import Gate from "../../Gate";
 
 export default function ListApprov() {
   var start = moment().isoWeekday(1).startOf("week");
@@ -57,11 +59,11 @@ export default function ListApprov() {
           return (
             <div style={{ width: "200px" }}>
               {data.row.original?.contenu?.map((c) => (
-                    <span> 
-                      {c.name}
-                      {","}
-                    </span>
-                  ))}
+                <span>
+                  {c.name}
+                  {","}
+                </span>
+              ))}
             </div>
           );
         },
@@ -105,19 +107,25 @@ export default function ListApprov() {
         Cell: (data) => {
           return (
             <>
-              <Link
-                to={`/approvis/detail/${data.row.original?.id}`}
-                className="btn btn-green btn-sm mr-2"
-              >
-                Détails
-              </Link>
-              <Link
-                to={`/editer/facture/${data.row.original?.id}`}
-                className="btn btn-warning btn-sm mr-2"
+              <Gate scopes={[SCOPES.canShowDetailFactures]}>
+                <Link
+                  to={`/approvis/detail/${data.row.original?.id}`}
+                  className="btn btn-green btn-sm mr-2"
+                >
+                  Détails
+                </Link>
+              </Gate>
+              <Gate  scopes={[SCOPES.canShowEditFacture]}>
+                <Link
+                  to={`/editer/facture/${data.row.original?.id}`}
+                  className="btn btn-warning btn-sm mr-2"
               >
                 Editer
               </Link>
-              <DeleteApprov model="approvis" entity={data.row.original} />
+              </Gate>
+              <Gate  scopes={[SCOPES.canShowDeleteFacture]}>
+                <DeleteApprov model="approvis" entity={data.row.original} />
+              </Gate>
             </>
           );
         },
@@ -150,6 +158,7 @@ export default function ListApprov() {
 
         <DataTable
           filter={false}
+          scopes={[SCOPES.canShowAddFacture]}
           data={approvisionnements.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}

@@ -9,19 +9,13 @@ const VendeurRoute = ({ isAuth, role, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      component={(props) => (
-        <>
-          <div className="">
-            <div>
-              <Component {...props} />
-            </div>
-          </div>
-        </>
-      )}
+      component={(props) => {
+          return (<Component {...props} />);
+        }
+      }
     />
   );
 };
-
 const mapStateToProps = ({ auth }) => ({
   isAuth: auth?.isLoggedIn,
   role: auth?.user?.role || "",

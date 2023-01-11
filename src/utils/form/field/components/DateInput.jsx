@@ -30,6 +30,7 @@ const DateInput = forwardRef(
           bg={"gray.100"}
           type="date"
           boxShadow="sm"
+          locale="fr-FR"
           isInvalid={invalid}
           color={"gray.700"}
           placeholder={placeholder}

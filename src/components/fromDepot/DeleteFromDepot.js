@@ -8,7 +8,7 @@ function DeleteFromDepot({ model, entity }) {
   const history = useHistory();
   const deleteEntity = () => {
     dispatch(action(model).deleteTransaction(entity, "/delete-from-depot"));
-    history.push(BONDESORTIE);
+    history.goBack();
   };
   return (
     <>

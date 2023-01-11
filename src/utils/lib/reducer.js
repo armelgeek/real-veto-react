@@ -18,12 +18,14 @@ export const metaFor = (resourceName, options = {}) => {
           isLoading: true,
           error: null,
           success: '',
+          data: action.data
         };
       case actionTypes.createError:
         return {
           isLoading: false,
           error: action.error,
           success: action.success,
+          data: action.data
         };
 
       case actionTypes.createSuccess:
@@ -33,6 +35,7 @@ export const metaFor = (resourceName, options = {}) => {
           error: null,
           success: action.success,
           lastUpdatedAt: action.receivedAt,
+          data: action.data
         };
       case actionTypes.createFailed:
         return {
@@ -40,6 +43,7 @@ export const metaFor = (resourceName, options = {}) => {
           isLoading: false,
           error: action.error,
           success: '',
+          data: action.data
         };
       case actionTypes.updateStart:
         return {
@@ -47,12 +51,14 @@ export const metaFor = (resourceName, options = {}) => {
           isLoading: true,
           error: null,
           success: '',
+          data: action.data
         };
       case actionTypes.updateError:
         return {
           isLoading: false,
           error: action.error,
           success: '',
+          data: action.data
         };
 
       case actionTypes.updateSuccess:
@@ -62,6 +68,7 @@ export const metaFor = (resourceName, options = {}) => {
           error: null,
           success: action.success,
           lastUpdatedAt: action.receivedAt,
+          data: action.data
         };
       case actionTypes.updateFailed:
         return {
@@ -69,6 +76,7 @@ export const metaFor = (resourceName, options = {}) => {
           isLoading: false,
           error: action.error,
           success: action.success,
+          data: action.data
         };
 
       case actionTypes.destroyStart:
@@ -77,6 +85,7 @@ export const metaFor = (resourceName, options = {}) => {
           isLoading: true,
           error: null,
           success: '',
+          data: action.data
         };
       case actionTypes.destroySuccess:
         return {
@@ -85,12 +94,14 @@ export const metaFor = (resourceName, options = {}) => {
           error: null,
           success: action.success,
           lastUpdatedAt: action.receivedAt,
+          data: action.data
         };
       case actionTypes.deleteError:
         return {
           isLoading: false,
           error: action.error,
           success: '',
+          data: action.data
         };
 
       case actionTypes.destroyFailed:
@@ -99,6 +110,7 @@ export const metaFor = (resourceName, options = {}) => {
           isLoading: false,
           error: action.error,
           success: '',
+          data: action.data
         };
       case actionTypes.getStart:
         return {
@@ -108,6 +120,7 @@ export const metaFor = (resourceName, options = {}) => {
           isFetching: true,
           error: null,
           success: '',
+          data: action.data
         };
       case actionTypes.getSuccess:
         return {
@@ -127,6 +140,7 @@ export const metaFor = (resourceName, options = {}) => {
           isFetching: true,
           error: null,
           success: '',
+          data: action.data
         };
 
       case actionTypes.fetchSuccess:
@@ -139,6 +153,7 @@ export const metaFor = (resourceName, options = {}) => {
           currentPage: action.currentPage,
           lastUpdatedAt: action.receivedAt,
           error: null,
+          data: action.data
         };
       case actionTypes.fetchError:
         return {
@@ -146,6 +161,7 @@ export const metaFor = (resourceName, options = {}) => {
           isFetching: false,
           isLoading: false,
           error: action.error,
+          data: action.data
         };
       default:
         return {

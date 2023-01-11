@@ -1,77 +1,66 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Redirect } from "react-router";
+
+import { createBrowserHistory } from "history";
 import { login } from "../../store/actions/user";
-import { Auth, Data } from "../../context/auth-context";
+import { useHistory } from "react-router-dom";
 import Form from "../../utils/form";
+
+import {validationSchema} from './validation';
 const SignIn = () => {
   const dispatch = useDispatch();
-
+  const history = createBrowserHistory();
   return (
     <div>
-      <Auth>
-        <Data>
-          {({ auth, isLoggedIn }) => (
-            <>
-              {auth?.error != null && (
-                <div>
-                  {auth?.error.message}
-                </div>
-              )}
-              <h3>
-                Se connecter
-              </h3>
-              <div
-              >
-                {isLoggedIn && <Redirect to="/" />}
-
-                <Form
-                  enableReinitialize
-                  initialValues={{
-                    username: "",
-                    password: "",
-                  }}
-                  validations={{}}
-                  onSubmit={(values, form) => {
-                    const { username, password } = values;
-                    dispatch(
+      <Form
+        id={`login-form`}
+        enableReinitialize
+        initialValues={{
+          username: "",
+          password: "",
+        }}
+        validations={validationSchema}
+        onSubmit={(values, form) => {
+            const { username, password } = values;
+           dispatch(
                       login({
                         username: username,
                         password: password,
                       })
-                    );
-                    console.log(values);
-                  }}
-                >
-                  <Form.Element>
+              );
+
+        }}
+        render={({ values }) => (
+          <Form.Element>
+            <div className="login-box">
+              <div className="login-container  col-4">
+                <div className="card">
+                  <div className="card-header d-flex flex-row justify-content-center bg-dark  text-white">
+                    <div className="card-title text-uppercase">Connexion</div>
+                  </div>
+                  <div className="card-body login-card-body">
                     <Form.Field.Input
-                      border="1px"
                       name="username"
                       label="Nom d'utilisateur"
-                      placeholder={"ex:Nom d'utilisateur"}
-                      mb={3}
+                      placeholder="Nom d'utilisateur"
                     />
-                    <Form.Field.Input
+                    <Form.Field.Password
                       name="password"
                       label="Mot de passe"
-                      placeholder={"Mot de passe"}
-                      type={"password"}
+                      placeholder="Mot de passe"
                     />
-                      <button
-                        type={"submit"}
-                        mt={4}
-                      >
+                    <div className="d-flex flex-row justify-content-end mt-3">
+                      <button className="btn btn-green btn-md" type="submit">
                         Se connecter
                       </button>
-                    </Form.Element>
-                </Form>
+                    </div>
+                  </div>
+                </div>
               </div>
-        
-            </>
-          )}
-        </Data>
-      </Auth>
-      <div mt={46} divShadow="md"></div>
+            </div>
+          </Form.Element>
+        )}
+      />
     </div>
   );
 };

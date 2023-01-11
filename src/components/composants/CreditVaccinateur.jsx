@@ -14,6 +14,8 @@ import { displayDate, displayMoney } from "../../utils/functions";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/DateRangePicker";
 import DataTable from '../../utils/admin/DataTable';
 import DeleteFromDepot from "../fromDepot/DeleteFromDepot";
+import { SCOPES } from "../../constants/permissions";
+import Gate from '../Gate';
 function CreditVaccinateur(props) {
   var start = moment().isoWeekday(1).startOf("week");
   var end = moment().endOf("week");
@@ -74,7 +76,7 @@ function CreditVaccinateur(props) {
       },
       {
         Header: "Produits",
-  
+
         Cell: (data) => {
           return (
             <div style={{ width: "100px" }}>
@@ -110,7 +112,7 @@ function CreditVaccinateur(props) {
         Header: "Contact du vaccinateur",
         accessor: "vaccinateur.contact",
       },
-      
+
       {
         Header: "Quantité",
         Cell: (data) => {
@@ -136,19 +138,24 @@ function CreditVaccinateur(props) {
         Cell: (data) => {
           return (
             <>
-              <Link
-                to={`/detail/${data.row.original?.id}`}
-                className="btn btn-green btn-sm mr-2"
-              >
-                Détails
-              </Link>
-              <Link
-                to={`/editer/commande/${data.row.original?.id}`}
-                className="btn btn-warning btn-sm mr-2"
-              >
-                Editer
-              </Link>
-              <DeleteFromDepot model="fromdepots" entity={data.row.original} />
+              <Gate scopes={[SCOPES.canShowDetailVaccinateurCreditDepot]}>
+                <Link
+                  to={`/detail/${data.row.original?.id}`}
+                  className="btn btn-green btn-sm mr-2"
+                >
+                  Détails
+                </Link>
+              </Gate>
+              <Gate scopes={[SCOPES.canShowDetailVaccinateurCreditDepot]}>
+                <Link
+                  to={`/editer/commande/${data.row.original?.id}`}
+                  className="btn btn-warning btn-sm mr-2"
+                >
+                  Editer
+                </Link>
+              </Gate>
+              <Gate scopes={[SCOPES.canShowDeleteVaccinateurCreditDepot]}>
+                <DeleteFromDepot model="fromdepots" entity={data.row.original} /> </Gate>
             </>
           );
         },
@@ -163,7 +170,7 @@ function CreditVaccinateur(props) {
         <ActiveLink title="Crédit  pour les vaccinateurs"></ActiveLink>
       </ContentHeader>
       <Page>
-      <div className="row">
+        <div className="row">
           <div className="col-lg-6">
             <div>
               <h3 className="text-uppercase">Credit pour les vaccinateurs</h3>
@@ -182,8 +189,8 @@ function CreditVaccinateur(props) {
           data={commandes.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}
-          //  addUrl={NOUVELLEFACTURE}
-          //  urlName={"Ajouter un facture"}
+        //  addUrl={NOUVELLEFACTURE}
+        //  urlName={"Ajouter un facture"}
         />
       </Page>
     </Content>

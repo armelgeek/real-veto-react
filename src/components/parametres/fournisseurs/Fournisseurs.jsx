@@ -9,7 +9,7 @@ import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
 import Page from "../../../@adminlte/adminlte/Content/Page";
 import { ADD_FOURNISSEUR } from '../../../constants/routes';
 import { CrudAction } from "../../../utils/admin/Resource/CrudAction";
-
+import { SCOPES } from "../../../constants/permissions";
 function Fournisseurs() {
   const fournisseurs = useSelector(getData("fournisseurs").value);
   const meta = useSelector(getData("fournisseurs").meta);
@@ -22,21 +22,24 @@ function Fournisseurs() {
     {
       Header: "Nom",
       accessor: "name",
-    },      {
+    }, {
       Header: "Actions",
       Cell: (data) => {
         return (
-          
+
           <CrudAction
-            detail={false}
+            edit={[SCOPES.canEditFournisseurs]}
+            detail={[SCOPES.canViewFournisseurs]}
+            remove={[SCOPES.canDeleteFournisseurs]}
             route={"fournisseurs"}
             model={"fournisseurs"}
             modelKey={"name"}
             data={data}
           />
         );
-      }}
-  
+      }
+    }
+
   ];
 
   return (
@@ -46,6 +49,7 @@ function Fournisseurs() {
       </ContentHeader>
       <Page>
         <DataTable
+          scopes={[SCOPES.canCreateFournisseurs]}
           data={fournisseurs.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}

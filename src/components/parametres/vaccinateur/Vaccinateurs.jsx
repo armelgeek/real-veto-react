@@ -9,6 +9,7 @@ import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
 import Page from "../../../@adminlte/adminlte/Content/Page";
 import { ADD_VACCINATEUR } from "../../../constants/routes";
 import { CrudAction } from "../../../utils/admin/Resource/CrudAction";
+import { SCOPES } from "../../../constants/permissions";
 
 function Vaccinateurs() {
   const vaccinateurs = useSelector(getData("vaccinateurs").value);
@@ -32,7 +33,9 @@ function Vaccinateurs() {
       Cell: (data) => {
         return (
           <CrudAction
-            detail={false}
+            edit={[SCOPES.canEditVaccinateur]}
+            detail={[SCOPES.canViewVaccinateur]}
+            remove={[SCOPES.canDeleteVaccinateur]}
             route={"vaccinateurs"}
             model={"vaccinateurs"}
             modelKey={"name"}
@@ -50,6 +53,7 @@ function Vaccinateurs() {
       </ContentHeader>
       <Page>
         <DataTable
+          scopes={[SCOPES.canCreateVaccinateur]}
           data={vaccinateurs.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}

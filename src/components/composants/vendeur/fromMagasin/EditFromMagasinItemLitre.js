@@ -25,7 +25,7 @@ const EditFromMagasinItemLitre = ({
     setState(temp_state);
   };
   const onAddQtyBrute = (value) => {
-    updateObjectValue(index, "qttbylitre", value);
+    updateObjectValue(index, "prixVente", value);
   };
 
   return (
@@ -37,11 +37,11 @@ const EditFromMagasinItemLitre = ({
         bg={"whitesmoke"}
         min={0}
         value={realQttLitre}
-        defaultValue={product?.qttbylitre}
+        defaultValue={product?.prixVente}
         onChange={(value) => {
           if (value == "") {
-            setRealQttLitre(product?.qttbylitre);
-            onAddQtyBrute(product?.qttbylitre);
+            setRealQttLitre(product?.prixVente);
+            onAddQtyBrute(product?.prixVente);
           } else {
             setRealQttLitre(Number(value));
             onAddQtyBrute(Number(value));

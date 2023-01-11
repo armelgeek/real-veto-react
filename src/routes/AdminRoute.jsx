@@ -10,18 +10,22 @@ import useScrollTop from "../hooks/useScrollTop";
 const AdminRoute = ({ isAuth, role, component: Component, ...rest }) => {
   useScrollTop();
   return (
-  <Route
-    {...rest}
-    component={(props) =>
-        <>
-          <AdminLTE title={"CBV AMBALAVAO"}>
-            <Component {...props} />
-          </AdminLTE>
-        </>
-    }
-  />)
+    <Route
+      {...rest}
+      component={(props) => {
+          return (
+            <AdminLTE  title={"CBV AMBALAVAO"}>
+              <Component {...props} />
+            </AdminLTE>
+          );
+      }}
+    />
+  );
 };
-
+/**
+const mapStateToProps = ({ users }) => ({
+  isAuth: users.authenticated,
+});**/
 const mapStateToProps = ({ auth }) => ({
   isAuth: auth?.isLoggedIn,
   role: auth?.user?.role || "",

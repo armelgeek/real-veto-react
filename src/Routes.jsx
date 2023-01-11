@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import SetupInterceptors from "./utils/network";
 import AdminLTE from "./@adminlte/AdminLTE";
 import App from "./App";
 import Approv from "./components/Approv";
@@ -29,6 +31,7 @@ import NouvelleFacture from "./components/NouvelleFacture";
 import Parametres from "./components/Parametres";
 import Sortie from "./components/Sortie";
 import EditSortie from "./components/fromDepot/EditSortie";
+import ChangePrixDate from "./components/ChangePrixDate";
 import {
   ADMIN,
   DEPOTOMAGASIN,
@@ -69,6 +72,9 @@ import {
   DETAILVENDEUR_ADMIN,
   VENDEUR_ADMIN,
   CHANGE_PRIX,
+  STOCKCVA,
+  OP_COMMANDES,
+  PRICE_CHANGE
 } from "./constants/routes";
 
 import PublicRoute from "./routes/PublicRoute";
@@ -113,7 +119,7 @@ import { AdminDashboard } from "./components/composants/admin";
 import { DepotToMagasin } from "./components/composants/admin/depot-to-magasin";
 import { HistoriqueSortieCva } from "./components/composants/admin/tomagasin/list";
 import { HistoriqueVenteVendeur } from "./components/composants/vendeur/fromMagasin/list";
-import { HistoriqueVenteVendeurAdmin  } from "./components/composants/vendeur/fromMagasinForAdmin/list";
+import { HistoriqueVenteVendeurAdmin } from "./components/composants/vendeur/fromMagasinForAdmin/list";
 import { EtatStockMagasin } from "./components/composants/admin/etat";
 import { MagasinVente } from "./components/composants/admin/magasin-vente";
 import DetailVendeur from "./components/composants/vendeur/fromMagasin/DetailVendeur";
@@ -130,7 +136,6 @@ import EditFromMagasin from "./components/composants/vendeur/fromMagasin/EditFro
 
 import DetailMagasinVenteAdmin from "./components/composants/vendeur/fromMagasinForAdmin/DetailMagasinVente";
 import EditFromMagasinAdmin from "./components/composants/vendeur/fromMagasinForAdmin/EditFromMagasin";
-
 
 import EditToMagasin from "./components/composants/admin/tomagasin/EditToMagasin";
 import Vendeur from "./components/composants/vendeur/index";
@@ -150,32 +155,15 @@ import Vaccinateurs from "./components/parametres/vaccinateur/Vaccinateurs";
 import CreateVaccinateur from "./components/parametres/vaccinateur/AddVaccinateur";
 import EditVaccinateur from "./components/parametres/vaccinateur/EditVaccinateur";
 import VendeurAdmin from "./components/composants/vendeur/fromMagasinForAdmin";
-import ChangerPrix from './components/change-prix/index';
+import ChangerPrix from "./components/change-prix/index";
+import { EtatStockCVA } from "./components/composants/vendeur/etat";
+import OpCommandes from "./components/composants/OpCommandes";
 function Routes() {
   const dispatch = useDispatch();
+  const history = createBrowserHistory();
+  //SetupInterceptors(history);
   return (
     <BrowserRouter>
-      {/* <Header />*/}
-      {/*<Auth>
-        <Data>
-          {({ isLoggedIn }) => (
-            <div className="top-3">
-            <div className="d-flex justify-content-end">
-              {isLoggedIn ? (
-                <div className="m-3">
-                  <button  class="btn btn-primary"  onClick={() => {
-                    dispatch(logout());
-                  }}>Déconnexion</button>
-                </div>
-              ) : (
-                <>
-                  <p>Se connecter</p> 
-                </>
-              )}
-            </div></div>
-          )}
-        </Data>
-      </Auth>*/}
       <Switch>
         <AdminRoute path={HOME} exact component={App} />
         <AdminRoute path={TDB_FACTURES} component={Facturation} />
@@ -185,6 +173,7 @@ function Routes() {
           component={DepotVersMagasin}
         />
         <VendeurRoute path={VENDEUR} component={Vendeur} />
+        <VendeurRoute path={STOCKCVA} component={EtatStockCVA} />
         <VendeurRoute path={DETAILVENDEUR} component={DetailVendeur} />
         <VendeurRoute path={EDITFROMMAGASIN} component={EditFromMagasin} />
         <VendeurRoute
@@ -193,7 +182,10 @@ function Routes() {
         />
         <AdminRoute path={VENDEUR_ADMIN} component={VendeurAdmin} />
         <AdminRoute path={DETAILVENDEUR_ADMIN} component={DetailVendeurAdmin} />
-        <AdminRoute path={EDITFROMMAGASIN_ADMIN} component={EditFromMagasinAdmin} />
+        <AdminRoute
+          path={EDITFROMMAGASIN_ADMIN}
+          component={EditFromMagasinAdmin}
+        />
         <AdminRoute
           path={HISTORIQUEVENTEVENDEUR_ADMIN}
           component={HistoriqueVenteVendeurAdmin}
@@ -233,8 +225,8 @@ function Routes() {
         <AdminRoute path={LISTAPPROV} component={ListApprov} />
         <AdminRoute path={DETAILAPPROV} exact component={DetailApprov} />
 
-        <AdminRoute path={SIGNIN} component={SignIn} />
-        <AdminRoute path={SIGNUP} component={SignUp} />
+        <Route path={SIGNIN} component={SignIn} />
+        <Route path={SIGNUP} component={SignUp} />
         <AdminRoute path={ADMIN} component={AdminDashboard} />
         <AdminRoute path={EDITDEPOTTOMAGASIN} component={EditToMagasin} />
 
@@ -247,7 +239,7 @@ function Routes() {
           component={DepotToMagasinDetail}
         />
         <AdminRoute path={ETATSTOCKMAGASIN} component={EtatStockMagasin} />
-        
+
         <AdminRoute
           path={HISTORIQUEVENTEVENDEURVUEPARADMIN}
           component={MagasinVente}
@@ -272,8 +264,10 @@ function Routes() {
         <AdminRoute path={ADD_EMPRUNTEUR} component={CreateEmprunteur} />
         <AdminRoute path={EDIT_EMPRUNTEUR} component={EditEmprunter} />
         <AdminRoute path={VACCINATEURS} component={Vaccinateurs} />
+        <AdminRoute path={OP_COMMANDES} component={OpCommandes} />
         <AdminRoute path={ADD_VACCINATEUR} component={CreateVaccinateur} />
         <AdminRoute path={EDIT_VACCINATEUR} component={EditVaccinateur} />
+        <AdminRoute path={PRICE_CHANGE} component={ChangePrixDate} />
       </Switch>
       {/*<Footer/>*/}
     </BrowserRouter>

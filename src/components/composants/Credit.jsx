@@ -14,6 +14,8 @@ import { displayDate, displayMoney } from "../../utils/functions";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker/dist/DateRangePicker";
 import DataTable from '../../utils/admin/DataTable';
 import DeleteFromDepot from "../fromDepot/DeleteFromDepot";
+import { SCOPES } from "../../constants/permissions";
+import Gate from "../Gate";
 function Credit(props) {
   var start = moment().isoWeekday(1).startOf("week");
   var end = moment().endOf("week");
@@ -38,7 +40,8 @@ function Credit(props) {
     }
   }, [dateRange]);
   const calculateTotal = (arr) => {
-    if (!arr || arr?.length === 0) return 0;
+    //console.log('arr',arr);
+    if (arr == undefined || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
       total += el.prixVente * el.quantityParProductDepot;
@@ -82,12 +85,45 @@ function Credit(props) {
       },
       {
         Header: "Produits",
-        accessor:'contenu',
-        Cell:({ cell: { value } }) => {
+        Cell: (data) => {
           return (
-            <div style={{ width: "100px" }}>
-              {value != null  && value.map(e => (
-                <p>{e.name}</p>
+            <div style={{ width: "350px" }}>
+              {data.row.original?.isdeleted == true && (
+                <>
+                  <div className="badge badge-danger">Supprimé</div>
+                  <div className="text text-danger">
+                    Date de suppression :{" "}
+                    {displayDate(data.row.original?.deletedat)}
+                  </div>
+                </>
+              )}
+          
+              {data.row.original?.contenu?.map((d) => (
+                <span>
+                  <span
+                    style={{
+                      background: "white",
+                      color:
+                        data.row.original?.isdeleted == true
+                          ? "red"
+                          : "inherit",
+                      padding: 2,
+                    }}
+                  >
+                    {d.name}
+                  </span>
+                  <span
+                    style={{
+                      color:
+                        data.row.original?.isdeleted == true
+                          ? "red"
+                          : "inherit",
+                    }}
+                  >
+                    {" "}
+                    {" || "}
+                  </span>
+                </span>
               ))}
             </div>
           );
@@ -117,10 +153,10 @@ function Credit(props) {
       },
       {
         Header: "Total",
-        Cell: ({ cell: { value } }) => {
+        Cell: (data) => {
           return (
             <div>
-              {displayMoney(calculateTotal(value?.contenu))}
+              {displayMoney(calculateTotal(data.row.original?.contenu))}
             </div>
           );
         },
@@ -128,23 +164,30 @@ function Credit(props) {
       {
         Header: "Actions",
         Cell: (data) => {
-          return (
+          const isDisabled =
+            data.row.original?.isdeleted == true ? true : false;
+          return !isDisabled ? (
             <>
-              <Link
-                to={`/detail/${data.row.original?.id}`}
-                className="btn btn-green btn-sm mr-2"
-              >
-                Détails
-              </Link>
-              <Link
-                to={`/editer/commande/${data.row.original?.id}`}
-                className="btn btn-warning btn-sm mr-2"
-              >
-                Editer
-              </Link>
-              <DeleteFromDepot model="fromdepots" entity={data.row.original} />
+              <Gate scopes={[SCOPES.canShowDetailCreditDepot]}>
+                <Link
+                  to={`/detail/${data.row.original?.id}`}
+                  className="btn btn-green btn-sm mr-2"
+                >
+                  Détails
+                </Link>
+              </Gate>
+              <Gate scopes={[SCOPES.canShowEditCreditDepot]}>
+                <Link
+                  to={`/editer/commande/${data.row.original?.id}`}
+                  className="btn btn-warning btn-sm mr-2"
+                >
+                  Editer
+                </Link>
+              </Gate>
+              <Gate scopes={[SCOPES.canShowDeleteCreditDepot]}>
+                <DeleteFromDepot model="fromdepots" entity={data.row.original} /></Gate>
             </>
-          );
+          ):null;
         },
       },
     ],
@@ -157,7 +200,7 @@ function Credit(props) {
         <ActiveLink title="Crédit"></ActiveLink>
       </ContentHeader>
       <Page>
-      <div className="row">
+        <div className="row">
           <div className="col-lg-6">
             <div>
               <h3 className="text-uppercase">Credit</h3>
@@ -176,8 +219,8 @@ function Credit(props) {
           data={commandes.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}
-          //  addUrl={NOUVELLEFACTURE}
-          //  urlName={"Ajouter un facture"}
+        //  addUrl={NOUVELLEFACTURE}
+        //  urlName={"Ajouter un facture"}
         />
       </Page>
     </Content>

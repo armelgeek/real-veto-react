@@ -60,6 +60,7 @@ export const HistoriqueVenteVendeurAdmin = () => {
                 product.qttccpvente +
                 product.prixVente * product.qttbylitre
             : product.prixVente * product.quantityParProduct;
+      
         })
       ) +
       calculateTotal(
@@ -70,9 +71,10 @@ export const HistoriqueVenteVendeurAdmin = () => {
     );
   };
   const recetteDuJour = (arr = []) => {
+    let filteredCommande = arr.filter(v => v.isdeleted!=true);
     let total = 0;
     if (commandes.length > 0) {
-      arr.map((c) => {
+      filteredCommande.map((c) => {
         total += totalDevente(c?.contenu);
       });
     } else {
@@ -163,12 +165,12 @@ export const HistoriqueVenteVendeurAdmin = () => {
                   >
                     Détails
                   </Link>
-                  <Link
+                 {/** <Link
                     to={`/vendeur-admin-commande/${data.row.original?.id}`}
                     className="btn btn-warning btn-sm mr-2"
                   >
                     Editer
-                  </Link>
+                  </Link> */}
                   <DeleteFromMagasinAdmin
                     model="fromagasins"
                     entity={data.row.original}

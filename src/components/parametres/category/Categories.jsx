@@ -9,6 +9,7 @@ import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
 import Page from "../../../@adminlte/adminlte/Content/Page";
 import { ADD_CATEGORIES } from '../../../constants/routes';
 import { CrudAction } from "../../../utils/admin/Resource/CrudAction";
+import { SCOPES } from "../../../constants/permissions";
 
 function Categories() {
   const categories = useSelector(getData("categories").value);
@@ -28,7 +29,9 @@ function Categories() {
         return (
           
           <CrudAction
-            detail={false}
+            edit={[SCOPES.canEditCategory]}
+            detail={[SCOPES.canViewCategory]}
+            remove={[SCOPES.canDeleteCategory]}
             route={"categories"}
             model={"categories"}
             modelKey={"name"}
@@ -46,6 +49,7 @@ function Categories() {
       </ContentHeader>
       <Page>
         <DataTable
+          scopes={[SCOPES.canCreateCategory]}
           data={categories.sort((low, high) => high.id - low.id)}
           meta={meta}
           columns={columns}

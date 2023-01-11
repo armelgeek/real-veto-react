@@ -62,114 +62,19 @@ const getCorrection = (product) => {
     };
   }
 };
-const EditItem = ({ state, index, setState, product, products }) => {
-  const dispatch = useDispatch();
-  const [realQttCC, setRealQttCC] = useState(product?.qttByCC);
-  const [realQtt, setRealQtt] = useState(product?.quantityParProduct);
-  const [realQttLitre, setRealQttLitre] = useState(product?.qttbylitre);
+const EditItem = ({ state, index, setState, product }) => {
+  const [realQttCC, setRealQttCC] = useState(!isSpecialProductHandle(product) ? product?.prixParCC: product?.prixqttccvente);
+  const [realQtt, setRealQtt] = useState(product?.prixVente);
+  const [realQttLitre, setRealQttLitre] = useState(product?.prixVente);
   const [maxRealQtt, setMaxRealQtt] = useState(2000);
   const [maxRealQttCC, setMaxRealQttCC] = useState(2000);
   const [maxRealQttByLitre, setMaxRealQttByLitre] = useState(2000);
-  const x = useSelector(getData("commandes").value);
-
-  React.useEffect(() => {
-    if (products != undefined && state != undefined && x.length > 0) {
-      let realpr = state?.find((s) => product?.id);
-      const { normalQtt, normalQttCC, normalQttLitre, isSpecific, isValid } =
-        blockItis(products, x[0], realpr);
-
-      if (isValid == false) {
-        alert("stock insuffisant :(");
-        if (!isSpecific) {
-          setRealQtt(normalQtt);
-          setMaxRealQtt(normalQtt);
-          setRealQttCC(normalQttCC);
-          setMaxRealQttCC(normalQttCC);
-        } else {
-          setRealQttLitre(normalQttLitre);
-          setMaxRealQttByLitre(normalQttLitre);
-          setRealQtt(normalQtt);
-          setMaxRealQtt(normalQtt);
-          setRealQttCC(normalQttCC);
-          setMaxRealQttCC(normalQttCC);
-        }
-      }
-      console.log(realQttLitre);
-    }
-  }, [realQtt, realQttCC, realQttLitre, products]);
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center border mt-3  mb-2 p-2">
         <div style={{ width: "45%" }}>
-          {product.correction > 0 && (
-            <div>
-              <div className={getCorrection(product).style}>
-                <p>{getCorrection(product).text}</p>
-              </div>
-              <p className={getCorrection(product).textStyle}>
-                Date de modification:{getCorrection(product).date}
-              </p>
-            </div>
-          )}
+          
           <p className="text-blue">{product.name}</p>
-          {isSpecialProductHandle(product) ? (
-            <>
-              <p className="text-lowercase">
-                <strong>
-                  {product.qttbylitre != 0 && (
-                    <span style={{ marginRight: "30px" }}>
-                      {displayMoney(product.prixVente) +
-                        " x " +
-                        product.qttbylitre +
-                        " Litre(s)"}
-                    </span>
-                  )}
-                </strong>
-              </p>
-              <p className="text-lowercase">
-                <strong>
-                  {product.quantityParProduct != 0 && (
-                    <span style={{ marginRight: "30px" }}>
-                      {displayMoney(
-                        product.prixqttccvente * product.qttccpvente
-                      ) +
-                        " x " +
-                        product.quantityParProduct +
-                        " " +
-                        product.type}
-                    </span>
-                  )}
-                </strong>
-              </p>
-            </>
-          ) : (
-            <p className="text-lowercase">
-              <strong>
-                {product.quantityParProduct != 0 && (
-                  <span style={{ marginRight: "30px" }}>
-                    {displayMoney(product.prixVente) +
-                      " x " +
-                      product.quantityParProduct +
-                      " " +
-                      product.type}
-                  </span>
-                )}
-              </strong>
-            </p>
-          )}
-
-          <p className="text-lowercase">
-            <strong>
-              {product.qttByCC != 0 && (
-                <span style={{ marginRight: "30px" }}>
-                  {displayMoney(product.prixParCC) +
-                    " x " +
-                    product.qttByCC +
-                    " ML"}
-                </span>
-              )}
-            </strong>
-          </p>
         </div>
         {product.condml !== 0 && product.qttccpvente !== 0 && (
           <div className="text-inline text-center mr-3">

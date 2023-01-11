@@ -20,6 +20,7 @@ import sortiedepotReducer from "./sortiedepot";
 import fromdepotsReducer from "../fromdepot/reducers/fromdepot";
 import { countReducer } from "./undoTest";
 import { searchReducer } from "./search/search";
+import commundReducer from './commund';
 
 export default combineReducers({
     searchbydate:searchReducer,
@@ -33,6 +34,7 @@ export default combineReducers({
     vaccinateurs: vaccinateurReducer,
     commandes: commandeReducer,
     commandesclone: commandeReducer,
+    commund: commandeReducer,
     basket: basketReducer,
     approvisionnements: approvisonnementReducer,
     approvis: approvisReducer,

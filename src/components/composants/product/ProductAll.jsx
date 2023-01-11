@@ -21,6 +21,7 @@ import Nav from "../../../utils/admin/Nav";
 import Guide from "./Guide";
 import { CrudAction } from "../../../utils/admin/Resource/CrudAction";
 import { ActionCreators } from "react-redux-undo";
+import { SCOPES } from "../../../constants/permissions";
 //initialize datatable
 /*   $(document).ready(function () {
       $('table').DataTable();
@@ -40,77 +41,80 @@ export const ProductAll = () => {
   };
 
   const columns = [
-      {
-        Header: "Id",
-        accessor: "id",
+    {
+      Header: "Id",
+      accessor: "id",
+    },
+    {
+      Header: "Produit",
+      accessor: "name",
+    },
+    {
+      Header: "Fournisseur",
+      Cell: (data) => {
+        return (
+          <>
+            <span className="badge badge-primary">
+              {data.row.original?.fournisseur != null ? data.row.original?.fournisseur?.name : ""}
+            </span>
+          </>
+        );
       },
-      {
-        Header: "Produit",
-        accessor: "name",
+    },
+    {
+      Header: "Quantité",
+      accessor: "quantityBrute",
+    },
+    {
+      Header: "Reste en ML",
+      accessor: "quantityCC",
+    },
+    {
+      Header: "Prix unitaire",
+      Cell: (data) => {
+        return <div>{displayMoney(data.row.original?.prixFournisseur)}</div>;
       },
-      {
-        Header: "Fournisseur",
-        Cell: (data) => {
-          return (
-            <>
-              <span className="badge badge-primary">
-                {data.row.original?.fournisseur!=null ? data.row.original?.fournisseur?.name:""}
-              </span>
-            </>
-          );
-        },
+    },
+    {
+      Header: "Prix de vente",
+      Cell: (data) => {
+        return <div>{displayMoney(data.row.original?.prixVente)}</div>;
       },
-      {
-        Header: "Quantité",
-        accessor: "quantityBrute",
-      },
-      {
-        Header: "Reste en ML",
-        accessor: "quantityCC",
-      },
-      {
-        Header: "Prix unitaire",
-        Cell: (data) => {
-          return <div>{displayMoney(data.row.original?.prixFournisseur)}</div>;
-        },
-      },
-      {
-        Header: "Prix de vente",
-        Cell: (data) => {
-          return <div>{displayMoney(data.row.original?.prixVente)}</div>;
-        },
-      },
+    },
 
-      {
-        Header: "Prix en ML",
-        Cell: (data) => {
-          return (
-            <div>
-              {data.row.original?.qttccpvente != 0
-                ? displayMoney(
-                    data.row.original?.prixParCC *
-                      data.row.original?.qttccpvente
-                  )
-                : displayMoney(data.row.original?.prixParCC)}
-            </div>
-          );
-        },
+    {
+      Header: "Prix en ML",
+      Cell: (data) => {
+        return (
+          <div>
+            {data.row.original?.qttccpvente != 0
+              ? displayMoney(
+                data.row.original?.prixParCC *
+                data.row.original?.qttccpvente
+              )
+              : displayMoney(data.row.original?.prixParCC)}
+          </div>
+        );
       },
+    },
 
-      {
-        Header: "Actions",
-        Cell: (data) => {
-          return (
-            <CrudAction
-              route={"product"}
-              model={"products"}
-              modelKey={"name"}
-              data={data}
-            />
-          );
-        },
+    {
+      Header: "Actions",
+      Cell: (data) => {
+        return (
+          <CrudAction
+            edit={[SCOPES.canShowEditProduit]}
+            detail={[SCOPES.canShowDetailProduit]}
+            remove={[SCOPES.canShowDeleteProduit]}
+            route={"product"}
+            model={"products"}
+            modelKey={"name"}
+            data={data}
+          />
+        );
       },
-    ];
+    },
+  ];
   return (
     <Content>
       <ContentHeader title="Tous les produits">
@@ -119,6 +123,7 @@ export const ProductAll = () => {
       <Page>
         <DataTable
           data={products}
+          scopes={[SCOPES.canShowAddProduit]}
           meta={meta}
           columns={columns}
           addUrl={CREATEPRODUCT}

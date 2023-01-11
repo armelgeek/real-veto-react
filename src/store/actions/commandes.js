@@ -24,7 +24,12 @@ export const getResteAPayer = (deb, fin) =>
   export const getTdbCommande = (type,deb, fin) =>
   fetch("commandes", { path: `/get-tdb-commande?type=${type}&deb=${deb}&fin=${fin}`, replace: true });
   
-
+ export const getTdbCommandeByProduct = (type,deb, fin,id) =>
+  fetch("commandes", { path: `/get-tdb-by-product?type=${type}&deb=${deb}&fin=${fin}&id=${id}`, replace: true });
+  
+  export const getTdbCommandeByProducts = (type,deb, fin,id) =>
+  fetch("commund", { path: `/get-cmd-by-products?type=${type}&deb=${deb}&fin=${fin}&id=${id}`, replace: true });
+  
 export const getEntree = (deb, fin) =>
   fetch("commandes", { path: `/entree?deb=${deb}&fin=${fin}`, replace: true });
 
@@ -34,6 +39,11 @@ export const getSortie = (deb, fin) =>
 export const getCommandeCVA = (deb, fin,type) =>
   fetch("commandes", {
     path: `/vente-cva?deb=${deb}&fin=${fin}&type=${type}`,
+    replace: true,
+  });
+  export const getOperationCommandeCVA = (deb, fin,type) =>
+  fetch("commandes", {
+    path: `/operation-vente-cva?deb=${deb}&fin=${fin}`,
     replace: true,
   });
   export const getCommandeVenteCorrection = (deb, fin) =>

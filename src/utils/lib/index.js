@@ -4,6 +4,7 @@ export {
   update,
   get,
   destroy,
+  getNoParams,
   actionTypesFor,
   actionCreatorsFor,
 } from "./actions";
