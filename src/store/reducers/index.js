@@ -21,6 +21,7 @@ import fromdepotsReducer from "../fromdepot/reducers/fromdepot";
 import { countReducer } from "./undoTest";
 import { searchReducer } from "./search/search";
 import commundReducer from './commund';
+import versionReducer from './version';
 
 export default combineReducers({
     searchbydate:searchReducer,
@@ -45,4 +46,5 @@ export default combineReducers({
     tomagasins: toMagasinReducer,
     frommagasins: fromMagasinReducer,
     sortiedepots: sortiedepotReducer,
+    version: versionReducer
   });

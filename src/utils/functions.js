@@ -1,3 +1,4 @@
+import moment from 'moment';
 export const getParameterByName = (name, url) => {
   name = name.replace(/[\[\]]/g, "\\$&");
   var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -117,4 +118,42 @@ export const displayShortMonth = (timestamp) => {
 
   const monthIndex = date.getMonth();
   return `${monthNames[monthIndex]}`;
+};
+
+export const getAllFilterDate = (startDate, endDate) => {
+  const dayOfPrevWeek = [];
+  dayOfPrevWeek.push(moment(new Date()).startOf('week').format('YYYY-MM-DD'));
+  dayOfPrevWeek.push(moment(new Date()).endOf('week').format('YYYY-MM-DD'));
+  const months = [
+    {
+      monthValue: dayOfPrevWeek,
+      monthName: '7 derniers jours',
+    },
+  ];
+
+  while (endDate.diff(startDate, 'months') >= 0) {
+    const currentMonth =
+      new Date(startDate).getMonth() + 1 < 10
+        ? '0' + (new Date(startDate).getMonth() + 1)
+        : new Date(startDate).getMonth() + 1;
+    const currentYear = new Date(startDate).getFullYear();
+
+    const startOfMonth = [];
+
+    startOfMonth.push(
+      moment(startDate).clone().startOf('month').format('YYYY-MM-DD')
+    );
+    startOfMonth.push(
+      moment(startDate).clone().endOf('month').format('YYYY-MM-DD')
+    );
+    months.push({
+      monthValue: startOfMonth,
+      monthName:
+        new Date('now').getMonth() + 1 == new Date(startDate).getMonth() + 1
+          ? 'Ce mois ci'
+          : startDate.format('MMMM YYYY'),
+    });
+    startDate.add(1, 'month');
+  }
+  return months;
 };

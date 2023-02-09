@@ -20,9 +20,4 @@ const NavTree = ({ title, route, scopes = [] }) => {
   );
 };
 
-NavTree.propTypes = {
-  text: PropTypes.string.isRequired,
-  route: PropTypes.string.isRequired,
-};
-
 export default NavTree;

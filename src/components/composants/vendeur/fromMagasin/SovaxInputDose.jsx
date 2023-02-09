@@ -13,20 +13,16 @@ import {
 } from "@chakra-ui/react";
 export const SovaxInputDose = ({
   product,
+  update,
   index,
   state,
   setState,
   setRealQttCC,
-  maxRealQttCC,
   realQttCC,
 }) => {
-  const updateObjectValue = (index, key, value) => {
-    let temp_state = [...state];
-    temp_state[index] = { ...temp_state[index], [key]: value };
-    setState(temp_state);
-  };
+ 
   const onAddQtyPortion = (value) => {
-    updateObjectValue(index, "prixParCC", value);
+    update(index, "prixParCC", value);
   };
   return (
     <div className="basket-item-control">

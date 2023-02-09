@@ -5,6 +5,7 @@ import { blockItOnMinus } from "./block-it";
 const EditProductItemToMag = ({
   state,
   setState,
+  id,
   product,
 }) => {
   const dispatch = useDispatch();

@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 export const EditPhytoConditionnementInput = ({
   product,
+  update,
   state,
   setState,
   realQttCC,
@@ -20,14 +21,8 @@ export const EditPhytoConditionnementInput = ({
   maxRealQttCC,
   index,
 }) => {
-  const dispatch = useDispatch();
-  const updateObjectValue = (index, key, value) => {
-    let temp_state = [...state];
-    temp_state[index] = { ...temp_state[index], [key]: value };
-    setState(temp_state);
-  };
   const onAddQtyPortion = (value) => {
-    updateObjectValue(index, "prixqttccvente", value);
+    update(index, "prixqttccvente", value);
   };
   
   return (

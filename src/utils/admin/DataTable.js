@@ -161,7 +161,6 @@ function DataTableData({
               {headerGroup.headers.map((column) => (
                 <th
                   {...column.getHeaderProps(column.getSortByToggleProps())}
-                  isNumeric={column.isNumeric}
                 >
                   {column.render("Header")}
                   <span>

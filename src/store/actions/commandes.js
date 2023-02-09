@@ -28,7 +28,7 @@ export const getResteAPayer = (deb, fin) =>
   fetch("commandes", { path: `/get-tdb-by-product?type=${type}&deb=${deb}&fin=${fin}&id=${id}`, replace: true });
   
   export const getTdbCommandeByProducts = (type,deb, fin,id) =>
-  fetch("commund", { path: `/get-cmd-by-products?type=${type}&deb=${deb}&fin=${fin}&id=${id}`, replace: true });
+  fetch("commandes", { path: `/get-cmd-by-products?type=${type}&deb=${deb}&fin=${fin}&id=${id}`, replace: true });
   
 export const getEntree = (deb, fin) =>
   fetch("commandes", { path: `/entree?deb=${deb}&fin=${fin}`, replace: true });

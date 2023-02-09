@@ -5,7 +5,6 @@ import { createBrowserHistory } from "history";
 import { login } from "../../store/actions/user";
 import { useHistory } from "react-router-dom";
 import Form from "../../utils/form";
-
 import {validationSchema} from './validation';
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -22,13 +21,7 @@ const SignIn = () => {
         validations={validationSchema}
         onSubmit={(values, form) => {
             const { username, password } = values;
-           dispatch(
-                      login({
-                        username: username,
-                        password: password,
-                      })
-              );
-
+          
         }}
         render={({ values }) => (
           <Form.Element>

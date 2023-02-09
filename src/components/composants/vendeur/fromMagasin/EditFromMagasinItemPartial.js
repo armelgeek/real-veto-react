@@ -14,6 +14,7 @@ import {
 
 const EditFromMagasinItemPartial = ({
   product,
+  update,
   setRealQttCC,
   maxRealQttCC,
   index,
@@ -23,13 +24,8 @@ const EditFromMagasinItemPartial = ({
 }) => {
   // const dispatch = useDispatch();
 
-  const updateObjectValue = (index, key, value) => {
-    let temp_state = [...state];
-    temp_state[index] = { ...temp_state[index], [key]: value };
-    setState(temp_state);
-  };
   const onAddQtyByCC = (value) => {
-    updateObjectValue(index, "prixParCC", value);
+    update(index, "prixParCC", value);
   };
   return (
     <div className="basket-item-control">

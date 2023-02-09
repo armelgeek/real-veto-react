@@ -1,8 +1,8 @@
 import React from "react";
 function Page({ children }) {
   return (
-    <section class="content" >
-      <div class="container-fluid">{children}</div>
+    <section className="content" >
+      <div className="container-fluid">{children}</div>
     </section>
   );
 }

@@ -1,0 +1,96 @@
+import React, { useEffect, useMemo, useState, useCallback, useRef } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import moment from 'moment';
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import ActiveLink from "../@adminlte/adminlte/Content/ActiveLink";
+import Content from "../@adminlte/adminlte/Content";
+import ContentHeader from "../@adminlte/adminlte/Content/ContentHeader";
+import Page from "../@adminlte/adminlte/Content/Page";
+import { getTdbCommande } from "../store/actions/commandes";
+import { action, getData } from "../utils/lib/call";
+import { displayDate } from "../utils/functions";
+import DatePickerDateSection from './DatePickerDateSection';
+import PriceContainer from './Price/PriceContainer';
+import EditToFromMag from './composants/vendeur/fromMagasin/EditFromMag';
+import { useParams } from 'react-router-dom';
+import Cycle from '../utils/cycle';
+import JsonEditor,{SchemaTypes} from './jsonEditor';
+
+const schema = {
+    dateCom: SchemaTypes.date({ required: true,disabled:true }),
+    contenu: SchemaTypes.arrayOf({
+      name: SchemaTypes.string({
+        disabled: true
+      }),
+      prixVente: SchemaTypes.number({
+        numeric: true
+      }),
+      prixParCC: SchemaTypes.number({
+        numeric: true
+      }),
+      prixqttccvente: SchemaTypes.number({
+        numeric: true
+      })
+    })(),
+};
+const ChangePrixDate = () => {
+  var start = moment().isoWeekday(1).startOf("week");
+  var end = moment().endOf("week");
+  const [rangeDate, setRangeDate] = useState([]);
+  const [rangeMonth, setRangeMonth] = useState([]);
+  let [startofDate, setStartofDate] = useState(start);
+  let [endDate, setEndDate] = useState(end);
+  const [dateRange, onChangeDateRange] = useState([start, end]);
+
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const commandes = useSelector(getData("commandes").value);
+  const meta = useSelector(getData("commandes").meta);
+  const [data, setData] = useState(commandes);
+  return (
+    <Content>
+      <ContentHeader title="Historique de commande 'Closantel'">
+        <ActiveLink title="Historique de commande 'Closantel'"></ActiveLink>
+      </ContentHeader>
+      <Page>
+       
+        <div className="d-flex flex-row justify-content-between">
+        <div>
+          <div>
+                {startofDate && endDate && (
+                  <>
+                    <h2 class="text-uppercase my-1">
+                      Commande de Closantel
+                    </h2>
+                    <span>
+                      Du: {displayDate(startofDate)} Au {displayDate(endDate)}
+                    </span>
+                  </>
+                )}{" "}
+              </div>
+        </div>
+        <div className="d-flex flex-row">
+          <div className="mr-3">
+          <DateRangePicker
+                  locale="fr-FR"
+                  onChange={onChangeDateRange}
+                  value={dateRange}
+                />
+          </div>
+          <div>
+            <button className="btn bg-thead text-white mb-1 btn-sm" onClick={onClickEvent}>Enregistrer</button>
+          </div>
+        </div>
+      </div>
+       {meta.isFetching && <p>Chargement en cours  ...</p>}
+      <JsonEditor
+             initialObject={data}
+             onChange={onChange}
+             type={schema} />
+      </Page>
+    </Content>
+  );
+};
+
+
+export default ChangePrixDate;
