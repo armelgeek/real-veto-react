@@ -194,6 +194,8 @@ export const fetch =
           }
           dispatch(actionCreators.fetchError(err));
         }
+
+        console.log(err);
       });
   };
 
@@ -333,6 +335,48 @@ export const destroy =
           errorCallback(error);
         }
       });
+  };
+export const setItems =
+  (resourceName,data) =>
+  dispatch => {
+    const actionCreators = reduxCrud.actionCreatorsFor(resourceName);
+     const reduxCrudOptions = { replace: true };
+    dispatch(
+              fetchSuccessRequest(
+                actionCreators.fetchSuccess(
+                  transformKeys(data),
+                  reduxCrudOptions
+                ),
+                null,
+                null,
+                null
+              )
+     );
+  }
+
+
+export const set =
+  (
+    resourceName,
+    record,
+    options = {
+      hasFile: false,
+    },
+    successCallback,
+    errorCallback
+  ) =>
+  dispatch => {
+    const actionCreators = reduxCrud.actionCreatorsFor(resourceName);
+
+    const path = options.path || humps.decamelize(resourceName);
+    const url =
+      options.url || process.env.API_URL || 'http://localhost:8100/api';
+    dispatch(actionCreators.createStart(record));
+
+    return api
+      .post(`${url}/${path}`, options.hasFile, record, {
+        replace: true,
+      })
   };
 
 // Exports

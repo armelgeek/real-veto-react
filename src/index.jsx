@@ -10,6 +10,7 @@ import React from "react";
 }**/
 import './index.css';
 import ReactDOM from "react-dom";
+import { AuthProvider } from 'react-auth-kit'
 import reportWebVitals from "./reportWebVitals";
 import Routes from "./Routes";
 import { Provider } from "react-redux";
@@ -25,8 +26,10 @@ import "./@adminlte/adminlte/css/adminlte.css";
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
 import 'react-month-picker-input/dist/react-month-picker-input.css'
+import { checkVersion } from './store/actions/version';
 import theme from "./theme";
-
+import { version } from '../package.json'
+process.versions.app = version;
 ReactDOM.render(
   <ChakraProvider theme={theme}>
     <Provider store={store}>
@@ -44,7 +47,11 @@ ReactDOM.render(
               theme="dark"
             />
       <PersistGate loading={null} persistor={persistor}>
-        <Routes />
+      <AuthProvider authType = {'localstorage'}
+                  authName={'_auth_veto'}
+      >
+          <Routes />
+        </AuthProvider>
         {/**<Ping />**/}
       </PersistGate>
     </Provider>

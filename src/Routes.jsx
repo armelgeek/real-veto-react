@@ -77,6 +77,7 @@ import {
   PRICE_CHANGE
 } from "./constants/routes";
 
+import { checkVersion } from './store/actions/version';
 import PublicRoute from "./routes/PublicRoute";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
@@ -161,7 +162,7 @@ import OpCommandes from "./components/composants/OpCommandes";
 function Routes() {
   const dispatch = useDispatch();
   const history = createBrowserHistory();
-  //SetupInterceptors(history);
+  dispatch(checkVersion());
   return (
     <BrowserRouter>
       <Switch>
@@ -229,7 +230,6 @@ function Routes() {
         <Route path={SIGNUP} component={SignUp} />
         <AdminRoute path={ADMIN} component={AdminDashboard} />
         <AdminRoute path={EDITDEPOTTOMAGASIN} component={EditToMagasin} />
-
         <AdminRoute
           path={HISTORIQUESORTIECVA}
           component={HistoriqueSortieCva}

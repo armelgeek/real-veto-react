@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import Content from "../../../@adminlte/adminlte/Content";
 import ContentHeader from "../../../@adminlte/adminlte/Content/ContentHeader";
 import ActiveLink from "../../../@adminlte/adminlte/Content/ActiveLink";
@@ -9,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { action, getData } from "../../../utils/lib/call";
 import NumberFormat from "react-number-format";
 import { displayDate, displayMoney } from "../../../utils/functions";
-
 function DetailProduct() {
   const { id } = useParams();
   const dispatch = useDispatch();

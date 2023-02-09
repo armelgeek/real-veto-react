@@ -3,6 +3,8 @@ export {
   create,
   update,
   get,
+  set,
+  setItems,
   destroy,
   getNoParams,
   actionTypesFor,

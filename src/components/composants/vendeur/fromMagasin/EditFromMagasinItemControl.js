@@ -9,21 +9,15 @@ import {
 } from "@chakra-ui/react";
 const EditFromMagasinItemControl = ({
   product,
+  update,
   index,
   state,
   setState,
   setRealQtt,
   realQtt,
 }) => {
-  //const dispatch = useDispatch();
-
-  const updateObjectValue = (index, key, value) => {
-    let temp_state = [...state];
-    temp_state[index] = { ...temp_state[index], [key]: value };
-    setState(temp_state);
-  };
   const onAddQtyBrute = (value) => {
-    updateObjectValue(index, "prixVente", value);
+    update(index, "prixVente", value);
   };
   return (
     <div className="basket-item-control">

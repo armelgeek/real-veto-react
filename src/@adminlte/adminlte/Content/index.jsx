@@ -5,7 +5,7 @@ function Content({ children }) {
   return (
     <>
       <div
-        class="content-wrapper"
+        className="content-wrapper"
       >
         {children}
       </div>

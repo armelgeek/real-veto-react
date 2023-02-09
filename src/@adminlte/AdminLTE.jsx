@@ -55,7 +55,7 @@ class AdminLTE extends React.PureComponent {
       title = [title];
     }
     return (
-      <div class="wrapper">
+      <div className="wrapper">
         <div className="bg-dark m-0  p-2  text-center">
           <h4 className="m-0 p-2 text-white">
             CABINET VETERINAIRE AMBALAVAO
@@ -73,7 +73,7 @@ class AdminLTE extends React.PureComponent {
               {title}
             </span>
           </Link>
-          <div class="sidebar position-relative">
+          <div className="sidebar position-relative">
             {/**<div style={{
                           position: 'absolute',
                           bottom: 0,
@@ -85,9 +85,9 @@ class AdminLTE extends React.PureComponent {
                           Plus de menus
                           </button>
                         </div>**/}
-            <nav class="mt-2">
+            <nav className="mt-2">
               <ul
-                class="nav nav-pills nav-sidebar flex-column"
+                className="nav nav-pills nav-sidebar flex-column"
                 data-widget="treeview"
                 role="menu"
                 data-accordion="false"
@@ -96,7 +96,6 @@ class AdminLTE extends React.PureComponent {
                 <NavItem title="Factures && Produits" scopes={[SCOPES.canShowFactureProducts]}>
                   <NavTree title={"Factures"} route={LISTAPPROV} scopes={[SCOPES.canShowFactures]} />
                   <NavTree title={"Produits"} route={PRODUCTS} scopes={[SCOPES.canShowProducts]} />
-                  <NavTree title={"Changer Prix"} route={PRICE_CHANGE} scopes={[SCOPES.canShowProducts]} />
                 </NavItem>
                 <NavItem title="Dépot" scopes={[SCOPES.canShowDepot]}>
                   <NavTree title={"Bon de sortie"} route={BONDESORTIE} scopes={[SCOPES.canShowBonDeSortie]} />
@@ -170,7 +169,7 @@ class AdminLTE extends React.PureComponent {
           </div>
         </aside>
         <>{children}</>
-        <footer class="main-footer" style={{
+        <footer className="main-footer" style={{
           backgroundColor: '#f4f6f9'
         }}>
             <div>
