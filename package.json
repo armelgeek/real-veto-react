@@ -196,7 +196,9 @@
         "NSIS"
       ],
       "icon": "icon/icon.ico"
-    }
+    },"extraMetadata": {
+      "main": "electron/electron.js"
+    },
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useParams } from "react-router-dom";
@@ -24,10 +24,15 @@ function Detail(props) {
   let history = useHistory();
   const { id } = useParams();
   const commande = useSelector(getData("commandes").value);
+  const [dateCom, setDateCom] = useState(commande[0]?.dateCom);
+  const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(action("commandes").get(id));
   }, [id]);
+  const toggleShow = (value) =>{
+    setToggle(value);
+  }
   return (
     <div>
       <div className="bg-dark text-white p-3 d-flex justify-content-center align-items-center">
@@ -50,17 +55,30 @@ function Detail(props) {
           )}
           {commande.length > 0 && (
             <div className="d-flex justify-content-between">
-              <div className="my-2">
-                <h2 className="my-2">
-                  Date : {displayDate(commande[0]?.dateCom)}
-                </h2>
-                <Link
-                  to={`/vendeur-commande/${commande[0]?.id}`}
-                  className="btn btn-warning btn-sm mr-2"
-                >
-                  Editer le commande
-                </Link>
+            {toggle == true ? (
+            <div className="my-2">
+              <h5 className="mb-1 mt-2 text-md">Changement de date</h5>
+              <div class="d-flex justify-content-between">
+                <div>
+                  <input
+                    type="date"
+                    onChange={(e) => setDateCom(e.target.value)}
+                    value={dateCom}
+                    className="form-control"
+                  />
+                </div>
+                <div className="ml-2">
+                  <button  className="btn btn-primary mr-1">Appliquer</button>
+                  <button onClick={()=> toggleShow(false)}  className="btn btn-danger">Annuler</button>
+                </div>
               </div>
+              </div>
+            ): (
+              <div className="my-2">
+                    <h3 className="p-2">Date de commande :{displayDate(commande[0]?.dateCom)}</h3>
+                     <button  onClick={()=> toggleShow(true)} className="btn btn-warning btn-sm">Changer la date</button>
+               </div>
+            )} 
 
               <div className="d-flex justify-content-end">
                 <div className="bg-thead p-1 mb-1">
