@@ -1,13 +1,12 @@
 {
   "name": "Veto-react",
-  "version": "1.0",
-  "versionCode": 1,
+  "version": "0.1.1",
   "author": {
     "name": "Armel Wanes",
     "email": "armelgeek5@gmail.com"
   },
   "description": "Logiciel de gestion de stock du cabinet veterinaire Ambalavao",
-  "main": "public/electron.js",
+  "main": "electron/electron.js",
   "homepage": "./",
   "dependencies": {
     "@ajoelp/json-to-formdata": "^1.3.1",
