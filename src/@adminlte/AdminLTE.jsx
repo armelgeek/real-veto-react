@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import NavItem from "./Sidebar/NavItem";
 import NavTree from "./Sidebar/NavTree";
 import Footer from "./adminlte/Content/Footer";
+import Version from "../components/version";
 import {
   CREATEPRODUCT,
   ENTREE,
@@ -55,12 +56,20 @@ class AdminLTE extends React.PureComponent {
       title = [title];
     }
     return (
-      <div className="wrapper">
-        <div className="bg-dark m-0  p-2  text-center">
-          <h4 className="m-0 p-2 text-white">
-            CABINET VETERINAIRE AMBALAVAO
-          </h4>
-        </div>
+      <div className="wrapper position-relative">
+      <div className="bg-dark p-2 text-center">
+              <h4 className="m-0 p-2 text-white">
+                CABINET VETERINAIRE AMBALAVAO
+              </h4>
+               
+            </div>
+      <div style={{
+        position: 'absolute',
+        top:10,
+        right: 5 
+      }}>
+          <Version/>
+      </div>
         <aside
           className="main-sidebar sidebar-dark-primary"
           style={{
@@ -169,18 +178,12 @@ class AdminLTE extends React.PureComponent {
           </div>
         </aside>
         <>{children}</>
-        <footer className="main-footer" style={{
-          backgroundColor: '#f4f6f9'
-        }}>
+        <footer className="shadow-sm bg-white main-footer d-flex flex-row justify-content-between align-items-center" >
             <div>
-              <strong style={{
-                color: "transparent"
-              }}>Copyright © 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong>
+              <h4>Copyright © 2022 <a href="https://www.facebook.com/armel.mouhid">Armel Wanes</a>.</h4>
             </div>
-            <div style={{
-                color: "transparent"
-              }} >
-            <b>Version</b> 2.4.13
+            <div>
+           
             </div>
         </footer>
       </div>

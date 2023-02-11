@@ -1,7 +1,7 @@
 const { app, BrowserWindow, screen: electronScreen } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
-require('./server/index.js');
+//require('./server/index.js');
 /**const Service = require('./service.js');
 const scriptsFolder = path.join(path.dirname(__filename));
 const scriptPath = path.join(scriptsFolder, 'server/index.js');

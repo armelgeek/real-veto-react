@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
+
 import SetupInterceptors from "./utils/network";
 import AdminLTE from "./@adminlte/AdminLTE";
 import App from "./App";

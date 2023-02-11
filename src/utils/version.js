@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {VERSION_STATUS} from '../constants/version'
-const compareVer = (currentVer, targetVer) => {
+export const compareVer = (currentVer, targetVer) => {
+  console.log('currentVersion',currentVer,'targetVer',targetVer);
   // treat non-numerical characters as lower version
   // replacing them with a negative number based on charcode of each character
   const fix = s => `.${s.toLowerCase().charCodeAt(0) - 2147483647}.`
@@ -41,38 +42,15 @@ const installExe = () =>{
 
 export const getVersionInfo = (retryNum = 0) => {
   return new Promise((resolve, reject) => {
-    axios.get(`https://github.com/armelgeek/real-veto-react/master/publish/version.json`)
-    .then((v)=> resolve(v));
+    axios.get(`https://raw.githubusercontent.com/armelgeek/real-veto-react/master/publish/version.json`)
+    .then((v)=> {
+      resolve(v.data)
+    }).catch(err => reject(err));
   })
 }
 
-const checkVersion = () => async() => {
-  let versionInfo
-  try {
-    const { version, desc, history } = await getVersionInfo()
-    versionInfo = {
-      version,
-      desc,
-      history,
-    }
-  } catch (err) {
-    versionInfo = {
-      version: '0.0.0',
-      desc: null,
-      history: [],
-    }
-  }
-  versionInfo.status =
-   versionInfo.version == '0.0.0'
-     ? VERSION_STATUS.unknown
-     : compareVer(process.versions.app, versionInfo.version) < 0
-       ? VERSION_STATUS.available
-       : VERSION_STATUS.latest
-  return versionInfo;
-}
-
 export const downloadNewVersion = async(version, onDownload = noop) => {
-  const url = `https://github.com/armelgeek/real-veto-react/master/releases/download/lgbva-v${version}.exe`
+  const url = `https://raw.githubusercontent.com/armelgeek/real-veto-react/master/releases/download/lgbva-v${version}.exe`
   /**let savePath = temporaryDirectoryPath + '/lx-music-mobile.apk'
 
   if (downloadJobId) await stopDownload(downloadJobId)

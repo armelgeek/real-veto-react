@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { applyUndo } from "react-redux-undo";
-
+import { reducer as modal } from "react-redux-modal-flex";
 import productReducer from "./products";
 import userReducer from "./user";
 import commandeReducer from "./commandes";

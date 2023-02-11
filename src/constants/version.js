@@ -7,3 +7,4 @@ export const VERSION_STATUS = {
   failed: 'Failed',
   available: 'Available',
 }
+export const version = "1.0";

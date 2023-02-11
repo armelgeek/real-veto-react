@@ -14,7 +14,7 @@ const { persistStore, persistReducer } = require("redux-persist");
 const storage = require("redux-persist/lib/storage").default;
 const persistConfig = {
   key: "root",
-  whitelist: ['auth','profile', 'basket', 'approvisionnement','searchbydate'],
+  whitelist: ['auth','profile', 'basket', 'approvisionnement','searchbydate','version'],
   storage,
 };
 const persistedReducer = persistReducer(persistConfig, routeReducer)

@@ -26,13 +26,12 @@ import "./@adminlte/adminlte/css/adminlte.css";
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
 import 'react-month-picker-input/dist/react-month-picker-input.css'
-import { checkVersion } from './store/actions/version';
+import VersionModal from './components/version/VersionModal';
 import theme from "./theme";
-import { version } from '../package.json'
-process.versions.app = version;
 ReactDOM.render(
   <ChakraProvider theme={theme}>
     <Provider store={store}>
+    <VersionModal/>
     <ToastContainer
               position="top-right"
               autoClose={5000}
