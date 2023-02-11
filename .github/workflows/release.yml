@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 concurrency:
   group: ci-${{ github.head_ref }}
