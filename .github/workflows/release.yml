@@ -1,42 +1,29 @@
-name: Electron Build
+name: Build Windows Executable
 
 on:
   push:
     branches:
       - main
-  pull_request:
-
-env:
-  ELECTRON_CACHE: ${{ runner.os }}-electron-cache
-  ELECTRON_BUILDER_CACHE: ${{ runner.os }}-electron-builder-cache
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
       
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14.x'
-
       - name: Install Dependencies
         run: |
+          cd veto-react-electron
           npm install
-          npm install --only=dev
-      
-      - name: Build Electron App
+
+      - name: Build Electron Application for Windows
         run: |
-          npm run build
-          npm run electron:build -- --win
-  
-      - name: Upload Artifact
+          cd veto-react-electron
+          npm run electron-pack
+
+      - name: Upload Windows Executable as Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: my-electron-app-windows
-          path: dist/electron-builder/my-electron-app Setup 1.0.0.exe
+          name: veto-win32-x64
+          path: veto-react-electron/dist/veto-win32-x64
