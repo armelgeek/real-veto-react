@@ -29,5 +29,5 @@ jobs:
       with:
         files: |
           ./dist/win-unpacked/**
-          tag_name: v1.1
+          tag_name: v1.0
         token: ${{ secrets.GITHUB_TOKEN }}
