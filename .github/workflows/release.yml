@@ -1,76 +1,42 @@
-name: Build
+name: Electron Build
 
 on:
   push:
-    branches: [master]
+    branches:
+      - main
+  pull_request:
 
-concurrency:
-  group: ci-${{ github.head_ref }}
-  cancel-in-progress: true
-  
+env:
+  ELECTRON_CACHE: ${{ runner.os }}-electron-cache
+  ELECTRON_BUILDER_CACHE: ${{ runner.os }}-electron-builder-cache
+
 jobs:
-  Windows:
-    name: Windows
-    runs-on: windows-latest
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      USE_HARD_LINKS: false
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js on windows
+      
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
-      - name: Cache file
-        uses: actions/cache@v2
+          node-version: '14.x'
+
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm install --only=dev
+      
+      - name: Build Electron App
+        run: |
+          npm run build
+          npm run electron:build -- --win
+  
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
         with:
-          path: |
-            node_modules
-            %APPDATA%\npm-cache
-            %LOCALAPPDATA%\electron\Cache
-            %LOCALAPPDATA%\electron-builder\Cache
-          key: ${{ runner.os }}-build-caches-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-
-      - name: Install dependencies
-        run: yarn
-      - name: Release package
-        run: 
-          yarn publish:win:setup:x64
-          yarn publish:win:setup:x86
-          yarn publish:win:setup:arm64
-          yarn publish:win:setup:x86_64
-  Linux:
-    name: Linux
-    runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      USE_HARD_LINKS: false
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js on linux
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - name: Cache file
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            %APPDATA%\npm-cache
-            %LOCALAPPDATA%\electron\Cache
-            %LOCALAPPDATA%\electron-builder\Cache
-          key: ${{ runner.os }}-build-caches-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-
-      - name: Install dependencies
-        run: yarn
-      - name: Release package
-        run: 
-          
-          yarn publish:linux:deb:x64:always
-          yarn publish:linux:deb:x64
-          yarn publish:linux:deb:x86
-          publish:linux:deb:arm64
-          publish:linux:deb:armv7l
-          publish:linux:appImage
+          name: my-electron-app-windows
+          path: dist/electron-builder/my-electron-app Setup 1.0.0.exe
