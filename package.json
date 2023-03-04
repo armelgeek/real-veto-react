@@ -161,23 +161,6 @@
       "last 1 safari version"
     ]
   },
-  "build": {
-    "appId": "mg.armelwanes.lgbva.app",
-    "productName": "GBVA",
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ],
-      "icon": "icon/icon.ico"
-    },
-    "win": {
-      "target": [
-        "NSIS"
-      ],
-      "icon": "icon/icon.ico"
-    }
-  },
   "optionalDependencies": {
     "node-linux": "^0.1.12",
     "node-mac": "^1.0.1",
