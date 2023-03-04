@@ -1,29 +1,32 @@
-name: Build Windows Executable
+name: Build and Release Windows App
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v2
-      
-      - name: Install Dependencies
-        run: |
-          cd real-veto-react
-          npm install
+    - uses: actions/checkout@v2
 
-      - name: Build Electron Application for Windows
-        run: |
-          cd real-veto-react
-          npm run electron-pack
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
 
-      - name: Upload Windows Executable as Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: veto-win32-x64
-          path: veto-react-electron/dist/veto-win32-x64
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build Electron App
+      run: npm run build
+
+    - name: Create Windows Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ./dist/win-unpacked/**
+        token: ${{ secrets.GITHUB_TOKEN }}
