@@ -19,7 +19,7 @@ jobs:
 
       - name: Build Electron Application for Windows
         run: |
-          cd veto-react-electron
+          cd real-veto-react
           npm run electron-pack
 
       - name: Upload Windows Executable as Artifact
