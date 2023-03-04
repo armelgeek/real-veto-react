@@ -27,7 +27,6 @@ jobs:
     - name: Create Windows Release
       uses: softprops/action-gh-release@v1
       with:
-        files: |
-          ./dist/win-unpacked/**
-          tag_name: v1.0
+        files: ./dist/win-unpacked/**
+        tag_name: v1.0
         token: ${{ secrets.GITHUB_TOKEN }}
