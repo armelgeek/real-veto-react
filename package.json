@@ -133,13 +133,23 @@
 
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "eject": "react-scripts eject",
     "test": "jest --watch --verbose",
     "test:update": "jest --verbose --coverage --updateSnapshot",
     "coverage": "jest --verbose --coverage && open ./coverage/lcov-report/index.html",
     "electron:start": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && yarn electron .\"",
-    "electron-build": "electron-builder --publish=never"
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always",
+    "publish:win:setup:x64": "electron-builder -w=nsis --x64 -p always",
+    "publish:win:setup:x86": "electron-builder -w=nsis --ia32 -p onTagOrDraft",
+    "publish:win:setup:arm64": "electron-builder -w=nsis --arm64 -p onTagOrDraft",
+    "publish:win:setup:x86_64": "electron-builder -w=nsis --x64 --ia32 -p onTagOrDraft",
+    "publish:linux:deb:x64:always": "electron-builder -l=deb --x64 -p always",
+    "publish:linux:deb:x64": "electron-builder -l=deb --x64 -p onTagOrDraft",
+    "publish:linux:deb:x86": "electron-builder -l=deb --ia32 -p onTagOrDraft",
+    "publish:linux:deb:arm64": "electron-builder -l=deb --arm64 -p onTagOrDraft",
+    "publish:linux:deb:armv7l": "electron-builder -l=deb --armv7l -p onTagOrDraft",
+    "publish:linux:appImage": "electron-builder -l=AppImage -p onTagOrDraft"
   },
   "eslintConfig": {
     "extends": [
@@ -178,14 +188,20 @@
     "redux-mock-store": "^1.5.4",
     "wait-on": "^5.3.0"
   },
+  "license": "MIT",
   "build": {
-    "extraMetadata": {
-      "main": "main.js"
+    "appId": "mg.armelwanes.lgbva.app",
+    "productName": "LGBVA",
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
     },
-    "extends": null,
-    "appId": "raphy.template",
-    "productName": "Raphy.Template",
-    "copyright": "Copyright @2021-2022 Raphael Stonehorse",
-    "buildVersion": "1"
+    "win": {
+      "target": [
+        "NSIS"
+      ]
+    }
   }
 }
