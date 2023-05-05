@@ -180,18 +180,13 @@
   },
   "license": "MIT",
   "build": {
+    "extraMetadata": {
+      "main": "main.js"
+    },
+    "extends": null,
     "appId": "mg.armelwanes.lgbva.app",
     "productName": "LGBVA",
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
-    },
-    "win": {
-      "target": [
-        "NSIS"
-      ]
-    }
+    "copyright": "Copyright @2021-2022 Armel Wanes",
+    "buildVersion": "1"
   }
 }
