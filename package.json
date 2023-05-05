@@ -139,7 +139,7 @@
     "test:update": "jest --verbose --coverage --updateSnapshot",
     "coverage": "jest --verbose --coverage && open ./coverage/lcov-report/index.html",
     "electron:start": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && yarn electron .\"",
-    "electron-build": "electron-builder --publish=always"
+    "electron-build": "electron-builder -p always"
   },
   "eslintConfig": {
     "extends": [
