@@ -177,5 +177,15 @@
     "enzyme-to-json": "^3.6.2",
     "redux-mock-store": "^1.5.4",
     "wait-on": "^5.3.0"
-  }
+  },
+  "build": {
+    "extraMetadata": {
+      "main": "main.js"
+    },
+    "extends": null,
+    "appId": "raphy.template",
+    "productName": "Raphy.Template",
+    "copyright": "Copyright @2021-2022 Raphael Stonehorse",
+    "buildVersion": "1"
+  },
 }
