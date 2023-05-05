@@ -9,11 +9,12 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: 14
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: install dependencies
       run: npm install
     - name: build
       run: npm run electron-build
-
+  
  
   build_on_win:
     runs-on: windows-latest
@@ -22,6 +23,7 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: 14
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: install dependencies
       run: npm install
     - name: build
