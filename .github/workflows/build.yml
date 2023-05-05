@@ -26,9 +26,7 @@ jobs:
         run: npm install
       - name: modclean
         run: npm install modclean --save
-      - name: purge npm
-        run: npm prune --production
       - name: modclean cleaning
-        run: ../../node_modules/modclean -n default:safe,default:caution
+        run: npm run clean
       - name: build
         run: npm run electron-build
