@@ -5,26 +5,29 @@ jobs:
   build_on_linux:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@master
-      with:
-        node-version: 14
-        token: ${{ secrets.GITHUB_TOKEN }}
-    - name: install dependencies
-      run: npm install
-    - name: build
-      run: npm run electron-build
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org/
+          cache: 'npm'
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: install dependencies
+        run: npm install
+      - name: build
+        run: npm run electron-build
   
- 
   build_on_win:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@master
-      with:
-        node-version: 14
-        token: ${{ secrets.GITHUB_TOKEN }}
-    - name: install dependencies
-      run: npm install
-    - name: build
-      run: npm run electron-build
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org/
+          cache: 'npm'
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: install dependencies
+        run: npm install
+      - name: build
+        run: npm run electron-build
