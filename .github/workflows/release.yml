@@ -1,34 +1,49 @@
-name: Build and Release Windows App
-
+name: Release
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    tags:
+      - 'v*'
 
 jobs:
-  build:
-    runs-on: windows-latest
 
+  publish_on_linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2       
+    - uses: actions/setup-node@master
+      with:
+        node-version: 14
+    - name: install dependencies
+      run: npm install
+    - name: publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run publish
+
+  publish_on_mac:
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
-
-    - name: Install Node.js
-      uses: actions/setup-node@v2
+    - uses: actions/setup-node@master
       with:
-        node-version: '14'
-
-    - name: Install dependencies
+        node-version: 14
+    - name: install dependencies
       run: npm install
-
-    - name: Build Electron App
-      run: npm run build
-
-    - name: Create Windows Release
-      uses: actions/upload-release-asset@v1
+    - name: publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run publish
+      
+  publish_on_win:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2       
+    - uses: actions/setup-node@master
       with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./dist/win-unpacked/officine.exe
-        asset_name: officine.exe
-        asset_content_type: application/octet-stream
-        token: ${{ secrets.GITHUB_TOKEN }}
+        node-version: 14
+    - name: install dependencies
+      run: npm install
+    - name: publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run publish
