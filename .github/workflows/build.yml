@@ -24,5 +24,11 @@ jobs:
             ${{ runner.os }}-build-
       - name: install dependencies
         run: npm install
+      - name: modclean
+        run: npm install modclean --save
+      - name: purge npm
+        run: npm prune --production
+      - name: modclean cleaning
+        run: ../../node_modules/modclean -n default:safe,default:caution
       - name: build
         run: npm run electron-build
