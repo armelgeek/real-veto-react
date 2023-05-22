@@ -40,10 +40,12 @@
     "convert-units": "^2.3.4",
     "convertir-nombre-lettre": "^1.0.2",
     "create-react-class": "^15.7.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "electron-is-dev": "^2.0.0",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
+    "humps": "^2.0.1",
     "jest-cucumber": "^3.0.1",
     "jquery": "^3.6.0",
     "js-cookie": "^3.0.1",
@@ -57,6 +59,7 @@
     "prop-types": "^15.7.2",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
+    "react-addons-update": "^15.6.3",
     "react-app-polyfill": "^3.0.0",
     "react-bootstrap": "^1.6.4",
     "react-bottom-scroll-listener": "^5.0.0",
@@ -71,6 +74,7 @@
     "react-month-picker-input": "^1.3.10",
     "react-number-format": "^4.7.3",
     "react-redux": "^7.2.5",
+    "react-redux-modal-flex": "^2.0.3",
     "react-redux-undo": "^0.0.7",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
@@ -84,12 +88,13 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.1.8",
     "sequelize": "^6.6.5",
+    "styled-components": "^6.0.0-rc.1",
     "use-context-selector": "^1.3.9",
     "uuid": "^8.3.2",
     "web-vitals": "^1.0.1",
-    "yup": "^0.32.11",
-    "cross-env": "^7.0.3"
+    "yup": "^0.32.11"
   },
   "optionalDependencies": {
     "dmg-license": "^1.0.9"
@@ -112,7 +117,6 @@
       "^.+\\.(js|jsx)$": "babel-jest"
     }
   },
-
   "scripts": {
     "start": "react-scripts start",
     "eject": "react-scripts eject",
@@ -129,7 +133,6 @@
       "react-app/jest"
     ]
   },
-
   "browserslist": {
     "production": [
       ">0.2%",
@@ -142,18 +145,11 @@
       "last 1 safari version"
     ]
   },
-  "optionalDependencies": {
-    "node-linux": "^0.1.12",
-    "node-mac": "^1.0.1",
-    "node-windows": "^1.0.0-beta.5"
-  },
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
     "@welldone-software/why-did-you-render": "^6.2.3",
     "concurrently": "^6.0.0",
-    "electron": "^12.0.1",
-    "electron-builder": "^24.3.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.2",

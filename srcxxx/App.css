@@ -1,0 +1,15 @@
+.bg-thead {
+  color: white;
+  background-color: #198754 !important;
+}
+.btn-green {
+  color: white !important;
+  background-color: #198754 !important;
+}
+.alert-success {
+  color: white !important;
+  background-color: #198754 !important;
+}
+.modal-body{
+	padding-top: 5px!important
+}

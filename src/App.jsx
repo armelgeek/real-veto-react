@@ -1,4 +1,4 @@
-import 'react-app-polyfill/stable';
+import "react-app-polyfill/stable";
 import logo from "./logo.svg";
 import "./App.css";
 import React, { useState, useEffect, Suspense } from "react";
@@ -64,6 +64,13 @@ function App() {
     }
     return months;
   };
+  const handleNextWeek = () => {
+    onChangeDateRange([startofDate.clone().add(1, 'week'),endDate.clone().add(1, 'week')])
+  };
+  const handlePreviousWeek = () => {
+    onChangeDateRange([startofDate.clone().subtract(1, 'week'),endDate.clone().subtract(1, 'week')])
+   }
+
   let getDaysBetweenDates = (startDate, endDate) => {
     let now = startDate.clone();
     const dates = [];
@@ -94,7 +101,7 @@ function App() {
       setRangeMonth(
         getAllMonthBetweenDates(moment(startofDate), moment(endDate))
       );
-      dispatch(getTdbCommande('vente-cva',startofDate, endDate));
+      dispatch(getTdbCommande("vente-cva", startofDate, endDate));
     }
   }, [startofDate, endDate]);
   useEffect(() => {
@@ -119,7 +126,7 @@ function App() {
           quantityBruteCVA,
           quantityCCCVA,
           qttByCC,
-          qttbylitre
+          qttbylitre,
         }
       ) => {
         var temp = r.find((o) => o.id === id);
@@ -134,11 +141,11 @@ function App() {
             quantityCCCVA,
             quantityParProduct,
             qttByCC,
-            qttbylitre
+            qttbylitre,
           });
         } else {
-            (temp.quantityParProduct =
-              parseInt(temp.quantityParProduct) + parseInt(quantityParProduct));
+          temp.quantityParProduct =
+            parseInt(temp.quantityParProduct) + parseInt(quantityParProduct);
           temp.qttByCC = parseInt(temp.qttByCC) + parseInt(qttByCC);
           temp.qttbylitre = parseInt(temp.qttbylitre) + parseInt(qttbylitre);
         }
@@ -161,7 +168,7 @@ function App() {
           <ActiveLink title="Journal de vente du magasin"></ActiveLink>
         </ContentHeader>
         <Page>
-        <MenuTdb/>
+          <MenuTdb />
           <div className="date-range">
             <div className="d-flex justify-content-between my-3">
               <div>
@@ -176,16 +183,37 @@ function App() {
                   </>
                 )}{" "}
               </div>
-              <div>
-                <DateRangePicker
-                  locale="fr-FR"
-                  onChange={onChangeDateRange}
-                  value={dateRange}
-                />
+
+              <div className="d-flex justify-content-center align-items-center">
+                <div
+                  className="btn btn-default btn-sm"
+                  style={{
+                    marginRight: 10,
+                  }}
+                  onClick={handlePreviousWeek}
+                >
+                  {"<"}
+                </div>
+                <div>
+                  <DateRangePicker
+                    locale="fr-FR"
+                    onChange={onChangeDateRange}
+                    value={dateRange}
+                  />
+                </div>
+                <div
+                  className="btn btn-default btn-sm"
+                  style={{
+                    marginLeft: 10,
+                  }}
+                  onClick={handleNextWeek}
+                >
+                  {">"}
+                </div>
               </div>
             </div>
             <div className="bg-white py-3 px-2 mb-2">
-            <div>
+              <div>
                 <span
                   className="bg-secondary px-2"
                   style={{
@@ -193,7 +221,9 @@ function App() {
                     height: 5,
                   }}
                 ></span>
-                 <span className=" ml-2">: Quantité de commande en litre (special pour les PHYTO)</span>
+                <span className=" ml-2">
+                  : Quantité de commande en litre (special pour les PHYTO)
+                </span>
               </div>
               <div>
                 <span
@@ -203,7 +233,9 @@ function App() {
                     height: 5,
                   }}
                 ></span>
-                 <span className=" ml-2">: Quantité de commande en (FLACON,BOLUS,UNITE,SACHET)</span>
+                <span className=" ml-2">
+                  : Quantité de commande en (FLACON,BOLUS,UNITE,SACHET)
+                </span>
               </div>
               <div>
                 <span
@@ -213,11 +245,10 @@ function App() {
                     height: 5,
                   }}
                 ></span>
-                 <span className=" ml-2">: Quantité de vente en ML</span>
+                <span className=" ml-2">: Quantité de vente en ML</span>
               </div>
             </div>
             <div className="table-responsive">
-        
               <table class="table">
                 <tr className="sticky-this">
                   <td>Produit</td>
@@ -227,7 +258,9 @@ function App() {
                     </>
                   ))}
                   <td className="bg-thead text-uppercase text-center">Total</td>
-                  <td className="bg-thead text-uppercase text-center">Total ML</td>
+                  <td className="bg-thead text-uppercase text-center">
+                    Total ML
+                  </td>
                 </tr>
                 {res.map((b) => (
                   <>
@@ -252,7 +285,6 @@ function App() {
                       <td className="text-center">{b.quantityParProduct}</td>
 
                       <td className="text-center">{b.qttByCC}</td>
-                       
                     </tr>
                   </>
                 ))}

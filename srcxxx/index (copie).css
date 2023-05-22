@@ -1,0 +1,39 @@
+ body,html{
+  font-family: "Montserrat"!important;
+ }
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #198754 !important;
+}
+.nav-link {
+  display: block;
+  padding: 0.3rem 0.2rem !important;
+  color: #198754;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
+}
+.title {
+  font-weight: 600;
+}
+
+.product-card {
+  padding: 1opx;
+}
+.bg-thead {
+  color: white;
+  background-color: #198754!important;
+}
+
+table {
+  position: relative;
+  border-collapse: collapse;
+}
+.sticky-this {
+  background: white;
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
