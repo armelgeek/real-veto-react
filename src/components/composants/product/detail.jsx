@@ -132,11 +132,7 @@ function DetailProduct() {
               <strong>Prix par ML:</strong>
             </td>
             <td>
-              {products[0]?.qttccpvente != 0
-                ? displayMoney(
-                    products[0]?.prixParCC * products[0]?.qttccpvente
-                  )
-                : displayMoney(products[0]?.prixParCC)}
+              {displayMoney(products[0]?.prixParCC)}
             </td>
           </tr>
         

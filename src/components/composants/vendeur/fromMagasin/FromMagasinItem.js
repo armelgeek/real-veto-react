@@ -87,7 +87,7 @@ const FromMagasinItem = ({ product }) => {
                   {product.quantityParProduct != 0 && (
                     <span style={{ marginRight: "30px" }}>
                       {displayMoney(
-                        product.prixqttccvente * product.qttccpvente
+                        product.prixVente
                       ) +
                         " x " +
                         product.quantityParProduct +
