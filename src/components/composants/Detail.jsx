@@ -13,12 +13,18 @@ import Page from "../../@adminlte/adminlte/Content/Page";
 import NumberFormat from "react-number-format";
 import { withRouter } from "react-router-dom";
 import { displayDate, displayMoney } from "../../utils/functions";
-import { useHistory } from 'react-router-dom';
-const calculateTotal = (arr) => {
+import { useHistory } from "react-router-dom";
+const calculateTotal = (arr, fromVendor = false) => {
   if (!arr || arr?.length === 0) return 0;
   let total = 0;
   arr.forEach((el) => {
-    total += el.prixVente * el.quantityParProductDepot * 1;
+    if(fromVendor == true){
+      total +=
+      el.prixVente * el.quantityParProduct * 1;
+    }else{
+      total +=
+      el.prixVente * el.quantityParProductDepot * 1;
+    }
   });
   return total;
 };
@@ -29,7 +35,7 @@ function Detail(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(action("commandes").get(id));
-  }, [id]);;
+  }, [id]);
   return (
     <Content>
       <ContentHeader title="Détail de sortie ou entrée">
@@ -73,14 +79,14 @@ function Detail(props) {
               <p className="btn btn-sm btn-green my-2 mt-4">payé</p>
             ) : (
               <button
-              className="btn btn-sm btn-warning my-3"
-              onClick={() => {
-                dispatch(setPayerCommande(commande[0]?.id));
-                history.goBack();
-              }}
-            >
-              Marquer comme payé
-            </button>
+                className="btn btn-sm btn-warning my-3"
+                onClick={() => {
+                  dispatch(setPayerCommande(commande[0]?.id));
+                  history.goBack();
+                }}
+              >
+                Marquer comme payé
+              </button>
             )}
           </div>
         )}
@@ -95,18 +101,28 @@ function Detail(props) {
               <tr>
                 <td style={{ width: "40%" }}>{c.name}</td>
                 <td className="d-flex align-items-center">
-                  {displayMoney(c.prixVente)}({"x"} {c.quantityParProductDepot})
+                  {displayMoney(c.prixVente)}({"x"}{" "}
+                  {commande[0]?.type == "credit-cva"
+                    ? c.quantityParProduct
+                    : c.quantityParProductDepot}
+                  )
                 </td>
-
-                <td>{displayMoney(c.prixVente * c.quantityParProductDepot)}</td>
+                {commande[0]?.type == "credit-cva" ? (
+                  <td>{displayMoney(c.prixVente * c.quantityParProduct)}</td>
+                ) : (
+                  <td>
+                    {displayMoney(c.prixVente * c.quantityParProductDepot)}
+                  </td>
+                )}
               </tr>
             ))}
         </table>
         <div className="d-flex justify-content-end">
           <strong>Total</strong>:
-          {displayMoney(calculateTotal(commande[0]?.contenu))}
+          {commande[0]?.type == "credit-cva"
+            ? displayMoney(calculateTotal(commande[0]?.contenu, true))
+            : displayMoney(calculateTotal(commande[0]?.contenu, false))}
         </div>
-        
       </Page>
     </Content>
   );

@@ -1,15 +1,12 @@
-import React from "react";
-import reactFastCompare from "react-fast-compare";
-
+import React, { useMemo } from "react";
 function Content({ children }) {
-  return (
-    <>
-      <div
-        className="content-wrapper"
-      >
-        {children}
-      </div>
-    </>
-  );
+  const content = useMemo(() => (
+    <div
+      className="content-wrapper"
+    >
+      {children}
+    </div>
+  ), [children])
+  return content;
 }
-export default React.memo(Content, reactFastCompare);
+export default Content;

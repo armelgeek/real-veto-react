@@ -43,10 +43,10 @@ const ApprovItem = ({ product }) => {
       <td>{product.name}</td>
       <td>{product.quantityBrute + value}</td>
       <td className="d-flex justify-content-center align-items-center">
-        <div class="input-group inline-group">
-          <div class="input-group-prepend">
+        <div className="input-group inline-group">
+          <div className="input-group-prepend">
             <button
-              class="btn btn-sm btn-dark btn-minus"
+              className="btn btn-sm btn-dark btn-minus"
               onClick={() => {
                 if (value > 0) setValue(value - 1);
               }}
@@ -55,21 +55,21 @@ const ApprovItem = ({ product }) => {
             </button>
           </div>
           <input
-            class="form-control quantity text-center  p-0"
+            className="form-control quantity text-center  p-0"
             min="0"
             name="quantity"
             value={value}
             type="number"
           />
-          <div class="input-group-append">
+          <div className="input-group-append">
             <button
-              class="btn btn-sm btn-dark btn-plus mr-2"
+              className="btn btn-sm btn-dark btn-plus mr-2"
               onClick={() => setValue(value + 1)}
             >
               +
             </button>
           </div>
-          <div class="input-group-append ml-2"></div>
+          <div className="input-group-append ml-2"></div>
         </div>
       </td>
       <td>

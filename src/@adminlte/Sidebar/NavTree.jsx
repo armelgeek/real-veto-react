@@ -10,9 +10,9 @@ const NavTree = ({ title, route, scopes = [] }) => {
 
   return (
     <Gate scopes={scopes}>
-      <li class="nav-item">
-        <Link as={NavLink} to={route} class={`text-white nav-link ${isActive ? 'active' : ''}`}>
-          <i class="far fa-circle nav-icon"></i>
+      <li className="nav-item">
+        <Link as={NavLink} to={route} className={`text-white nav-link ${isActive ? 'active' : ''}`}>
+          <i className="far fa-circle nav-icon"></i>
           <p>{title}</p>
         </Link>
       </li>

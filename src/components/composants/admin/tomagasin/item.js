@@ -41,7 +41,7 @@ const ProductItem = ({ product }) => {
         >
           <Col xs={9}>
             <div>{product.name}{" "}</div>
-            <div class="badge badge-primary">{product?.fournisseur?.name}</div>
+            <div className="badge badge-primary">{product?.fournisseur?.name}</div>
        
           </Col>
           <Col xs={3}>

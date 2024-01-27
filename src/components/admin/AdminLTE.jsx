@@ -42,7 +42,7 @@ class AdminLTE extends Component {
       title = [title];
     }
     return (
-      <div class="wrapper">
+      <div className="wrapper">
         <div className="bg-dark m-0  p-2  text-center">
           <h4 className="m-0 p-2 text-white">CABINET VETERINAIRE AMBALAVAO</h4>
         </div>
@@ -52,23 +52,23 @@ class AdminLTE extends Component {
               {title}
             </span>
           </Link>
-          <div class="sidebar">
-            {/*<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-              <div class="image">
+          <div className="sidebar">
+            {/*<div className="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div className="image">
                 <img
                   //src="dist/img/user2-160x160.jpg"
-                  class="img-circle elevation-2"
+                  className="img-circle elevation-2"
                 />
               </div>
-              <div class="info">
-                <a href="#" class="d-block">
+              <div className="info">
+                <a href="#" className="d-block">
                   Text
                 </a>
               </div>
     </div>*/}
-            <nav class="mt-2">
+            <nav className="mt-2">
               <ul
-                class="nav nav-pills nav-sidebar flex-column"
+                className="nav nav-pills nav-sidebar flex-column"
                 data-widget="treeview"
                 role="menu"
                 data-accordion="false"

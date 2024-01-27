@@ -90,7 +90,7 @@ const Products = () => {
       <Container>
         <div className="d-flex align-items-center flex-row mr-2">
           <div
-            class="badge badge-success"
+            className="badge badge-success"
             style={{
               borderRadius: "100%",
             }}
@@ -99,7 +99,7 @@ const Products = () => {
           </div>
           <div className="mx-2">:Quantité</div>
           <div
-            class="badge badge-warning"
+            className="badge badge-warning"
             style={{
               borderRadius: "100%",
             }}
@@ -108,7 +108,7 @@ const Products = () => {
           </div>
           <div className="mx-2">:Conditionnement (ML)</div>
           <div
-            class="badge badge-info"
+            className="badge badge-info"
             style={{
               borderRadius: "100%",
             }}
@@ -135,7 +135,7 @@ const Products = () => {
                 </div>
               </Card.Header>
               <Card.Body>
-                <div class="d-flex justify-content-between align-items-center">
+                <div className="d-flex justify-content-between align-items-center">
                   <input
                     type="text"
                     onChange={(e) => {
@@ -155,7 +155,7 @@ const Products = () => {
                       overflowX: "hidden",
                     }}
                   >
-                    <div class="d-flex justify-content-start flex-wrap">
+                    <div className="d-flex justify-content-start flex-wrap">
                       {productData
                         .sort(
                           (low, high) =>

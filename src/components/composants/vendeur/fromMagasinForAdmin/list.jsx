@@ -188,8 +188,8 @@ export const HistoriqueVenteVendeurAdmin = () => {
   return (
     <>
       <Content>
-        <ContentHeader title="Historique de vente du magasin">
-          <ActiveLink title="Historique de vente du magasin"></ActiveLink>
+        <ContentHeader title={type == "vente-cva" ? "Historique de vente" : "CREDIT"}>
+          <ActiveLink title={type == "vente-cva" ? "Historique de vente" : "CREDIT"}></ActiveLink>
         </ContentHeader>
         <Page>
           <div className="row">

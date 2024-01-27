@@ -78,3 +78,5 @@ export const HISTORIQUEVENTEVENDEUR_ADMIN = '/historique-admin/vente/vendeur/:ty
 export const CHANGE_PRIX = '/changer/prix/:id';
 export const OP_COMMANDES = '/opcommandes';
 export const PRICE_CHANGE = '/price/change/:id';
+export const STATISTIC_DETAIL = '/statistic/detail';
+export const TDB_VENTE_MAGASIN = '/tdb-vente-magasin';

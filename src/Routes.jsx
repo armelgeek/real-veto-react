@@ -74,7 +74,8 @@ import {
   CHANGE_PRIX,
   STOCKCVA,
   OP_COMMANDES,
-  PRICE_CHANGE
+  PRICE_CHANGE,
+  STATISTIC_DETAIL
 } from "./constants/routes";
 
 import PublicRoute from "./routes/PublicRoute";
@@ -108,6 +109,7 @@ import {
   LISTAPPROV,
   TDB_FACTURES,
   TDB_VENTE_CBV,
+  TDB_VENTE_MAGASIN
 } from "./constants/routes";
 import { Auth, Data } from "./context/auth-context";
 
@@ -158,6 +160,8 @@ import VendeurAdmin from "./components/composants/vendeur/fromMagasinForAdmin";
 import ChangerPrix from "./components/change-prix/index";
 import { EtatStockCVA } from "./components/composants/vendeur/etat";
 import OpCommandes from "./components/composants/OpCommandes";
+import StatisticDetail from "./pages/StatisticDetail";
+import TdbVenteMagasin from "./components/TdbVenteMagasin";
 function Routes() {
   const dispatch = useDispatch();
   const history = createBrowserHistory();
@@ -166,6 +170,7 @@ function Routes() {
     <BrowserRouter>
       <Switch>
         <AdminRoute path={HOME} exact component={App} />
+        <AdminRoute path={TDB_VENTE_MAGASIN} exact component={TdbVenteMagasin}/>
         <AdminRoute path={TDB_FACTURES} component={Facturation} />
         <AdminRoute path={TDB_VENTE_CBV} component={VenteCBV} />
         <AdminRoute
@@ -268,6 +273,7 @@ function Routes() {
         <AdminRoute path={ADD_VACCINATEUR} component={CreateVaccinateur} />
         <AdminRoute path={EDIT_VACCINATEUR} component={EditVaccinateur} />
         <AdminRoute path={PRICE_CHANGE} component={ChangePrixDate} />
+        <AdminRoute path={STATISTIC_DETAIL} component={StatisticDetail}/>
       </Switch>
       {/*<Footer/>*/}
     </BrowserRouter>

@@ -151,7 +151,7 @@ export const VenteCBV = () => {
             <div>
               {startofDate && endDate && (
                 <>
-                  <h2 class="text-uppercase my-1">
+                  <h2 className="text-uppercase my-1">
                     Journal de vente 
                   </h2>
                   <span>
@@ -171,7 +171,7 @@ export const VenteCBV = () => {
         
           <div className="table-responsive">
         
-            <table class="table">
+            <table className="table">
               <tr className="sticky-this">
                 <td>Produit</td>
                 {rangeDate.map((r) => (
@@ -186,7 +186,7 @@ export const VenteCBV = () => {
               </tr>
               {res.map((b) => (
                 <>
-                  <tr class="bg-white">
+                  <tr className="bg-white">
                     <td className="bg-thead">{b.name}</td>
                     {rangeDate.map((r) => (
                       <>

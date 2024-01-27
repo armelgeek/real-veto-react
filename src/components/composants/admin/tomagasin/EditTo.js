@@ -223,7 +223,7 @@ const EditTo = ({
                 modification d'un bon de sortie entraine aussi la mis à jour de
                 stock du produit
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label>Date de sortie : {displayDate(dateCom)}</label>
                 <div>
                   <input

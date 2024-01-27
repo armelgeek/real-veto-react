@@ -25,27 +25,20 @@ export const Rupture = () => {
       {
         Header: "Quantité",
         accessor: "quantityBrute",
-      },
-      {
-        Header: "Date de peremption",
-        Cell: (data) => {
-          return (
-            <h3>
-                {displayDate(data.row.original?.datePer)}
-            </h3>
-          );
-        },
-      },
+      }
     ],
     []
   );
+  const paginate=(page,limit)=>{
+    dispatch(fetchProductsRuptureStock(page,limit));
+  }
   return (
     <Content>
       <ContentHeader title="Article en rupture de stock">
         <ActiveLink title="Article en rupture de stock"></ActiveLink>
       </ContentHeader>
       <Page>
-        <DataTable data={products} meta={meta} columns={columns} />
+        <DataTable data={products} meta={meta} columns={columns} func={paginate} />
       </Page>
     </Content>
   );

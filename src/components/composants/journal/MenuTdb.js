@@ -14,6 +14,14 @@ export const MenuTdb = () => {
         } text-uppercase mr-2`}
         to={"/"}
       >
+        Recaputilatif du jour
+      </Link>
+      <Link
+        className={`btn btn-${
+          isActive("/tdb-vente-magasin") ? "success" : "default"
+        } text-uppercase mr-2`}
+        to={"/tdb-vente-magasin"}
+      >
         Journal Vente du magasin
       </Link>
       <Link

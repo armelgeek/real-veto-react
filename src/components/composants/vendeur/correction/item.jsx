@@ -123,7 +123,7 @@ const ProductItem = ({ product }) => {
           
             <div>
               <div>{product.name}</div>
-              <div class="badge badge-primary">
+              <div className="badge badge-primary">
                 {product?.fournisseur?.name}
               </div>
               <br />

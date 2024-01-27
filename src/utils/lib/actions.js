@@ -140,15 +140,17 @@ export const fetch =
                   transformKeys(response),
                   reduxCrudOptions
                 ),
-                null,
-                null,
-                null
+                response.totalItems,
+                response.totalPages,
+                response.currentPage
               )
             );
             if (successCallback) {
               successCallback(transformKeys(response));
             }
           } else {
+
+            console.log('response',transformKeys(response, 'rows'));
             dispatch(
               fetchSuccessRequest(
                 actionCreators.fetchSuccess(

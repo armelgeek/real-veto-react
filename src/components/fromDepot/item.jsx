@@ -35,7 +35,7 @@ const ProductItem = ({ key, product }) => {
           <Col xs={9}>
             <>
               <p>{product?.name}</p>
-              <div class="badge badge-primary">
+              <div className="badge badge-primary">
                 {product?.fournisseur?.name}
               </div>
             </>

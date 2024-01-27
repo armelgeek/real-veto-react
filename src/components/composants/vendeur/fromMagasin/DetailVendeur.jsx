@@ -54,8 +54,8 @@ function Detail(props) {
         <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
       </div>
       <div className="py-5 container">
-        <div class="d-flex justify-content-start">
-          <button class="btn btn-primary btn-sm " onClick={()=> history.goBack()}>
+        <div className="d-flex justify-content-start">
+          <button className="btn btn-primary btn-sm " onClick={()=> history.goBack()}>
             Revenir en arriere
           </button>
         </div>
@@ -73,7 +73,7 @@ function Detail(props) {
             {toggle == true ? (
             <div className="my-2">
               <h5 className="mb-1 mt-2 text-md">Changement de date</h5>
-              <div class="d-flex justify-content-between">
+              <div className="d-flex justify-content-between">
                 <div>
                   <input
                     type="date"

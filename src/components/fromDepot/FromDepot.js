@@ -131,7 +131,7 @@ const FromDepot = ({ setRegenerate }) => {
                 overflowX: "hidden",
               }}
             >
-              <div class="form-group">
+              <div className="form-group">
                 <label>Date de sortie :</label>
                 <div>
                   <input

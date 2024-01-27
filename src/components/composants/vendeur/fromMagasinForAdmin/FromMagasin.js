@@ -71,7 +71,7 @@ const FromMagasin = () => {
         )
       );
       dispatch(clearFromMagasin());
-      history.push('/historique/vente/vendeur/vente-cva');
+      history.push(`/historique-admin/vente/vendeur/${type}`);
     } else {
       alert("commande non-conforme,veuillez verifier!!");
     }
@@ -116,12 +116,12 @@ const FromMagasin = () => {
             style={{ padding: 2, marginTop: 3, marginRight: 2, marginLeft: 2 }}
           >
             <div className="d-flex justify-content-end">
-              <Link className="btn btn-danger mb-2 mr-2 btn-sm" to={`/historique/vente/vendeur/credit-cva`}>
+              <Link className="btn btn-danger mb-2 mr-2 btn-sm" to={`/historique-admin/vente/vendeur/credit-cva`}>
                 CREDITS
               </Link>
               <Link
                 className="btn btn-primary mb-2 btn-sm text-uppercase"
-                to={`/historique/vente/vendeur/vente-cva`}
+                to={`/historique-admin/vente/vendeur/vente-cva`}
               >
                 Voir l'historique de vente
               </Link>
@@ -134,7 +134,7 @@ const FromMagasin = () => {
                 overflowX: "hidden",
               }}
             >
-              <div class="form-group">
+              <div className="form-group">
                 <label>Date de sortie :</label>
                 <div>
                   <input

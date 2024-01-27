@@ -59,7 +59,7 @@ const ChangePrixDate = () => {
           <div>
                 {startofDate && endDate && (
                   <>
-                    <h2 class="text-uppercase my-1">
+                    <h2 className="text-uppercase my-1">
                       Commande de Closantel
                     </h2>
                     <span>

@@ -159,3 +159,33 @@ table {
     cursor: pointer;
     color:gray
 }
+
+.tab-header-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.tab-header-list li {
+  border-radius: 4px;
+  padding: 8px 15px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.tab-header-list li.active {
+  background-color: #2d9c69 !important; ;
+  color: #fff;
+}
+
+.tab-content-container .active {
+  display: block;
+}
+
+.tab-content-container .inactive {
+  display: none;
+}
+.bg-highlight{
+  background-color: #28a7451f;
+ }

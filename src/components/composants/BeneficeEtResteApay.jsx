@@ -46,7 +46,7 @@ function BeneficeEtResteApay() {
       </div>
       <h5>{commandes.length == 0 && "Aucune information à afficher"} </h5>
 
-      <table class="table table-bordered bg-green">
+      <table className="table table-bordered bg-green">
         <thead>
           <tr>
             <th style={{width:"50%"}}>Nom de l'article</th>
@@ -75,7 +75,7 @@ function BeneficeEtResteApay() {
 
                   <td>{cc.quantityCC}</td>
                   <td>
-                    <Link class="btn btn-primary m-2" to={`detail/${c.id}`}>
+                    <Link className="btn btn-primary m-2" to={`detail/${c.id}`}>
                       Detail du commande
                     </Link>
                   </td>

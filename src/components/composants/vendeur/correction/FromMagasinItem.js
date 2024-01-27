@@ -37,7 +37,7 @@ const FromMagasinItem = ({ product }) => {
       <div className="d-flex justify-content-between align-items-center border   mb-2 p-2">
         <div style={{ width: "45%" }}>
           <p className="text-blue">{product.name}</p>
-          <div class="badge badge-primary">{product?.fournisseur?.name}</div>
+          <div className="badge badge-primary">{product?.fournisseur?.name}</div>
         </div>
         {/**<div className="text-inline text-center mr-3">
           <h5 className="mb-1 text-uppercase">Dépot</h5>

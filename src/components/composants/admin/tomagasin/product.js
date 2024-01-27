@@ -24,8 +24,9 @@ const Products = () => {
   useEffect(() => {
     setProductData(searchByName(products, value));
   }, [value]);
+  console.log('it products',products);
   return (
-    <Container>
+    <div>
       <Row>
         
         <Col xs={6}>
@@ -65,7 +66,7 @@ const Products = () => {
           <ToMag />
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

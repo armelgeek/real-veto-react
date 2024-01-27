@@ -117,20 +117,20 @@ const ProductItem = ({ product }) => {
           >
             <div className="d-flex justify-content-center align-items-center">
               <div className="d-flex flex-column mr-2 align-items-center w-20">
-                <div class="badge badge-success mb-1" style={{
+                <div className="badge badge-success mb-1" style={{
                   borderRadius:"100%"
                 }}>{product.quantityBruteCVA}</div>
-                <div class="badge badge-warning mb-1" style={{
+                <div className="badge badge-warning mb-1" style={{
                 borderRadius:"100%"
                 }}>{product.condval}</div>
-                <div class="badge badge-info mb-1" style={{
+                <div className="badge badge-info mb-1" style={{
                   borderRadius:"100%"
                 }}>{product.quantityCC}</div>
               </div>
               <div>
                 <div>
                   <div>{product.name}</div>
-                  <div class="badge badge-primary">
+                  <div className="badge badge-primary">
                     {product?.fournisseur?.name}
                   </div>
                 </div>

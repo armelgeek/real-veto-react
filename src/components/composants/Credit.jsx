@@ -16,6 +16,7 @@ import DataTable from '../../utils/admin/DataTable';
 import DeleteFromDepot from "../fromDepot/DeleteFromDepot";
 import { SCOPES } from "../../constants/permissions";
 import Gate from "../Gate";
+import { totalDevente } from '../../store/functions/function';
 function Credit(props) {
   var start = moment().isoWeekday(1).startOf("week");
   var end = moment().endOf("week");
@@ -130,6 +131,20 @@ function Credit(props) {
         },
       },
       {
+        Header: "Type",
+        Cell: (data) => {
+          return (
+            <div>
+              {data.row.original?.type == "credit-cva" ? (
+                <h3 className="badge badge-info">Magasin</h3>
+              ) : (
+                <h3 className="badge badge-info">Dépot</h3>
+              )}
+            </div>
+          );
+        },
+      },
+      {
         Header: "Status",
         Cell: (data) => {
           return (
@@ -148,15 +163,12 @@ function Credit(props) {
         accessor: "emprunter.name",
       },
       {
-        Header: "Contact",
-        accessor: "emprunter.contact",
-      },
-      {
         Header: "Total",
         Cell: (data) => {
+          console.log('hai hai',data.row.original?.contenu);
           return (
             <div>
-              {displayMoney(calculateTotal(data.row.original?.contenu))}
+              {displayMoney(totalDevente(data.row.original?.contenu))}
             </div>
           );
         },

@@ -1,3 +1,5 @@
+import { calculateTotal } from "../../utils/functions";
+
 // tester l'existance d'une quantité suffisante pour en cc d'un produit dans le cva
 export const canBuyCCFromCva = (product) => {
   if (product.quantityBruteCVA > 0) {
@@ -700,3 +702,23 @@ export const buy = (product) => {
   }
 };
   
+export const totalDevente = (arr) => {
+  return (
+    calculateTotal(
+      arr?.map((product) => {
+        return isSpecialProductHandle(product)
+          ? product.prixqttccvente *
+              product.quantityParProduct *
+              product.qttccpvente +
+              product.prixVente * product.qttbylitre
+          : product.prixVente * product.quantityParProduct;
+      
+      })
+    ) +
+    calculateTotal(
+      arr?.map((product) => {
+        return product.prixParCC * product.qttByCC;
+      })
+    )
+  );
+};

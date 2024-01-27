@@ -41,7 +41,7 @@ const DetailApprov = () => {
               </tr>
               <td className="mb-1">
                 <h3>Remarque</h3>
-                <p class="text-info">{approv[0]?.remarque}</p>
+                <p className="text-info">{approv[0]?.remarque}</p>
               </td>
               <br />
               <h3 >
@@ -80,13 +80,13 @@ const DetailApprov = () => {
                 </td>
               </tr>
               <tr>
-                <td class="text-uppercase">
+                <td className="text-uppercase">
                   <strong>Paiement en :</strong>
                   {approv[0]?.typePaye}
                 </td>
               </tr>
               <tr>
-                <td class="text-uppercase">
+                <td className="text-uppercase">
                   <strong>Total:</strong>
                   <NumberFormat
                     value={approv[0]?.total}

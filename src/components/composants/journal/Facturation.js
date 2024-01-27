@@ -139,7 +139,7 @@ export const Facturation = () => {
             <div>
               {startofDate && endDate && (
                 <>
-                  <h2 class="text-uppercase my-1">Journal de facturation </h2>
+                  <h2 className="text-uppercase my-1">Journal de facturation </h2>
                   <span>
                     Du: {displayDate(startofDate)} Au {displayDate(endDate)}
                   </span>
@@ -156,7 +156,7 @@ export const Facturation = () => {
           </div>
           <div className="bg-white py-3 px-2 mb-2">
             <div className="table-responsive">
-              <table class="table">
+              <table className="table">
                 <tr className="sticky-this">
                   <td>Produit</td>
                   {rangeDate.map((r) => (
@@ -169,7 +169,7 @@ export const Facturation = () => {
                 </tr>
                 {res.map((b) => (
                   <>
-                    <tr class="bg-white">
+                    <tr className="bg-white">
                       <td className="bg-thead">{b.name}</td>
                       {rangeDate.map((r) => (
                         <>

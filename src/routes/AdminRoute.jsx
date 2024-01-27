@@ -2,22 +2,27 @@ import PropType from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
-import ChakraAdmin from "../utils/admin/ChakraAdmin";
 import { ROLE_ADMIN, ROLE_VENDEUR } from "../constants/roles";
-import SideBarMenu from "../components/admin/SideBarMenu";
 import AdminLTE from "../@adminlte/AdminLTE";
 import useScrollTop from "../hooks/useScrollTop";
+import TargetChoice from "../TargetChoice";
 const AdminRoute = ({ isAuth, role, component: Component, ...rest }) => {
   useScrollTop();
   return (
     <Route
       {...rest}
       component={(props) => {
+      //  const selectedOption = localStorage.getItem("selectedOption");
+
+        //if (_.isUndefined(selectedOption)) {
           return (
-            <AdminLTE  title={"CBV AMBALAVAO"}>
+            <AdminLTE title={"CBV AMBALAVAO"}>
               <Component {...props} />
             </AdminLTE>
           );
+        /**} else {
+          return <TargetChoice {...props} />;
+        } */
       }}
     />
   );

@@ -20,7 +20,8 @@ import sortiedepotReducer from "./sortiedepot";
 import fromdepotsReducer from "../fromdepot/reducers/fromdepot";
 import { countReducer } from "./undoTest";
 import { searchReducer } from "./search/search";
-import commundReducer from './commund';
+import commandestat from './commandestat';
+import creditstat from './creditstat';
 import versionReducer from './version';
 
 export default combineReducers({
@@ -36,6 +37,8 @@ export default combineReducers({
     commandes: commandeReducer,
     commandesclone: commandeReducer,
     commund: commandeReducer,
+    commandestat:commandestat,
+    creditstat:creditstat,
     basket: basketReducer,
     approvisionnements: approvisonnementReducer,
     approvis: approvisReducer,

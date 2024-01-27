@@ -79,11 +79,20 @@ function CreditVaccinateur(props) {
 
         Cell: (data) => {
           return (
-            <div style={{ width: "100px" }}>
+            <div style={{ width: "250px" }}>
               {data.row.original?.contenu?.map((d) => (
-                <span>
+                <span
+                    style={{
+                      background: "white",
+                      color:
+                        data.row.original?.isdeleted == true
+                          ? "red"
+                          : "inherit",
+                      padding: 2,
+                    }}
+                  >
                   {d.name}
-                  {","}
+                  {" || "}
                 </span>
               ))}
             </div>
@@ -108,11 +117,6 @@ function CreditVaccinateur(props) {
         Header: "Nom du vaccinateur",
         accessor: "vaccinateur.name",
       },
-      {
-        Header: "Contact du vaccinateur",
-        accessor: "vaccinateur.contact",
-      },
-
       {
         Header: "Quantité",
         Cell: (data) => {

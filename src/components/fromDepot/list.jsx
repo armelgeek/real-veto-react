@@ -74,8 +74,8 @@ export const HistoriqueVenteVendeur = () => {
           <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
         </div>
         <div className="p-3">
-          <div class="d-flex justify-content-end">
-            <Link class="btn btn-primary my-3" to={VENDEUR}>
+          <div className="d-flex justify-content-end">
+            <Link className="btn btn-primary my-3" to={VENDEUR}>
               Revenir en arriere
             </Link>
           </div>

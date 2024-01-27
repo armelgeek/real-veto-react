@@ -11,7 +11,7 @@ export default function HeaderVendeur() {
         <h1 className="">CABINET VETERINAIRE AMBALAVAO</h1>
       </div>
       <div className="py-2">
-        <div class="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center">
           <div></div>
           <div>
             <Horloge />
@@ -19,7 +19,7 @@ export default function HeaderVendeur() {
 
           <div className="bg-thead"></div>
         </div>
-        <div class="d-flex justify-content-center mt-2 align-items-center">
+        <div className="d-flex justify-content-center mt-2 align-items-center">
           <Link
             className={`btn bg-${
               location.pathname == "/vendeur" || location.pathname == "/Vendeur"

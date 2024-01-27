@@ -39,7 +39,6 @@ export const Items = ({ flat, gr, quantityb, quantityc, quantitycond, id }) => {
   return (
     <td
       className="text-center p-1"
-      title={"prix de vente:" + price[0] != undefined ? price[0] : ""}
     >
       {/**<tr>
           <td

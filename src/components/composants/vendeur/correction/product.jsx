@@ -86,7 +86,7 @@ const Products = () => {
       </div>
       <Container>
         <div className="py-2">
-          <div class="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center">
             <div></div>
             <div>
               <Horloge />
@@ -112,7 +112,7 @@ const Products = () => {
                   </div>
                 </Card.Header>
                 <Card.Body>
-                  <div class="d-flex justify-content-between align-items-center">
+                  <div className="d-flex justify-content-between align-items-center">
                     <input
                       type="text"
                       onChange={(e) => {
@@ -132,7 +132,7 @@ const Products = () => {
                         overflowX: "hidden",
                       }}
                     >
-                      <div class="d-flex justify-content-start flex-wrap">
+                      <div className="d-flex justify-content-start flex-wrap">
                         {productData
                           .sort(
                             (low, high) =>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({ text }) => (<li className="header">{text}</li>);
+const Header = ({ text }) => {
+  return useMemo(()=> (<li className="header">{text}</li>),[text]);
+}
 
 Header.propTypes = {
   text: PropTypes.string.isRequired,

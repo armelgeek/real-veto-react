@@ -110,7 +110,7 @@ const ToMag = () => {
           </div>
         </Card.Header>
         <Card.Body>
-          <div class="form-group">
+          <div className="form-group">
             <label>Date de sortie :</label>
             <div>
               <input
@@ -122,7 +122,7 @@ const ToMag = () => {
             </div>
           </div>
           {tomagasins.length <= 0 && (
-            <div class="alert alert-success ">
+            <div className="alert alert-success ">
               Choississez un produit sur la section "Produits" puis cliquez sur
               "Ajouter"
             </div>

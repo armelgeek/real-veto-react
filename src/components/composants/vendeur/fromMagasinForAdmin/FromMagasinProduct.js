@@ -44,7 +44,7 @@ const FromMagasinProduct = () => {
   );
   return (
     <>
-      <div class="d-flex   justify-content-between align-items-center">
+      <div className="d-flex   justify-content-between align-items-center">
         <RenderInputSearch setValue={setValue} />
       </div>
       <ListGroup>
@@ -56,7 +56,7 @@ const FromMagasinProduct = () => {
             overflowX: "hidden",
           }}
         >
-          <div class="d-flex justify-content-center flex-wrap">
+          <div className="d-flex justify-content-center flex-wrap">
             {memorizeList}
             {productData.length == 0 && "Aucune enregistrement trouvé"}
           </div>{" "}

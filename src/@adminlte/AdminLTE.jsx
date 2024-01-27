@@ -105,7 +105,11 @@ class AdminLTE extends React.PureComponent {
                 <NavItem title="Factures && Produits" scopes={[SCOPES.canShowFactureProducts]}>
                   <NavTree title={"Factures"} route={LISTAPPROV} scopes={[SCOPES.canShowFactures]} />
                   <NavTree title={"Produits"} route={PRODUCTS} scopes={[SCOPES.canShowProducts]} />
-                </NavItem>
+                  <NavTree
+                  title={"Produit à approvisionner"}
+                  route={"/rupture/stock"}
+                  scopes={[SCOPES.canShowCredit]}
+                /></NavItem>
                 <NavItem title="Dépot" scopes={[SCOPES.canShowDepot]}>
                   <NavTree title={"Bon de sortie"} route={BONDESORTIE} scopes={[SCOPES.canShowBonDeSortie]} />
                   <NavTree title={"Historique de sortie"} route={SORTIE} scopes={[SCOPES.canShowHistoriqueDeSortie]} />
@@ -119,11 +123,7 @@ class AdminLTE extends React.PureComponent {
                     route={HISTORIQUESORTIECVA}
                     scopes={[SCOPES.canHistoriqueDeDM]}
                   />
-                  {/**  <NavTree
-                      title={"Operation sur les commandes"}
-                      route={OP_COMMANDES}
-                    /> */}
-
+                 
                 </NavItem>
                 <NavItem title="Correction" scopes={[SCOPES.canShowCorrection]}>
                   <NavTree
@@ -139,6 +139,7 @@ class AdminLTE extends React.PureComponent {
                 </NavItem>
 
                 <NavItem title="Vente" scopes={[SCOPES.canShowVente]}>
+               
                   <NavTree
                     title={"Effectuer une vente"}
                     route={"/vendre/in/admin"}

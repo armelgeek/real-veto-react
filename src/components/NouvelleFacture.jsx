@@ -62,7 +62,7 @@ const NouvelleFacture = () => {
         <ActiveLink title="Nouvelle Facture"></ActiveLink>
       </ContentHeader>
       <Page>
-        <Container>
+        <div>
           <Row>
             <Col xs={5}>
               <ListGroup>
@@ -80,7 +80,7 @@ const NouvelleFacture = () => {
               <Approvisionnement setRegenerate={[]} />
             </Col>
           </Row>
-        </Container>
+        </div>
       </Page>
     </Content>
   );

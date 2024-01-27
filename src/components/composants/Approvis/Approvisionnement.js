@@ -126,7 +126,7 @@ const Approvisionnement = ({ setRegenerate }) => {
           </div>
         </Card.Header>
         <Card.Body>
-          <div class="form-group">
+          <div className="form-group">
             <label>Date du facture :</label>
             <div>
               <input
@@ -138,7 +138,7 @@ const Approvisionnement = ({ setRegenerate }) => {
             </div>
           </div>
           {approvisionnements.length <= 0 && (
-            <div class="alert alert-success ">Aucune produit !!!</div>
+            <div className="alert alert-success ">Aucune produit !!!</div>
           )}
 
           {approvisionnements?.map((product, i) => (

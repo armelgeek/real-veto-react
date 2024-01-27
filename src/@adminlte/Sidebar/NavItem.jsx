@@ -10,10 +10,10 @@ const NavItem = ({ children, title, scopes = [] }) => {
     <Gate scopes={scopes}>
       <li
         as={NavLink}
-        class={`nav-item ${isActive ? "menu-is-opening" : null} menu-open`}
+        className={`nav-item ${isActive ? "menu-is-opening" : null} menu-open`}
       >
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
+        <a href="#" className="nav-link">
+          <i className="nav-icon fas fa-tachometer-alt"></i>
           <p>
             {title}
             <i className={`right fas fa-angle-left`}></i>

@@ -8,7 +8,7 @@ import React from "react";
     diffNameColor: "darkturquoise"
   });
 }**/
-import './index.css';
+import "./index.css";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import Routes from "./Routes";
@@ -22,29 +22,33 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "@fontsource/montserrat/400.css";
 import "./@adminlte/adminlte/css/adminlte.css";
-import 'react-dates/lib/css/_datepicker.css';
-import 'react-dates/initialize';
-import 'react-month-picker-input/dist/react-month-picker-input.css'
+import "react-dates/lib/css/_datepicker.css";
+import "react-dates/initialize";
+import "react-month-picker-input/dist/react-month-picker-input.css";
+
 import theme from "./theme";
+import { SocketProvider } from "./context/SocketContext";
 
 ReactDOM.render(
   <ChakraProvider theme={theme}>
     <Provider store={store}>
-    <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              limit={2}
-              hideProgressBar={false}
-              newestOnTop
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="dark"
-            />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        limit={2}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <PersistGate loading={null} persistor={persistor}>
-        <Routes />
+        <SocketProvider>
+          <Routes />
+        </SocketProvider>
         {/**<Ping />**/}
       </PersistGate>
     </Provider>

@@ -1365,7 +1365,11 @@ export const isBlocked = (productItem) => {
   }
 };
 export const isLocked = (productItem) => {
+  console.log('condml',productItem.condml,'condsize',productItem.condsize,'qttccpvente',productItem.qttccpvente,'prixqttccvente',productItem.prixqttccvente)
+  
   if (isSpecialProductHandle(productItem)) {
+
+  console.log('productItem',productItem);
     if (
       productItem.quantityParProduct == 0 &&
       productItem.qttByCC == 0 &&

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import Content from "../../../@adminlte/adminlte/Content";
@@ -16,29 +16,48 @@ import Drop from "../../../utils/admin/Resource/Drop";
 import Success from "../../../utils/admin/Resource/Success";
 import Error from "../../../utils/admin/Resource/Error";
 import DataTable from "../../../utils/admin/DataTable";
-import { displayMoney } from "../../../utils/functions";
+import {displayDate, displayMoney} from "../../../utils/functions";
 import Nav from "../../../utils/admin/Nav";
 import Guide from "./Guide";
 import { CrudAction } from "../../../utils/admin/Resource/CrudAction";
 import { ActionCreators } from "react-redux-undo";
 import { SCOPES } from "../../../constants/permissions";
+import {getAllProducts} from "../../../store/actions/products";
+import moment from "moment/moment";
+import 'moment/locale/fr';
+moment.locale('fr');
+import {SocketContext} from "../../../context/SocketContext";
+import {SingleDatePicker} from "react-dates";
 //initialize datatable
 /*   $(document).ready(function () {
       $('table').DataTable();
   });*/
+
 export const ProductAll = () => {
+  const [currentDate, setCurrentDate] = useState(moment());
+  const [focused, setFocused] = useState(false);
   const products = useSelector(getData("products").value) || [];
   const meta = useSelector(getData("products").meta);
   const ref = useRef();
   const dispatch = useDispatch();
   const history = useHistory();
+
   useEffect(() => {
-    dispatch(action("products").fetch());
-  }, []);
+    dispatch(getAllProducts(currentDate));
+  }, [currentDate]);
   const deleteProduct = (prod) => {
     dispatch(action("products").destroy(prod));
-    dispatch(action("products").fetch());
+    dispatch(getAllProducts(currentDate));
   };
+  const handlePreviousDay = () => {
+    const previousDay = currentDate.clone().subtract(1, "day");
+    setCurrentDate(previousDay);
+  };
+  const handleNextDay = () => {
+    const nextDay = currentDate.clone().add(1, "day");
+    setCurrentDate(nextDay);
+  };
+  const isOutsideRange = () => false; // Disable date range limitation
 
   const columns = [
     {
@@ -46,18 +65,18 @@ export const ProductAll = () => {
       accessor: "id",
     },
     {
-      Header: "Produit",
-      accessor: "name",
-    },
-    {
-      Header: "Fournisseur",
+      Header: "Product",
       Cell: (data) => {
         return (
-          <>
-            <span className="badge badge-primary">
+          <div className="d-flex">
+            <span>
+              {data.row.original?.name}
+            </span>
+            - 
+            <span>
               {data.row.original?.fournisseur != null ? data.row.original?.fournisseur?.name : ""}
             </span>
-          </>
+          </div>
         );
       },
     },
@@ -115,12 +134,57 @@ export const ProductAll = () => {
       },
     },
   ];
+  const paginate=(page,limit)=>{
+    console.log('page',page,'limit',limit);
+    dispatch(getAllProducts(currentDate,page,limit));
+  }
   return (
     <Content>
       <ContentHeader title="Tous les produits">
         <ActiveLink title="Tous les produits"></ActiveLink>
       </ContentHeader>
       <Page>
+        <div className="d-flex  align-items-center justify-content-end my-2">
+            <div className="label mr-3">
+              <h5>Stock du : </h5>
+            </div>
+            <div className="d-flex align-items-center justify-content-end my-2">
+              <button
+                  className="btn btn-default btn-sm"
+                  style={{
+                    marginRight: 10,
+                  }}
+                  onClick={handlePreviousDay}
+              >
+                {"<"}
+              </button>
+              <div>
+
+                <SingleDatePicker
+                    date={currentDate}
+                    onDateChange={date =>setCurrentDate(date )}
+                    focused={focused}
+                    onFocusChange={({ focused }) => setFocused(focused)}
+                    id="single_date_picker_for_product_list"
+                    showDefaultInputIcon={true}
+                    isOutsideRange={isOutsideRange}
+                    displayFormat={() => 'DD MMMM YYYY'}
+                    monthFormat="MMMM YYYY"
+                    numberOfMonths={1}
+                />
+              </div>
+              <button
+                  className="btn btn-default btn-sm"
+                  style={{
+                    marginLeft: 10,
+                  }}
+                  onClick={handleNextDay}
+                  disabled={currentDate.isSame(moment(), "day")}
+              >
+                {">"}
+              </button>
+            </div>
+        </div>
         <DataTable
           data={products}
           scopes={[SCOPES.canShowAddProduit]}
@@ -128,6 +192,7 @@ export const ProductAll = () => {
           columns={columns}
           addUrl={CREATEPRODUCT}
           urlName={"Ajouter un produit"}
+          func={paginate}
         />
       </Page>
     </Content>

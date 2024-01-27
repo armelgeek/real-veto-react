@@ -139,7 +139,7 @@ const Products = () => {
                         overflowX: "hidden",
                       }}
                     >
-                      <div class="d-flex justify-content-start flex-wrap">
+                      <div className="d-flex justify-content-start flex-wrap">
                         {productData.map((p) => (
                           <ProductItem product={p} />
                         ))}

@@ -1,4 +1,1008 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="79c14803-88d0-4a1a-bc95-c78fb8b0aa10" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../real-express-veto/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../real-express-veto/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../real-express-veto/controllers/buy.js" beforeDir="false" afterPath="$PROJECT_DIR$/../real-express-veto/controllers/buy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../real-express-veto/controllers/commande.js" beforeDir="false" afterPath="$PROJECT_DIR$/../real-express-veto/controllers/commande.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../real-express-veto/lib/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../real-express-veto/lib/api/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../real-express-veto/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../real-express-veto/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../real-express-veto/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../real-express-veto/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../real-express-veto/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../real-express-veto/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../real-express-veto/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../real-express-veto/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../real-express-veto/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../real-express-veto/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/veto-react.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/veto-react.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminlte/Sidebar/NavItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/@adminlte/Sidebar/NavItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminlte/Sidebar/NavTree.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/@adminlte/Sidebar/NavTree.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminlte/adminlte/Content/Page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/@adminlte/adminlte/Content/Page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/AdminLTE.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/ChakraAdmin.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/PropTypes.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/Sidebar/Header.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/Sidebar/NavItem.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/Sidebar/NavTree.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/Sidebar/Sidebar.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/Sidebar/UserPanel.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/Content/ActiveLink.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/Content/ContentHeader.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/Content/Footer.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/Content/Page.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/Content/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/adminlte.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/adminlte.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/adminlte.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/adminlte.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.components.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.components.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.components.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.components.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.core.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.core.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.core.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.core.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.extra-components.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.extra-components.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.extra-components.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.extra-components.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.pages.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.pages.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.pages.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.pages.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.plugins.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.plugins.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.plugins.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/css/alt/adminlte.plugins.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/AdminLTELogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/avatar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/avatar2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/avatar3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/avatar4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/avatar5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/boxed-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/boxed-bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/credit/american-express.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/credit/cirrus.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/credit/mastercard.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/credit/paypal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/credit/paypal2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/credit/visa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/default-150x150.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/icons.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/photo1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/photo2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/photo3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/photo4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/prod-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/prod-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/prod-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/prod-4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/prod-5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/user1-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/user2-160x160.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/user3-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/user4-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/user5-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/user6-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/user7-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/img/user8-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/js/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/js/adminlte.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/js/adminlte.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/js/adminlte.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/js/adminlte.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/js/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/js/pages/dashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/js/pages/dashboard2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/@adminltew/adminlte/js/pages/dashboard3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ApprovItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ApprovItem.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ChangePrixDate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChangePrixDate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ChangePrixDatesjs" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChangePrixDatesjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HeaderVendeur.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderVendeur.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NouvelleFacture.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NouvelleFacture.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminLTE.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/AdminLTE.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/Approvis/Approvisionnement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/Approvis/Approvisionnement.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/Approvis/EditApprovisionnement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/Approvis/EditApprovisionnement.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/Approvis/ProductItemApprov.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/Approvis/ProductItemApprov.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/Approvis/ProductItemEditApprov.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/Approvis/ProductItemEditApprov.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/Approvis/detail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/Approvis/detail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/BeneficeEtResteApay.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/BeneficeEtResteApay.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/Credit.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/Credit.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/CreditVaccinateur.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/CreditVaccinateur.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/Detail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/Detail.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/admin/tomagasin/EditTo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/admin/tomagasin/EditTo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/admin/tomagasin/ToMag.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/admin/tomagasin/ToMag.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/admin/tomagasin/edit-item.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/admin/tomagasin/edit-item.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/admin/tomagasin/item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/admin/tomagasin/item.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/admin/tomagasin/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/admin/tomagasin/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/basket/Basket.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/basket/Basket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/journal/DepotVersMagasin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/journal/DepotVersMagasin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/journal/Facturation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/journal/Facturation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/journal/Items.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/journal/Items.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/journal/MenuTdb.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/journal/MenuTdb.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/journal/VenteCBV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/journal/VenteCBV.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/product/ProductAll.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/product/ProductAll.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/correction/CorrectionFromMagasin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/correction/CorrectionFromMagasin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/correction/FromMagasin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/correction/FromMagasin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/correction/FromMagasinItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/correction/FromMagasinItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/correction/FromMagasinProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/correction/FromMagasinProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/correction/item.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/correction/item.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/correction/product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/correction/product.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/DetailVendeur.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/DetailVendeur.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/FromMagasin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/FromMagasin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/FromMagasinProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/FromMagasinProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/edit-item.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/edit-item.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/item.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/item.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasin/product.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/EditFromMag.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/EditFromMag.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/FromMagasin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/FromMagasin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/FromMagasinProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/FromMagasinProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/edit-item.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/edit-item.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/item.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/item.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/list.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/list.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/composants/vendeur/fromMagasinForAdmin/product.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fromDepot/DetailDepot.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fromDepot/DetailDepot.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fromDepot/EditFromDepot.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fromDepot/EditFromDepot.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fromDepot/FromDepot.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fromDepot/FromDepot.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fromDepot/edit-item.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fromDepot/edit-item.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fromDepot/item.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fromDepot/item.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fromDepot/list.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fromDepot/list.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fromDepot/product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fromDepot/product.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/Approv.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/ApprovItem.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/ChangePrixDate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/DatePickerDateSection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/Entree.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/FactureProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/Footer.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/Gate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/Header.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/HeaderVendeur.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/NF.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/Notification.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/NouvelleFacture.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/Parametres.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/Ping.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/Sortie.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/admin/AdminLTE.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/admin/SideBarMenu.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/auth/SignIn.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/auth/SignUp.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/auth/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/change-prix/Price.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/change-prix/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/change-prix/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/AddProd.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/Approvisionnement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/ApprovisionnementEditItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/ApprovisionnementEditItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/ApprovisionnementItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/ApprovisionnementItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/ApprovisionnementRemise.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/DeleteApprov.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/EditApprovisionnement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/EditApprovisionnementRemise.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/ProductItemApprov.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/ProductItemEditApprov.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/detail.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/editer.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Approvis/list.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/BSortie.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/BeneficeEtResteApay.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Commande.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Credit.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/CreditVaccinateur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/DeleteAtUpdate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Detail.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/DetailSortie.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Direct.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Journal copy.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Journal.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/OpCommandes.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/ParametrageSuppl.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Perime.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/ProductByCategory.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/ProductByFournisseur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/Rupture.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/depot-to-magasin.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/etat.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/magasin-vente.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/DeleteToMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/DepotToMagasinDetail.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/EditItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/EditTo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/EditToMagItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/EditToMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/ToMag.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/ToMagItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/ToMagItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/ToMagItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/edit-item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/item.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/list.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/admin/tomagasin/product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/basket/Basket.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/basket/BasketItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/basket/BasketItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/basket/BasketItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/DateInterval.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/DepotToMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/DepotVersMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/Facturation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/Items copy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/Items.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/ItemsApprov.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/ItemsVente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/LastStock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/LastStockApprov.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/LastStockVente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/MenuTdb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/Name.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/NameOfDay.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/NoItems.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/NoItemsApprov.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/NoItemsVente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/ProdDate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/Stock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/journal/VenteCBV.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/product/FormEdit.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/product/Guide.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/product/ProductAll.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/product/create.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/product/detail.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/product/edit.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/product/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/CorrectionFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/DetailCorrection.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/FromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/FromMagasinItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/FromMagasinItemBrute.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/FromMagasinItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/FromMagasinItemLitre.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/FromMagasinItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/FromMagasinProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/ItaNewInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/PhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/SovaxInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/list.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/correction/product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/etat.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/DeleteFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/DetailMagasinVente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/DetailVendeur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditFromMag.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditFromMagasin (copie).js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditFromMagasinItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditFromMagasinItemLitre copy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditFromMagasinItemLitre.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditFromMagasinItemPartial copy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditFromMagasinItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditItem copy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditPhytoConditionnementInput copy.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/EditPhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/FromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/FromMagasinItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/FromMagasinItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/FromMagasinItemLitre.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/FromMagasinItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/FromMagasinProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/Horloge.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/ItaNewInputDose copy.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/ItaNewInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/PhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/PhytoLitre.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/SovaxInputDose copy.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/SovaxInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/block-it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/buy-it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/edit-item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/list.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/mock-data/mock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasin/text.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/DeleteFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/DetailMagasinVente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/DetailVendeur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/EditFromMag.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/EditFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/EditFromMagasinItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/EditFromMagasinItemLitre.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/EditFromMagasinItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/EditItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/EditPhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/FromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/FromMagasinItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/FromMagasinItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/FromMagasinItemLitre.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/FromMagasinItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/FromMagasinProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/Horloge.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/ItaNewInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/PhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/PhytoLitre.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/SovaxInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/block-it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/buy-it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/edit-item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/list.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/mock-data/mock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/fromMagasinForAdmin/text.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/composants/vendeur/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/DeleteFromDepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/DetailDepot.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/EditFromDepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/EditFromDepotItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/EditFromDepotItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/EditSortie.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/FromDepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/FromDepotItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/FromDepotItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/FromDepotItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/ItaNewInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/PhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/SovaxInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/edit-item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/list.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/mock-data/mock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/fromDepot/text.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/jsonEditor/Editor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/jsonEditor/Schema.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/jsonEditor/SchemaView.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/jsonEditor/Scrim.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/jsonEditor/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/jsonEditor/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/jsonEditor/trad.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/category/AddCategory.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/category/Categories.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/category/EditCategory.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/category/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/emprunter/AddEmprunter.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/emprunter/EditEmprunter.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/emprunter/Emprunters.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/emprunter/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/fournisseurs/AddFournisseur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/fournisseurs/EditFournisseur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/fournisseurs/Fournisseurs.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/fournisseurs/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/vaccinateur/AddVaccinateur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/vaccinateur/EditVaccinateur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/vaccinateur/Vaccinateurs.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/parametres/vaccinateur/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/version/VersionModal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/version/VersionModaljs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/componentsx/version/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/AdminRoute.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/AdminRoute.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/actions/commandes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/actions/commandes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/actions/products.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/actions/products.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/functions/function.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/functions/function.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/admin/DataTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/admin/DataTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/api1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib (copie)/actions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib (copie)/call.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib (copie)/helpers/actionErrorHandling.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib (copie)/helpers/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib (copie)/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib (copie)/reducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/lib/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib1/actions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib1/call.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib1/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib1/reducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib1/utils/actionErrorHandling.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib1/utils/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/lib1/utils/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/AdminLTE.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/ChakraAdmin.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/PropTypes.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/Sidebar/Header.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/Sidebar/NavItem.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/Sidebar/NavTree.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/Sidebar/Sidebar.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/Sidebar/UserPanel.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/Content/ActiveLink.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/Content/ContentHeader.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/Content/Footer.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/Content/Page.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/Content/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/adminlte.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/adminlte.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/adminlte.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/adminlte.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.components.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.components.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.components.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.components.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.core.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.core.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.core.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.core.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.extra-components.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.extra-components.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.extra-components.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.extra-components.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.pages.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.pages.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.pages.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.pages.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.plugins.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.plugins.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.plugins.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/css/alt/adminlte.plugins.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/AdminLTELogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/avatar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/avatar2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/avatar3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/avatar4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/avatar5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/boxed-bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/boxed-bg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/credit/american-express.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/credit/cirrus.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/credit/mastercard.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/credit/paypal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/credit/paypal2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/credit/visa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/default-150x150.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/icons.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/photo1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/photo2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/photo3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/photo4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/prod-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/prod-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/prod-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/prod-4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/prod-5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/user1-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/user2-160x160.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/user3-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/user4-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/user5-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/user6-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/user7-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/img/user8-128x128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/js/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/js/adminlte.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/js/adminlte.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/js/adminlte.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/js/adminlte.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/js/demo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/js/pages/dashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/js/pages/dashboard2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/@adminlte/adminlte/js/pages/dashboard3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/App (autre copie).jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/App.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/Appx.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/Routes.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/Approv.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/ApprovItem.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/ChangePrixDate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/ChangePrixDatesjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/DatePickerDateSection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/Entree.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/FactureProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/Footer.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/Gate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/Header.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/HeaderVendeur.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/NF.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/Notification.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/NouvelleFacture.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/Parametres.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/Ping.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/Price/PriceContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/Sortie.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/admin/AdminLTE.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/admin/SideBarMenu.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/auth/SignIn.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/auth/SignUp.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/auth/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/change-prix/Price.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/change-prix/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/change-prix/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/AddProd.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/Approvisionnement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/ApprovisionnementEditItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/ApprovisionnementEditItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/ApprovisionnementItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/ApprovisionnementItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/ApprovisionnementRemise.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/DeleteApprov.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/EditApprovisionnement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/EditApprovisionnementRemise.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/ProductItemApprov.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/ProductItemEditApprov.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/detail.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/editer.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Approvis/list.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/BSortie.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/BeneficeEtResteApay.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Commande.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Credit.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/CreditVaccinateur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/DeleteAtUpdate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Detail.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/DetailSortie.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Direct.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Journal copy.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Journal.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/OpCommandes.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/ParametrageSuppl.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Perime.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/ProductByCategory.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/ProductByFournisseur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/Rupture.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/depot-to-magasin.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/etat.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/magasin-vente.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/DeleteToMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/DepotToMagasinDetail.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/EditItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/EditTo.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/EditToMagItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/EditToMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/ToMag.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/ToMagItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/ToMagItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/ToMagItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/edit-item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/item.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/list.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/admin/tomagasin/product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/basket/Basket.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/basket/BasketItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/basket/BasketItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/basket/BasketItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/DateInterval.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/DepotToMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/DepotVersMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/Facturation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/Items copy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/Items.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/ItemsApprov.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/ItemsVente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/LastStock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/LastStockApprov.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/LastStockVente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/MenuTdb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/Name.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/NameOfDay.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/NoItems.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/NoItemsApprov.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/NoItemsVente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/ProdDate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/Stock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/journal/VenteCBV.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/product/FormEdit.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/product/Guide.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/product/ProductAll.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/product/create.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/product/detail.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/product/edit.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/product/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/CorrectionFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/DetailCorrection.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/FromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/FromMagasinItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/FromMagasinItemBrute.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/FromMagasinItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/FromMagasinItemLitre.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/FromMagasinItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/FromMagasinProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/ItaNewInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/PhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/SovaxInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/list.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/correction/product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/etat.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/DeleteFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/DetailMagasinVente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/DetailVendeur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditFromMag.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditFromMagasin (copie).js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditFromMagasinItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditFromMagasinItemLitre copy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditFromMagasinItemLitre.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditFromMagasinItemPartial copy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditFromMagasinItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditItem copy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditPhytoConditionnementInput copy.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/EditPhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/FromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/FromMagasinItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/FromMagasinItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/FromMagasinItemLitre.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/FromMagasinItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/FromMagasinProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/Horloge.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/ItaNewInputDose copy.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/ItaNewInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/PhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/PhytoLitre.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/SovaxInputDose copy.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/SovaxInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/block-it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/buy-it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/edit-item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/list.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/mock-data/mock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/text.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasin/x.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/DeleteFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/DetailMagasinVente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/DetailVendeur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/EditFromMag.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/EditFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/EditFromMagasinItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/EditFromMagasinItemLitre.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/EditFromMagasinItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/EditItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/EditPhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/FromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/FromMagasinItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/FromMagasinItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/FromMagasinItemLitre.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/FromMagasinItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/FromMagasinProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/Horloge.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/ItaNewInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/PhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/PhytoLitre.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/SovaxInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/block-it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/buy-it.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/edit-item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/list.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/mock-data/mock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/fromMagasinForAdmin/text.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/composants/vendeur/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/DeleteFromDepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/DetailDepot.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/EditFromDepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/EditFromDepotItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/EditFromDepotItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/EditSortie.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/FromDepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/FromDepotItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/FromDepotItemControl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/FromDepotItemPartial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/ItaNewInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/PhytoConditionnementInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/SovaxInputDose.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/edit-item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/item.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/list.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/mock-data/mock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/product.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/fromDepot/text.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/jsonEditor/Editor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/jsonEditor/Schema.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/jsonEditor/SchemaView.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/jsonEditor/Scrim.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/jsonEditor/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/jsonEditor/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/jsonEditor/trad.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/category/AddCategory.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/category/Categories.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/category/EditCategory.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/category/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/emprunter/AddEmprunter.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/emprunter/EditEmprunter.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/emprunter/Emprunters.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/emprunter/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/fournisseurs/AddFournisseur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/fournisseurs/EditFournisseur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/fournisseurs/Fournisseurs.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/fournisseurs/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/vaccinateur/AddVaccinateur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/vaccinateur/EditVaccinateur.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/vaccinateur/Vaccinateurs.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/parametres/vaccinateur/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/version/VersionModal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/version/VersionModaljs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/version/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/components/x.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/constants/actions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/constants/api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/constants/lang.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/constants/permissions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/constants/roles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/constants/routes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/constants/version.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/context.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/decorators/withCrudify.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/decorators/withOpen.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/hooks/convertisseur.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/hooks/mergeState.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/hooks/useApprov.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/hooks/useBasket.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/hooks/useDepotToMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/hooks/useFromDepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/hooks/useFromMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/hooks/useNextId.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/hooks/useScrollTop.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/index (copie).css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/index (copie).jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/index.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/reportWebVitals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/steps/features/acheter-un-bolus-de-produit.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/steps/features/loggin-in.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/steps/logging-in.steps.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/actions/approv.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/actions/commandes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/actions/products.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/actions/search/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/actions/tomagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/actions/user.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/actions/version.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/approvis/actions/approvis.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/approvis/actions/stock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/approvis/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/approvis/reducers/approvis.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/basket/actions/basket.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/basket/actions/checkout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/basket/actions/stock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/basket/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/basket/reducers/basket.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/basket/reducers/checkout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/fromdepot/actions/__tests__/__snapshots__/frommagasin.test.js.snap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/fromdepot/actions/__tests__/frommagasin.testjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/fromdepot/actions/fromdepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/fromdepot/actions/itanewDepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/fromdepot/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/fromdepot/reducers/fromdepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/frommagasin/actions/__tests__/__snapshots__/frommagasin.test.js.snap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/frommagasin/actions/__tests__/frommagasin.testjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/frommagasin/actions/frommagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/frommagasin/actions/itanewMagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/frommagasin/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/frommagasin/reducers/__tests__/__snapshots__/frommagasin.test.js.snap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/frommagasin/reducers/__tests__/frommagasin.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/frommagasin/reducers/frommagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/__tests__/functions.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/__tests__/muti-data.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/function-depot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/function.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/can-by.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-data-error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-has-any-brute-stock-but-has-any-cc-stock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-has-any-brute-stock-but-has-no-cc-stock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-has-any-brute-stock-but-has-some-of-cc-stock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-has-any-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-has-no-brute-stock-but-has-any-cc-stock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-has-no-brute-stock-but-has-no-cc-stock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-initial-product-cant-buy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-initial-product-has-brute-and-cc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-initial-product-has-mutiple-brute-and-cc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-initial-product-minus-1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-initial-product-minus-2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-initial-product-missing-qtt-brute.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-initial-product-no-brute.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-initial-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/mock-phyto-specif-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/phyto/mock-has-cond-val-and-has-any-cc-stock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/phyto/mock-has-cond-val-and-has-no-cc-stock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/phyto/mock-has-no-cond-val-and-has-any-cc-stock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/phyto/mock-has-no-cond-val-and-has-cc-stock-product-no-brute.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/phyto/mock-has-no-cond-val-and-has-no-cc-stock-product-no-brute.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/phyto/mock-has-no-cond-val-and-has-no-cc-stock-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/phyto/mock-has-one-cond-val-and-has-0-cc-stock-product-has-brute-is-one.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/phyto/mock-has-one-cond-val-and-has-4-cc-stock-product-has-brute 1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/phyto/mock-has-one-cond-val-and-has-4-cc-stock-product-has-brute-is-1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/phyto/mock-has-one-cond-val-and-has-4-cc-stock-product-has-brute.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/return/mock-return-phyto-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/return/mock-return-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/mocks/products/simple/mock-has-any-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/rytanana.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/functions/veloma.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/approvis.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/category.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/commandes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/commund.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/emprunteurs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/fournisseur.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/parametres.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/products.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/project.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/search/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/sortiedepot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/stock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/undoTest.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/user.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/vaccinateurs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/reducers/version.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/tomagasin/actions/tomagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/tomagasin/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/store/tomagasin/reducers/tomagasin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/theme.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/ImageLoader.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/ChakraAdmin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/DataTable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Filter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Nav.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Navigation/NavCollapse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Navigation/NavItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Navigation/NavItemChild.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Navigation/NavItemCollapse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Resource/Create.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Resource/CrudAction.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Resource/Drop.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Resource/Error.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Resource/SubmitButton.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Resource/Success.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/Resource/Update.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/admin/SettingPanel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/api.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/api1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/array.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/context/array-input-context.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/context/auth-context.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/context/collapse-menu-item-context.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/context/data-context.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/context/role-context.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/actionCreatorsFor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/actionTypesFor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/getDefaultConfig.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/reducers/common/create/start.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/reducers/common/delete/start.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/reducers/common/reducersFor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/reducers/common/update/error.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/reducers/common/update/start.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/reducers/invariants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/reducers/list.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/crud/reducers/map.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/cycle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/d.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/date.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/Readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/Field.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/assets/css/file.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/assets/img/1.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/assets/img/2.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/assets/img/3.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/assets/img/4.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/assets/img/no-image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/CheckBoxInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/DateInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/FieldArrayInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/ImageLoader.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/NumberInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/PasswordInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/RadioButton.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/RadioObject.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/RadioProduct.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/SelectButton.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/SelectObject.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/TagInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/TextInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/components/TextareaInput.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/styles/style.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/field/styles/tags.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/form/utils/useFileHandler.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/functions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib/actions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib/call.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib/helpers/actionErrorHandling.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib/helpers/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib/reducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib1/actions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib1/call.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib1/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib1/reducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib1/utils/actionErrorHandling.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib1/utils/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/lib1/utils/validation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/material/Modal.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/material/TimeAg.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/network.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/testing/renderWithRedux.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcxxx/utils/version.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php" />
   <component name="ProjectId" id="26VGZQbbE4eHWf77gMpe70cXMiL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/armel/dev/client/veterinaire/real-express-veto&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="79c14803-88d0-4a1a-bc95-c78fb8b0aa10" name="Changes" comment="" />
+      <created>1689320455320</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1689320455320</updated>
+      <workItem from="1689320460036" duration="11217000" />
+      <workItem from="1689418320164" duration="589000" />
+      <workItem from="1689670948568" duration="598000" />
+      <workItem from="1689756993586" duration="600000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
 </project>

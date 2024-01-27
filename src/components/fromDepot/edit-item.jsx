@@ -36,7 +36,7 @@ const EditProductItemDepot = ({ state, setState, product }) => {
           >
             <div>
               {product.name}{" "}
-              <div class="badge badge-primary">
+              <div className="badge badge-primary">
                 {product?.fournisseur?.name}
               </div>
               <br />

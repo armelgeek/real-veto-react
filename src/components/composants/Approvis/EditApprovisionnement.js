@@ -162,7 +162,7 @@ const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
             overflowX: "hidden",
           }}
         >
-          <div class="form-group">
+          <div className="form-group">
             <label>Date de l'approvisionnement :</label>
             <div>
               <input
@@ -177,7 +177,7 @@ const EditApprovisionnement = ({ state, meta, setState, approv, disabled }) => {
           {!meta.isFetching && state?.length <= 0 && (
             <>
               {" "}
-              <div class="alert alert-success ">
+              <div className="alert alert-success ">
                 Aucune enregistrement trouvé !!!
               </div>
             </>

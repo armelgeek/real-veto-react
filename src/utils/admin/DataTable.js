@@ -1,56 +1,12 @@
-import React from "react";
-import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import React,{useState,useEffect, useMemo} from "react";
+import classnames from 'classnames';
+import { usePagination, DOTS } from '../../hooks/usePagination';
+import _ from 'lodash';
 import {
   useTable,
-  useSortBy,
-  useFilters,
-  useGlobalFilter,
-  useAsyncDebounce,
-  usePagination,
 } from "react-table";
 import { Link } from "react-router-dom";
-import Gate from '../../components/Gate';
-function DefaultColumnFilter({
-  column: { filterValue, preFilteredRows, setFilter },
-}) {
-  const count = preFilteredRows.length;
-  return (
-    <input
-      className="form-control"
-      value={filterValue || ""}
-      onChange={(e) => {
-        setFilter(e.target.value || undefined);
-      }}
-      placeholder={`Rechercher...`}
-    />
-  );
-}
-
-function GlobalFilter({
-  preGlobalFilteredRows,
-  globalFilter,
-  setGlobalFilter,
-}) {
-  const count = preGlobalFilteredRows.length;
-  const [value, setValue] = React.useState(globalFilter);
-  const onChange = useAsyncDebounce((value) => {
-    setGlobalFilter(value || undefined);
-  }, 200);
-
-  return (
-    <div w={200}>
-      <input
-        className="form-control"
-        value={value || ""}
-        onChange={(e) => {
-          setValue(e.target.value);
-          onChange(e.target.value);
-        }}
-        placeholder={`Rechercher ...`}
-      />
-    </div>
-  );
-}
+import Gate from "../../components/Gate";
 export default function DataTable({
   columns,
   data = [],
@@ -62,6 +18,7 @@ export default function DataTable({
   tip = "",
   filter = true,
   paginate = true,
+  func = null,
   guide,
 }) {
   return (
@@ -78,6 +35,7 @@ export default function DataTable({
         filter={filter}
         paginate={paginate}
         guide={guide}
+        func={func}
       />
     </>
   );
@@ -92,211 +50,211 @@ function DataTableData({
   footer,
   tip = "",
   filter = true,
-  paginate = true,
+  func = null,
   guide,
+  
 }) {
-  const colspan = columns.length;
-  const defaultColumn = React.useMemo(
-    () => ({
-      Filter: DefaultColumnFilter,
-    }),
-    []
-  );
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    preGlobalFilteredRows,
-    setGlobalFilter,
-    page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize, globalFilter },
-  } = useTable(
-    {
-      columns,
-      data,
-      defaultColumn,
-      initialState: { pageIndex: 0, pageSize: 10 },
-    },
-    useFilters,
-    useGlobalFilter,
-    useSortBy,
-    usePagination
-  );
-
+  const [pageData, setPageData] = useState({
+    rowData: data,
+    totalPages: 0,
+    totalItems: 0,
+  });
+  const [currentPage, setCurrentPage] = useState(1);
+  useEffect(() => {
+    if(!meta.isFetching){
+      setPageData({
+        rowData: data,
+        totalPages: meta.totalPages,
+        totalItems: meta.totalItems,
+      })
+    }
+  },[data,meta])
   return (
     <>
-      <div className="d-flex my-2 justify-content-between align-items-center">
-        {filter && (
-          <GlobalFilter
-            preGlobalFilteredRows={preGlobalFilteredRows}
-            globalFilter={globalFilter}
-            setGlobalFilter={setGlobalFilter}
-          />
-        )}
+      <div className="d-flex justify-content-between align-items-center">
         <div>
           {addUrl && urlName && (
             <Gate scopes={scopes}>
-              <Link className="btn btn-sm btn-green" variant="solid" to={addUrl}>
+              <Link
+                className="btn btn-sm btn-green"
+                variant="solid"
+                to={addUrl}
+              >
                 {urlName}
               </Link>
             </Gate>
           )}
         </div>
       </div>
-      {tip && <h3>{tip}</h3>}
-      <table {...getTableProps()} className="table table-bordered striped">
-        <thead className="bg-thead ">
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                >
-                  {column.render("Header")}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
-                      : ""}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {meta.isFetching ? (
-            <td colSpan={colspan} className="text-center">
-              <p>Chargement des données en cours ....</p>
-            </td>
-          ) : (
-            <>
-              {page.length == 0 && (
-                <tr>
-                  <td
-                    colSpan={colspan}
-                    style={
-                      guide ? { textAlign: "left" } : { textAlign: "center" }
-                    }
-                  >
-                    {guide ? (
-                      <div
-                        style={{
-                          width: "100%",
-                          color: "blue.700",
-                          backgroundColor: "gray.200",
-                          padding: "10px",
-                        }}
-                      >
-                        <h3 className="py-3">{tip}</h3>
-                        {guide}
-                      </div>
-                    ) : (
-                      "Aucune enregistrement à afficher"
-                    )}
-                  </td>
-                </tr>
-              )}
-              {page.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr p={0} {...row.getRowProps()}>
-                    {row.cells.map((cell) => (
-                      <td
-                        fontSize="11px"
-                        {...cell.getCellProps()}
-                        isNumeric={cell.column.isNumeric}
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </>
-          )}
-        </tbody>
+
+      <div className="d-flex flex-row align-items-center justify-content-between">
+        <div>{tip && <h3 className="text-uppercase">{tip}</h3>}</div>
+
+      </div>
+        <AppTable
+          columns={columns}
+          data={pageData.rowData}
+          isLoading={meta.isFetching}
+        />
         {footer && (
-          <tfoot bg={"blue.900"}>
+          <div bg={"blue.900"}>
             <tr>
               <td colSpan={colspan} color={"white"}>
                 {footer}
               </td>
             </tr>
-          </tfoot>
+          </div>
         )}
-      </table>
-      {paginate && (
-        <div className="d-flex  justify-content-between align-items-center py-3">
-          <div style={{ width: "200px" }}>
-            <div className="d-flex justify-content-center align-items-center">
-              <input
-                className="form-control  mr-2"
-                // eslint-disable-next-line react-hooks/rules-of-hooks
-                type="number"
-                placeholder="Page"
-                value={pageIndex + 1}
-                onChange={(e) => {
-                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                  gotoPage(page);
-                }}
-              />
-              <select
-                // eslint-disable-next-line react-hooks/rules-of-hooks
-                className="form-control"
-                value={pageSize}
-                onChange={(e) => {
-                  setPageSize(Number(e.target.value));
-                }}
-                size="sm"
-              >
-                {[5, 10, 20, 30, 40, 50, 100, 150, 250].map((pageSize) => (
-                  <option key={pageSize} value={pageSize}>
-                    {pageSize}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div>
-            <>
-              Page{" "}
-              <strong>
-                {pageIndex > 0 ? pageIndex + 1 : 1} sur {pageOptions.length}
-              </strong>{" "}
-            </>
-          </div>
-          <div className="mb-6">
-            <div>
-              <button
-                className="mr-2 btn btn-sm btn-green"
-                onClick={() => previousPage()}
-                disabled={!canPreviousPage}
-              >
-                {"<<"} Précedent
-              </button>
-              <button
-                className="mr-2 btn btn-sm btn-green"
-                onClick={() => nextPage()}
-                disabled={!canNextPage}
-              >
-                Suivant {">>"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {_.isFunction(func) && pageData.totalPages && (<Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={pageData.totalItems}
+        func={func}
+        pageSize={10}
+        onPageChange={page => {
+          setCurrentPage(page);
+          if(_.isFunction(func)){
+            func(page,10);
+          }
+         
+        }}
+      />)}
     </>
   );
 }
+const AppTable = ({ columns, data,currentPage, setCurrentPage,isLoading = false }) => {
+  const columnData = useMemo(() => columns, [columns]);
+  const rowData = useMemo(() => data, [data]);
+  const colspan = columns.length;
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable({
+    columns: columnData,
+    data: rowData,
+  });
+  return (
+    <div style={{
+      position:'relative'
+    }}>
+       
+        {isLoading && (<div colSpan={colspan} style={{
+          position:'absolute',
+          top:0,
+          right:0,
+          left:0,
+          bottom:0,
+          backgroundColor:"rgba(0,0,0,0)",
+          zIndex:10000,
+          display:'flex',
+          justifyContent:'center',
+          alignItems:'center'
+        }} className="text-center">
+          <div style={{
+            color: 'white',
+            fontSize:"14px",
+            backgroundColor:"rgba(0,0,0,0.3)",
+            padding:"20px"
+          }}>Chargement des données en cours ....</div>
+        </div>)}
+        <table {...getTableProps()}  className="table table-bordered striped">
+        <thead  className="bg-thead ">
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+    
+  );
+};
+
+
+const Pagination = props => {
+  const {
+    onPageChange,
+    totalCount,
+    siblingCount = 1,
+    currentPage,
+    pageSize,
+    className
+  } = props;
+
+  const paginationRange = usePagination({
+    currentPage,
+    totalCount,
+    siblingCount,
+    pageSize
+  });
+
+  if (currentPage === 0 || paginationRange.length < 2) {
+    return null;
+  }
+
+  const onNext = () => {
+    onPageChange(currentPage + 1);
+  };
+
+  const onPrevious = () => {
+    onPageChange(currentPage - 1);
+  };
+
+  let lastPage = paginationRange[paginationRange.length - 1];
+  return (
+    <ul
+      className={classnames('pagination-container', { [className]: className })}
+    >
+      <li
+        className={classnames('pagination-item', {
+          disabled: currentPage === 1
+        })}
+        onClick={onPrevious}
+      >
+        <div className="arrow left" />
+      </li>
+      {paginationRange.map(pageNumber => {
+        if (pageNumber === DOTS) {
+          return <li className="pagination-item dots">&#8230;</li>;
+        }
+
+        return (
+          <li
+            className={classnames('pagination-item', {
+              selected: pageNumber === currentPage
+            })}
+            onClick={() => onPageChange(pageNumber)}
+          >
+            {pageNumber}
+          </li>
+        );
+      })}
+      <li
+        className={classnames('pagination-item', {
+          disabled: currentPage === lastPage
+        })}
+        onClick={onNext}
+      >
+        <div className="arrow right" />
+      </li>
+    </ul>
+  );
+};
