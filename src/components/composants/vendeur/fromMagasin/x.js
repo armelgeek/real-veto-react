@@ -27,7 +27,6 @@ const EditToFromMag = ({
 
   return (
     <>
-    {JSON.stringify(state)}
       <div className="commande-vente">
         {commandes?.map((product, i) => (
           <>

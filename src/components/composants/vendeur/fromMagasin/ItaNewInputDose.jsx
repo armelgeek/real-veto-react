@@ -5,6 +5,7 @@ import {
   minusQtyFromMagasinDoseItem,
 } from "../../../../store/frommagasin/actions/itanewMagasin";
 import {
+
   NumberInput,
   NumberInputField,
   NumberInputStepper,
@@ -20,8 +21,9 @@ export const ItaNewInputDose = ({
   setRealQttCC,
   realQttCC
 }) => {
+  const dispatch = useDispatch();
   const onAddQtyPortion = (value) => {
-    update(index, "prixParCC", value);
+    dispatch(addQtyFromMagasinDoseItem(product.id, value));
   };
   return (
     <div className="basket-item-control">
@@ -31,7 +33,7 @@ export const ItaNewInputDose = ({
         step={1}
         bg={"whitesmoke"}
         onChange={(value) => {
-          onAddQtyPortion(value);
+         onAddQtyPortion(value);
           setRealQttCC(value);
         }}
         min={0}

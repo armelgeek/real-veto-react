@@ -20,9 +20,9 @@ export const SovaxInputDose = ({
   setRealQttCC,
   realQttCC,
 }) => {
- 
+  const dispatch = useDispatch();
   const onAddQtyPortion = (value) => {
-    update(index, "prixParCC", value);
+    dispatch(addQtyFromMagasinSovaxItem(product.id, value));
   };
   return (
     <div className="basket-item-control">
