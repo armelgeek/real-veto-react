@@ -10,6 +10,7 @@ import NumberFormat from "react-number-format";
 import { NumberToLetter } from "convertir-nombre-lettre";
 import TabView from "./TabView";
 import TabViewStatistic from "./TabViewStatistic";
+import { FaSpinner } from "react-icons/fa";
 const TabStatistic = ({ activeCategory,setActiveCategory,commandes }) => {
  return (
     <TabViewStatistic activeCategory={activeCategory} setActiveCategory={setActiveCategory} commandes={commandes}>
@@ -48,16 +49,19 @@ const StatisticToDay = ({ isHome = true }) => {
   useEffect(() => {
     dispatch(getCommandeByCategories(currentDate));
   }, [currentDate]);
-
-  useEffect(() => {
-      dispatch(getCommandeByCategories(currentDate));
-  }, []);
+  const handleReload=() => {
+    dispatch(getCommandeByCategories(currentDate));
+  }
+ 
   return (
     <div className="mt-3 p-3 border">
       <div className="d-flex justify-content-between align-items-center">
-      <div  className="d-flex  align-items-center">
+      <div  className="d-flex flex-col  align-items-center">
         <h3 className="text-md text-uppercase">Recette journaliere</h3>
+        <button onClick={handleReload} className="ml-3 btn btn-green d-flex flex-row align-items-center gap-2"  style={{
+        }}><FaSpinner/>Actualiser</button>
       </div>
+      
         <div className="d-flex  align-items-center">
         <button
             className="btn btn-default btn-sm"
