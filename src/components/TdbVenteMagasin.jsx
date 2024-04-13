@@ -25,7 +25,6 @@ import { LastStock } from "../components/composants/journal/LastStock";
 import { MenuTdb } from "../components/composants/journal/MenuTdb";
 import StatisticToDay from "../components/StatisticToDay";
 import TabView from "../components/TabView";
-import { SocketContext } from "../context/SocketContext";
 import { Link } from "react-router-dom";
 import { STATISTIC_DETAIL } from "../constants/routes";
 import CreditBoard from "../components/CreditBoard";

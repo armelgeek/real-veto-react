@@ -27,7 +27,6 @@ import "react-dates/initialize";
 import "react-month-picker-input/dist/react-month-picker-input.css";
 
 import theme from "./theme";
-import { SocketProvider } from "./context/SocketContext";
 
 ReactDOM.render(
   <ChakraProvider theme={theme}>
@@ -46,9 +45,7 @@ ReactDOM.render(
         theme="dark"
       />
       <PersistGate loading={null} persistor={persistor}>
-        <SocketProvider>
           <Routes />
-        </SocketProvider>
         {/**<Ping />**/}
       </PersistGate>
     </Provider>

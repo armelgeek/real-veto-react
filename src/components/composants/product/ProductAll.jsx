@@ -26,7 +26,6 @@ import {getAllProducts} from "../../../store/actions/products";
 import moment from "moment/moment";
 import 'moment/locale/fr';
 moment.locale('fr');
-import {SocketContext} from "../../../context/SocketContext";
 import {SingleDatePicker} from "react-dates";
 //initialize datatable
 /*   $(document).ready(function () {

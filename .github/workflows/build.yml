@@ -14,14 +14,6 @@ jobs:
           node-version: 14
           registry-url: https://registry.npmjs.org/
           cache: 'npm'
-          path: |
-            node_modules
-            %APPDATA%\npm-cache
-            %LOCALAPPDATA%\electron\Cache
-            %LOCALAPPDATA%\electron-builder\Cache
-          key: ${{ runner.os }}-build-caches-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-
       - name: install dependencies
         run: npm install
       - name: modclean

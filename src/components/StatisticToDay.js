@@ -4,7 +4,6 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "../utils/lib/call";
 import { getCommandeByCategories } from "../store/actions/commandes";
-import { SocketContext } from "../context/SocketContext";
 import { Link } from "react-router-dom";
 import { STATISTIC_DETAIL } from "../constants/routes";
 import NumberFormat from "react-number-format";
@@ -19,7 +18,6 @@ const TabStatistic = ({ activeCategory,setActiveCategory,commandes }) => {
 };
 const StatisticToDay = ({ isHome = true }) => {
   const [currentDate, setCurrentDate] = useState(moment());
-  const socket = useContext(SocketContext);
   const formatRelativeDate = (date) => {
     const today = moment().startOf("day");
     const yesterday = moment().subtract(1, "day").startOf("day");
@@ -52,18 +50,8 @@ const StatisticToDay = ({ isHome = true }) => {
   }, [currentDate]);
 
   useEffect(() => {
-    socket.on("refresh-data", () => {
       dispatch(getCommandeByCategories(currentDate));
-      const audio = new Audio("song/notif.wav"); // Remplacez le chemin par celui de votre fichier audio
-      audio.volume = 0.2; // Réglage du volume à 50% (la moitié du volume maximal)
-
-      audio.play();
-    });
-
-    return () => {
-      socket.off("refresh-data");
-    };
-  }, [socket]);
+  }, []);
   return (
     <div className="mt-3 p-3 border">
       <div className="d-flex justify-content-between align-items-center">

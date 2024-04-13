@@ -10,8 +10,8 @@ import {
 
 import axios from "axios";
  const history = createBrowserHistory();
-const SIGNUP_URL = process.env.SIGNUP_URL || "http://localhost:8100/api/signup";
-const SIGNIN_URL = process.env.SIGNIN_URL || "http://localhost:8100/api/signin";
+const SIGNUP_URL = process.env.SIGNUP_URL || "http://192.168.1.1:8100/api/signup";
+const SIGNIN_URL = process.env.SIGNIN_URL || "http://192.168.1.1:8100/api/signin";
 
 export const register =
   ({ username, password, role }) =>
