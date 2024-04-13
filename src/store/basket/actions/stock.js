@@ -8,7 +8,7 @@ export const updateStockSuccess =
   (id, newStockBrute, newStockCC) => async (dispatch) => {
 
   try {
-    const res = await axios.post("http://192.168.1.1:8100/api/update-product", {
+    const res = await axios.post("http://localhost:8100/api/update-product", {
       productId: id,
       newStockBrute: newStockBrute,
       newStockCC: newStockCC,

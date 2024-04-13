@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { createBrowserHistory } from 'history';
  const history = createBrowserHistory();
 const defaults = {
-  baseURL: process.env.API_URL || 'http://192.168.1.1:8100/api/',
+  baseURL: process.env.API_URL || 'http://localhost:8100/api/',
   headers: () => {
     return {
       Accept: "application/json",

@@ -169,7 +169,7 @@ function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <AdminRoute path={VENDEUR} exact component={App} />
+        <VendeurRoute path={HOME} exact component={Vendeur} />
         <AdminRoute path={TDB_VENTE_MAGASIN} exact component={TdbVenteMagasin}/>
         <AdminRoute path={TDB_FACTURES} component={Facturation} />
         <AdminRoute path={TDB_VENTE_CBV} component={VenteCBV} />

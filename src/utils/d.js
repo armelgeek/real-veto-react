@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { toast } from 'react-toastify';
 const defaults = {
-  baseURL: process.env.API_URL || 'http://192.168.1.1:8100/api/',
+  baseURL: process.env.API_URL || 'http://localhost:8100/api/',
   headers: () => {
     return {
       Accept: "application/json",
