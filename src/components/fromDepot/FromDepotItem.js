@@ -8,7 +8,7 @@ import { PhytoConditionnementInput } from "./PhytoConditionnementInput";
 import { SovaxInputDose } from "./SovaxInputDose";
 import useFromDepot from "../../hooks/useFromDepot";
 import { isSpecialProductHandle } from '../../store/functions/function';
-const FromDepotItem = ({ product }) => {
+const FromDepotItem = ({ product,type }) => {
   const [realQttCC, setRealQttCC] = useState(null);
   const [realQtt, setRealQtt] = useState(null);
   const fromdepots = useSelector((state) => state.fromdepots);
@@ -29,7 +29,7 @@ const FromDepotItem = ({ product }) => {
           <span className="text-lowercase">
             <strong>
               {product.quantityParProductDepot != 0 &&
-                displayMoney(isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProductDepot : product.prixVente * product.quantityParProductDepot)}
+                displayMoney(isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProductDepot : (type=="vente-depot" ? product.prixVente: product.prixVaccinateur) * product.quantityParProductDepot)}
               {product.quantityParProductDepot == 0 &&
                 product.prixParCC != 0 && (
                   <>

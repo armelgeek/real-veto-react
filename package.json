@@ -118,8 +118,8 @@
     }
   },
   "scripts": {
-    "start": "react-scripts start",
-    "eject": "react-scripts eject",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "jest --watch --verbose",
     "test:update": "jest --verbose --coverage --updateSnapshot",
     "coverage": "jest --verbose --coverage && open ./coverage/lcov-report/index.html",

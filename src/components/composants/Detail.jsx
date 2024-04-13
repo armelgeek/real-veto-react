@@ -14,11 +14,11 @@ import NumberFormat from "react-number-format";
 import { withRouter } from "react-router-dom";
 import { displayDate, displayMoney } from "../../utils/functions";
 import { useHistory } from 'react-router-dom';
-const calculateTotal = (arr) => {
+const calculateTotal = (arr,type) => {
   if (!arr || arr?.length === 0) return 0;
   let total = 0;
   arr.forEach((el) => {
-    total += el.prixVente * el.quantityParProductDepot * 1;
+    total += (type=="vente-depot" ? el.prixVente: el.prixVaccinateur) * el.quantityParProductDepot * 1;
   });
   return total;
 };
@@ -95,16 +95,16 @@ function Detail(props) {
               <tr>
                 <td style={{ width: "40%" }}>{c.name}</td>
                 <td className="d-flex align-items-center">
-                  {displayMoney(c.prixVente)}({"x"} {c.quantityParProductDepot})
+                  {displayMoney(commande[0]?.type != "vente-depot-vaccinateur" ? c.prixVente: c.prixVaccinateur)}({"x"} {c.quantityParProductDepot})
                 </td>
 
-                <td>{displayMoney(c.prixVente * c.quantityParProductDepot)}</td>
+                <td>{displayMoney((commande[0]?.type != "vente-depot-vaccinateur" ? c.prixVente: c.prixVaccinateur) * c.quantityParProductDepot)}</td>
               </tr>
             ))}
         </table>
         <div className="d-flex justify-content-end">
           <strong>Total</strong>:
-          {displayMoney(calculateTotal(commande[0]?.contenu))}
+          {displayMoney(calculateTotal(commande[0]?.contenu,commande[0]?.type))}
         </div>
         
       </Page>

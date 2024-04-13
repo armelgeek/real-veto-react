@@ -55,11 +55,13 @@ function Edit() {
   }, [id]);
   useEffect(() => {
     if (!meta.isFetching) {
+      console.log('fetching product list');
       setProda(products?.find((p) => p.id == id));
       setFormVal({
         name: proda.name,
       });
     }
+    console.log('meta',meta);
   }, [meta]);
   useEffect(() => {
     dispatch(action("fournisseurs").fetch());

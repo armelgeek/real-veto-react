@@ -183,6 +183,7 @@ const FromDepot = ({ setRegenerate }) => {
                 <FromDepotItem
                   key={`${product?.id}_${i}`}
                   product={product}
+                  type={type}
                   basket={fromdepots}
                   dispatch={dispatch}
                 />
@@ -199,7 +200,7 @@ const FromDepot = ({ setRegenerate }) => {
                     {displayMoney(
                       calculateTotal(
                         fromdepots.map((product) => {
-                          return isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProductDepot : product.prixVente * product.quantityParProductDepot;
+                          return isSpecialProductHandle(product) ? product.prixlitre * product.quantityParProductDepot : (type=="vente-depot" ? product.prixVente: product.prixVaccinateur) * product.quantityParProductDepot;
                         })
                       ) +
                         calculateTotal(

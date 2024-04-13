@@ -39,11 +39,11 @@ function CreditVaccinateur(props) {
       setFin(end);
     }
   }, [dateRange]);
-  const calculateTotal = (arr) => {
+  const calculateTotal = (arr,type) => {
     if (!arr || arr?.length === 0) return 0;
     let total = 0;
     arr.forEach((el) => {
-      total += el.prixVente * el.quantityParProductDepot;
+      total += (type != "vente-depot-vaccinateur"  ? el.prixVente: el.prixVaccinateur) * el.quantityParProductDepot;
     });
     return total;
   };
@@ -128,7 +128,7 @@ function CreditVaccinateur(props) {
         Cell: (data) => {
           return (
             <div>
-              {displayMoney(calculateTotal(data.row.original?.contenu))}
+              {displayMoney(calculateTotal(data.row.original?.contenu,data.row.original?.type))}
             </div>
           );
         },
