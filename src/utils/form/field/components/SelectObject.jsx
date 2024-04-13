@@ -42,7 +42,7 @@ const SelectObject = forwardRef(
     };
     /*useEffect(() => {
       (async () => {
-        await api.get(`http://localhost:8100/api/${model}/${objectId}`).then(
+        await api.get(`http://192.168.1.1:8100/api/${model}/${objectId}`).then(
           (data) => {
             inArray.forEach((element) => {
               if (index) {

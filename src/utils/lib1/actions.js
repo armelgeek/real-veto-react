@@ -38,7 +38,7 @@ export const fetch =
       ? { replace: options.replace }
       : undefined;
     const url =
-      options.url || process.env.API_URL || "http://localhost:8100/api";
+      options.url || process.env.API_URL || "http://192.168.1.1:8100/api";
     dispatch(actionCreators.fetchStart());
     await api
       .get(`${url}/${path}`,false, params, options)
@@ -108,7 +108,7 @@ export const create =
   
     const path = options.path || humps.decamelize(resourceName);
     const url =
-      options.url || process.env.API_URL || "http://localhost:8100/api";
+      options.url || process.env.API_URL || "http://192.168.1.1:8100/api";
     dispatch(actionCreators.createStart(record));
 
     return await api
@@ -148,7 +148,7 @@ export const update =
     const path =
       options.path || [humps.decamelize(resourceName), body.id].join("/");
     const url =
-      options.url || process.env.API_URL || "http://localhost:8100/api";
+      options.url || process.env.API_URL || "http://192.168.1.1:8100/api";
     dispatch(actionCreators.updateStart(body));
 
     return await api
@@ -189,7 +189,7 @@ export const destroy =
     const path =
       options.path || [humps.decamelize(resourceName), body.id].join("/");
     const url =
-      options.url || process.env.API_URL || "http://localhost:8100/api";
+      options.url || process.env.API_URL || "http://192.168.1.1:8100/api";
     dispatch(actionCreators.deleteStart(body));
 
     return await api

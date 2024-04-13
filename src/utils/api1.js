@@ -1,6 +1,6 @@
 import axios from "axios";
 const defaults = {
-  baseURL: process.env.API_URL || "http:// http://localhost:8100/api",
+  baseURL: process.env.API_URL || "http:// http://192.168.1.1:8100/api",
   headers: () => {
     return {
       Accept: "application/json",
